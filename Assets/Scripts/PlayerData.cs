@@ -17,6 +17,7 @@ public class PlayerData : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
+        transform.SetParent(PlayerCanvas.Instance.transform, false);
         // if(!base.IsOwner)
         //     GetComponent<PlayerData>().enabled = false;
         // Subscribe to score changes

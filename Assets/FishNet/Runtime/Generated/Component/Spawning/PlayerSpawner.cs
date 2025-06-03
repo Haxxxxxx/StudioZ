@@ -94,7 +94,7 @@ namespace FishNet.Component.Spawning
 
             _networkManager.SceneManager.OnClientLoadedStartScenes += SceneManager_OnClientLoadedStartScenes;
         }
-
+        
         /// <summary>
         /// Called when a client loads initial scenes after connecting.
         /// </summary>
