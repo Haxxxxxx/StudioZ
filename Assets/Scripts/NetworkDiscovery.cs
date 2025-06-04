@@ -5,12 +5,14 @@ using FishNet;
 using FishNet.Discovery;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 enum ButtonType
 {
     Server,
-    Search
+    Search,
+    Join
 }
 
 [RequireComponent(typeof(Button))]
@@ -23,12 +25,18 @@ public class NetworkButton : MonoBehaviour
     
     private readonly HashSet<string> _addresses = new();
 
-    private Vector2 _serversListScrollVector;
+    private Dictionary<string, GameObject> _serverButtons = new();
     
-    bool toggled = false;
+    private bool _toggled = false;
     
-    Button _button;
-    TextMeshProUGUI _text;
+    [SerializeField]
+    private GameObject serverButtonPrefab;
+    
+    private Button _button;
+    private TextMeshProUGUI _text;
+    
+    // Used by Join button to store the address of the server to join
+    [FormerlySerializedAs("adress")] public string address;
     
     private void Start()
     {
@@ -48,14 +56,28 @@ public class NetworkButton : MonoBehaviour
             case ButtonType.Server:
                 _text.text = "Start Server";
                 break;
+            case ButtonType.Join:
+                _text.text = address != null ? $"Join {address}" : "Join Server";
+                break;
         }
     }
 
     private void Update()
     {
+        if(buttonType != ButtonType.Search)
+            return;
+        
         foreach (string address in _addresses)
         {
             //Create a button for each found server address
+
+            if (_serverButtons.ContainsKey(address) == false)
+            {
+                // Create a new button for the server address
+                
+                _serverButtons[address] = Instantiate(serverButtonPrefab, transform.parent);
+                _serverButtons[address].GetComponent<NetworkButton>().address = address;
+            }
             
             // if (GUILayout.Button(address))
             // {
@@ -68,14 +90,14 @@ public class NetworkButton : MonoBehaviour
 
     private void OnButtonClicked()
     {
-        if (toggled)
+        if (_toggled)
         {
             switch (buttonType)
             {
                 case ButtonType.Server:
                     StopServerAndAdvertising();
                     _text.text = "Start Server";
-                    toggled = !toggled;
+                    _toggled = !_toggled;
                     break;
                 // case ButtonType.Search:
                 //     StopSearch();
@@ -89,11 +111,14 @@ public class NetworkButton : MonoBehaviour
             {
                 case ButtonType.Server:
                     StartServerAndAdvertise();
-                    toggled = !toggled;
+                    _toggled = !_toggled;
                     break;
                 case ButtonType.Search:
                     StartSearch();
-                    toggled = true;
+                    _toggled = true;
+                    break;
+                case ButtonType.Join:
+                    StartJoin();
                     break;
             }
         }
@@ -144,6 +169,15 @@ public class NetworkButton : MonoBehaviour
         
         // Update button text
         _text.text = "Start Search";
-        toggled = false;
+        _toggled = false;
+    }
+
+    void StartJoin()
+    {
+        _networkDiscovery.StopSearchingOrAdvertising();
+        InstanceFinder.ClientManager.StartConnection(address);
+        
+        // Hide the button after joining
+        gameObject.SetActive(false);
     }
 }
