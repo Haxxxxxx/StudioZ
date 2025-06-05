@@ -7,7 +7,6 @@
     <list default="true" id="c01f78b1-2406-42d4-8fda-c9b4d27f8ab4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.StudioZ/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.StudioZ/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NetworkDiscovery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NetworkDiscovery.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
