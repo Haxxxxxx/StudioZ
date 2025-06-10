@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
@@ -12,6 +14,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     
     [SerializeField] private Button addScoreButton;
+    
+    public static event Action<int> OnScoreChanged;
     
     // Start is called before the first frame update
     void Start()
@@ -34,6 +38,7 @@ public class GameManager : MonoBehaviour
         _localScore += amount;
         // Update button text
         addScoreButton.GetComponentInChildren<TextMeshProUGUI>().text = "SCORE: "+ _localScore;
+        OnScoreChanged?.Invoke(_localScore); // Notify subscribers that the score has changed
     }
 
     public int GetScore()

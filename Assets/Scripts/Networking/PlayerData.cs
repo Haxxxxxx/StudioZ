@@ -9,7 +9,7 @@ using UnityEngine;
 
 public class PlayerData : NetworkBehaviour
 {
-    public readonly SyncVar<int> Score = new SyncVar<int>();
+    private readonly SyncVar<int> _score = new SyncVar<int>();
     
     [SerializeField] TMP_Text scoreText;
     [SerializeField] TMP_Text playerNameText;
@@ -17,31 +17,22 @@ public class PlayerData : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
-        transform.SetParent(PlayerCanvas.Instance.transform, false);
+        transform.SetParent(null, false);
         // if(!base.IsOwner)
         //     GetComponent<PlayerData>().enabled = false;
         // Subscribe to score changes
-        Score.OnChange += OnScoreChanged;
+        GameManager.OnScoreChanged += OnScoreChanged;
     }
     
-    void Update()
+    void OnScoreChanged(int newScore)
     {
-        if (!IsOwner)
-            return;
-        
-        // Set player score to the GameManager's score
-        //Score.Value = GameManager.Instance.GetScore();
-        SetScore(GameManager.Instance.GetScore());
+        SetScore(newScore);
     }
     
-    void OnScoreChanged(int previousValue, int newValue, bool asServer)
+    [ServerRpc(RunLocally = true)] public void SetScore(int value)
     {
-        // Update the score text when the score changes
-        if (scoreText != null)
-        {
-            scoreText.text = "Score: " + newValue;
-        }
+        _score.Value = value;
+        scoreText.text = "Score: " + value;
+        Debug.LogWarning("SetScore RPC called with value: " + value);
     }
-    
-    [ServerRpc(RunLocally = true)] public void SetScore(int value) => Score.Value = value;
 }
