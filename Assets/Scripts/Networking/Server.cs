@@ -5,7 +5,7 @@ using FishNet;
 using FishNet.Discovery;
 using UnityEngine;
 
-public class StartServer : MonoBehaviour
+public class Server : MonoBehaviour
 {
     private NetworkDiscovery _networkDiscovery;
     

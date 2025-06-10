@@ -25,7 +25,8 @@ public class JoinServer : MonoBehaviour
         _networkDiscovery.StopSearchingOrAdvertising();
         InstanceFinder.ClientManager.StartConnection(address);
         
-        // Hide the button after joining
-        gameObject.SetActive(false);
+        // Destroy the button after joining
+        Debug.Log("Removing Join Button");
+        Destroy(gameObject);
     }
 }

@@ -5,8 +5,9 @@ using FishNet;
 using FishNet.Discovery;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
-public class SearchServers : MonoBehaviour
+public class Client : MonoBehaviour
 {
     private NetworkDiscovery _networkDiscovery;
     
@@ -22,6 +23,9 @@ public class SearchServers : MonoBehaviour
     
     [Tooltip("The GameObject that will contain buttons for joining servers")]
     [SerializeField] private GameObject joinButtonsParent;
+    
+    [Tooltip("The time after which the search will stop automatically (in seconds)")]
+    [SerializeField] private float searchDuration = 5f; // Duration to search for servers
     
     private void Start()
     {
@@ -49,6 +53,13 @@ public class SearchServers : MonoBehaviour
                 
                 _serverButtons[address] = Instantiate(joinServerButtonPrefab, joinButtonsParent.transform);
                 _serverButtons[address].GetComponent<JoinServer>().address = address;
+                // _serverButtons[address].GetComponentInChildren<Button>().onClick.AddListener(() =>
+                // {
+                //     // remove the address from the set
+                //     _addresses.Remove(address);
+                //     _serverButtons.Remove(address);
+                //     StopSearch();
+                // });
             }
         }
     }
@@ -58,12 +69,12 @@ public class SearchServers : MonoBehaviour
         StopSearch(); // Stop searching when the script is disabled
     }
     
-    void StartSearch()
+    public void StartSearch()
     {
         _networkDiscovery.SearchForServers();
         
         // Stop searching after 10 seconds
-        StartCoroutine(StopSearchAfterDelay(5f));
+        StartCoroutine(StopSearchAfterDelay(searchDuration));
     }
     
     IEnumerator StopSearchAfterDelay(float seconds)
@@ -72,8 +83,21 @@ public class SearchServers : MonoBehaviour
         StopSearch();
     }
     
-    void StopSearch()
+    public void StopSearch()
     {
         _networkDiscovery.StopSearchingOrAdvertising();
+        //_addresses.Clear();
+        // Destroy all server buttons
+        // foreach (var button in _serverButtons.Values)
+        // {
+        //     Destroy(button);
+        // }
+        // _serverButtons.Clear();
+    }
+    
+    public void Disconnect()
+    {
+        InstanceFinder.ClientManager.StopConnection();
+        StopSearch();
     }
 }
