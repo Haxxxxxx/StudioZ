@@ -15,7 +15,7 @@ public class Client : MonoBehaviour
     [SerializeField] private bool automatic = true;
     
     private readonly HashSet<string> _addresses = new(); // Stores discovered server addresses
-    private Dictionary<string, GameObject> _serverButtons = new();
+    private Dictionary<string, JoinServer> _serverButtons = new();
 
     [Tooltip("Prefab for the button to join a server")]
     [FormerlySerializedAs("serverButtonPrefab")] [SerializeField]
@@ -51,8 +51,9 @@ public class Client : MonoBehaviour
             {
                 // Create a new button for the server address
                 
-                _serverButtons[address] = Instantiate(joinServerButtonPrefab, joinButtonsParent.transform);
-                _serverButtons[address].GetComponent<JoinServer>().address = address;
+                _serverButtons[address] = Instantiate(joinServerButtonPrefab, joinButtonsParent.transform).GetComponent<JoinServer>();
+                _serverButtons[address].address = address;
+                _serverButtons[address].OnServerJoin += OnServerJoin; // Subscribe to the OnServerJoin event
                 // _serverButtons[address].GetComponentInChildren<Button>().onClick.AddListener(() =>
                 // {
                 //     // remove the address from the set
@@ -62,6 +63,30 @@ public class Client : MonoBehaviour
                 // });
             }
         }
+    }
+    
+    private void OnServerJoin(string address)
+    {
+        // // Remove the address from the set and dictionary when a server is joined
+        // _addresses.Remove(address);
+        // // Destroy assigned button
+        // if (_serverButtons.TryGetValue(address, out JoinServer button))
+        // {
+        //     button.OnServerJoin -= OnServerJoin; // Unsubscribe from the event
+        //     Destroy(button.gameObject); // Destroy the button
+        //     _serverButtons.Remove(address); // Remove from dictionary
+        // }
+        Debug.LogWarning("Server joined at address: " + address);
+        // remove this button from the list of buttons
+        _addresses.Remove(address);
+        if (_serverButtons.TryGetValue(address, out JoinServer button))
+        {
+            Debug.Log("Clearing button AAAAAAAAAaAAAAAAAAAAAAA");
+            button.OnServerJoin -= OnServerJoin; // Unsubscribe from the event
+            Destroy(button.gameObject); // Destroy the button
+            _serverButtons.Remove(address); // Remove from dictionary
+        }
+        StopSearch();
     }
 
     private void OnDisable()
@@ -86,11 +111,11 @@ public class Client : MonoBehaviour
     public void StopSearch()
     {
         _networkDiscovery.StopSearchingOrAdvertising();
-        //_addresses.Clear();
-        // Destroy all server buttons
+        // _addresses.Clear();
+        // //Destroy all server buttons
         // foreach (var button in _serverButtons.Values)
         // {
-        //     Destroy(button);
+        //     Destroy(button.gameObject);
         // }
         // _serverButtons.Clear();
     }
