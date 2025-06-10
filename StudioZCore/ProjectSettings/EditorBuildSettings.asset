@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
+    path: Assets/Scenes/ArchitectureTest.unity
+    guid: e255cafc949c53848beb5a0b5d6c0794
+  - enabled: 1
+    path: Assets/Scenes/Drag&DropTest.unity
+    guid: 4b4aaf37433b82e478ad79548ded7a3a
   m_configObjects:
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 7513d4eb77200e74a9b1be67e6da8e94, type: 2}
     com.unity.addressableassets: {fileID: 11400000, guid: e53434a8ae36f0a46ae3f51292a7255c, type: 2}
