@@ -12,6 +12,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Drag&DropTest.unity
     guid: 4b4aaf37433b82e478ad79548ded7a3a
   m_configObjects:
-    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 9e81590258319ad4f8059549ba165859, type: 2}
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 7513d4eb77200e74a9b1be67e6da8e94, type: 2}
+    com.unity.addressableassets: {fileID: 11400000, guid: e53434a8ae36f0a46ae3f51292a7255c, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+    com.unity.localization.settings: {fileID: 11400000, guid: cb8755a793de82141ada0ca8ae0e2325, type: 2}
   m_UseUCBPForAssetBundles: 0
