@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7474925802864753194}
   - component: {fileID: 1011136878225436736}
   m_Layer: 5
-  m_Name: JoinServerButton
+  m_Name: NetworkBtnPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -36,7 +36,7 @@ public class NetworkButton : MonoBehaviour
     private TextMeshProUGUI _text;
     
     // Used by Join button to store the address of the server to join
-    [FormerlySerializedAs("address")] public string address;
+    public string address;
     
     private void Start()
     {
