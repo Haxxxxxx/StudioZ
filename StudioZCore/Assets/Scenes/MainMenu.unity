@@ -1134,9 +1134,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7ab4c768c0e54e4e9eb00f1e26f1e54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputFieldType: 0
+  outputFieldType: 0
   dataType: 0
-  avatarIndex: 0
+  integerInput: 0
 --- !u!1 &455609799
 GameObject:
   m_ObjectHideFlags: 0
@@ -2882,9 +2882,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7ab4c768c0e54e4e9eb00f1e26f1e54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputFieldType: 3
-  dataType: 4
-  avatarIndex: 0
+  outputFieldType: 3
+  dataType: 1
+  integerInput: 0
 --- !u!114 &2068078170
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -5,8 +5,10 @@ using System.Linq;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
+# region DataLoader Class
 public class DataLoader : MonoBehaviour
 {
     public enum DataType
@@ -14,82 +16,127 @@ public class DataLoader : MonoBehaviour
         PlayerName,
         PlayerCoins,
         PlayerLevel,
-        PlayerAvatarIndex,
-        PlayerUnlockedAvatar
+        SelectedAvatarIndex,
+        IsAvatarIndexUnlocked
     }
-    public enum InputFieldType
+    public enum OutputFieldType
     {
         TMP_InputField,
         TextMeshProUGUI,
         TextMeshPro,
-        ButtonEnabled
+        ButtonEnabled,
+        GameObjectActive
     }
     
-    public InputFieldType inputFieldType = InputFieldType.TMP_InputField;
+    public OutputFieldType outputFieldType = OutputFieldType.TMP_InputField;
     
     [FilteredInputFieldType]
     public DataType dataType = DataType.PlayerName;
     
-    [ShowIfButtonEnabled]
-    public int avatarIndex = 0; // Used for PlayerAvatarIndex data type
+    [ConditionnalIntInputField]
+    public int integerInput = 0; // Used for any DataType that requires an integer input, such as PlayerUnlockedAvatar or PlayerLevel
+    
+    public bool intInputFieldEnabled{
+        get
+        {
+            return dataType == DataType.IsAvatarIndexUnlocked ||
+                   dataType == DataType.PlayerLevel ||
+                   dataType == DataType.SelectedAvatarIndex ||
+                   dataType == DataType.PlayerCoins;
+        }
+    }
     
     private void Start()
     {
-        string dataText = "Bob";
-        
+        string outputString = "?";
         switch (dataType)
         {
             case DataType.PlayerName:
-                dataText = SaveManager.Instance.playerData.name;
+                outputString = SaveManager.Instance.playerData.name;
                 break;
             case DataType.PlayerCoins:
-                dataText = SaveManager.Instance.playerData.coins.ToString();
+                outputString = SaveManager.Instance.playerData.coins.ToString();
                 break;
             case DataType.PlayerLevel:
-                dataText = SaveManager.Instance.playerData.level.ToString();
+                outputString = SaveManager.Instance.playerData.level.ToString();
+                break;
+        }
+        bool outputBool = true;
+        switch (dataType)
+        {
+            case DataType.IsAvatarIndexUnlocked:
+                outputBool = SaveManager.Instance.playerData.unlockedAvatars.Contains(integerInput);
+                break;
+            case DataType.PlayerLevel:
+                outputBool = SaveManager.Instance.playerData.level >= integerInput;
+                break;
+            case DataType.SelectedAvatarIndex:
+                outputBool = integerInput == SaveManager.Instance.playerData.avatarIndex;
                 break;
         }
         
-        switch (inputFieldType)
+        switch (outputFieldType)
         {
-            case InputFieldType.TextMeshPro:
-                GetComponent<TextMeshPro>().text = dataText;
+            case OutputFieldType.TextMeshPro:
+                GetComponent<TextMeshPro>().text = outputString;
                 break;
-            case InputFieldType.TextMeshProUGUI:
-                GetComponent<TextMeshProUGUI>().text = dataText;
+            case OutputFieldType.TextMeshProUGUI:
+                GetComponent<TextMeshProUGUI>().text = outputString;
                 break;
-            case InputFieldType.TMP_InputField:
-                GetComponent<TMP_InputField>().SetTextWithoutNotify(dataText);
+            case OutputFieldType.TMP_InputField:
+                GetComponent<TMP_InputField>().SetTextWithoutNotify(outputString);
                 break;
-            case InputFieldType.ButtonEnabled:
+            case OutputFieldType.ButtonEnabled:
                 Button button = GetComponent<Button>();
-                button.enabled = SaveManager.Instance.playerData.unlockedAvatars.Contains(avatarIndex);
+                button.enabled = outputBool;
+                break;
+            case OutputFieldType.GameObjectActive:
+                gameObject.SetActive(outputBool);
                 break;
         }
     }
 }
+#endregion
 
 # region Custom Attributes and Drawers
-public class ShowIfButtonEnabledAttribute : PropertyAttribute { }
+public class ConditionnalIntInputField : PropertyAttribute { }
 
-[CustomPropertyDrawer(typeof(ShowIfButtonEnabledAttribute))]
+[CustomPropertyDrawer(typeof(ConditionnalIntInputField))]
 public class ShowIfButtonEnabledDrawer : PropertyDrawer
 {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
         var target = property.serializedObject.targetObject as DataLoader;
-        if (target != null && target.dataType == DataLoader.DataType.PlayerUnlockedAvatar)
+        if (target != null)
         {
-            EditorGUI.PropertyField(position, property, label, true);
+            string customLabel = label.text;
+            switch (target.dataType)
+            {
+                case DataLoader.DataType.IsAvatarIndexUnlocked:
+                    customLabel = "Avatar Index";
+                    break;
+                case DataLoader.DataType.SelectedAvatarIndex:
+                    customLabel = "Avatar Index";
+                    break;
+                case DataLoader.DataType.PlayerLevel:
+                    customLabel = "Player Level >= ";
+                    break;
+                case DataLoader.DataType.PlayerCoins:
+                    customLabel = "Player Coins >= ";
+                    break;
+                default:
+                    return;
+            }
+            EditorGUI.PropertyField(position, property, new GUIContent(customLabel), true);
         }
     }
 
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
     {
         var target = property.serializedObject.targetObject as DataLoader;
-        if (target != null && target.dataType == DataLoader.DataType.PlayerUnlockedAvatar)
+        if (target != null && (target.intInputFieldEnabled))
             return EditorGUI.GetPropertyHeight(property, label, true);
-        return -EditorGUIUtility.standardVerticalSpacing;
+        return 0; //-EditorGUIUtility.standardVerticalSpacing;
     }
 }
 
@@ -106,21 +153,24 @@ public class FilteredInputFieldTypeDrawer : PropertyDrawer
             EditorGUI.PropertyField(position, property, label);
             return;
         }
-
-        // var dataType = target.dataType;
-        // var options = Enum.GetNames(typeof(LoadData.InputFieldType));
-        // var filteredOptions = new List<string>(options);
-        var inputFieldType = target.inputFieldType;
+        
+        var inputFieldType = target.outputFieldType;
         var options = Enum.GetNames(typeof(DataLoader.DataType));
         var filteredOptions = new List<string>(options);
 
         #region Filtering logic
-        if (inputFieldType != DataLoader.InputFieldType.ButtonEnabled)
+        if (inputFieldType == DataLoader.OutputFieldType.ButtonEnabled)
+        {
+            filteredOptions.RemoveAll(element =>
+                element != "IsAvatarIndexUnlocked" &&
+                element != "PlayerLevel" &&
+                element != "SelectedAvatarIndex" &&
+                element != "PlayerCoins");
+        }
+        else
+        {
             filteredOptions.Remove("PlayerUnlockedAvatar");
-        
-        // If the inputFieldType is ButtonEnabled, only show PlayerUnlockedAvatar
-        if(inputFieldType == DataLoader.InputFieldType.ButtonEnabled)
-            filteredOptions.RemoveAll(element => element != "PlayerUnlockedAvatar");
+        }
         #endregion
 
         int currentIndex = filteredOptions.IndexOf(property.enumNames[property.enumValueIndex]);
