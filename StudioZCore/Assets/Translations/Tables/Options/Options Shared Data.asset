@@ -23,6 +23,10 @@ MonoBehaviour:
     m_Key: fr
     m_Metadata:
       m_Items: []
+  - m_Id: 443899932798976
+    m_Key: sound
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -23,6 +23,10 @@ MonoBehaviour:
     m_Key: minigame2
     m_Metadata:
       m_Items: []
+  - m_Id: 402706280706048
+    m_Key: minigame3
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
