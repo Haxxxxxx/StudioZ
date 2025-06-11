@@ -14,14 +14,25 @@ public class SaveFunctions : MonoBehaviour
             LoadGame();
         }
     }
+
+    #region Save & Load Functions
+    public void SaveGame()
+    {
+        SaveManager.Instance.SaveGame();
+    }
+    public void LoadGame()
+    {
+        SaveManager.Instance.LoadGame();
+    }
+    # endregion
     
+    # region Player Data Management Functions
     public void SetPlayerName(string playerName)
     {
         Debug.Log("Setting player name: " + playerName);
         SaveManager.Instance.playerData.name = playerName;
         SaveGame();
     }
-    
     public void SetPlayerNameFromInputField()
     {
         string playerName = GetComponent<TMP_InputField>().text;
@@ -41,13 +52,10 @@ public class SaveFunctions : MonoBehaviour
         SaveGame();
     }
     
-    public void SaveGame()
+    public void SetPlayerAvatarIndex(int avatarIndex)
     {
-        SaveManager.Instance.SaveGame();
+        SaveManager.Instance.playerData.avatarIndex = avatarIndex;
+        SaveGame();
     }
-    public void LoadGame()
-    {
-        SaveManager.Instance.LoadGame();
-    }
-
+    # endregion
 }
