@@ -18,8 +18,10 @@ public class PlayerData : NetworkBehaviour
     {
         base.OnStartClient();
         transform.SetParent(null, false);
-        // if(!base.IsOwner)
-        //     GetComponent<PlayerData>().enabled = false;
+        
+        // Initialize score on server
+        SetScore(GameManager.Instance.GetScore()); 
+        
         // Subscribe to score changes
         GameManager.OnScoreChanged += OnScoreChanged;
     }
