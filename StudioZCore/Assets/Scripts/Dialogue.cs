@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.Localization;
 
-public class Dialogue : MonoBehaviour
+[CreateAssetMenu(menuName = "ScriptableObjects/Dialogue")]
+public class Dialogue : ScriptableObject
 {
     [SerializeField] string character; // TODO : classe a changer
     [SerializeField] private LocalizedString[] lines;
+    [HideInInspector] public LocalizedString[] Lines => lines;
 }
