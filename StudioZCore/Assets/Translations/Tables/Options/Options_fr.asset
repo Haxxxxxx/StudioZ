@@ -26,6 +26,10 @@ MonoBehaviour:
     m_Localized: "Fran\xE7ais"
     m_Metadata:
       m_Items: []
+  - m_Id: 443899932798976
+    m_Localized: Son
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
