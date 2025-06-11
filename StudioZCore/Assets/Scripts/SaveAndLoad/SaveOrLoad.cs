@@ -29,7 +29,6 @@ public class SaveFunctions : MonoBehaviour
     # region Player Data Management Functions
     public void SetPlayerName(string playerName)
     {
-        Debug.Log("Setting player name: " + playerName);
         SaveManager.Instance.playerData.name = playerName;
         SaveGame();
     }
@@ -54,7 +53,7 @@ public class SaveFunctions : MonoBehaviour
     
     public void SetPlayerAvatarIndex(int avatarIndex)
     {
-        SaveManager.Instance.playerData.avatarIndex = avatarIndex;
+        SaveManager.Instance.playerData.selectedAvatarIndex = avatarIndex;
         SaveGame();
     }
     # endregion

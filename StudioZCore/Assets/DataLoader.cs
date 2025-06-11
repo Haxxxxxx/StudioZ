@@ -71,7 +71,7 @@ public class DataLoader : MonoBehaviour
                 outputBool = SaveManager.Instance.playerData.level >= integerInput;
                 break;
             case DataType.SelectedAvatarIndex:
-                outputBool = integerInput == SaveManager.Instance.playerData.avatarIndex;
+                outputBool = integerInput == SaveManager.Instance.playerData.selectedAvatarIndex;
                 break;
         }
         
@@ -88,7 +88,7 @@ public class DataLoader : MonoBehaviour
                 break;
             case OutputFieldType.ButtonEnabled:
                 Button button = GetComponent<Button>();
-                button.enabled = outputBool;
+                button.interactable = outputBool;
                 break;
             case OutputFieldType.GameObjectActive:
                 gameObject.SetActive(outputBool);
