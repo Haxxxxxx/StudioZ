@@ -25,11 +25,10 @@ public class LoadData : MonoBehaviour
     [SerializeField]
     private DataType dataType = DataType.PlayerName;
     
-    private void Awake()
+    private void Start()
     {
         string dataText = "Bob";
         
-        SaveManager.Instance.LoadGame(); // Pourquoi ça marche pas
         switch (dataType)
         {
             case DataType.PlayerName:

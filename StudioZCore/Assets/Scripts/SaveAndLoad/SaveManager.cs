@@ -11,7 +11,7 @@ public class SaveManager : MonoBehaviour
     
     [SerializeField] private bool loadOnStart = true;
     
-    private void Start() // Initialize the singleton instance
+    private void Awake() // Initialize the singleton instance
     {
         if (Instance == null)
         {
