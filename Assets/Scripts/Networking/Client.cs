@@ -26,11 +26,14 @@ public class Client : MonoBehaviour
     
     [Tooltip("The time after which the search will stop automatically (in seconds)")]
     [SerializeField] private float searchDuration = 5f; // Duration to search for servers
+
+    private bool _joinedServer = false;
     
     private void Start()
     {
         _networkDiscovery = FindAnyObjectByType<NetworkDiscovery>();
         _networkDiscovery.ServerFoundCallback += endPoint => _addresses.Add(endPoint.Address.ToString()); // Store discovered server addresses
+        _networkDiscovery.ServerFoundCallback += endPoint => UpdateServerButtons(endPoint.Address.ToString());
         
         if (_networkDiscovery == null)
         {
@@ -42,50 +45,29 @@ public class Client : MonoBehaviour
             StartSearch();
     }
 
-    private void Update()
+    private void UpdateServerButtons(string address)
     {
-        //Create a button for each found server address
-        foreach (string address in _addresses)
+        if (_serverButtons.ContainsKey(address) == false && _joinedServer == false)
         {
-            if (_serverButtons.ContainsKey(address) == false)
-            {
-                // Create a new button for the server address
-                
-                _serverButtons[address] = Instantiate(joinServerButtonPrefab, joinButtonsParent.transform).GetComponent<JoinServer>();
-                _serverButtons[address].address = address;
-                _serverButtons[address].OnServerJoin += OnServerJoin; // Subscribe to the OnServerJoin event
-                // _serverButtons[address].GetComponentInChildren<Button>().onClick.AddListener(() =>
-                // {
-                //     // remove the address from the set
-                //     _addresses.Remove(address);
-                //     _serverButtons.Remove(address);
-                //     StopSearch();
-                // });
-            }
+            // Create a new button for the server address
+            _serverButtons[address] = Instantiate(joinServerButtonPrefab, joinButtonsParent.transform).GetComponent<JoinServer>();
+            _serverButtons[address].address = address;
+            _serverButtons[address].OnServerJoin += OnServerJoin; // Subscribe to the OnServerJoin event
         }
     }
     
     private void OnServerJoin(string address)
     {
-        // // Remove the address from the set and dictionary when a server is joined
-        // _addresses.Remove(address);
-        // // Destroy assigned button
-        // if (_serverButtons.TryGetValue(address, out JoinServer button))
-        // {
-        //     button.OnServerJoin -= OnServerJoin; // Unsubscribe from the event
-        //     Destroy(button.gameObject); // Destroy the button
-        //     _serverButtons.Remove(address); // Remove from dictionary
-        // }
-        Debug.LogWarning("Server joined at address: " + address);
         // remove this button from the list of buttons
         _addresses.Remove(address);
         if (_serverButtons.TryGetValue(address, out JoinServer button))
         {
-            Debug.Log("Clearing button AAAAAAAAAaAAAAAAAAAAAAA");
             button.OnServerJoin -= OnServerJoin; // Unsubscribe from the event
             Destroy(button.gameObject); // Destroy the button
             _serverButtons.Remove(address); // Remove from dictionary
         }
+
+        _joinedServer = true;
         StopSearch();
     }
 
@@ -123,6 +105,7 @@ public class Client : MonoBehaviour
     public void Disconnect()
     {
         InstanceFinder.ClientManager.StopConnection();
+        _joinedServer = false;
         StopSearch();
     }
 }

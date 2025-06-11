@@ -24,14 +24,8 @@ public class JoinServer : MonoBehaviour
     
     public void StartJoin()
     {
+        OnServerJoin?.Invoke(address);
         _networkDiscovery.StopSearchingOrAdvertising();
         InstanceFinder.ClientManager.StartConnection(address);
-        
-        OnServerJoin?.Invoke(address);
-        
-        // Destroy the button after joining
-        //Debug.Log("Joining server at address: " + address);
-        //Destroy(gameObject);
-        gameObject.SetActive(false);
     }
 }
