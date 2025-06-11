@@ -5,37 +5,38 @@ using System.Collections;
 public class CategoryButton : MonoBehaviour
 {
     [SerializeField] private GameObject panelToShow;
-    private Transform panelsParent;
     private Button button;
-
-    [SerializeField] private float selectedScale = 1.5f;
-    [SerializeField] private float unselectedScale = 0.5f;
-    [SerializeField] private float animDuration = 6f;
+    private CategoryButtonGroup group;
 
     void Awake()
     {
         button = GetComponent<Button>();
         button.onClick.AddListener(OnButtonClicked);
-        panelsParent = panelToShow.transform.parent;
+        group = GetComponentInParent<CategoryButtonGroup>();
     }
 
     private void OnButtonClicked()
     {
         ShowPanel();
-        AnimateButtons();
+        //AnimateButtons();
     }
 
     private void ShowPanel()
     {
+        var panelsParent = group.PanelsParent;
+
         if (panelToShow.activeSelf)
         {
             panelToShow.SetActive(false);
             return;
         }
 
-        foreach (Transform child in panelsParent)
+        if (panelsParent != null)
         {
-            child.gameObject.SetActive(false);
+            foreach (Transform child in panelsParent)
+            {
+                child.gameObject.SetActive(false);
+            }
         }
 
         panelToShow.SetActive(true);
@@ -47,7 +48,6 @@ public class CategoryButton : MonoBehaviour
         int selectedIndex = -1;
         int count = buttonsParent.childCount;
 
-        // Trouver l'index du bouton sélectionné
         for (int i = 0; i < count; i++)
         {
             if (buttonsParent.GetChild(i) == transform)
@@ -62,25 +62,38 @@ public class CategoryButton : MonoBehaviour
             CategoryButton cb = buttonsParent.GetChild(i).GetComponent<CategoryButton>();
             if (cb != null)
             {
+                float selectedScale = (float)group.GetType()
+                    .GetProperty("selectedScale", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                    ?.GetValue(group);
+                float neighborScale = (float)group.GetType()
+                    .GetProperty("neighborScale", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                    ?.GetValue(group);
+                float unselectedScale = (float)group.GetType()
+                    .GetProperty("unselectedScale", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                    ?.GetValue(group);
+                float animDuration = (float)group.GetType()
+                    .GetProperty("animDuration", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                    ?.GetValue(group);
+
                 if (i == selectedIndex)
-                    cb.AnimateScale(selectedScale);
+                    cb.AnimateScale(selectedScale, animDuration);
                 else if (i == selectedIndex - 1 || i == selectedIndex + 1)
-                    cb.AnimateScale(0.75f);
+                    cb.AnimateScale(neighborScale, animDuration);
                 else
-                    cb.AnimateScale(unselectedScale);
+                    cb.AnimateScale(unselectedScale, animDuration);
             }
         }
     }
 
     private Coroutine scaleCoroutine;
-    private void AnimateScale(float targetScale)
+    private void AnimateScale(float targetScale, float animDuration)
     {
         if (scaleCoroutine != null)
             StopCoroutine(scaleCoroutine);
-        scaleCoroutine = StartCoroutine(ScaleTo(targetScale));
+        scaleCoroutine = StartCoroutine(ScaleTo(targetScale, animDuration));
     }
 
-    private IEnumerator ScaleTo(float target)
+    private IEnumerator ScaleTo(float target, float animDuration)
     {
         Vector3 start = transform.localScale;
         Vector3 end = Vector3.one * target;
