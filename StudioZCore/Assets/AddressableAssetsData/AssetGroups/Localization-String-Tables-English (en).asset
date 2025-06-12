@@ -29,12 +29,24 @@ MonoBehaviour:
     - Locale-en
     - Preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 68bf64e737e8b2f4a9b91a7991f6837a
+    m_Address: E1_MG1_en
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7fe17e06c85c1bb48ad2ec44e3c4fe19
     m_Address: TestTable_en
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en
     - Preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ac4be606391e95e4ba0c7e02bec864cf
+    m_Address: Introduction_en
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e58321ca36fc7ee47a15738ef995a91b
     m_Address: Others_en
