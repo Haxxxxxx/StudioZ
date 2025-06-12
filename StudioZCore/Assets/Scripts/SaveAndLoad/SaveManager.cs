@@ -11,6 +11,9 @@ public class SaveManager : MonoBehaviour
     
     [SerializeField] private bool loadOnStart = true;
     
+    public event Action OnGameSaved;
+    public event Action OnGameLoaded;
+    
     private void Awake() // Initialize the singleton instance
     {
         if (Instance == null)
@@ -32,6 +35,7 @@ public class SaveManager : MonoBehaviour
     public void SaveGame()
     {
         BinarySaveSystem.SavePlayer(playerData);
+        OnGameSaved?.Invoke();
     }
     public void LoadGame()
     {
@@ -39,6 +43,7 @@ public class SaveManager : MonoBehaviour
         if (loadedData != null)
         {
             playerData = loadedData;
+            OnGameLoaded?.Invoke();
         }
         else
         {

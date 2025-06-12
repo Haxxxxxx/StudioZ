@@ -1173,6 +1173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7ab4c768c0e54e4e9eb00f1e26f1e54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoReload: 1
   outputFieldType: 0
   dataType: 0
   integerInput: 0
@@ -2051,6 +2052,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7ab4c768c0e54e4e9eb00f1e26f1e54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoReload: 1
   outputFieldType: 3
   dataType: 4
   integerInput: 1
@@ -2323,7 +2325,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1422571134160378929, guid: 87252895d6e35cc478e2c7677b68e538, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 87252895d6e35cc478e2c7677b68e538, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2353,8 +2355,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7ab4c768c0e54e4e9eb00f1e26f1e54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outputFieldType: 0
-  dataType: 0
+  autoReload: 1
+  outputFieldType: 5
+  dataType: 3
   integerInput: 0
   stringInput: None
 --- !u!1 &1518075126
@@ -2409,6 +2412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7ab4c768c0e54e4e9eb00f1e26f1e54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoReload: 1
   outputFieldType: 3
   dataType: 4
   integerInput: 3
@@ -3029,6 +3033,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7ab4c768c0e54e4e9eb00f1e26f1e54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoReload: 1
   outputFieldType: 3
   dataType: 4
   integerInput: 2

@@ -16,7 +16,7 @@ public class DataLoader : MonoBehaviour
         PlayerName,
         PlayerCoins,
         PlayerLevel,
-        SelectedAvatarName,
+        SelectedAvatar,
         IsUnlockableOwned
     }
     public enum OutputFieldType
@@ -28,16 +28,19 @@ public class DataLoader : MonoBehaviour
         GameObjectActive,
         Image
     }
+
+    [Tooltip("Automatically reload data each time the game is saved or loaded.")]
+    public bool autoReload = true;
     
     public OutputFieldType outputFieldType = OutputFieldType.TMP_InputField;
     
     [FilteredInputFieldType]
     public DataType dataType = DataType.PlayerName;
     
-    [ConditionnalIntInputField]
+    [ConditionalIntInputField]
     public int integerInput = 0; // Used for any DataType that requires an integer input, such as PlayerUnlockedAvatar or PlayerLevel
     
-    [ConditionnalStringInputField]
+    [ConditionalStringInputField]
     public string stringInput; // Used for any DataType that requires an integer input, such as PlayerUnlockedAvatar or PlayerLevel
 
     public bool intInputFieldEnabled{
@@ -53,11 +56,21 @@ public class DataLoader : MonoBehaviour
         get
         {
             return dataType == DataType.IsUnlockableOwned ||
-                   dataType == DataType.SelectedAvatarName;
+                   dataType == DataType.SelectedAvatar && outputFieldType == OutputFieldType.GameObjectActive ||
+                   dataType == DataType.SelectedAvatar && outputFieldType == OutputFieldType.ButtonEnabled;
         }
     }
     
     private void Start()
+    {
+        LoadData();
+        if (autoReload)
+        {
+            SaveManager.Instance.OnGameSaved += LoadData;
+            SaveManager.Instance.OnGameLoaded += LoadData;
+        }
+    }
+    private void LoadData()
     {
         string outputString = "?";
         switch (dataType)
@@ -81,9 +94,24 @@ public class DataLoader : MonoBehaviour
             case DataType.PlayerLevel:
                 outputBool = SaveManager.Instance.playerData.level >= integerInput;
                 break;
-            case DataType.SelectedAvatarName:
+            case DataType.SelectedAvatar:
                 outputBool = stringInput == SaveManager.Instance.playerData.selectedAvatarName;
                 break;
+        }
+        
+        Sprite outputSprite = null;
+        if (outputFieldType == OutputFieldType.Image)
+        {
+            switch (dataType)
+            {
+                case DataType.SelectedAvatar:
+                    Debug.Log("Loading avatar image: Avatars/" + SaveManager.Instance.playerData.selectedAvatarName);
+                    outputSprite = Resources.Load<Sprite>("Avatars/" + SaveManager.Instance.playerData.selectedAvatarName);
+                    break;
+                default:
+                    Debug.LogWarning("Image output field type is only valid for SelectedAvatar data type.");
+                    return;
+            }
         }
         
         switch (outputFieldType)
@@ -111,8 +139,10 @@ public class DataLoader : MonoBehaviour
                 break;
             case OutputFieldType.Image:
                 Image img = GetComponent<Image>();
-                if(img != null)
-                    img.sprite = Resources.Load<Sprite>("Design/Avatars/" + SaveManager.Instance.playerData.selectedAvatarName.ToString());
+                if (img != null)
+                {
+                    img.sprite = outputSprite;
+                }
                 else
                     Debug.LogWarning("TMP_InputField component not found on " + gameObject.name);
                 break;
@@ -122,10 +152,11 @@ public class DataLoader : MonoBehaviour
 #endregion
 
 # region Custom Attributes and Drawers
-public class ConditionnalIntInputField : PropertyAttribute { }
+#region ConditionnalIntInputField
+public class ConditionalIntInputField : PropertyAttribute { }
 
-[CustomPropertyDrawer(typeof(ConditionnalIntInputField))]
-public class ConditionnalIntInputDrawer : PropertyDrawer
+[CustomPropertyDrawer(typeof(ConditionalIntInputField))]
+public class ConditionalIntInputDrawer : PropertyDrawer
 {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
@@ -156,12 +187,13 @@ public class ConditionnalIntInputDrawer : PropertyDrawer
         return 0; //-EditorGUIUtility.standardVerticalSpacing;
     }
 }
+#endregion
 
 #region ConditionnalStringInputField
-public class ConditionnalStringInputField : PropertyAttribute { }
+public class ConditionalStringInputField : PropertyAttribute { }
 
-[CustomPropertyDrawer(typeof(ConditionnalStringInputField))]
-public class ConditionnalStringInputDrawer : PropertyDrawer
+[CustomPropertyDrawer(typeof(ConditionalStringInputField))]
+public class ConditionalStringInputDrawer : PropertyDrawer
 {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
@@ -171,7 +203,15 @@ public class ConditionnalStringInputDrawer : PropertyDrawer
             string customLabel = label.text;
             switch (target.dataType)
             {
-                case DataLoader.DataType.SelectedAvatarName:
+                case DataLoader.DataType.SelectedAvatar:
+                    if (target.outputFieldType == DataLoader.OutputFieldType.Image ||
+                        target.outputFieldType == DataLoader.OutputFieldType.TextMeshPro ||
+                        target.outputFieldType == DataLoader.OutputFieldType.TextMeshProUGUI ||
+                        target.outputFieldType == DataLoader.OutputFieldType.TMP_InputField)
+                    {
+                        // Only show this field if the outputFieldType is not text
+                        return;
+                    }
                     customLabel = "Avatar Name";
                     break;
                 case DataLoader.DataType.IsUnlockableOwned:
@@ -214,13 +254,14 @@ public class FilteredInputFieldTypeDrawer : PropertyDrawer
         var filteredOptions = new List<string>(options);
 
         #region Filtering logic
+        // Boolean outputs
         if (inputFieldType == DataLoader.OutputFieldType.ButtonEnabled || 
             inputFieldType == DataLoader.OutputFieldType.GameObjectActive)
         {
             filteredOptions.RemoveAll(element =>
                 element != "IsUnlockableOwned" &&
                 element != "PlayerLevel" &&
-                element != "SelectedAvatarIndex" &&
+                element != "SelectedAvatar" &&
                 element != "PlayerCoins");
         }
         else
