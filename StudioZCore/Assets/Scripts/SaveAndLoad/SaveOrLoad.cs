@@ -56,5 +56,18 @@ public class SaveFunctions : MonoBehaviour
         SaveManager.Instance.playerData.selectedAvatarIndex = avatarIndex;
         SaveGame();
     }
+    
+    public void AddUnlockable(string unlockableIndex)
+    {
+        if (!SaveManager.Instance.playerData.unlockablesOwned.Contains(unlockableIndex))
+        {
+            SaveManager.Instance.playerData.unlockablesOwned.Add(unlockableIndex);
+            SaveGame();
+        }
+        else
+        {
+            Debug.LogWarning("Unlockable already owned: " + unlockableIndex);
+        }
+    }
     # endregion
 }

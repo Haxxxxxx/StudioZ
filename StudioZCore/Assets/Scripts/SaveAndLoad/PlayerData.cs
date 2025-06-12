@@ -10,9 +10,9 @@ public class PlayerData
     public int coins;
     public int level;
     public int selectedAvatarIndex;
-    public List<int> unlockedAvatars = new List<int>();
+    [FormerlySerializedAs("unlockedAvatars")] public List<string> unlockablesOwned = new List<string>();
     
-    public PlayerData(string playerName, int playerCoins, int playerLevel, int playerSelectedAvatarIndex = 0, List<int> playerUnlockedAvatars = null)
+    public PlayerData(string playerName, int playerCoins, int playerLevel, int playerSelectedAvatarIndex = 0, List<string> playerUnlockedAvatars = null)
     {
         name = playerName;
         coins = playerCoins;
@@ -20,7 +20,7 @@ public class PlayerData
         selectedAvatarIndex = playerSelectedAvatarIndex;
         if (playerUnlockedAvatars != null)
         {
-            unlockedAvatars = new List<int>(playerUnlockedAvatars);
+            unlockablesOwned = new List<string>(playerUnlockedAvatars);
         }
     }
 }

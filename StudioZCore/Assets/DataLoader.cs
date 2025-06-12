@@ -17,7 +17,7 @@ public class DataLoader : MonoBehaviour
         PlayerCoins,
         PlayerLevel,
         SelectedAvatarIndex,
-        IsAvatarIndexUnlocked
+        IsUnlockableOwned
     }
     public enum OutputFieldType
     {
@@ -36,13 +36,23 @@ public class DataLoader : MonoBehaviour
     [ConditionnalIntInputField]
     public int integerInput = 0; // Used for any DataType that requires an integer input, such as PlayerUnlockedAvatar or PlayerLevel
     
+    [ConditionnalStringInputField]
+    public string stringInput; // Used for any DataType that requires an integer input, such as PlayerUnlockedAvatar or PlayerLevel
+
     public bool intInputFieldEnabled{
         get
         {
-            return dataType == DataType.IsAvatarIndexUnlocked ||
+            return
                    dataType == DataType.PlayerLevel ||
                    dataType == DataType.SelectedAvatarIndex ||
                    dataType == DataType.PlayerCoins;
+        }
+    }
+    public bool stringInputFieldEnabled
+    {
+        get
+        {
+            return dataType == DataType.IsUnlockableOwned;
         }
     }
     
@@ -64,8 +74,8 @@ public class DataLoader : MonoBehaviour
         bool outputBool = true;
         switch (dataType)
         {
-            case DataType.IsAvatarIndexUnlocked:
-                outputBool = SaveManager.Instance.playerData.unlockedAvatars.Contains(integerInput);
+            case DataType.IsUnlockableOwned:
+                outputBool = SaveManager.Instance.playerData.unlockablesOwned.Contains(stringInput);
                 break;
             case DataType.PlayerLevel:
                 outputBool = SaveManager.Instance.playerData.level >= integerInput;
@@ -102,7 +112,7 @@ public class DataLoader : MonoBehaviour
 public class ConditionnalIntInputField : PropertyAttribute { }
 
 [CustomPropertyDrawer(typeof(ConditionnalIntInputField))]
-public class ShowIfButtonEnabledDrawer : PropertyDrawer
+public class ConditionnalIntInputDrawer : PropertyDrawer
 {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
@@ -112,9 +122,6 @@ public class ShowIfButtonEnabledDrawer : PropertyDrawer
             string customLabel = label.text;
             switch (target.dataType)
             {
-                case DataLoader.DataType.IsAvatarIndexUnlocked:
-                    customLabel = "Avatar Index";
-                    break;
                 case DataLoader.DataType.SelectedAvatarIndex:
                     customLabel = "Avatar Index";
                     break;
@@ -140,6 +147,41 @@ public class ShowIfButtonEnabledDrawer : PropertyDrawer
     }
 }
 
+#region ConditionnalStringInputField
+public class ConditionnalStringInputField : PropertyAttribute { }
+
+[CustomPropertyDrawer(typeof(ConditionnalStringInputField))]
+public class ConditionnalStringInputDrawer : PropertyDrawer
+{
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+    {
+        var target = property.serializedObject.targetObject as DataLoader;
+        if (target != null)
+        {
+            string customLabel = label.text;
+            switch (target.dataType)
+            {
+                case DataLoader.DataType.IsUnlockableOwned:
+                    customLabel = "Unlockable ID";
+                    break;
+                default:
+                    return;
+            }
+            EditorGUI.PropertyField(position, property, new GUIContent(customLabel), true);
+        }
+    }
+
+    public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+    {
+        var target = property.serializedObject.targetObject as DataLoader;
+        if (target != null && (target.stringInputFieldEnabled))
+            return EditorGUI.GetPropertyHeight(property, label, true);
+        return 0; //-EditorGUIUtility.standardVerticalSpacing;
+    }
+}
+#endregion
+
+
 public class FilteredInputFieldTypeAttribute : PropertyAttribute { }
 
 [CustomPropertyDrawer(typeof(FilteredInputFieldTypeAttribute))]
@@ -159,17 +201,18 @@ public class FilteredInputFieldTypeDrawer : PropertyDrawer
         var filteredOptions = new List<string>(options);
 
         #region Filtering logic
-        if (inputFieldType == DataLoader.OutputFieldType.ButtonEnabled)
+        if (inputFieldType == DataLoader.OutputFieldType.ButtonEnabled || 
+            inputFieldType == DataLoader.OutputFieldType.GameObjectActive)
         {
             filteredOptions.RemoveAll(element =>
-                element != "IsAvatarIndexUnlocked" &&
+                element != "IsUnlockableOwned" &&
                 element != "PlayerLevel" &&
                 element != "SelectedAvatarIndex" &&
                 element != "PlayerCoins");
         }
         else
         {
-            filteredOptions.Remove("PlayerUnlockedAvatar");
+            filteredOptions.Remove("IsUnlockableOwned");
         }
         #endregion
 
