@@ -16,4 +16,14 @@ public class Unlockable : ScriptableObject
             isOwned = true;
         }
     }
+    
+    public void Unlock()
+    {
+        if (!isOwned)
+        {
+            isOwned = true;
+            SaveManager.Instance.playerData.unlockablesOwned.Add(unlockableID);
+            SaveManager.Instance.SaveGame();
+        }
+    }
 }
