@@ -8,6 +8,9 @@ public abstract class MiniGameBase : MonoBehaviour
     protected Dictionary<string, MiniGameActionResult> actionResults;
     protected bool isFinished = false;
 
+    [SerializeField] protected Dialogue dialogueIntro;
+    [SerializeField] protected Dialogue dialogueOutro;
+
     public virtual void StartGame()
     {
         currentScore = 0;

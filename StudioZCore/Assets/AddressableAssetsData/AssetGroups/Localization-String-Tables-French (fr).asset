@@ -35,6 +35,18 @@ MonoBehaviour:
     - Locale-fr
     - Preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 76f098e9021408b4c980317e3bcdb54e
+    m_Address: E1_MG1_fr
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-fr
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dfada75793b24aa4081d11a5a29ea306
+    m_Address: Introduction_fr
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-fr
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f680c503b05f4334b9383e2851b6f075
     m_Address: Options_fr
     m_ReadOnly: 1
