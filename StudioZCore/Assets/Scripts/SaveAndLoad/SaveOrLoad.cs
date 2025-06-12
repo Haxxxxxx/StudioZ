@@ -51,9 +51,9 @@ public class SaveFunctions : MonoBehaviour
         SaveGame();
     }
     
-    public void SetPlayerAvatarIndex(int avatarIndex)
+    public void SetPlayerAvatarName(string avatarName)
     {
-        SaveManager.Instance.playerData.selectedAvatarIndex = avatarIndex;
+        SaveManager.Instance.playerData.selectedAvatarName = avatarName;
         SaveGame();
     }
     

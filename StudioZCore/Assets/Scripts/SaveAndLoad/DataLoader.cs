@@ -16,7 +16,7 @@ public class DataLoader : MonoBehaviour
         PlayerName,
         PlayerCoins,
         PlayerLevel,
-        SelectedAvatarIndex,
+        SelectedAvatarName,
         IsUnlockableOwned
     }
     public enum OutputFieldType
@@ -25,7 +25,8 @@ public class DataLoader : MonoBehaviour
         TextMeshProUGUI,
         TextMeshPro,
         ButtonEnabled,
-        GameObjectActive
+        GameObjectActive,
+        Image
     }
     
     public OutputFieldType outputFieldType = OutputFieldType.TMP_InputField;
@@ -44,7 +45,6 @@ public class DataLoader : MonoBehaviour
         {
             return
                    dataType == DataType.PlayerLevel ||
-                   dataType == DataType.SelectedAvatarIndex ||
                    dataType == DataType.PlayerCoins;
         }
     }
@@ -52,7 +52,8 @@ public class DataLoader : MonoBehaviour
     {
         get
         {
-            return dataType == DataType.IsUnlockableOwned;
+            return dataType == DataType.IsUnlockableOwned ||
+                   dataType == DataType.SelectedAvatarName;
         }
     }
     
@@ -80,8 +81,8 @@ public class DataLoader : MonoBehaviour
             case DataType.PlayerLevel:
                 outputBool = SaveManager.Instance.playerData.level >= integerInput;
                 break;
-            case DataType.SelectedAvatarIndex:
-                outputBool = integerInput == SaveManager.Instance.playerData.selectedAvatarIndex;
+            case DataType.SelectedAvatarName:
+                outputBool = stringInput == SaveManager.Instance.playerData.selectedAvatarName;
                 break;
         }
         
@@ -108,6 +109,13 @@ public class DataLoader : MonoBehaviour
             case OutputFieldType.GameObjectActive:
                 gameObject.SetActive(outputBool);
                 break;
+            case OutputFieldType.Image:
+                Image img = GetComponent<Image>();
+                if(img != null)
+                    img.sprite = Resources.Load<Sprite>("Design/Avatars/" + SaveManager.Instance.playerData.selectedAvatarName.ToString());
+                else
+                    Debug.LogWarning("TMP_InputField component not found on " + gameObject.name);
+                break;
         }
     }
 }
@@ -127,9 +135,6 @@ public class ConditionnalIntInputDrawer : PropertyDrawer
             string customLabel = label.text;
             switch (target.dataType)
             {
-                case DataLoader.DataType.SelectedAvatarIndex:
-                    customLabel = "Avatar Index";
-                    break;
                 case DataLoader.DataType.PlayerLevel:
                     customLabel = "Player Level >= ";
                     break;
@@ -166,6 +171,9 @@ public class ConditionnalStringInputDrawer : PropertyDrawer
             string customLabel = label.text;
             switch (target.dataType)
             {
+                case DataLoader.DataType.SelectedAvatarName:
+                    customLabel = "Avatar Name";
+                    break;
                 case DataLoader.DataType.IsUnlockableOwned:
                     customLabel = "Unlockable ID";
                     break;

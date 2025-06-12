@@ -9,15 +9,15 @@ public class PlayerData
     public string name;
     public int coins;
     public int level;
-    public int selectedAvatarIndex;
+    public string selectedAvatarName;
     public List<string> unlockablesOwned;
     
-    public PlayerData(string playerName, int playerCoins, int playerLevel, int playerSelectedAvatarIndex = 0, List<string> ownedUnlockables = null)
+    public PlayerData(string playerName, int playerCoins, int playerLevel, string playerSelectedAvatarName = "DefaultAvatar", List<string> ownedUnlockables = null)
     {
         name = playerName;
         coins = playerCoins;
         level = playerLevel;
-        selectedAvatarIndex = playerSelectedAvatarIndex;
+        selectedAvatarName = playerSelectedAvatarName;
         if (ownedUnlockables != null)
         {
             unlockablesOwned = new List<string>(ownedUnlockables);

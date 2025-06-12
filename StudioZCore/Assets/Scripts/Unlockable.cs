@@ -6,14 +6,12 @@ using UnityEngine;
 public class Unlockable : ScriptableObject
 {
     public string unlockableID;
-    public bool isOwned = false;
-    
-    void Start()
+
+    public bool isOwned
     {
-        // Load the unlockable state from player data
-        if (SaveManager.Instance.playerData.unlockablesOwned.Contains(unlockableID))
+        get
         {
-            isOwned = true;
+            return SaveManager.Instance.playerData.unlockablesOwned.Contains(unlockableID);
         }
     }
     
@@ -21,8 +19,16 @@ public class Unlockable : ScriptableObject
     {
         if (!isOwned)
         {
-            isOwned = true;
             SaveManager.Instance.playerData.unlockablesOwned.Add(unlockableID);
+            SaveManager.Instance.SaveGame();
+        }
+    }
+    
+    public void Lock()
+    {
+        if (isOwned)
+        {
+            SaveManager.Instance.playerData.unlockablesOwned.Remove(unlockableID);
             SaveManager.Instance.SaveGame();
         }
     }
