@@ -1446,7 +1446,6 @@ GameObject:
   - component: {fileID: 602580571}
   - component: {fileID: 602580570}
   - component: {fileID: 602580569}
-  - component: {fileID: 602580572}
   m_Layer: 5
   m_Name: Modify
   m_TagString: Untagged
@@ -1567,22 +1566,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 602580567}
   m_CullTransparentMesh: 1
---- !u!114 &602580572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 602580567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7ab4c768c0e54e4e9eb00f1e26f1e54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outputFieldType: 4
-  dataType: 4
-  integerInput: 0
-  stringInput: None
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -2071,7 +2054,7 @@ MonoBehaviour:
   outputFieldType: 3
   dataType: 4
   integerInput: 1
-  stringInput: None
+  stringInput: avatar_1
 --- !u!114 &1081071509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2429,7 +2412,7 @@ MonoBehaviour:
   outputFieldType: 3
   dataType: 4
   integerInput: 3
-  stringInput: None
+  stringInput: avatar_3
 --- !u!114 &1518075129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3049,7 +3032,7 @@ MonoBehaviour:
   outputFieldType: 3
   dataType: 4
   integerInput: 2
-  stringInput: None
+  stringInput: avatar_2
 --- !u!114 &1695652923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3612,7 +3595,6 @@ GameObject:
   - component: {fileID: 2068078172}
   - component: {fileID: 2068078171}
   - component: {fileID: 2068078170}
-  - component: {fileID: 2068078169}
   m_Layer: 5
   m_Name: ProfilePicture (1)
   m_TagString: Untagged
@@ -3639,22 +3621,6 @@ RectTransform:
   m_AnchoredPosition: {x: 150, y: 0}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 1}
---- !u!114 &2068078169
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2068078167}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7ab4c768c0e54e4e9eb00f1e26f1e54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outputFieldType: 3
-  dataType: 4
-  integerInput: 0
-  stringInput: 
 --- !u!114 &2068078170
 MonoBehaviour:
   m_ObjectHideFlags: 0

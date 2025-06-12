@@ -94,7 +94,12 @@ public class DataLoader : MonoBehaviour
                 GetComponent<TextMeshProUGUI>().text = outputString;
                 break;
             case OutputFieldType.TMP_InputField:
-                GetComponent<TMP_InputField>().SetTextWithoutNotify(outputString);
+                TMP_InputField inputField = GetComponent<TMP_InputField>();
+                if(inputField != null)
+                    inputField.SetTextWithoutNotify(outputString);
+                else
+                    Debug.LogWarning("TMP_InputField component not found on " + gameObject.name);
+                //GetComponent<TMP_InputField>().SetTextWithoutNotify(outputString);
                 break;
             case OutputFieldType.ButtonEnabled:
                 Button button = GetComponent<Button>();
