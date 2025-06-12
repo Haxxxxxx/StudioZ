@@ -40,13 +40,18 @@ public class DragAndDropManager : MonoBehaviour
             worldPos.z = 0;
 
             draggableItem.transform.position = worldPos + offset;
+            if(draggableItem.TryGetComponent<SpriteRenderer>(out SpriteRenderer spriteRenderer))
+            {
+                spriteRenderer.sortingOrder = 100;
+            }
             draggableItem.InvokeDrag(worldPos);
         }
     }
 
     private void OnBeginDrag(InputAction.CallbackContext context)
     {
-        Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(pointerPositionAction.action.ReadValue<Vector2>());
+        Vector2 pointerPos = pointerPositionAction.action.ReadValue<Vector2>();
+        Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(pointerPos);
         mouseWorldPos.z = 0;
         Collider2D hit = Physics2D.OverlapPoint(mouseWorldPos);
         if (hit != null && hit.TryGetComponent<DraggableItem>(out DraggableItem existing))
@@ -54,9 +59,7 @@ public class DragAndDropManager : MonoBehaviour
             draggableItem = existing;
             draggableItem.isDragged = true;
             offset = draggableItem.transform.position - mouseWorldPos;
-            draggableItem.InvokeDragStart();
-
-            Debug.Log("Drag started");
+            draggableItem.InvokeDragStart(pointerPos);
         }
     }
 
@@ -64,10 +67,13 @@ public class DragAndDropManager : MonoBehaviour
     {
         if (draggableItem != null)
         {
-            draggableItem.isDragged = true;
-            draggableItem.InvokeDragEnd();
+            draggableItem.isDragged = false;
+            if (draggableItem.TryGetComponent<SpriteRenderer>(out SpriteRenderer spriteRenderer))
+            {
+                spriteRenderer.sortingOrder = 10;
+            }
+            draggableItem.InvokeDragEnd(pointerPositionAction.action.ReadValue<Vector2>());
             draggableItem = null;
-            Debug.Log("Drag ended");
         }
     }
 }

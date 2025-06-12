@@ -4,10 +4,13 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    public static GameManager instance { get; private set; }
 
     [Header("References")]
     [SerializeField] private List<EpisodeData> episodes = new List<EpisodeData>();
+
+
+    [Header("Current Game State")]
     private EpisodeData currentEpisode;
     private MiniGameData currentMiniGame;
 
