@@ -63,7 +63,7 @@ public class DragAndDropManager : MonoBehaviour
         }
     }
 
-    public void OnEndDrag(InputAction.CallbackContext context)
+    private void OnEndDrag(InputAction.CallbackContext context)
     {
         if (draggableItem != null)
         {
