@@ -34,7 +34,7 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue()
     {
-        if (!bubble.activeSelf) bubble.SetActive(true);
+        if (!bubble || !bubble.activeSelf) bubble.SetActive(true);
         if (typeLineCoroutine != null) StopCoroutine(typeLineCoroutine);
 
         textComponent.text = string.Empty;
