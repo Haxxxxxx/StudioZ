@@ -23,7 +23,7 @@ public class CategoryButton : MonoBehaviour
 
     private void ShowPanel()
     {
-        var panelsParent = group.PanelsParent;
+        var panelsParent = group != null ? group.PanelsParent : panelToShow.transform.parent;
 
         if (panelToShow.activeSelf)
         {
