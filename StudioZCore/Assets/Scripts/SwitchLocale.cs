@@ -14,6 +14,8 @@ public class SwitchLocale : MonoBehaviour
 
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[localeID];
 
+        Debug.Log("Changing language to language id " + localeID+"!");
+
         if (dialogueManager != null && dialogueManager.CurrentDialogue != null)
         {
             dialogueManager.StartDialogue();
