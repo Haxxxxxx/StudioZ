@@ -1,2 +1,14 @@
 fileFormatVersion: 2
 guid: 08b598de098f9564dbc7c7602d1a5059
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - cottonState1Sprite: {fileID: 3539958316660278439, guid: 9427f92196c41ab4f8206881f2c775ca, type: 3}
+  - cottonState2Sprite: {fileID: 6369278089432272201, guid: 32a22bba34f2ff847a856b537b7316f6, type: 3}
+  - cottonState3Sprite: {fileID: -3711151632435862208, guid: a63cc4fb24b887942bed39a1674b9dd9, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UIElements;
@@ -11,7 +12,7 @@ public class DraggableItem : MonoBehaviour
     public DragEvent OnDrag;   
     public DragEvent OnDragEnd;
 
-    public bool isDragged = false;
+    [field : NonSerialized] public bool isDragged = false;
 
     public void InvokeDragStart(Vector3 position) => OnDragStart?.Invoke(position);
     public void InvokeDrag(Vector3 position) => OnDrag?.Invoke(position);

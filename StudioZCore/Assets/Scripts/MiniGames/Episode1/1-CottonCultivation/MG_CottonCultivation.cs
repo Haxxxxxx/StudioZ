@@ -71,7 +71,7 @@ public class MG_CottonCultivation : MiniGameBase
     private void OnEnable()
     {
         clickAction.action.performed += OnClickCheckHoles;
-        if(toolType == ToolsType.WateringCan)
+        if(toolType == ToolsType.WateringCan || toolType == ToolsType.Sunlight)
         {
             clickAction.action.canceled += OnCanceledClickCheckHoles;
         }
@@ -115,7 +115,7 @@ public class MG_CottonCultivation : MiniGameBase
         
         if (unsortedSeed.Count == 0)
         {
-            goodSortedSeed.ForEach(seed => seed.GetComponent<Collider2D>().enabled = true);
+            goodSortedSeed.ForEach(seed => seed.spriteCollider.enabled = true);
             Debug.Log("All seeds have been sorted!");
         }
     }
@@ -141,7 +141,7 @@ public class MG_CottonCultivation : MiniGameBase
 
     private void OnCanceledClickCheckHoles(InputAction.CallbackContext context)
     {
-        if (toolType != ToolsType.WateringCan) return;
+        if (toolType != ToolsType.WateringCan && toolType != ToolsType.Sunlight) return;
 
         isPressedOnFieldHole = false;
     }
@@ -207,6 +207,8 @@ public class MG_CottonCultivation : MiniGameBase
 
     private void UseSunlight(FieldHole_CottonCultivator currentHole)
     {
+        isPressedOnFieldHole = true;
+
         if (currentHole.holeState == FieldHole_CottonCultivator.HoleState.Watered)
         {
             currentHole.SetHoleState(FieldHole_CottonCultivator.HoleState.Sunny);
@@ -220,7 +222,7 @@ public class MG_CottonCultivation : MiniGameBase
 
     private void UseGlove(FieldHole_CottonCultivator currentHole)
     {
-        if (currentHole.holeState == FieldHole_CottonCultivator.HoleState.Sunny)
+        /*if (currentHole.holeState == FieldHole_CottonCultivator.HoleState.Sunny)
         {
             currentHole.SetHoleState(FieldHole_CottonCultivator.HoleState.Cotton);
             // Perform positiveAction for using glove in sunny state
@@ -228,7 +230,7 @@ public class MG_CottonCultivation : MiniGameBase
         else if (currentHole.holeState != FieldHole_CottonCultivator.HoleState.Cotton)
         {
             // Perform negativeAction for using glove in bad state
-        }
+        }*/
     }
 
     public void BS_SetSelectedTools(int _toolsType)
@@ -248,7 +250,7 @@ public class MG_CottonCultivation : MiniGameBase
             selectedToolBtn.image.color = Color.green;
         }
 
-        if (toolType == ToolsType.WateringCan)
+        if (toolType == ToolsType.WateringCan || toolType == ToolsType.Sunlight)
         {
             clickAction.action.canceled += OnCanceledClickCheckHoles;
         }
