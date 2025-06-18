@@ -20,7 +20,7 @@ namespace FishNet.Demo.Benchmarks.NetworkTransforms
 
         [SerializeField]
         private bool _is2d;
-
+        
         [Header("Changes")]
         [SerializeField]
         [Range(0, 3)]
@@ -33,11 +33,6 @@ namespace FishNet.Demo.Benchmarks.NetworkTransforms
         private float _rotationChance = 0.33f;
 
         [Header("Movement")]
-        [Range(0f, 5f)]
-        [SerializeField]
-        private float _delayBetweenMovements = 1.5f;
-        [SerializeField]
-        private float _yOffsetPerInstance = 0f;
         [SerializeField]
         private bool _randomMovement = true;
         [SerializeField]
@@ -55,7 +50,6 @@ namespace FishNet.Demo.Benchmarks.NetworkTransforms
         [SerializeField]
         private float _range = 6f;
 
-
         //Position to move towards.
         private Vector3 _goalPosition;
         //Rotation to move towards.
@@ -64,11 +58,8 @@ namespace FishNet.Demo.Benchmarks.NetworkTransforms
         private Quaternion _lastRot;
         private int _nextGoalDataIndex = 0;
 
-        private float _nextMoveTime = float.MinValue;
-
         public override void OnStartNetwork()
         {
-
             if (!base.IsServerStarted && !base.Owner.IsLocalClient)
             {
                 base.SetTickCallbacks(TickCallback.None);
@@ -85,17 +76,13 @@ namespace FishNet.Demo.Benchmarks.NetworkTransforms
 
         protected override void TimeManager_OnUpdate()
         {
-            if (_moveInUpdate)
-                Move(Time.deltaTime);
+            Move(Time.deltaTime);
         }
 
         protected override void TimeManager_OnTick()
         {
-            if (!_moveInUpdate)
-            {
-                float delta = (float)base.TimeManager.TickDelta;
-                Move(delta);
-            }
+            float delta = (float)base.TimeManager.TickDelta;
+            Move(delta);
         }
 
         private void Move(float delta)
@@ -103,8 +90,6 @@ namespace FishNet.Demo.Benchmarks.NetworkTransforms
             if (!_isActive)
                 return;
             if (!base.IsController)
-                return;
-            if (Time.time < _nextMoveTime)
                 return;
             
             transform.position = Vector3.MoveTowards(transform.position, _goalPosition, _moveRate * delta);
@@ -119,25 +104,7 @@ namespace FishNet.Demo.Benchmarks.NetworkTransforms
 
         public override void OnStartServer()
         {
-            TrySetFirstGoal();
-        }
-
-        public override void OnStartClient()
-        {
-            TrySetFirstGoal();
-        }
-
-        private void TrySetFirstGoal()
-        {
-            if (!base.IsController)
-                return;
-
             SetNextGoal();
-
-            transform.position = _goalPosition;
-            transform.rotation = _goalRotation;
-
-            _nextMoveTime = float.MinValue;
         }
 
         private void SetNextGoal()
@@ -147,8 +114,6 @@ namespace FishNet.Demo.Benchmarks.NetworkTransforms
             else
                 SetSpecifiedGoal();
 
-            _nextMoveTime = Time.time + _delayBetweenMovements;
-            
             void SetSpecifiedGoal()
             {
                 if (_goalDatas.Count == 0) return;
@@ -158,7 +123,7 @@ namespace FishNet.Demo.Benchmarks.NetworkTransforms
 
                 int index = _nextGoalDataIndex;
                 _nextGoalDataIndex++;
-
+                
                 _goalPosition = _goalDatas[index].Position;
                 _goalRotation = Quaternion.Euler(_goalDatas[index].Eulers);
             }
@@ -176,11 +141,11 @@ namespace FishNet.Demo.Benchmarks.NetworkTransforms
                         next.y = rnd.y;
                     if (_axes >= 3 && RandomizeAxes())
                         next.z = rnd.z;
-
+                    
                     //Make sure at least one axes is set.
                     if (next == transform.position)
                         next.x = rnd.x;
-
+                    
                     bool RandomizeAxes() => (Random.Range(0f, 1f) <= _chancePerAxes);
 
                     _goalPosition = next;

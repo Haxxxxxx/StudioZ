@@ -284,7 +284,7 @@ namespace FishNet.Utility.Performance
                     Dictionary<int, Stack<NetworkObject>> dict = new();
                     _cache.Add(dict);
                 }
-                _cacheCount = _cache.Count;
+                _cacheCount = collectionId;
             }
 
             Dictionary<int, Stack<NetworkObject>> dictionary = _cache[collectionId];

@@ -261,7 +261,6 @@ namespace FishNet.Managing.Server
             List<int> shuffledCache = new();
             //Ignore ushort.maxvalue as that indicates null.
             for (int i = 0; i < (ushort.MaxValue - 1); i++)
-            //for (int i = 0; i < (2200); i++) //QUICK-TEST Uncomment this, and comment the line above.
                 shuffledCache.Add(i);
             /* Only shuffle when NOT in editor and not
              * development build.
@@ -291,10 +290,7 @@ namespace FishNet.Managing.Server
         /// <param name="id"></param>
         internal void CacheObjectId(int id)
         {
-            if (!_objectIdCache.Contains(id))
-                _objectIdCache.Enqueue(id);
-            else
-                NetworkManager.LogError($"Object Id [{id}] already exists within ObjectId Cache. Please report this error.");
+            _objectIdCache.Enqueue(id);
         }
 
         /// <summary>
@@ -491,7 +487,7 @@ namespace FishNet.Managing.Server
         /// Performs setup on a NetworkObject without synchronizing the actions to clients.
         /// </summary>
         /// <param name="objectId">Override ObjectId to use.</param>
-        private bool SetupWithoutSynchronization(NetworkObject nob, NetworkConnection ownerConnection = null, int? objectId = null, bool initializeEarly = true)
+        private void SetupWithoutSynchronization(NetworkObject nob, NetworkConnection ownerConnection = null, int? objectId = null, bool initializeEarly = true)
         {
             if (nob.GetIsNetworked())
             {
@@ -504,7 +500,7 @@ namespace FishNet.Managing.Server
                 else
                 {
                     if (!GetNextNetworkObjectId(out objectIdValue))
-                        return false;
+                        return;
                 }
 
                 if (initializeEarly)
@@ -513,11 +509,7 @@ namespace FishNet.Managing.Server
                 base.AddToSpawned(nob, true);
                 nob.gameObject.SetActive(true);
                 nob.Initialize(true, true);
-
-                return true;
             }
-
-            return false;
         }
         #endregion
 
@@ -607,7 +599,7 @@ namespace FishNet.Managing.Server
             else
                 SpawnWithoutChecks(networkObject, recursiveSpawnCache: null, ownerConnection);
         }
-
+        
         /// <summary>
         /// Spawns networkObject without any checks.
         /// </summary>
@@ -618,6 +610,7 @@ namespace FishNet.Managing.Server
              * during initialization spawn messages will
              * be sent. */
             networkObject.SetIsNetworked(true);
+            _spawnCache.Add(networkObject);
 
             /* Grab the nested before spawning the networkObject. This prevents double initialization
              * if one of the OnStart callbacks adds nested to networkObject.
@@ -635,8 +628,7 @@ namespace FishNet.Managing.Server
              */
             List<NetworkObject> nestedNetworkObjects = (isRecursiveIteration) ? null : networkObject.GetNetworkObjects(GetNetworkObjectOption.AllNestedRecursive);
 
-            if (SetupWithoutSynchronization(networkObject, ownerConnection, objectId, initializeEarly))
-                _spawnCache.Add(networkObject);
+            SetupWithoutSynchronization(networkObject, ownerConnection, objectId, initializeEarly);
 
             if (nestedNetworkObjects != null)
             {
@@ -1068,13 +1060,10 @@ namespace FishNet.Managing.Server
         /// Called when a NetworkObject is destroyed without being deactivated first.
         /// </summary>
         /// <param name="nob"></param>
-        internal override void NetworkObjectDestroyed(NetworkObject nob, bool asServer)
+        internal override void NetworkObjectUnexpectedlyDestroyed(NetworkObject nob, bool asServer)
         {
-            //Only finalize despawn if not already deinitialized.
-            if (!nob.IsDeinitializing)
-                FinalizeDespawn(nob, DespawnType.Destroy);
-            
-            base.NetworkObjectDestroyed(nob, asServer);
+            FinalizeDespawn(nob, DespawnType.Destroy);
+            base.NetworkObjectUnexpectedlyDestroyed(nob, asServer);
         }
 
         /// <summary>
@@ -1096,7 +1085,6 @@ namespace FishNet.Managing.Server
                 }
 
                 WriteDespawnAndSend(nob, despawnType);
-
                 CacheObjectId(nob);
             }
         }

@@ -90,22 +90,22 @@ namespace FishNet.Managing.Object
         /// Called when a NetworkObject runs Deactivate.
         /// </summary>
         /// <param name="nob"></param>
-        internal virtual void NetworkObjectDestroyed(NetworkObject nob, bool asServer)
+        internal virtual void NetworkObjectUnexpectedlyDestroyed(NetworkObject nob, bool asServer)
         {
             if (nob == null)
                 return;
 
-            RemoveFromSpawned(nob, fromOnDestroy: true, asServer);
+            RemoveFromSpawned(nob, unexpectedlyDestroyed: true, asServer);
         }
 
         /// <summary>
         /// Removes a NetworkedObject from spawned.
         /// </summary>
-        protected virtual void RemoveFromSpawned(NetworkObject nob, bool fromOnDestroy, bool asServer)
+        protected virtual void RemoveFromSpawned(NetworkObject nob, bool unexpectedlyDestroyed, bool asServer)
         {
             Spawned.Remove(nob.ObjectId);
             //Do the same with SceneObjects.
-            if (fromOnDestroy && nob.IsSceneObject)
+            if (unexpectedlyDestroyed && nob.IsSceneObject)
                 RemoveFromSceneObjects(nob);
         }
 
@@ -334,7 +334,7 @@ namespace FishNet.Managing.Object
                 lNob.Deinitialize(asServer);
 
                 if (canCleanup && removeFromSpawned)
-                    RemoveFromSpawned(lNob, fromOnDestroy: false, asServer);
+                    RemoveFromSpawned(lNob, unexpectedlyDestroyed: false, asServer);
             }
 
             /* Only need to check the first nob. If it's stored, deactivated,

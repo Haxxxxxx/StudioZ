@@ -9,9 +9,8 @@ using UnityEngine;
 
 public class NetworkPlayerData : NetworkBehaviour
 {
-    private readonly SyncVar<int> _score;
-    private readonly SyncVar<string> _name;
-    private readonly SyncVar<string> _avatarID;
+    private readonly SyncVar<int> _score = new SyncVar<int>();
+    private readonly SyncVar<string> _name = new SyncVar<string>();
     
     [SerializeField] TMP_Text scoreText;
     [SerializeField] TMP_Text playerNameText;
@@ -22,11 +21,11 @@ public class NetworkPlayerData : NetworkBehaviour
         transform.SetParent(null, false);
         
         // Initialize score on server
-        // SetScore(GameManager.Instance.GetScore()); 
-        // SetName(GameManager.Instance.GetPlayerName());
+        //SetScore(GameManager.Instance.GetScore()); 
+        SetName(SaveManager.Instance.playerData.playerName);
         
         // Subscribe to score changes
-        // GameManager.OnScoreChanged += OnScoreChanged;
+        //GameManager.OnScoreChanged += OnScoreChanged;
     }
     
     void OnScoreChanged(int newScore)
@@ -45,10 +44,5 @@ public class NetworkPlayerData : NetworkBehaviour
         _name.Value = value;
         playerNameText.text = value;
         Debug.LogWarning("SetName RPC called with value: " + value);
-    }
-    [ServerRpc(RunLocally = true)] public void SetAvatar(string id)
-    {
-        _avatarID.Value = id;
-        Debug.LogWarning("SetAvatar RPC called with value: " + id);
     }
 }
