@@ -10,7 +10,6 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     private int _localScore;
-    private string _playerName = "Player";
     
     public static GameManager Instance { get; private set; }
     
@@ -45,10 +44,5 @@ public class GameManager : MonoBehaviour
     public int GetScore()
     {
         return _localScore;
-    }
-    
-    public string GetPlayerName()
-    {
-        return _playerName;
     }
 }
