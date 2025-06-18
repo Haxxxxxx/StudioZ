@@ -9,7 +9,9 @@ using UnityEngine;
 
 public class PlayerData : NetworkBehaviour
 {
-    private readonly SyncVar<int> _score = new SyncVar<int>();
+    private readonly SyncVar<int> _score;
+    private readonly SyncVar<string> _name;
+    private readonly SyncVar<string> _avatarID;
     
     [SerializeField] TMP_Text scoreText;
     [SerializeField] TMP_Text playerNameText;
@@ -21,6 +23,7 @@ public class PlayerData : NetworkBehaviour
         
         // Initialize score on server
         SetScore(GameManager.Instance.GetScore()); 
+        SetName(GameManager.Instance.GetPlayerName());
         
         // Subscribe to score changes
         GameManager.OnScoreChanged += OnScoreChanged;
@@ -36,5 +39,16 @@ public class PlayerData : NetworkBehaviour
         _score.Value = value;
         scoreText.text = "Score: " + value;
         Debug.LogWarning("SetScore RPC called with value: " + value);
+    }
+    [ServerRpc(RunLocally = true)] public void SetName(string value)
+    {
+        _name.Value = value;
+        playerNameText.text = value;
+        Debug.LogWarning("SetName RPC called with value: " + value);
+    }
+    [ServerRpc(RunLocally = true)] public void SetAvatar(string id)
+    {
+        _avatarID.Value = id;
+        Debug.LogWarning("SetAvatar RPC called with value: " + id);
     }
 }
