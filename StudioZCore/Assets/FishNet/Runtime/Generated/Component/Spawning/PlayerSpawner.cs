@@ -40,6 +40,14 @@ namespace FishNet.Component.Spawning
         [Tooltip("True to add player to the active scene when no global scenes are specified through the SceneManager.")]
         [SerializeField]
         private bool _addToDefaultScene = true;
+        
+        /// <summary>
+        /// True to spawn player as a child of the Spawn Point..
+        /// </summary>
+        [Tooltip("True to instantiate player as a child of the Spawn Point.")]
+        [SerializeField]
+        private bool _setSpawnAsParent = false;
+        
         /// <summary>
         /// Areas in which players may spawn.
         /// </summary>
@@ -86,7 +94,7 @@ namespace FishNet.Component.Spawning
 
             _networkManager.SceneManager.OnClientLoadedStartScenes += SceneManager_OnClientLoadedStartScenes;
         }
-
+        
         /// <summary>
         /// Called when a client loads initial scenes after connecting.
         /// </summary>
@@ -101,10 +109,20 @@ namespace FishNet.Component.Spawning
             }
 
             Vector3 position;
+            Transform parent;
             Quaternion rotation;
-            SetSpawn(_playerPrefab.transform, out position, out rotation);
 
-            NetworkObject nob = _networkManager.GetPooledInstantiated(_playerPrefab, position, rotation, true);
+            NetworkObject nob;
+            if (_setSpawnAsParent)
+            {
+                GetSpawnParent(out parent);
+                nob = _networkManager.GetPooledInstantiated(_playerPrefab, parent, true);
+            }
+            else
+            {
+                SetSpawn(_playerPrefab.transform, out position, out rotation);
+                nob = _networkManager.GetPooledInstantiated(_playerPrefab, position, rotation, true);
+            }
             _networkManager.ServerManager.Spawn(nob, conn);
 
             //If there are no global scenes 
@@ -143,6 +161,19 @@ namespace FishNet.Component.Spawning
             _nextSpawn++;
             if (_nextSpawn >= Spawns.Length)
                 _nextSpawn = 0;
+        }
+        private void GetSpawnParent(out Transform parent)
+        {
+            //If no parent specified then use the NetworkManager's transform.
+            Transform result = Spawns[_nextSpawn];
+            if (result != null)
+            {
+                parent = result;
+            }
+            else
+            {
+                parent = _networkManager.transform;
+            }
         }
 
         /// <summary>
