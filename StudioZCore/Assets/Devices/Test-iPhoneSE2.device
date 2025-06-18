@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "identifier": "test_iphonese2",
+  "friendlyName": "Test-iPhoneSE2",
+  "screens": [
+    {
+      "width": 750,
+      "height": 1334,
+      "dpi": 326
+    }
+  ],
+  "systemInfo": {
+    "operatingSystem": "iOS 15",
+    "systemMemorySize": 4096,
+    "graphicsMemorySize": 2048,
+    "processorType": "ARM64",
+    "graphicsDeviceName": "Apple GPU",
+    "graphicsDeviceType": "Vulkan"
+  },
+  "supportedOrientations": [
+    "Portrait",
+    "LandscapeLeft",
+    "LandscapeRight"
+  ],
+  "defaultOrientation": "Portrait"
+}

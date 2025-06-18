@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "identifier": "test_ipad9.7",
+  "friendlyName": "Test-iPad9.7",
+  "screens": [
+    {
+      "width": 1536,
+      "height": 2048,
+      "dpi": 264
+    }
+  ],
+  "systemInfo": {
+    "operatingSystem": "iOS 14.4",
+    "systemMemorySize": 4096,
+    "graphicsMemorySize": 2048,
+    "processorType": "ARM64",
+    "graphicsDeviceName": "Apple A10 GPU",
+    "graphicsDeviceType": "Vulkan"
+  },
+  "supportedOrientations": [
+    "Portrait",
+    "LandscapeLeft",
+    "LandscapeRight"
+  ],
+  "defaultOrientation": "Portrait"
+}

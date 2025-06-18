@@ -14,6 +14,10 @@ public class GameManager : MonoBehaviour
     private EpisodeData currentEpisode;
     private MiniGameData currentMiniGame;
 
+    [Header("Camera Settings")]
+    private float referenceWidth = 720f; 
+    private float referenceOrthoSize = 5f; 
+
 
     void Start()
     {
@@ -34,5 +38,13 @@ public class GameManager : MonoBehaviour
     public void LoadMiniGame()
     {
         SceneManager.LoadSceneAsync(currentMiniGame.sceneName, LoadSceneMode.Single);
+    }
+
+    private void AdaptCameraScale()
+    {
+        Camera cam = Camera.main;
+        float currentAspect = (float)Screen.width / Screen.height;
+        float referenceAspect = referenceWidth / (referenceWidth / (2 * referenceOrthoSize));
+        cam.orthographicSize = referenceOrthoSize * (referenceAspect / currentAspect);
     }
 }
