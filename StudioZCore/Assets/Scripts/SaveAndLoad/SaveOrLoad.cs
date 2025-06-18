@@ -29,13 +29,13 @@ public class SaveFunctions : MonoBehaviour
     # region Player Data Management Functions
     public void SetPlayerName(string playerName)
     {
-        SaveManager.Instance.playerData.name = playerName;
+        SaveManager.Instance.playerData.playerName = playerName;
         SaveGame();
     }
     public void SetPlayerNameFromInputField()
     {
         string playerName = GetComponent<TMP_InputField>().text;
-        SaveManager.Instance.playerData.name = playerName;
+        SaveManager.Instance.playerData.playerName = playerName;
         Debug.Log("Setting player name: " + playerName);
         SaveGame();
     }

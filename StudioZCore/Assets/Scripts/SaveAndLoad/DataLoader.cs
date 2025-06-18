@@ -76,7 +76,7 @@ public class DataLoader : MonoBehaviour
         switch (dataType)
         {
             case DataType.PlayerName:
-                outputString = SaveManager.Instance.playerData.name;
+                outputString = SaveManager.Instance.playerData.playerName;
                 break;
             case DataType.PlayerCoins:
                 outputString = SaveManager.Instance.playerData.coins.ToString();
