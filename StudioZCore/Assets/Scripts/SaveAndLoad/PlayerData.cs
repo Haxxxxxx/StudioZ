@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 [System.Serializable]
 public class PlayerData
 {
-    public string name;
+    [FormerlySerializedAs("name")] public string playerName;
     public int coins;
     public int level;
     public string selectedAvatarName;
@@ -14,7 +14,7 @@ public class PlayerData
     
     public PlayerData(string playerName, int playerCoins, int playerLevel, string playerSelectedAvatarName = "DefaultAvatar", List<string> ownedUnlockables = null)
     {
-        name = playerName;
+        this.playerName = playerName;
         coins = playerCoins;
         level = playerLevel;
         selectedAvatarName = playerSelectedAvatarName;

@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
     private EpisodeData currentEpisode;
     private MiniGameData currentMiniGame;
 
-
     void Start()
     {
         if (instance == null)
