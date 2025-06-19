@@ -1,8 +1,12 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Image))]
+[RequireComponent(typeof(EventTrigger))]
+[RequireComponent(typeof(DropZone))]
 public class FieldHole_CottonCultivator : MonoBehaviour
 {
     public enum HoleState
@@ -15,11 +19,13 @@ public class FieldHole_CottonCultivator : MonoBehaviour
         Sunny,
     }
 
-    private Camera mainCamera;
-    private SpriteRenderer spriteRenderer;
+    private Image image;
+    private EventTrigger eventTrigger;
+
     public HoleState holeState = HoleState.Empty;
 
     private bool isCoroutineRunning = false;
+    private bool isPressed = false;
     public float wateringTime = 2f;
     public float sunshineTime = 2f;
 
@@ -31,8 +37,44 @@ public class FieldHole_CottonCultivator : MonoBehaviour
 
     private void Start()
     {
-        mainCamera = Camera.main;
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        image = GetComponent<Image>();
+
+        eventTrigger = GetComponent<EventTrigger>();
+        eventTrigger.triggers.Clear();
+
+        EventTrigger.Entry entryDown = new EventTrigger.Entry
+        {
+            eventID = EventTriggerType.PointerDown
+        };
+        entryDown.callback.AddListener((data) => { OnPointerDown((PointerEventData)data); });
+        eventTrigger.triggers.Add(entryDown);
+
+        EventTrigger.Entry entryUp = new EventTrigger.Entry
+        {
+            eventID = EventTriggerType.PointerUp
+        };
+        entryUp.callback.AddListener((data) => { OnPointerUp((PointerEventData)data); });
+        eventTrigger.triggers.Add(entryUp);
+
+        EventTrigger.Entry entryExit = new EventTrigger.Entry
+        {
+            eventID = EventTriggerType.PointerExit
+        };
+        entryExit.callback.AddListener((data) => { OnPointerUp((PointerEventData)data); });
+        eventTrigger.triggers.Add(entryExit);
+
+
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        isPressed = true;
+        MG_CottonCultivation.instance.CheckToolTypeForHole(this);
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        isPressed = false;
     }
 
     public void SetHoleState(HoleState newState)
@@ -52,17 +94,18 @@ public class FieldHole_CottonCultivator : MonoBehaviour
         switch (holeState)
         {
             case HoleState.Empty:
-                spriteRenderer.sprite = null;
+                image.sprite = null;
                 break;
             case HoleState.HoleCreated:
-                spriteRenderer.sprite = holeCreatedSprite;
+                image.sprite = holeCreatedSprite;
+                image.color = Color.white;
                 break;
             case HoleState.Seeded:
                 
                 break;
             case HoleState.HoleFilled:
-                spriteRenderer.sprite = holeFilledSprite;
-                seededSeed.spriteRenderer.sortingOrder = 9;
+                image.sprite = holeFilledSprite;
+                seededSeed.image.enabled = false;
                 break;
             case HoleState.Watered:
                 seededSeed.NextCottonState();
@@ -81,31 +124,17 @@ public class FieldHole_CottonCultivator : MonoBehaviour
 
         float timePressed = (newState == HoleState.Watered ? wateringTime : sunshineTime);
 
-        while (MG_CottonCultivation.instance.isPressedOnFieldHole && timePressed >= 0)
+        while (isPressed && timePressed > 0)
         {
-            Vector2 pointerPos = MG_CottonCultivation.instance.GetPointerPosition();
-            Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(pointerPos);
-            mouseWorldPos.z = 0;
-            Collider2D hit = Physics2D.OverlapPoint(mouseWorldPos);
+            timePressed -= Time.deltaTime;
 
-            if (hit != null && hit.gameObject == gameObject)
+            if (newState == HoleState.Watered)
             {
-                timePressed -= Time.deltaTime;
-
-                if (newState == HoleState.Watered)
-                {
-                    wateringTime = timePressed;
-                }
-                else
-                {
-                    sunshineTime = timePressed;
-                }
+                wateringTime = timePressed;
             }
             else
             {
-                MG_CottonCultivation.instance.isPressedOnFieldHole = false;
-                isCoroutineRunning = false;
-                yield break;
+                sunshineTime = timePressed;
             }
 
             yield return null;

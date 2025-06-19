@@ -2,8 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Image))]
+[RequireComponent(typeof(DraggableItem))]
 public class Seed_CottonCultivator : MonoBehaviour
 {
     public enum SeedType
@@ -24,8 +27,8 @@ public class Seed_CottonCultivator : MonoBehaviour
     public SeedType seedType;
     public SeedState seedState = SeedState.Seed;
     private Camera mainCamera;
-    [field : NonSerialized] public SpriteRenderer spriteRenderer { get; private set; }
-    [field : NonSerialized] public Collider2D spriteCollider { get; private set; }
+    [field : NonSerialized] public Image image { get; private set; }
+    [field: NonSerialized] public DraggableItem draggableItem { get; private set; }
 
     private List<FieldHole_CottonCultivator> fieldHoles = new List<FieldHole_CottonCultivator>();
     private GameObject goodSeedContainer;
@@ -41,46 +44,43 @@ public class Seed_CottonCultivator : MonoBehaviour
     private void Start()
     {
         mainCamera = Camera.main;
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteCollider = GetComponent<Collider2D>();
+        image = GetComponent<Image>();
+        draggableItem = GetComponent<DraggableItem>();
+
+        draggableItem.OnDropped.RemoveAllListeners();
+        draggableItem.OnDropped.AddListener(OnDropped);
 
         fieldHoles = MG_CottonCultivation.instance.fieldHoles;
         goodSeedContainer = GameObject.Find("GoodSeedContainer");
         badSeedContainer = GameObject.Find("BadSeedContainer");
     }
 
-    public void OnEndDrag(Vector3 pointerPosition)
+    public void OnDropped(PointerEventData eventData, GameObject dropZoneObj)
     {
-        Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(pointerPosition);
-        mouseWorldPos.z = 0;
-        Collider2D[] collider2Ds = Physics2D.OverlapPointAll(mouseWorldPos);
-
         if (!isSorted)
         {
-            CheckSeedContainer(collider2Ds);
+            CheckSeedContainer(dropZoneObj);
         }
         else
         {
-            CheckSeedInField(collider2Ds);
+            CheckSeedInField(dropZoneObj);
         }
+
     }
 
     #region Phase1
 
-    private void CheckSeedContainer(Collider2D[] collider2Ds)
+    private void CheckSeedContainer(GameObject dropZoneObj)
     {
-        foreach (Collider2D hit in collider2Ds)
+        if (dropZoneObj == goodSeedContainer)
         {
-            if (hit.gameObject == goodSeedContainer)
-            {
-                DropSeedInContainer(true);
-                return;
-            }
-            else if (hit.gameObject == badSeedContainer)
-            {
-                DropSeedInContainer(false);
-                return;
-            }
+            DropSeedInContainer(true);
+            return;
+        }
+        else if (dropZoneObj == badSeedContainer)
+        {
+            DropSeedInContainer(false);
+            return;
         }
     }
 
@@ -91,11 +91,9 @@ public class Seed_CottonCultivator : MonoBehaviour
         Debug.Log($"Dropped a {seedType.ToString().ToLower()} seed in the {containerName} container!");
 
         Transform targetContainer = isGoodContainer ? goodSeedContainer.transform : badSeedContainer.transform;
-        transform.SetParent(targetContainer);
+        draggableItem.enabled = false; 
 
         isSorted = true;
-
-        spriteCollider.enabled = false;
 
         MG_CottonCultivation.instance.CheckUnsortedSeed(this, isGoodContainer);
     }
@@ -105,31 +103,25 @@ public class Seed_CottonCultivator : MonoBehaviour
 
     #region Phase2
 
-    private void CheckSeedInField(Collider2D[] collider2Ds)
+    private void CheckSeedInField(GameObject dropZoneObj)
     {
+        if (!fieldHoles.Any(h => h.gameObject == dropZoneObj)) return;
 
-        foreach (Collider2D hit in collider2Ds)
+        if (dropZoneObj.TryGetComponent<FieldHole_CottonCultivator>(out FieldHole_CottonCultivator currentHole))
         {
-            if (fieldHoles.Any(h => h.gameObject == hit.gameObject))
+            if (currentHole.holeState == FieldHole_CottonCultivator.HoleState.HoleCreated)
             {
-                if (hit.TryGetComponent<FieldHole_CottonCultivator>(out FieldHole_CottonCultivator currentHole))
-                {
-                    if (currentHole.holeState == FieldHole_CottonCultivator.HoleState.HoleCreated)
-                    {
-                        currentHole.SetHoleState(FieldHole_CottonCultivator.HoleState.Seeded);
-                        currentHole.seededSeed = this;
-                        spriteCollider.enabled = false;
-                        transform.SetParent(currentHole.transform);
-                        transform.localPosition = new Vector3(0, -0.15f, 0);
-                        transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
-                        spriteRenderer.sortingOrder = 11;
-                        Debug.Log($"Seed {seedType} planted in hole: {currentHole.name}");
-                    }
-                    else
-                    {
-                        Debug.LogWarning($"Cannot plant seed in hole {currentHole.name}, it is not created.");
-                    }
-                }
+                currentHole.SetHoleState(FieldHole_CottonCultivator.HoleState.Seeded);
+                currentHole.seededSeed = this;
+                transform.SetParent(currentHole.transform);
+                transform.localPosition = new Vector3(0, -15f, 0);
+                transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+                draggableItem.enabled = false;
+                Debug.Log($"Seed {seedType} planted in hole: {currentHole.name}");
+            }
+            else
+            {
+                Debug.LogWarning($"Cannot plant seed in hole {currentHole.name}, it is not created.");
             }
         }
     }
@@ -141,20 +133,22 @@ public class Seed_CottonCultivator : MonoBehaviour
         if(seedState == SeedState.Seed)
         {
             seedState = SeedState.CottonSheet;
-            spriteRenderer.sprite = cottonState1Sprite;
-            spriteRenderer.sortingOrder = 11;
-            transform.localScale = new Vector3(0.12f, 0.12f, 0.12f);
+            transform.localPosition = new Vector3(0, 45f, 0);
+            transform.localScale = Vector3.one;
+            image.sprite = cottonState1Sprite;
+            image.enabled = true;
+            image.preserveAspect = true;
         }
         else if (seedState == SeedState.CottonSheet)
         {
             seedState = SeedState.CottonFlower;
-            spriteRenderer.sprite = cottonState2Sprite;
+            image.sprite = cottonState2Sprite;
             Invoke(nameof(NextCottonState), 2f);
         }
         else if (seedState == SeedState.CottonFlower)
         {
             seedState = SeedState.CottonReady;
-            spriteRenderer.sprite = cottonState3Sprite;
+            image.sprite = cottonState3Sprite;
         }
         else
         {

@@ -27,30 +27,22 @@ public class MG_CottonCultivation : MiniGameBase
         Glove,
     }
 
-    [Header("Input References")]
-    [SerializeField] private InputActionReference clickAction;
-    [SerializeField] private InputActionReference pointerPositionAction;
-
     [Header("UI References")]
     [SerializeField] private List<Button> toolsBtn = new List<Button>();
     private Button selectedToolBtn;
 
     public MiniGameActionName miniGameActionName = new MiniGameActionName();
     private ToolsType toolType = ToolsType.None;
-    private Camera mainCamera;
 
     [field : NonSerialized] public List<FieldHole_CottonCultivator> fieldHoles { get; private set; } = new List<FieldHole_CottonCultivator>();
     private List<Seed_CottonCultivator> unsortedSeed = new List<Seed_CottonCultivator>();
     private List<Seed_CottonCultivator> goodSortedSeed = new List<Seed_CottonCultivator>();
     private List<Seed_CottonCultivator> badSortedSeed = new List<Seed_CottonCultivator>();
 
-    [field : NonSerialized] public bool isPressedOnFieldHole = false;
-
 
     void Awake() 
     {
         instance = this;
-        mainCamera = Camera.main;
 
         actionResults = new Dictionary<string, MiniGameActionResult>
         {
@@ -68,35 +60,11 @@ public class MG_CottonCultivation : MiniGameBase
         StartGame();    
     }
 
-    private void OnEnable()
-    {
-        clickAction.action.performed += OnClickCheckHoles;
-        if(toolType == ToolsType.WateringCan || toolType == ToolsType.Sunlight)
-        {
-            clickAction.action.canceled += OnCanceledClickCheckHoles;
-        }
-        clickAction.action.Enable();
-        pointerPositionAction.action.Enable();
-    }
-
-    private void OnDisable()
-    {
-        clickAction.action.performed -= OnClickCheckHoles;
-        clickAction.action.canceled -= OnCanceledClickCheckHoles;
-        clickAction.action.Disable();
-        pointerPositionAction.action.Disable();
-    }
-
     public override void StartGame()
     {
         base.StartGame();
 
         Debug.Log("Cotton Cultivation MiniGame Started");
-    }
-
-    public Vector2 GetPointerPosition()
-    {
-        return pointerPositionAction.action.ReadValue<Vector2>();
     }
 
     #region Phase1
@@ -109,14 +77,11 @@ public class MG_CottonCultivation : MiniGameBase
             return;
         }
 
-        Debug.Log($"Seed sorted: {sortedSeed.name}");
-
         (goodSeed ? goodSortedSeed : badSortedSeed).Add(sortedSeed);
         
         if (unsortedSeed.Count == 0)
         {
-            goodSortedSeed.ForEach(seed => seed.spriteCollider.enabled = true);
-            Debug.Log("All seeds have been sorted!");
+            goodSortedSeed.ForEach(seed => seed.draggableItem.enabled = true); 
         }
     }
 
@@ -125,28 +90,7 @@ public class MG_CottonCultivation : MiniGameBase
 
     #region Phase2
 
-    private void OnClickCheckHoles(InputAction.CallbackContext context)
-    {
-        Vector2 pointerPos = pointerPositionAction.action.ReadValue<Vector2>();
-        Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(pointerPos);
-        mouseWorldPos.z = 0;
-        Collider2D hit = Physics2D.OverlapPoint(mouseWorldPos);
-        if (hit != null && hit.TryGetComponent<FieldHole_CottonCultivator>(out FieldHole_CottonCultivator currentHole))
-        {
-            CheckToolTypeForHoleState(currentHole);
-
-            /*Debug.Log("Clicked on a hole field: " + currentHole.name);*/
-        }
-    }
-
-    private void OnCanceledClickCheckHoles(InputAction.CallbackContext context)
-    {
-        if (toolType != ToolsType.WateringCan && toolType != ToolsType.Sunlight) return;
-
-        isPressedOnFieldHole = false;
-    }
-
-    private void CheckToolTypeForHoleState(FieldHole_CottonCultivator currentHole)
+    public void CheckToolTypeForHole(FieldHole_CottonCultivator currentHole)
     {
         switch (toolType)
         {
@@ -192,8 +136,6 @@ public class MG_CottonCultivation : MiniGameBase
 
     private void UseWateringCan(FieldHole_CottonCultivator currentHole)
     {
-        isPressedOnFieldHole = true;
-
         if (currentHole.holeState == FieldHole_CottonCultivator.HoleState.HoleFilled)
         {
             currentHole.SetHoleState(FieldHole_CottonCultivator.HoleState.Watered);
@@ -207,8 +149,6 @@ public class MG_CottonCultivation : MiniGameBase
 
     private void UseSunlight(FieldHole_CottonCultivator currentHole)
     {
-        isPressedOnFieldHole = true;
-
         if (currentHole.holeState == FieldHole_CottonCultivator.HoleState.Watered)
         {
             currentHole.SetHoleState(FieldHole_CottonCultivator.HoleState.Sunny);
@@ -248,15 +188,6 @@ public class MG_CottonCultivation : MiniGameBase
         {
             selectedToolBtn = toolsBtn[_toolsType];
             selectedToolBtn.image.color = Color.green;
-        }
-
-        if (toolType == ToolsType.WateringCan || toolType == ToolsType.Sunlight)
-        {
-            clickAction.action.canceled += OnCanceledClickCheckHoles;
-        }
-        else
-        {
-            clickAction.action.canceled -= OnCanceledClickCheckHoles;
         }
     }
 

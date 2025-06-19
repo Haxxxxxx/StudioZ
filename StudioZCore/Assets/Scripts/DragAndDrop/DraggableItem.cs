@@ -1,20 +1,66 @@
 using System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
-public class DraggableItem : MonoBehaviour
+[RequireComponent(typeof(RectTransform))]
+public class DraggableItem : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler
 {
     [System.Serializable]
-    public class DragEvent : UnityEvent<Vector3> { }
+    public class DragEvent : UnityEvent<PointerEventData> { }
 
     public DragEvent OnDragStart;
-    public DragEvent OnDrag;   
+    public DragEvent OnDragUpdate;   
     public DragEvent OnDragEnd;
 
-    [field : NonSerialized] public bool isDragged = false;
+    [System.Serializable]
+    public class DropEvent : UnityEvent<PointerEventData, GameObject> { }
 
-    public void InvokeDragStart(Vector3 position) => OnDragStart?.Invoke(position);
-    public void InvokeDrag(Vector3 position) => OnDrag?.Invoke(position);
-    public void InvokeDragEnd(Vector3 position) => OnDragEnd?.Invoke(position);
+    public DropEvent OnDropped;
+
+    private CanvasGroup canvasGroup;
+    [field : NonSerialized] public bool isDragged = false;
+    private Vector2 offset = Vector2.zero;
+
+    private void Awake()
+    {
+        canvasGroup = GetComponent<CanvasGroup>();
+    }
+
+    private void OnEnable()
+    {
+        isDragged = false;
+        canvasGroup.blocksRaycasts = true;
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        isDragged = true;
+        canvasGroup.blocksRaycasts = false;
+        offset.x = eventData.position.x - transform.position.x;
+        offset.y = eventData.position.y - transform.position.y;
+
+        OnDragStart?.Invoke(eventData);
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        if (isDragged)
+        {
+            transform.position = eventData.position - offset;
+
+            OnDragUpdate?.Invoke(eventData);
+        }
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        if (isDragged)
+        {
+            OnDragEnd?.Invoke(eventData);
+            isDragged = false;
+            canvasGroup.blocksRaycasts = true;
+        }
+    }
 }
