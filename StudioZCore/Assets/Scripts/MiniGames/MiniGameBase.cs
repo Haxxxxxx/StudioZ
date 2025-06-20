@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public abstract class MiniGameBase : MonoBehaviour
 {
-    [SerializeField] protected float timer;
+
+    [SerializeField] protected float chrono;
+    [SerializeField] private TextMeshProUGUI chronoText;
+
     protected int currentScore = 0;
     protected Dictionary<string, MiniGameActionResult> actionResults;
     protected bool isFinished = false;
@@ -12,7 +16,7 @@ public abstract class MiniGameBase : MonoBehaviour
     public virtual void StartGame()
     {
         currentScore = 0;
-        StartCoroutine(StartTimer());
+        StartCoroutine(StartChrono());
     }
 
 
@@ -23,7 +27,8 @@ public abstract class MiniGameBase : MonoBehaviour
 
     public virtual void EndGame()
     {
-        Debug.Log("Score final : " + currentScore);
+        isFinished = true;
+        Debug.Log($"Score final : {currentScore} | Durée : {GetChronoInString()}");
     }
 
     public virtual void PerformAction(string actionName)
@@ -39,18 +44,30 @@ public abstract class MiniGameBase : MonoBehaviour
         }
     }
 
-    private IEnumerator StartTimer()
+    private IEnumerator StartChrono()
     {
+        yield return new WaitForSeconds(1);
         while (!isFinished)
         {
+            chrono += 1;
+            if (chronoText != null)
+            {
+                chronoText.text = GetChronoInString();
+            }
             yield return new WaitForSeconds(1);
-            timer += 1;
         }
     }
 
     public int GetScore()
     {
         return currentScore;
+    }
+
+    public string GetChronoInString()
+    {
+        int minutes = Mathf.FloorToInt(chrono / 60);
+        int seconds = Mathf.FloorToInt(chrono % 60);
+        return $"{minutes:D2}:{seconds:D2}";
     }
 
 }

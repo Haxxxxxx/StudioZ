@@ -27,7 +27,7 @@ public class Seed_CottonCultivator : MonoBehaviour
     public SeedType seedType;
     public SeedState seedState = SeedState.Seed;
     private Camera mainCamera;
-    [field : NonSerialized] public Image image { get; private set; }
+    [field: NonSerialized] public Image image { get; private set; }
     [field: NonSerialized] public DraggableItem draggableItem { get; private set; }
 
     private List<FieldHole_CottonCultivator> fieldHoles = new List<FieldHole_CottonCultivator>();
@@ -41,7 +41,7 @@ public class Seed_CottonCultivator : MonoBehaviour
     [SerializeField] private Sprite cottonState3Sprite;
 
 
-    private void Start()
+    private void Awake()
     {
         mainCamera = Camera.main;
         image = GetComponent<Image>();
@@ -50,9 +50,13 @@ public class Seed_CottonCultivator : MonoBehaviour
         draggableItem.OnDropped.RemoveAllListeners();
         draggableItem.OnDropped.AddListener(OnDropped);
 
-        fieldHoles = MG_CottonCultivation.instance.fieldHoles;
         goodSeedContainer = GameObject.Find("GoodSeedContainer");
         badSeedContainer = GameObject.Find("BadSeedContainer");
+    }
+
+    private void Start()
+    {
+        fieldHoles = MG_CottonCultivation.instance.fieldHoles;
     }
 
     public void OnDropped(PointerEventData eventData, GameObject dropZoneObj)
@@ -90,12 +94,12 @@ public class Seed_CottonCultivator : MonoBehaviour
 
         Debug.Log($"Dropped a {seedType.ToString().ToLower()} seed in the {containerName} container!");
 
-        Transform targetContainer = isGoodContainer ? goodSeedContainer.transform : badSeedContainer.transform;
-        draggableItem.enabled = false; 
+        GameObject targetContainer = isGoodContainer ? goodSeedContainer : badSeedContainer;
+        draggableItem.enabled = false;
 
         isSorted = true;
 
-        MG_CottonCultivation.instance.CheckUnsortedSeed(this, isGoodContainer);
+        MG_CottonCultivation.instance.UpdateUnsortedSeed(this, isGoodContainer, targetContainer);
     }
 
     #endregion
@@ -130,7 +134,7 @@ public class Seed_CottonCultivator : MonoBehaviour
     {
         if (seedType != SeedType.Healthy) return;
 
-        if(seedState == SeedState.Seed)
+        if (seedState == SeedState.Seed)
         {
             seedState = SeedState.CottonSheet;
             transform.localPosition = new Vector3(0, 45f, 0);
@@ -156,5 +160,14 @@ public class Seed_CottonCultivator : MonoBehaviour
         }
     }
 
-    #endregion
+    public int RecoltCotton()
+    {
+        if (seedType != SeedType.Healthy || seedState != SeedState.CottonReady) return 0;
+
+        Destroy(gameObject);
+
+        return 1;
+
+        #endregion
+    }
 }

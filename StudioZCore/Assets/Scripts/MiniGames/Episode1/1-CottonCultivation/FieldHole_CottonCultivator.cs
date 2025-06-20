@@ -21,6 +21,7 @@ public class FieldHole_CottonCultivator : MonoBehaviour
 
     private Image image;
     private EventTrigger eventTrigger;
+    private DropZone dropZone;
 
     public HoleState holeState = HoleState.Empty;
 
@@ -35,10 +36,11 @@ public class FieldHole_CottonCultivator : MonoBehaviour
     [SerializeField] private Sprite holeFilledSprite;
 
 
-    private void Start()
+    private void Awake()
     {
         image = GetComponent<Image>();
 
+        dropZone = GetComponent<DropZone>();
         eventTrigger = GetComponent<EventTrigger>();
         eventTrigger.triggers.Clear();
 
@@ -62,8 +64,20 @@ public class FieldHole_CottonCultivator : MonoBehaviour
         };
         entryExit.callback.AddListener((data) => { OnPointerUp((PointerEventData)data); });
         eventTrigger.triggers.Add(entryExit);
+    }
 
+    private void OnEnable()
+    {
+        eventTrigger.enabled = true;
+        dropZone.enabled = true;
+    }
 
+    private void OnDisable()
+    {
+        eventTrigger.enabled = false;
+        isPressed = false;
+        isCoroutineRunning = false;
+        dropZone.enabled = false;
     }
 
     public void OnPointerDown(PointerEventData eventData)

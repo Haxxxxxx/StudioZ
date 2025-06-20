@@ -1,11 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine.InputSystem;
 using System.Linq;
 using UnityEngine.UI;
 using System;
-using System.Collections;
+using TMPro;
 
 public class MG_CottonCultivation : MiniGameBase
 {
@@ -27,17 +25,26 @@ public class MG_CottonCultivation : MiniGameBase
         Glove,
     }
 
-    [Header("UI References")]
-    [SerializeField] private List<Button> toolsBtn = new List<Button>();
-    private Button selectedToolBtn;
-
     public MiniGameActionName miniGameActionName = new MiniGameActionName();
     private ToolsType toolType = ToolsType.None;
 
+    [Header("MiniGame Settings")]
+    [SerializeField] private int cottonToHarvest = 1;
+    private int cottonHarvested = 0;
+
+
+    [Header("UI References")]
+    [SerializeField] private List<Button> toolsBtn = new List<Button>();
+    [SerializeField] private TextMeshProUGUI cottonText;
+
+    private Button selectedToolBtn;
+
     [field : NonSerialized] public List<FieldHole_CottonCultivator> fieldHoles { get; private set; } = new List<FieldHole_CottonCultivator>();
+
     private List<Seed_CottonCultivator> unsortedSeed = new List<Seed_CottonCultivator>();
     private List<Seed_CottonCultivator> goodSortedSeed = new List<Seed_CottonCultivator>();
     private List<Seed_CottonCultivator> badSortedSeed = new List<Seed_CottonCultivator>();
+    private float minDistance;
 
 
     void Awake() 
@@ -69,7 +76,7 @@ public class MG_CottonCultivation : MiniGameBase
 
     #region Phase1
 
-    public void CheckUnsortedSeed(Seed_CottonCultivator sortedSeed, bool goodSeed)
+    public void UpdateUnsortedSeed(Seed_CottonCultivator sortedSeed, bool goodSeed, GameObject container)
     {
         if (!unsortedSeed.Remove(sortedSeed))
         {
@@ -77,12 +84,46 @@ public class MG_CottonCultivation : MiniGameBase
             return;
         }
 
+     /*   Vector2 itemSize = sortedSeed.GetComponent<RectTransform>().rect.size * sortedSeed.GetComponent<RectTransform>().lossyScale;
+        minDistance = Mathf.Max(itemSize.x, itemSize.y);
+
+        float radius = Mathf.Min(container.GetComponent<RectTransform>().rect.width, container.GetComponent<RectTransform>().rect.height) / 2f ;
+        Vector2 pos;
+        int attempts = 0;
+        const int maxAttempts = 50;
+
+        do
+        {
+            pos = UnityEngine.Random.insideUnitCircle * radius;
+            sortedSeed.GetComponent<RectTransform>().anchoredPosition = pos;
+            attempts++;
+            if (attempts > maxAttempts) break;
+        } while (IsOverlapping(pos, (goodSeed ? goodSortedSeed : badSortedSeed)));
+
+        sortedSeed.transform.SetParent(container.transform, false);
+        sortedSeed.GetComponent<RectTransform>().anchoredPosition = pos;*/
+
         (goodSeed ? goodSortedSeed : badSortedSeed).Add(sortedSeed);
-        
+
         if (unsortedSeed.Count == 0)
         {
-            goodSortedSeed.ForEach(seed => seed.draggableItem.enabled = true); 
+            GameObject seeds = GameObject.Find("Seeds");
+            goodSortedSeed.ForEach(seed =>
+            {
+                seed.draggableItem.enabled = true;
+                seed.transform.SetParent(seeds.transform);
+            });  
         }
+    }
+
+    private bool IsOverlapping(Vector2 newPos, List<Seed_CottonCultivator> items)
+    {
+        foreach (var item in items)
+        {
+            if (Vector2.Distance(item.GetComponent<RectTransform>().anchoredPosition, newPos) < minDistance)
+                return true;
+        }
+        return false;
     }
 
     #endregion
@@ -162,15 +203,26 @@ public class MG_CottonCultivation : MiniGameBase
 
     private void UseGlove(FieldHole_CottonCultivator currentHole)
     {
-        /*if (currentHole.holeState == FieldHole_CottonCultivator.HoleState.Sunny)
+        if(currentHole.seededSeed.seedState == Seed_CottonCultivator.SeedState.CottonReady)
         {
-            currentHole.SetHoleState(FieldHole_CottonCultivator.HoleState.Cotton);
+            cottonHarvested += currentHole.seededSeed.RecoltCotton();
+            currentHole.enabled = false;
             // Perform positiveAction for using glove in sunny state
+
+            if (cottonText != null)
+            {
+                cottonText.text = $"Cotton : {cottonHarvested}";
+            }
+
+            if (cottonHarvested >= cottonToHarvest)
+            {
+                EndGame();
+            }
         }
-        else if (currentHole.holeState != FieldHole_CottonCultivator.HoleState.Cotton)
+        else
         {
             // Perform negativeAction for using glove in bad state
-        }*/
+        }
     }
 
     public void BS_SetSelectedTools(int _toolsType)
