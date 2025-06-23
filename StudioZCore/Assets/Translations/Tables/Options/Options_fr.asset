@@ -26,6 +26,30 @@ MonoBehaviour:
     m_Localized: "Fran\xE7ais"
     m_Metadata:
       m_Items: []
+  - m_Id: 443899932798976
+    m_Localized: Son
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2237589072343040
+    m_Localized: Musique
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2237589114286080
+    m_Localized: Voix
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2237589114286081
+    m_Localized: Langues
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2237589114286082
+    m_Localized: "Accessibilit\xE9"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2237589114286083
+    m_Localized: "Mentions l\xE9gales"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

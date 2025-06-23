@@ -26,6 +26,10 @@ MonoBehaviour:
     m_Localized: This is the second mini game
     m_Metadata:
       m_Items: []
+  - m_Id: 402706280706048
+    m_Localized: Anddddd third minigame
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
