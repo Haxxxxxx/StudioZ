@@ -5,6 +5,7 @@ using UnityEngine;
 
 public abstract class MiniGameBase : MonoBehaviour
 {
+    [SerializeField] protected DialogueManager dialogueManager;
 
     [SerializeField] protected float chrono;
     [SerializeField] private TextMeshProUGUI chronoText;

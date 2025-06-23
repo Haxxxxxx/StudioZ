@@ -10,9 +10,11 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textComponent;
     [SerializeField] private float textSpeed;
 
-    [SerializeField] private Dialogue currentDialogue;
+    private Dialogue currentDialogue = null;
     private int index;
     private Coroutine typeLineCoroutine;
+
+    public event System.Action OnDialogueFinished;
 
     public Dialogue CurrentDialogue
     {
@@ -73,14 +75,18 @@ public class DialogueManager : MonoBehaviour
     {
         if (index < currentDialogue.Lines.Length - 1)
         {
+            //NEXT LINE
             index++;
             textComponent.text = string.Empty;
             StartCoroutine(TypeLine());
         }
         else
         {
+            //END
             textComponent.text = string.Empty;
             ToggleBubble();
+
+            OnDialogueFinished?.Invoke();
         }
     }
 
