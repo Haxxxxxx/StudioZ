@@ -64,14 +64,18 @@ public class MG_CottonCultivation : MiniGameBase
 
     private void Start()
     {
-        StartGame();    
+        if (dialogueManager != null)
+            dialogueManager.OnDialogueFinished += StartGame;
+
+        dialogueManager.CurrentDialogue = dialogueIntro;
+
+        //StartGame();    
     }
 
     public override void StartGame()
     {
-        base.StartGame();
-
         Debug.Log("Cotton Cultivation MiniGame Started");
+        base.StartGame();
     }
 
     #region Phase1
