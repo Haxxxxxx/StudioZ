@@ -84,6 +84,9 @@ public class DataLoader : MonoBehaviour
             case DataType.PlayerLevel:
                 outputString = SaveManager.Instance.playerData.level.ToString();
                 break;
+            case DataType.SelectedAvatar:
+                outputString = SaveManager.Instance.playerData.selectedAvatarName;
+                break;
         }
         bool outputBool = true;
         switch (dataType)
@@ -263,6 +266,10 @@ public class FilteredInputFieldTypeDrawer : PropertyDrawer
                 element != "PlayerLevel" &&
                 element != "SelectedAvatar" &&
                 element != "PlayerCoins");
+        }
+        else if(inputFieldType == DataLoader.OutputFieldType.Image)
+        {
+            filteredOptions.RemoveAll(element => element != "SelectedAvatar");
         }
         else
         {
