@@ -4,6 +4,8 @@ using System.Linq;
 using UnityEngine.UI;
 using System;
 using TMPro;
+using System.ComponentModel;
+using Unity.Collections;
 
 public class MG_CottonCultivation : MiniGameBase
 {
@@ -16,6 +18,7 @@ public class MG_CottonCultivation : MiniGameBase
         public string PickCorruptedSeed { get; private set; } = "pick_corrupted_seed";
 
     }
+
     public enum ToolsType
     {
         None,
@@ -25,12 +28,13 @@ public class MG_CottonCultivation : MiniGameBase
         Glove,
     }
 
-    public MiniGameActionName miniGameActionName = new MiniGameActionName();
-    private ToolsType toolType = ToolsType.None;
-
     [Header("MiniGame Settings")]
+    private ToolsType toolType = ToolsType.None;
     [SerializeField] private int cottonToHarvest = 1;
     private int cottonHarvested = 0;
+
+    public MiniGameActionName miniGameActionName = new MiniGameActionName();
+    [SerializeField] private List<MiniGameActionData> miniGameActionData = new List<MiniGameActionData>();
 
 
     [Header("UI References")]
@@ -47,19 +51,23 @@ public class MG_CottonCultivation : MiniGameBase
     private float minDistance;
 
 
-    void Awake() 
+    protected void Awake() 
     {
         instance = this;
 
-        actionResults = new Dictionary<string, MiniGameActionResult>
+        foreach(var actionData in miniGameActionData)
+        {
+            actionResults.Add(actionData.actionName, new MiniGameActionResult(actionData.pointValue));
+        }
+
+        /*actionResults = new Dictionary<string, MiniGameActionResult>
         {
             { miniGameActionName.PickHealthySeed, new MiniGameActionResult(1) },
             { miniGameActionName.PickCorruptedSeed, new MiniGameActionResult(-1) }
-        };
+        };*/
 
         fieldHoles = FindObjectsByType<FieldHole_CottonCultivator>(FindObjectsSortMode.None).ToList<FieldHole_CottonCultivator>();
         unsortedSeed = FindObjectsByType<Seed_CottonCultivator>(FindObjectsSortMode.None).ToList<Seed_CottonCultivator>();
-
     }
 
     private void Start()
