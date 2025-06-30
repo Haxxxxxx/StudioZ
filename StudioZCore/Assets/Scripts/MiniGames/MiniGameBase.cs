@@ -5,6 +5,23 @@ using UnityEngine;
 
 public abstract class MiniGameBase : MonoBehaviour
 {
+
+    [System.Serializable]
+    public class MiniGameActionData
+    {
+        public string actionName;
+        public int pointValue;
+        public Dialogue actionDialogue;
+
+        public MiniGameActionData(string actionName, int pointValue = 1, Dialogue actionDialogue = null)
+        {
+            this.actionName = actionName;
+            this.pointValue = pointValue;
+            this.actionDialogue = actionDialogue;
+        }
+    }
+
+    [Header("Default Settings")]
     [SerializeField] protected DialogueManager dialogueManager;
 
     [SerializeField] protected float chrono;
