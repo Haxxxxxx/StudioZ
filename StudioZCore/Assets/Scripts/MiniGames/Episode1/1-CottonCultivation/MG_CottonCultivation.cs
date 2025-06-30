@@ -7,6 +7,9 @@ using TMPro;
 
 public class MG_CottonCultivation : MiniGameBase
 {
+
+    #region Variables
+
     public static MG_CottonCultivation instance { get; private set; }
 
     [System.Serializable]
@@ -16,6 +19,7 @@ public class MG_CottonCultivation : MiniGameBase
         public string PickCorruptedSeed { get; private set; } = "pick_corrupted_seed";
 
     }
+
     public enum ToolsType
     {
         None,
@@ -25,12 +29,13 @@ public class MG_CottonCultivation : MiniGameBase
         Glove,
     }
 
-    public MiniGameActionName miniGameActionName = new MiniGameActionName();
-    private ToolsType toolType = ToolsType.None;
-
     [Header("MiniGame Settings")]
+    private ToolsType toolType = ToolsType.None;
     [SerializeField] private int cottonToHarvest = 1;
     private int cottonHarvested = 0;
+
+    public MiniGameActionName miniGameActionName = new MiniGameActionName();
+    [SerializeField] private List<MiniGameActionData> miniGameActionData = new List<MiniGameActionData>();
 
 
     [Header("UI References")]
@@ -46,32 +51,36 @@ public class MG_CottonCultivation : MiniGameBase
     private List<Seed_CottonCultivator> badSortedSeed = new List<Seed_CottonCultivator>();
     private float minDistance;
 
+    #endregion
 
-    void Awake() 
+
+    protected void Awake() 
     {
         instance = this;
 
-        actionResults = new Dictionary<string, MiniGameActionResult>
+        foreach(var actionData in miniGameActionData)
         {
-            { miniGameActionName.PickHealthySeed, new MiniGameActionResult(1) },
-            { miniGameActionName.PickCorruptedSeed, new MiniGameActionResult(-1) }
-        };
+            actionResults.Add(actionData.actionName, new MiniGameActionResult(actionData.pointValue, actionData.actionDialogue));
+        }
 
         fieldHoles = FindObjectsByType<FieldHole_CottonCultivator>(FindObjectsSortMode.None).ToList<FieldHole_CottonCultivator>();
         unsortedSeed = FindObjectsByType<Seed_CottonCultivator>(FindObjectsSortMode.None).ToList<Seed_CottonCultivator>();
-
     }
 
     private void Start()
     {
-        StartGame();    
+        if (dialogueManager != null)
+            dialogueManager.OnDialogueFinished += StartGame;
+
+        dialogueManager.CurrentDialogue = dialogueIntro;
+
+        //StartGame();    
     }
 
     public override void StartGame()
     {
-        base.StartGame();
-
         Debug.Log("Cotton Cultivation MiniGame Started");
+        base.StartGame();
     }
 
     #region Phase1
