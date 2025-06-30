@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: E1_MG2_fr
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: fr
+  m_SharedData: {fileID: 11400000, guid: a2001e612c441464a94d22ecd5705f50, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 286832685056
+    m_Localized: "Je pense que nous sommes arriv\xE9s \xE0 la 2\xE9me \xE9tape de
+      fabrication, il faudrait trouver un moyen de tirer le rideau, tu vois quelque
+      chose toi ?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 356047089664
+    m_Localized: "WOOOOOAHHHH toutes ses couleurs, c\u2019est magnifique !!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 470270570496
+    m_Localized: "Cherche bien lyra, il doit y avoir quelque chose \xE0 activer pour
+      tirer ce rideau, heureusement qu\u2019il y a un peu de soleil pour qu'on y
+      voit quelque chose."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 535282282496
+    m_Localized: "Je me souviens de cet endroit, on me disait que j\u2019\xE9tais
+      fait d\u2019un coton de bonnes qualit\xE9s"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 573328814080
+    m_Localized: "Je me demande a quoi servent toutes ces bobines et cette \xE9trange
+      machine, tu as une id\xE9e Pik ?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 995741364224
+    m_Localized: "Je vais tout t\u2019expliquer mais avant \xE7a j'ai besoin d\u2019un
+      petit bain de douceur ! "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1051672408064
+    m_Localized: "Comme tu peux le voir nous sommes \xE0 la deuxi\xE8me \xE9tapes
+      de production d\u2019habits, ici l\u2019objectif est de trier et de transformer
+      tous les cotons douillets que nous avons r\xE9colt\xE9 en bobines de fils pr\xEAtes
+      \xE0 \xEAtre tisser, c'est \xE0 cette \xE9tapes que nous devenons des araign\xE9es
+      et que la magie op\xE8re ! "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1128684023808
+    m_Localized: "Mais comment on peut r\xE9ussir \xE0 transformer ses boules de
+      coton en fils aussi fins, c\u2019est de la sorcellerie !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1185432956928
+    m_Localized: "Si tu savais lyra\u2026."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1232551768064
+    m_Localized: "Ne t'inqui\xE8te pas je vais tout t\u2019expliquer,a ce stade la
+      le coton est encore brut donc dans un premier temps on va devoir le trier avant
+      de le filer."
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []
