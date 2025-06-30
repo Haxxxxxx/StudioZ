@@ -73,6 +73,7 @@ public class MG_CottonCultivation : MiniGameBase
             dialogueManager.OnDialogueFinished += StartGame;
 
         dialogueManager.CurrentDialogue = dialogueIntro;
+        Debug.Log("Lance Dialogue");
 
         //StartGame();    
     }
