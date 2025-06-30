@@ -4,11 +4,12 @@ using System.Linq;
 using UnityEngine.UI;
 using System;
 using TMPro;
-using System.ComponentModel;
-using Unity.Collections;
 
 public class MG_CottonCultivation : MiniGameBase
 {
+
+    #region Variables
+
     public static MG_CottonCultivation instance { get; private set; }
 
     [System.Serializable]
@@ -50,6 +51,8 @@ public class MG_CottonCultivation : MiniGameBase
     private List<Seed_CottonCultivator> badSortedSeed = new List<Seed_CottonCultivator>();
     private float minDistance;
 
+    #endregion
+
 
     protected void Awake() 
     {
@@ -57,14 +60,8 @@ public class MG_CottonCultivation : MiniGameBase
 
         foreach(var actionData in miniGameActionData)
         {
-            actionResults.Add(actionData.actionName, new MiniGameActionResult(actionData.pointValue));
+            actionResults.Add(actionData.actionName, new MiniGameActionResult(actionData.pointValue, actionData.actionDialogue));
         }
-
-        /*actionResults = new Dictionary<string, MiniGameActionResult>
-        {
-            { miniGameActionName.PickHealthySeed, new MiniGameActionResult(1) },
-            { miniGameActionName.PickCorruptedSeed, new MiniGameActionResult(-1) }
-        };*/
 
         fieldHoles = FindObjectsByType<FieldHole_CottonCultivator>(FindObjectsSortMode.None).ToList<FieldHole_CottonCultivator>();
         unsortedSeed = FindObjectsByType<Seed_CottonCultivator>(FindObjectsSortMode.None).ToList<Seed_CottonCultivator>();
