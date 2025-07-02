@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5be51871efa6c3e4eae1703925c8f5ac, type: 3}
-  m_Name: Dialogues
+  m_Name: E1_MG2
   m_EditorClassIdentifier: 
-  m_SharedTableData: {fileID: 11400000, guid: 97d5d470cdf627843badd88f4a5893fb, type: 2}
+  m_SharedTableData: {fileID: 11400000, guid: a2001e612c441464a94d22ecd5705f50, type: 2}
   m_Tables:
-  - {fileID: 11400000, guid: 10ac5065d144ec4439f5f93c720f8e02, type: 2}
-  - {fileID: 11400000, guid: 741a2b1cf436d5e488bb6bf1f2f57f88, type: 2}
+  - {fileID: 11400000, guid: 7d7bb69b2ca312d4bb14152d200a2d1e, type: 2}
+  - {fileID: 11400000, guid: 24b413ed3f13f644b8acec41334a411f, type: 2}
   m_Extensions: []
   m_Group: String Table
   references:
