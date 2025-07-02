@@ -13,7 +13,7 @@ public abstract class MiniGameBase : MonoBehaviour
     [System.Serializable]
     public class MiniGameActionData
     {
-        public string actionName;
+        [ReadOnly] public string actionName;
         public int pointValue;
         public Dialogue actionDialogue;
 
@@ -36,7 +36,7 @@ public abstract class MiniGameBase : MonoBehaviour
     protected bool isFinished = false;
     protected int currentScore = 0;
 
-    [SerializeField] protected List<MiniGameActionData> miniGameActionData = new List<MiniGameActionData>();
+    [SerializeField][NonReorderable] protected List<MiniGameActionData> miniGameActionData = new List<MiniGameActionData>();
     protected Dictionary<string, MiniGameActionResult> actionResults = new Dictionary<string, MiniGameActionResult>();
     protected int actionCount = 0;
 
