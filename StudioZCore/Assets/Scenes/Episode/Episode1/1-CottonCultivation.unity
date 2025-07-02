@@ -1715,9 +1715,6 @@ MonoBehaviour:
   dialogueManager: {fileID: 549537208}
   chrono: 0
   chronoText: {fileID: 1073241736}
-  dialogueIntro: {fileID: 11400000, guid: 31e8d2b0b4227784b8ab75f5b14f8078, type: 2}
-  dialogueOutro: {fileID: 11400000, guid: 49e2ca51fe1c95b448e054af1cc5a924, type: 2}
-  cottonToHarvest: 1
   miniGameActionData:
   - actionName: pick_healthy_seed
     pointValue: 1
@@ -1725,6 +1722,15 @@ MonoBehaviour:
   - actionName: pick_corrupted_seed
     pointValue: -1
     actionDialogue: {fileID: 0}
+  - actionName: throw_healthy_seed
+    pointValue: -1
+    actionDialogue: {fileID: 0}
+  - actionName: throw_corrupted_seed
+    pointValue: 1
+    actionDialogue: {fileID: 0}
+  dialogueIntro: {fileID: 11400000, guid: 31e8d2b0b4227784b8ab75f5b14f8078, type: 2}
+  dialogueOutro: {fileID: 11400000, guid: 49e2ca51fe1c95b448e054af1cc5a924, type: 2}
+  cottonToHarvest: 1
   toolsBtn:
   - {fileID: 556063265}
   - {fileID: 695126663}

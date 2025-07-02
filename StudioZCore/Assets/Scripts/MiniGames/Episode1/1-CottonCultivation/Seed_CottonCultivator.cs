@@ -9,6 +9,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(DraggableItem))]
 public class Seed_CottonCultivator : MonoBehaviour
 {
+
     public enum SeedType
     {
         Healthy,
@@ -26,6 +27,7 @@ public class Seed_CottonCultivator : MonoBehaviour
 
     public SeedType seedType;
     public SeedState seedState = SeedState.Seed;
+    private MG_CottonCultivation mgCottonCultivation;
     private Camera mainCamera;
     [field: NonSerialized] public Image image { get; private set; }
     [field: NonSerialized] public DraggableItem draggableItem { get; private set; }
@@ -56,7 +58,8 @@ public class Seed_CottonCultivator : MonoBehaviour
 
     private void Start()
     {
-        fieldHoles = MG_CottonCultivation.instance.fieldHoles;
+        mgCottonCultivation = MG_CottonCultivation.instance;
+        fieldHoles = mgCottonCultivation.fieldHoles;
     }
 
     public void OnDropped(PointerEventData eventData, GameObject dropZoneObj)
@@ -90,14 +93,21 @@ public class Seed_CottonCultivator : MonoBehaviour
 
     private void DropSeedInContainer(bool isGoodContainer)
     {
-        string containerName = isGoodContainer ? goodSeedContainer.name : badSeedContainer.name;
-
-        Debug.Log($"Dropped a {seedType.ToString().ToLower()} seed in the {containerName} container!");
-
         GameObject targetContainer = isGoodContainer ? goodSeedContainer : badSeedContainer;
         draggableItem.enabled = false;
 
         isSorted = true;
+
+        if(seedType == SeedType.Healthy)
+        {
+            string actionName = (isGoodContainer ? mgCottonCultivation.miniGameActionName.PickHealthySeed : mgCottonCultivation.miniGameActionName.ThrowHealthySeed);
+            mgCottonCultivation.PerformAction(actionName);
+        }
+        else if (seedType == SeedType.Corrupted)
+        {
+            string actionName = (isGoodContainer ? mgCottonCultivation.miniGameActionName.PickCorruptedSeed : mgCottonCultivation.miniGameActionName.ThrowCorruptedSeed);
+            mgCottonCultivation.PerformAction(actionName);
+        }
 
         MG_CottonCultivation.instance.UpdateUnsortedSeed(this, isGoodContainer, targetContainer);
     }

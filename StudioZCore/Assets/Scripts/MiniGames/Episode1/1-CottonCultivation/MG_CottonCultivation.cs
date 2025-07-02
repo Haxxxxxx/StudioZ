@@ -13,10 +13,12 @@ public class MG_CottonCultivation : MiniGameBase
     public static MG_CottonCultivation instance { get; private set; }
 
     [System.Serializable]
-    public class MiniGameActionName
+    public class CottonCultivationActionName : MiniGameActionName
     {
         public string PickHealthySeed { get; private set; } = "pick_healthy_seed";
         public string PickCorruptedSeed { get; private set; } = "pick_corrupted_seed";
+        public string ThrowHealthySeed { get; private set; } = "throw_healthy_seed";
+        public string ThrowCorruptedSeed { get; private set; } = "throw_corrupted_seed";
 
     }
 
@@ -33,11 +35,8 @@ public class MG_CottonCultivation : MiniGameBase
     private ToolsType toolType = ToolsType.None;
     [SerializeField] private int cottonToHarvest = 1;
     private int cottonHarvested = 0;
-
-    public MiniGameActionName miniGameActionName = new MiniGameActionName();
-    [SerializeField] private List<MiniGameActionData> miniGameActionData = new List<MiniGameActionData>();
-
-
+    public CottonCultivationActionName miniGameActionName = new CottonCultivationActionName();
+  
     [Header("UI References")]
     [SerializeField] private List<Button> toolsBtn = new List<Button>();
     [SerializeField] private TextMeshProUGUI cottonText;
@@ -54,27 +53,14 @@ public class MG_CottonCultivation : MiniGameBase
     #endregion
 
 
-    protected void Awake() 
+    protected override void Awake() 
     {
         instance = this;
 
-        foreach(var actionData in miniGameActionData)
-        {
-            actionResults.Add(actionData.actionName, new MiniGameActionResult(actionData.pointValue, actionData.actionDialogue));
-        }
+        base.Awake();
 
         fieldHoles = FindObjectsByType<FieldHole_CottonCultivator>(FindObjectsSortMode.None).ToList<FieldHole_CottonCultivator>();
         unsortedSeed = FindObjectsByType<Seed_CottonCultivator>(FindObjectsSortMode.None).ToList<Seed_CottonCultivator>();
-    }
-
-    private void Start()
-    {
-        if (dialogueManager != null)
-            dialogueManager.OnDialogueFinished += StartGame;
-
-        dialogueManager.CurrentDialogue = dialogueIntro;
-
-        //StartGame();    
     }
 
     public override void StartGame()
