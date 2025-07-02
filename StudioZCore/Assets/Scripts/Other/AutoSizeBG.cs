@@ -15,7 +15,6 @@ public class AutoSizeBG : MonoBehaviour
 
         float screenRatio = (float)Screen.width / Screen.height;
         float refRatio = sprite.rect.width / sprite.rect.height;
-        Debug.Log($"width: {sprite.rect.width}, Height {sprite.rect.height}");
 
         if (screenRatio > refRatio)
         {
