@@ -63,16 +63,6 @@ public class MG_CottonCultivation : MiniGameBase
         unsortedSeed = FindObjectsByType<Seed_CottonCultivator>(FindObjectsSortMode.None).ToList<Seed_CottonCultivator>();
     }
 
-    private void Start()
-    {
-        if (dialogueManager != null)
-            dialogueManager.OnDialogueFinished += StartGame;
-
-        dialogueManager.CurrentDialogue = dialogueIntro;
-
-        //StartGame();    
-    }
-
     public override void StartGame()
     {
         Debug.Log("Cotton Cultivation MiniGame Started");

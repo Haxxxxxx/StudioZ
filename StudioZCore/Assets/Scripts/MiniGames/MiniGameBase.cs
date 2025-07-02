@@ -4,8 +4,6 @@ using System.Linq;
 using System.Reflection;
 using TMPro;
 using UnityEngine;
-using static MG_CottonCultivation;
-using static MiniGameBase;
 
 public abstract class MiniGameBase : MonoBehaviour
 {
@@ -50,6 +48,15 @@ public abstract class MiniGameBase : MonoBehaviour
         foreach (var actionData in miniGameActionData)
         {
             actionResults.Add(actionData.actionName, new MiniGameActionResult(actionData.pointValue, actionData.actionDialogue));
+        }
+    }
+
+    protected virtual void Start()
+    {
+        if (dialogueManager == null)
+        {
+            dialogueManager.OnDialogueFinished += StartGame;
+            dialogueManager.CurrentDialogue = dialogueIntro;
         }
     }
 
