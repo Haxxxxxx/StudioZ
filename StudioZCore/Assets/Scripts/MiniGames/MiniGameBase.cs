@@ -29,8 +29,9 @@ public abstract class MiniGameBase : MonoBehaviour
 
     [Header("Default Settings")]
     [SerializeField] protected DialogueManager dialogueManager;
+    [SerializeField] protected GameResultHandler gameResultHandler;
 
-    [SerializeField] protected float chrono;
+    [SerializeField] protected float chrono = 0;
     [SerializeField] private TextMeshProUGUI chronoText;
 
     protected bool isFinished = false;
@@ -53,7 +54,7 @@ public abstract class MiniGameBase : MonoBehaviour
 
     protected virtual void Start()
     {
-        if (dialogueManager == null)
+        if (dialogueManager != null)
         {
             dialogueManager.OnDialogueFinished += StartGame;
             dialogueManager.CurrentDialogue = dialogueIntro;
@@ -113,8 +114,7 @@ public abstract class MiniGameBase : MonoBehaviour
     public virtual void EndGame()
     {
         isFinished = true;
-        CalculateStars();
-        Debug.Log($"Score final : {currentScore} | Durée : {GetChronoInString()}");
+        gameResultHandler.ShowGameResult(CalculateStars(), GetChronoInString());
     }
 
     public virtual void PerformAction(string actionName)

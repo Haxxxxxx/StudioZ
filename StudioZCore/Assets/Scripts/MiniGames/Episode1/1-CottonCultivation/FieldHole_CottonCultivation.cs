@@ -3,11 +3,12 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static MiniGameBase;
 
 [RequireComponent(typeof(Image))]
 [RequireComponent(typeof(EventTrigger))]
 [RequireComponent(typeof(DropZone))]
-public class FieldHole_CottonCultivator : MonoBehaviour
+public class FieldHole_CottonCultivation : MonoBehaviour
 {
     public enum HoleState
     {
@@ -18,6 +19,8 @@ public class FieldHole_CottonCultivator : MonoBehaviour
         Watered,
         Sunny,
     }
+
+    private MG_CottonCultivation mgCottonCultivation;
 
     private Image image;
     private EventTrigger eventTrigger;
@@ -32,7 +35,7 @@ public class FieldHole_CottonCultivator : MonoBehaviour
 
     [Header("Sprites")]
     [SerializeField] private Sprite holeCreatedSprite;
-    [field: NonSerialized] public Seed_CottonCultivator seededSeed;
+    [field: NonSerialized] public Seed_CottonCultivation seededSeed;
     [SerializeField] private Sprite holeFilledSprite;
 
 
@@ -66,6 +69,11 @@ public class FieldHole_CottonCultivator : MonoBehaviour
         eventTrigger.triggers.Add(entryExit);
     }
 
+    private void Start()
+    {
+        mgCottonCultivation = MG_CottonCultivation.instance;
+    }
+
     private void OnEnable()
     {
         eventTrigger.enabled = true;
@@ -83,7 +91,7 @@ public class FieldHole_CottonCultivator : MonoBehaviour
     public void OnPointerDown(PointerEventData eventData)
     {
         isPressed = true;
-        MG_CottonCultivation.instance.CheckToolTypeForHole(this);
+        mgCottonCultivation.CheckToolTypeForHole(this);
     }
 
     public void OnPointerUp(PointerEventData eventData)
@@ -160,10 +168,12 @@ public class FieldHole_CottonCultivator : MonoBehaviour
         if (newState == HoleState.Watered)
         {
             wateringTime = 0;
+            mgCottonCultivation.PerformAction(mgCottonCultivation.miniGameActionName.UseWateringCan);
         }
         else
         {
             sunshineTime = 0;
+            mgCottonCultivation.PerformAction(mgCottonCultivation.miniGameActionName.UseSunlight);
         }
 
         SetHoleState(newState);
