@@ -19,7 +19,11 @@ public class MG_CottonCultivation : MiniGameBase
         public string PickCorruptedSeed { get; private set; } = "pick_corrupted_seed";
         public string ThrowHealthySeed { get; private set; } = "throw_healthy_seed";
         public string ThrowCorruptedSeed { get; private set; } = "throw_corrupted_seed";
-
+        public string UseShovel { get; private set; } = "use_shovel";
+        public string UseShovelIncorrectly { get; private set; } = "use_shovel_incorrectly";
+        public string UseWateringCan { get; private set; } = "use_watering_can";
+        public string UseSunlight { get; private set; } = "use_sunlight";
+        public string UseGlove { get; private set; } = "use_glove";
     }
 
     public enum ToolsType
@@ -43,11 +47,11 @@ public class MG_CottonCultivation : MiniGameBase
 
     private Button selectedToolBtn;
 
-    [field : NonSerialized] public List<FieldHole_CottonCultivator> fieldHoles { get; private set; } = new List<FieldHole_CottonCultivator>();
+    [field : NonSerialized] public List<FieldHole_CottonCultivation> fieldHoles { get; private set; } = new List<FieldHole_CottonCultivation>();
 
-    private List<Seed_CottonCultivator> unsortedSeed = new List<Seed_CottonCultivator>();
-    private List<Seed_CottonCultivator> goodSortedSeed = new List<Seed_CottonCultivator>();
-    private List<Seed_CottonCultivator> badSortedSeed = new List<Seed_CottonCultivator>();
+    private List<Seed_CottonCultivation> unsortedSeed = new List<Seed_CottonCultivation>();
+    private List<Seed_CottonCultivation> goodSortedSeed = new List<Seed_CottonCultivation>();
+    private List<Seed_CottonCultivation> badSortedSeed = new List<Seed_CottonCultivation>();
     private float minDistance;
 
     #endregion
@@ -59,8 +63,8 @@ public class MG_CottonCultivation : MiniGameBase
 
         base.Awake();
 
-        fieldHoles = FindObjectsByType<FieldHole_CottonCultivator>(FindObjectsSortMode.None).ToList<FieldHole_CottonCultivator>();
-        unsortedSeed = FindObjectsByType<Seed_CottonCultivator>(FindObjectsSortMode.None).ToList<Seed_CottonCultivator>();
+        fieldHoles = FindObjectsByType<FieldHole_CottonCultivation>(FindObjectsSortMode.None).ToList<FieldHole_CottonCultivation>();
+        unsortedSeed = FindObjectsByType<Seed_CottonCultivation>(FindObjectsSortMode.None).ToList<Seed_CottonCultivation>();
     }
 
 
@@ -72,7 +76,7 @@ public class MG_CottonCultivation : MiniGameBase
 
     #region Phase1
 
-    public void UpdateUnsortedSeed(Seed_CottonCultivator sortedSeed, bool goodSeed, GameObject container)
+    public void UpdateUnsortedSeed(Seed_CottonCultivation sortedSeed, bool goodSeed, GameObject container)
     {
         if (!unsortedSeed.Remove(sortedSeed))
         {
@@ -112,7 +116,7 @@ public class MG_CottonCultivation : MiniGameBase
         }
     }
 
-    private bool IsOverlapping(Vector2 newPos, List<Seed_CottonCultivator> items)
+    private bool IsOverlapping(Vector2 newPos, List<Seed_CottonCultivation> items)
     {
         foreach (var item in items)
         {
@@ -127,7 +131,7 @@ public class MG_CottonCultivation : MiniGameBase
 
     #region Phase2
 
-    public void CheckToolTypeForHole(FieldHole_CottonCultivator currentHole)
+    public void CheckToolTypeForHole(FieldHole_CottonCultivation currentHole)
     {
         switch (toolType)
         {
@@ -153,57 +157,55 @@ public class MG_CottonCultivation : MiniGameBase
 
     #region Tools 
 
-    private void UseShovel(FieldHole_CottonCultivator currentHole)
+    private void UseShovel(FieldHole_CottonCultivation currentHole)
     {
-        if (currentHole.holeState == FieldHole_CottonCultivator.HoleState.Empty)
+        if (currentHole.holeState == FieldHole_CottonCultivation.HoleState.Empty)
         {
-            currentHole.SetHoleState(FieldHole_CottonCultivator.HoleState.HoleCreated);
-            // Perform positiveAction for using shovel in empty state
+            currentHole.SetHoleState(FieldHole_CottonCultivation.HoleState.HoleCreated);
+            PerformAction(miniGameActionName.UseShovel);
         }
-        else if(currentHole.holeState == FieldHole_CottonCultivator.HoleState.Seeded)
+        else if(currentHole.holeState == FieldHole_CottonCultivation.HoleState.Seeded)
         {
-            currentHole.SetHoleState(FieldHole_CottonCultivator.HoleState.HoleFilled);
-            // Perform positiveAction for using shovel in seeded state
+            currentHole.SetHoleState(FieldHole_CottonCultivation.HoleState.HoleFilled);
+            PerformAction(miniGameActionName.UseShovel);
         }
-        else if(currentHole.holeState != FieldHole_CottonCultivator.HoleState.HoleCreated && currentHole.holeState != FieldHole_CottonCultivator.HoleState.HoleFilled)
+        else if(currentHole.holeState != FieldHole_CottonCultivation.HoleState.HoleCreated && currentHole.holeState != FieldHole_CottonCultivation.HoleState.HoleFilled)
         {
-            // ? Perform negativeAction for using shovel in bad state
+            PerformAction(miniGameActionName.UseShovelIncorrectly);
         }
     }
 
-    private void UseWateringCan(FieldHole_CottonCultivator currentHole)
+    private void UseWateringCan(FieldHole_CottonCultivation currentHole)
     {
-        if (currentHole.holeState == FieldHole_CottonCultivator.HoleState.HoleFilled)
+        if (currentHole.holeState == FieldHole_CottonCultivation.HoleState.HoleFilled)
         {
-            currentHole.SetHoleState(FieldHole_CottonCultivator.HoleState.Watered);
-            // Perform positiveAction for using watering can in hole created state
+            currentHole.SetHoleState(FieldHole_CottonCultivation.HoleState.Watered);
         }
-        else if(currentHole.holeState != FieldHole_CottonCultivator.HoleState.Watered)
+        else if(currentHole.holeState != FieldHole_CottonCultivation.HoleState.Watered)
         {
-            // Perform negativeAction for using watering can in bad state
+            //? Perform negativeAction for using watering can in bad state
         }
     }
 
-    private void UseSunlight(FieldHole_CottonCultivator currentHole)
+    private void UseSunlight(FieldHole_CottonCultivation currentHole)
     {
-        if (currentHole.holeState == FieldHole_CottonCultivator.HoleState.Watered)
+        if (currentHole.holeState == FieldHole_CottonCultivation.HoleState.Watered)
         {
-            currentHole.SetHoleState(FieldHole_CottonCultivator.HoleState.Sunny);
-            // Perform positiveAction for using sunlight in watered state
+            currentHole.SetHoleState(FieldHole_CottonCultivation.HoleState.Sunny);
         }
-        else if (currentHole.holeState != FieldHole_CottonCultivator.HoleState.Sunny)
+        else if (currentHole.holeState != FieldHole_CottonCultivation.HoleState.Sunny)
         {
-            // Perform negativeAction for using sunlight in bad state
+            //? Perform negativeAction for using sunlight in bad state
         }
     }
 
-    private void UseGlove(FieldHole_CottonCultivator currentHole)
+    private void UseGlove(FieldHole_CottonCultivation currentHole)
     {
-        if(currentHole.seededSeed.seedState == Seed_CottonCultivator.SeedState.CottonReady)
+        if(currentHole.seededSeed.seedState == Seed_CottonCultivation.SeedState.CottonReady)
         {
             cottonHarvested += currentHole.seededSeed.RecoltCotton();
             currentHole.enabled = false;
-            // Perform positiveAction for using glove in sunny state
+            PerformAction(miniGameActionName.UseGlove);
 
             if (cottonText != null)
             {
@@ -217,7 +219,7 @@ public class MG_CottonCultivation : MiniGameBase
         }
         else
         {
-            // Perform negativeAction for using glove in bad state
+            //? Perform negativeAction for using glove in bad state
         }
     }
 
