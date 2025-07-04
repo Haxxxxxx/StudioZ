@@ -53,10 +53,14 @@ public abstract class MiniGameBase : MonoBehaviour
 
     protected virtual void Start()
     {
-        if (dialogueManager == null)
+        if (dialogueManager != null && dialogueIntro != null)
         {
             dialogueManager.OnDialogueFinished += StartGame;
             dialogueManager.CurrentDialogue = dialogueIntro;
+        }
+        else
+        {
+            StartGame();
         }
     }
 

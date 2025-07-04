@@ -19,12 +19,12 @@ MonoBehaviour:
     m_Key: E1_MG2_intro1
     m_Metadata:
       m_Items: []
-  - m_Id: 356047089664
-    m_Key: E1_MG2_intro2_opt1
+  - m_Id: 470270570496
+    m_Key: E1_MG2_hintCurtain
     m_Metadata:
       m_Items: []
-  - m_Id: 470270570496
-    m_Key: E1_MG2_intro2_opt2
+  - m_Id: 356047089664
+    m_Key: E1_MG2_intro2
     m_Metadata:
       m_Items: []
   - m_Id: 535282282496

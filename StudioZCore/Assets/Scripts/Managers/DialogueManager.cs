@@ -8,6 +8,9 @@ public class DialogueManager : MonoBehaviour
 {
     [SerializeField] private GameObject bubble;
     [SerializeField] private TextMeshProUGUI textComponent;
+
+    private TextMeshProUGUI nameTextComponent;
+
     [SerializeField] private float textSpeed;
 
     private Dialogue currentDialogue = null;
@@ -29,10 +32,12 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    //void Start()
-    //{
-    //    StartDialogue();
-    //}
+    void Start()
+    {
+        GameObject nameBubble = bubble.transform.Find("SpeakerNameBubble/SpeakerName").gameObject;
+
+        if (nameBubble != null) nameTextComponent = nameBubble.GetComponent<TextMeshProUGUI>();
+    }
 
     public void StartDialogue()
     {
@@ -54,8 +59,14 @@ public class DialogueManager : MonoBehaviour
         if (line.text == null)
             yield break;
 
-        var stringOp = currentDialogue.Lines[index].text.GetLocalizedStringAsync();
+        var stringOp = line.text.GetLocalizedStringAsync();
         yield return stringOp;
+
+        if (nameTextComponent && (nameTextComponent.text != line.character.ToString()))
+        {
+            nameTextComponent.text = line.character.ToString();
+            Debug.Log("nameTextComponent update name");
+        }
 
         string localizedLine = stringOp.Result;
         foreach (char c in localizedLine.ToCharArray())
@@ -78,7 +89,8 @@ public class DialogueManager : MonoBehaviour
             //NEXT LINE
             index++;
             textComponent.text = string.Empty;
-            StartCoroutine(TypeLine());
+            if (typeLineCoroutine != null) StopCoroutine(typeLineCoroutine);
+            typeLineCoroutine = StartCoroutine(TypeLine());
         }
         else
         {
