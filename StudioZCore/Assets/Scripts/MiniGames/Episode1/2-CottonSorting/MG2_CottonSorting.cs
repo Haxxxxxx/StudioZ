@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using static MG_CottonCultivation;
 
 public class MG2_CottonSorting : MiniGameBase
@@ -19,16 +20,32 @@ public class MG2_CottonSorting : MiniGameBase
     private bool hadFirstCongrats = false;
     private bool hadFirstCritic = false;
 
+    [Header("Dialogues")]
     private Dialogue firstErrorDialogue;
     private Dialogue secondErrorDialogue;
     private Dialogue firstCongratsDialogue;
     private Dialogue firstCriticDialogue;
 
+    [Header("UI References")]
+    [SerializeField] private Animation curtainsLayout;
+    [SerializeField] private Animation rope;
+    [SerializeField] private Animation shadowOpacity;
+    [SerializeField] private Image dontClickBackground;
     #endregion
 
     public override void StartGame()
     {
         Debug.Log("Cotton Sorting MiniGame Started");
         base.StartGame();
+
+        // Here desactivating the protection on in the intro dialogue
+        if (dontClickBackground) dontClickBackground.raycastTarget = false;
+    }
+
+    public void BS_ClickOnRope()
+    {
+        if (curtainsLayout) curtainsLayout.Play();
+        if (rope) rope.Play();
+        if (shadowOpacity) shadowOpacity.Play();
     }
 }

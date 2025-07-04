@@ -65,7 +65,7 @@ public class DialogueManager : MonoBehaviour
         if (nameTextComponent && (nameTextComponent.text != line.character.ToString()))
         {
             nameTextComponent.text = line.character.ToString();
-            Debug.Log("nameTextComponent update name");
+            //Debug.Log("nameTextComponent update name");
         }
 
         string localizedLine = stringOp.Result;
