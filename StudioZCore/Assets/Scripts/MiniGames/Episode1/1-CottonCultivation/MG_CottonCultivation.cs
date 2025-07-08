@@ -12,7 +12,6 @@ public class MG_CottonCultivation : MiniGameBase
 
     public static MG_CottonCultivation instance { get; private set; }
 
-    [System.Serializable]
     public class CottonCultivationActionName : MiniGameActionName
     {
         public string PickHealthySeed { get; private set; } = "pick_healthy_seed";
