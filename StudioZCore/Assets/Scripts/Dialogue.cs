@@ -14,7 +14,8 @@ public enum CHARACTER // TODO : A changer !
     VOIXOFF,
     LYRA,
     PIK,
-    PROFANE
+    PROFANE,
+    CHIFFON
 }
 #endregion
 
