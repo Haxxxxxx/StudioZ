@@ -1,51 +1,249 @@
+using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using static MG_CottonCultivation;
+
 
 public class MG2_CottonSorting : MiniGameBase
 {
     #region Variables
+    public enum SORTINGERROR
+    {
+        NONE,
+        COTTON,
+        OTHER
+    }
 
     public static MG2_CottonSorting instance { get; private set; }
 
     [System.Serializable]
     public class CottonSortingActionName : MiniGameActionName
     {
-        public string PickCorrectCotton { get; private set; } = "pick_correct_cotton";
-        public string PickIncorrectThing { get; private set; } = "pick_incorrect_thing";
+        public string PickCorrectBin { get; private set; } = "pick_correct_bin";
+        public string PickIncorrectBin { get; private set; } = "pick_incorrect_bin";
     }
     public CottonSortingActionName miniGameActionName = new CottonSortingActionName();
 
-    private int sortingErrors = 0;
-    private bool hadFirstCongrats = false;
-    private bool hadFirstCritic = false;
+
+    [Header("Phase 1")]
+    [SerializeField] public GameObject recycleTrashCan;
+    [SerializeField] public GameObject basicTrashCan;
+    [SerializeField] public Button bag;
+    [SerializeField] private List<GameObject> randomElementsList;
+    [HideInInspector] public int playerNumberOfRandomElements = 0;
+    [HideInInspector] public SORTINGERROR currentSortingError = SORTINGERROR.NONE;
+    private int maxNumberOfRandomElements = 10;
+    private int cottonSortingErrors = 0;
+    private int trashSortingErrors = 0;
+
+    [Header("Phase Quiz")]
+    [SerializeField] private int goodAnswerId;
+
+    //[Header("Phase 2")]
 
     [Header("Dialogues")]
-    private Dialogue firstErrorDialogue;
-    private Dialogue secondErrorDialogue;
-    private Dialogue firstCongratsDialogue;
-    private Dialogue firstCriticDialogue;
+    [SerializeField] private Dialogue afterCurtainDialogue;
+    [SerializeField] private Dialogue afterPhase1Dialogue;
+
+    [SerializeField] private Dialogue firstCorrectCotton;
+    [SerializeField] private Dialogue firstCorrectTrash;
+
+    [SerializeField] private Dialogue firstCottonErrorDialogue;
+    [SerializeField] private Dialogue secondCottonErrorDialogue;
+    [SerializeField] private Dialogue firstTrashErrorDialogue;
+    [SerializeField] private Dialogue secondTrashErrorDialogue;
+
+    [SerializeField] private Dialogue reactionQuizAnswer1;
+    [SerializeField] private Dialogue reactionQuizAnswer2;
+    [SerializeField] private Dialogue reactionQuizAnswer3;
+
+    [SerializeField] private Dialogue startPhase2Dialogue;
+
 
     [Header("UI References")]
     [SerializeField] private Animation curtainsLayout;
     [SerializeField] private Animation rope;
     [SerializeField] private Animation shadowOpacity;
+    [SerializeField] private Animation haloOpacity;
     [SerializeField] private Image dontClickBackground;
+    [SerializeField] private GameObject part1RandomParent;
+    [SerializeField] private Canvas uiCanvas;
+    [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private GameObject quizTimeLayout;
     #endregion
 
+    #region UnityFunctions
+    protected override void Awake()
+    {
+        instance = this;
+        base.Awake();
+    }
+
+    protected override void Start()
+    {
+        uiCanvas.gameObject.SetActive(false);
+        //base.Start();
+        if (dialogueManager != null && dialogueIntro != null)
+        {
+            dialogueManager.OnDialogueFinished += DisableBackgroundClick;
+            dialogueManager.CurrentDialogue = dialogueIntro;
+        }
+
+        UpdateScoreText();
+    }
+    #endregion
+
+    #region Tuto + Phase1
     public override void StartGame()
     {
         Debug.Log("Cotton Sorting MiniGame Started");
         base.StartGame();
 
-        // Here desactivating the protection on in the intro dialogue
-        if (dontClickBackground) dontClickBackground.raycastTarget = false;
+        uiCanvas.gameObject.SetActive(true);
+        dialogueManager.OnDialogueFinished -= StartGame;
     }
 
+    public override void PerformAction(string actionName)
+    {
+        base.PerformAction(actionName);
+        UpdateScoreText();
+
+        if (currentSortingError == SORTINGERROR.NONE) return;
+        else if (currentSortingError == SORTINGERROR.COTTON && cottonSortingErrors < 2)
+        {
+            cottonSortingErrors++;
+
+            if (cottonSortingErrors == 1) 
+            {
+                dialogueManager.CurrentDialogue = firstCottonErrorDialogue;
+            }
+            else if (cottonSortingErrors == 2) 
+            {
+                dialogueManager.CurrentDialogue = secondCottonErrorDialogue;
+            }
+        }
+        else if (currentSortingError == SORTINGERROR.OTHER && trashSortingErrors < 2)
+        {
+            trashSortingErrors++;
+
+            if (trashSortingErrors == 1) 
+            {
+                dialogueManager.CurrentDialogue = firstTrashErrorDialogue;
+            }
+            else if (trashSortingErrors == 2) 
+            {
+                dialogueManager.CurrentDialogue = secondTrashErrorDialogue;
+            }
+        }
+    }
+    private void SetCanBackgroundClick(bool raycastTarget)
+    {
+        if (dontClickBackground) dontClickBackground.raycastTarget = raycastTarget;
+    }
+    private void EnableBackgroundClick()
+    {
+        SetCanBackgroundClick(true);
+    }
+    private void DisableBackgroundClick()
+    {
+        SetCanBackgroundClick(false);
+    }
+
+    private void UpdateScoreText()
+    {
+        scoreText.text = currentScore +"/" + maxNumberOfRandomElements;
+    }
+
+    private bool CanPopRandomElement()
+    {
+        if ((part1RandomParent.transform.childCount == 0) && (!ShouldPhase1End())) return true;
+        else return false;
+    }
+
+    public bool ShouldPhase1End()
+    {
+        if (playerNumberOfRandomElements >= maxNumberOfRandomElements) return true;
+        else return false;
+    }
+
+    public void EndPhase1()
+    {
+        EndGame();
+        dialogueManager.OnDialogueFinished += SetActiveQuiz;
+        dialogueManager.CurrentDialogue = afterPhase1Dialogue;
+    }
+    #endregion
+
+    #region Phase2
+    private void StartPhase2()
+    {
+        dialogueManager.OnDialogueFinished -= StartPhase2;
+        dialogueManager.CurrentDialogue = startPhase2Dialogue;
+    }
+    private void SetActiveQuiz()
+    {
+        quizTimeLayout.SetActive(true);
+    }
+    #endregion
+
+
+
+    #region Button
     public void BS_ClickOnRope()
     {
         if (curtainsLayout) curtainsLayout.Play();
         if (rope) rope.Play();
         if (shadowOpacity) shadowOpacity.Play();
+        if (haloOpacity) haloOpacity.Play();
+
+        dialogueManager.OnDialogueFinished -= DisableBackgroundClick;
+        dialogueManager.OnDialogueFinished += StartGame;
+        dialogueManager.CurrentDialogue = afterCurtainDialogue;
     }
+
+    public void BS_PopRandomElement()
+    {
+        if (CanPopRandomElement())
+        {
+            GameObject randomElement = randomElementsList[Random.Range(0, randomElementsList.Count)];
+            Instantiate(randomElement, part1RandomParent.transform);
+            bag.interactable = false;
+            
+        }
+        else if (part1RandomParent.transform.childCount > 0)
+        {
+            Debug.LogWarning("There is already a random item out of the bag!");
+        }
+    }
+
+
+    public void BS_ChooseAnswerQuiz(int id)
+    {
+        EnableBackgroundClick();
+        dialogueManager.OnDialogueFinished -= SetActiveQuiz;
+        dialogueManager.OnDialogueFinished -= DisableBackgroundClick;
+        dialogueManager.OnDialogueFinished += DisableBackgroundClick;
+        switch (id)
+        {
+            case 1:
+                dialogueManager.CurrentDialogue = reactionQuizAnswer1;
+                break;
+            case 2:
+                dialogueManager.CurrentDialogue = reactionQuizAnswer2;
+                break;
+            case 3:
+                dialogueManager.CurrentDialogue = reactionQuizAnswer3;
+                break;
+        }
+
+        if (id == goodAnswerId)
+        {
+            dialogueManager.OnDialogueFinished -= DisableBackgroundClick;
+            dialogueManager.OnDialogueFinished += StartPhase2;
+
+        }
+    }
+    #endregion
+
 }

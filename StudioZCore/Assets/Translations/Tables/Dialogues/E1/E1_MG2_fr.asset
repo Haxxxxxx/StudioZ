@@ -72,6 +72,130 @@ MonoBehaviour:
       de le filer."
     m_Metadata:
       m_Items: []
+  - m_Id: 2961171792490496
+    m_Localized: "Regarde bien Lyra, le coton est tout doux et l\xE9ger. Mais il
+      y a aussi des trucs qui ne servent \xE0 rien, comme des bouts de plastique
+      ou de l\u2019\xE9corce. Tu dois tout s\xE9parer avant d\u2019utiliser la machine.
+      Sinon on risque de l\u2019ab\xEEmer et de faire des habits de mauvaise qualit\xE9"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2961343641513984
+    m_Localized: "Ici il suffit de glisser les bons morceaux de coton dans la corbeille
+      verte  et de jeter ceux qui ne vont pas dans la corbeille rouge, Si tu vois
+      un truc qui brille ou qui est tout dur, c\u2019est s\xFBrement pas du coton.
+      Jette-le. Le coton, lui, a l\u2019air de flotter quand on le touche."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2961500386848768
+    m_Localized: "Bravo, tu as compris le concept !! Gr\xE2ce \xE0 toi les habits
+      vont \xEAtre doux comme un nuage !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2961622550147072
+    m_Localized: "Zut ce n'\xE9tait pas la bonne corbeille mais ce n\u2019est pas
+      grave Lyra reste concentr\xE9, les erreurs \xE7a arrive"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2961698311860224
+    m_Localized: "N\u2019oublie pas Lyra le panier vert, c\u2019est pour le coton
+      tout doux, celui qu\u2019on aimerait avoir comme oreiller !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2961785897316352
+    m_Localized: "Le panier rouge, c\u2019est pour les trucs qui grattent, qui piquent
+      ou qui brillent. Et \xE7a, personne n\u2019a envie de dormir dessus ! "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2961901244870656
+    m_Localized: "Super !! Grace a toi finis les t shirt qui gratte ! ce sont les
+      fibres synth\xE9tique qui rendent  nos habits inconfortable et de mauvaise
+      qualit\xE9"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2962269240520704
+    m_Localized: "J\u2019en connais un qui va encore se gratter toute la nuit ! Mais
+      ce n\u2019est pas grave si c\u2019est la seule !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2962324018130944
+    m_Localized: "N\u2019oublie pas Lyra, Si c\u2019est doux comme un nuage, mets-le
+      dans le vert sans rage."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2962326710874112
+    m_Localized: "Si c\u2019est dur, piquant ou bizarre, rouge c\u2019est mieux,
+      c\u2019est pas trop tard"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3268274180550656
+    m_Localized: 'Bravo Lyra, tu es vraiment une machine de trie a toi tout seul
+      !! '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3272289467461632
+    m_Localized: "Tu vois c\u2019est gr\xE2ce \xE0 ces fibres synth\xE9tiques et
+      a toutes ses mauvaises fibres que nos habits sont de mauvaise qualit\xE9, irrite
+      la peau et nous gratte ! Ces fibres sont beaucoup moins ch\xE8res que le coton
+      ce qui permet de fabriquer et de vendre des v\xEAtements \xE0 moindre co\xFBt
+      ! Rien ne vaut le vrai coton et \xE7a se ressent ! "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3272328449323008
+    m_Localized: "Regarde ton t shirt et dis moi s\u2019il est fabriqu\xE9 avec du
+      vrai coton ou de la fibre synth\xE9tique, tu risques d'\xEAtre surprise de
+      la r\xE9ponse ( Donner un chiffre impactant sur le % de t shirt produit \xE0
+      base de fibre synth\xE9tique ) "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3272373202546688
+    m_Localized: "Bon on a bien tri\xE9 les fils mais maintenant que faut-il faire
+      ?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3272434821066752
+    m_Localized: Ahh ba non voyons, ce ne sont pas des confettis
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3272501367894016
+    m_Localized: "Exactement ! Une fois tri\xE9es, les fibres sont pr\xEAtes pour
+      la filature."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3272503519571968
+    m_Localized: "Si seulement c\u2019\xE9tait si simple\u2026 mais les habits ne
+      poussent pas comme les fleurs malheureusement !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3272866607886336
+    m_Localized: On se les lances dessus pour voir qui a la plus grosse boules de
+      coton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3272909389787136
+    m_Localized: On utilise une machine pour les transformer en fil
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3272945230114816
+    m_Localized: On les plantes dans la terre pour faire pousser des habits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3659454605127680
+    m_Localized: "Maintenant que nous avons tri\xE9 les bonnes fibres, il est temps
+      de les assembler pour former des bobines,  on appelle \xE7a la filatures, et
+      tu verras ce n\u2019est vraiment pas compliqu\xE9 !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3659670343348224
+    m_Localized: "Comme tu peux le voir il ya des bobines de plusieurs couleurs diff\xE9rentes,
+      il suffit simplement de relier les bons fils de bobine aux bonne prises de
+      couleurs, pour que la filature se fasse !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3659690127880192
+    m_Localized: "Si tu te trompes tu risques de perdre du temps donc reste concentr\xE9
+      et attentif car  j\u2019ai comme un mauvais pressentiment !"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
