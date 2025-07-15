@@ -30,7 +30,8 @@ public class MG_PatternWeaving : MiniGameBase
 
     [Header("Motif Image")]
     [SerializeField] private GameObject motifSelectorCanvas;
-    private Texture2D selectedMotif;
+    [SerializeField] private Texture2D selectedMotif;
+    [SerializeField] private GridCell_PatternWeaving sunMotifStart;
     private Dictionary<Color, List<GridCell_PatternWeaving>> colorGroups = new Dictionary<Color, List<GridCell_PatternWeaving>>();
 
 
@@ -46,6 +47,8 @@ public class MG_PatternWeaving : MiniGameBase
     protected override void Start()
     {
         base.Start();
+
+        StartCoroutine(ViewMotifEnum());
     }
 
     #region Grid
@@ -89,6 +92,20 @@ public class MG_PatternWeaving : MiniGameBase
 
         Debug.Log("Grille circulaire générée dans l’éditeur.");
 #endif
+    }
+
+    [ContextMenu("Generate Motif Path")]
+    public void GenerateMotifPath()
+    {
+        colorGroups.Clear();
+        foreach (Transform child in gridParent)
+        {
+            if (child.TryGetComponent<GridCell_PatternWeaving>(out GridCell_PatternWeaving cell))
+            {
+                GetCellTargetColorFromMotif(cell);
+            }
+        }
+        SortCellsPathLink();
     }
 
     public Color GetCellTargetColorFromMotif(GridCell_PatternWeaving cell)
@@ -158,19 +175,20 @@ public class MG_PatternWeaving : MiniGameBase
                     })
                     .First();
 
-              /*  if (Vector2.Distance(current.cellPos, next.cellPos) > 1.5f)
-                {
-                    current = GetStartForPath(remaining);
-                    group.Value.Add(current);
-                }
-                else
-                {*/
                     group.Value.Add(next);
                     remaining.Remove(next);
                     lastDir = next.cellPos - current.cellPos;
                     current = next;
-                /*}*/
             }
+        }
+
+        foreach (var group in colorGroups)
+        {
+            for (int i = 0; i < group.Value.Count - 1; i++)
+            {
+                group.Value[i].AddMotifData(selectedMotif, group.Key, group.Value[i + 1]);
+            }
+            group.Value.Last().AddMotifData(selectedMotif, group.Key);
         }
     }
 
@@ -212,15 +230,35 @@ public class MG_PatternWeaving : MiniGameBase
         return count;
     }
 
-
-    private IEnumerator ViewMotif()
+    private IEnumerator ViewMotifEnum()
     {
-        foreach (var group in colorGroups)
+        foreach(Transform child in gridParent)
         {
-            foreach (var cell in group.Value)
+            if (child.TryGetComponent<GridCell_PatternWeaving>(out GridCell_PatternWeaving cell))
             {
-                cell.GetComponent<Image>().color = group.Key;
-                yield return new WaitForSeconds(0.5f);
+                cell.GetComponent<Image>().color = Color.white; 
+            }
+        }
+
+        GridCell_PatternWeaving current = sunMotifStart;
+
+        while (current != null)
+        {
+            current.GetComponent<Image>().color = current.data.Find(d => d.motif == selectedMotif).color;
+            yield return new WaitForSeconds(0.5f);
+            current = current.data.Find(d => d.motif == selectedMotif).nextCell;
+        }
+    }
+
+    [ContextMenu("View Motif")]
+    public void ViewMotifInstant()
+    {
+        foreach (Transform child in gridParent)
+        {
+            if (child.TryGetComponent<GridCell_PatternWeaving>(out GridCell_PatternWeaving cell))
+            {
+                if(cell.data.Count != 0)
+                    cell.GetComponent<Image>().color = cell.data[0].color;
             }
         }
     }
@@ -233,17 +271,6 @@ public class MG_PatternWeaving : MiniGameBase
     {
         selectedMotif = motifTexture;
         motifSelectorCanvas.SetActive(false);
-        colorGroups.Clear();
-        foreach (Transform child in gridParent)
-        {
-            GridCell_PatternWeaving cell = child.GetComponent<GridCell_PatternWeaving>();
-            if (cell != null)
-            {
-                cell.targetColor = GetCellTargetColorFromMotif(cell);
-            }
-        }
-        SortCellsPathLink();    
-        StartCoroutine(ViewMotif());
     }
 
     #endregion
