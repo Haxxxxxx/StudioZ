@@ -34,6 +34,7 @@ public abstract class MiniGameBase : MonoBehaviour
     [SerializeField] private TextMeshProUGUI chronoText;
 
     protected bool isFinished = false;
+    protected bool isPaused = false;
     protected int currentScore = 0;
 
     [SerializeField] protected List<MiniGameActionData> miniGameActionData = new List<MiniGameActionData>();
@@ -140,13 +141,29 @@ public abstract class MiniGameBase : MonoBehaviour
         yield return new WaitForSeconds(1);
         while (!isFinished)
         {
-            chrono += 1;
-            if (chronoText != null)
+            if (!isPaused)
             {
-                chronoText.text = GetChronoInString();
+                chrono += 1;
+                if (chronoText != null)
+                {
+                    chronoText.text = GetChronoInString();
+                }
+                yield return new WaitForSeconds(1);
             }
-            yield return new WaitForSeconds(1);
+            else
+            {
+                yield return null;
+            }
         }
+    }
+
+    protected void PauseMiniGame()
+    {
+        isPaused = true;
+    }
+    protected void UnPauseMiniGame()
+    {
+        isPaused = false;
     }
 
     public int CalculateStars()

@@ -27,6 +27,7 @@ public class MG2_CottonSorting : MiniGameBase
 
 
     [Header("Phase 1")]
+    [SerializeField] public GameObject Phase1;
     [SerializeField] public GameObject recycleTrashCan;
     [SerializeField] public GameObject basicTrashCan;
     [SerializeField] public Button bag;
@@ -40,7 +41,8 @@ public class MG2_CottonSorting : MiniGameBase
     [Header("Phase Quiz")]
     [SerializeField] private int goodAnswerId;
 
-    //[Header("Phase 2")]
+    [Header("Phase 2")]
+    [SerializeField] public GameObject Phase2;
 
     [Header("Dialogues")]
     [SerializeField] private Dialogue afterCurtainDialogue;
@@ -118,10 +120,14 @@ public class MG2_CottonSorting : MiniGameBase
             {
                 dialogueManager.CurrentDialogue = firstCottonErrorDialogue;
             }
-            else if (cottonSortingErrors == 2) 
+            else 
             {
                 dialogueManager.CurrentDialogue = secondCottonErrorDialogue;
             }
+
+            PauseMiniGame();
+            dialogueManager.OnDialogueFinished -= UnPauseMiniGame;
+            dialogueManager.OnDialogueFinished += UnPauseMiniGame;
         }
         else if (currentSortingError == SORTINGERROR.OTHER && trashSortingErrors < 2)
         {
@@ -131,10 +137,15 @@ public class MG2_CottonSorting : MiniGameBase
             {
                 dialogueManager.CurrentDialogue = firstTrashErrorDialogue;
             }
-            else if (trashSortingErrors == 2) 
+            else
             {
                 dialogueManager.CurrentDialogue = secondTrashErrorDialogue;
             }
+
+            PauseMiniGame();
+            dialogueManager.OnDialogueFinished -= UnPauseMiniGame;
+            dialogueManager.OnDialogueFinished += UnPauseMiniGame;
+
         }
     }
     private void SetCanBackgroundClick(bool raycastTarget)
@@ -180,6 +191,10 @@ public class MG2_CottonSorting : MiniGameBase
     {
         dialogueManager.OnDialogueFinished -= StartPhase2;
         dialogueManager.CurrentDialogue = startPhase2Dialogue;
+
+        Phase1.SetActive(false);
+        quizTimeLayout.SetActive(false);
+        Phase2.SetActive(true);
     }
     private void SetActiveQuiz()
     {
