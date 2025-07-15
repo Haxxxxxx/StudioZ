@@ -146,4 +146,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cellPos: {x: 0, y: 0}
-  targetColor: {r: 0, g: 0, b: 0, a: 0}
+  data: []
