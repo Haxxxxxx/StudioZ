@@ -4,6 +4,8 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using Unity.VisualScripting;
+using System;
+
 
 
 
@@ -30,6 +32,7 @@ public class MG_PatternWeaving : MiniGameBase
     {
         public Texture2D texture;
         public GridCell_PatternWeaving startCell;
+        [NonSerialized] public bool isFinished = false;
 
         public Motif(Texture2D texture, GridCell_PatternWeaving startCell)
         {
@@ -40,6 +43,7 @@ public class MG_PatternWeaving : MiniGameBase
 
     [Header("MiniGame Settings")]
     public PatternWeavingActionName miniGameActionName = new PatternWeavingActionName();
+    [NonSerialized] public GridCell_PatternWeaving nextCell;
 
     [Header("Grid References")]
     [SerializeField] private RectTransform gridParent;
@@ -71,6 +75,7 @@ public class MG_PatternWeaving : MiniGameBase
     {
         base.Start();
         
+        ClearGrid();
         motifSelectorCanvas.SetActive(true);
     }
 
@@ -78,7 +83,7 @@ public class MG_PatternWeaving : MiniGameBase
     {
         base.StartGame();
 
-        StartCoroutine(ViewPath());
+        selectedMotif.startCell.SetIsNextCell();
     }
 
 
@@ -128,12 +133,11 @@ public class MG_PatternWeaving : MiniGameBase
     [ContextMenu("Generate Motif")]
     public void GenerateMotif()
     {
-        /*colorGroups.Clear();*/
         foreach (Transform child in gridParent)
         {
             if (child.TryGetComponent<GridCell_PatternWeaving>(out GridCell_PatternWeaving cell))
             {
-                cell.GetComponent<Image>().color = Color.white;
+                cell.SetColor(Color.white);
                 GetCellTargetColorFromMotif(cell);
             }
         }
@@ -223,11 +227,11 @@ public class MG_PatternWeaving : MiniGameBase
             {
                 if (cell.data.Count != 0 && cell.data.Find(d => d.motif == selectedMotif.texture) != null)
                 {
-                    cell.GetComponent<Image>().color = cell.data.Find(d => d.motif == selectedMotif.texture).color;
+                    cell.SetColor(cell.data.Find(d => d.motif == selectedMotif.texture).color);
                 }
                 else
                 {
-                    cell.GetComponent<Image>().color = Color.white; 
+                    cell.SetColor(Color.white); 
                 }
             }
         }
@@ -237,21 +241,27 @@ public class MG_PatternWeaving : MiniGameBase
 
     #endregion
 
-    private IEnumerator ViewPath()
+    [ContextMenu("Clear Grid")]
+    private void ClearGrid()
     {
         foreach (Transform child in gridParent)
         {
             if (child.TryGetComponent<GridCell_PatternWeaving>(out GridCell_PatternWeaving cell))
             {
-                cell.GetComponent<Image>().color = Color.white;
+                cell.SetColor(new Color(1f, 1f, 1f, 0)); 
             }
         }
+    }
+
+    private IEnumerator ViewPath()
+    {
+        ClearGrid();
 
         GridCell_PatternWeaving current = selectedMotif.startCell;
 
         while (current != null && Application.isPlaying)
         {
-            current.GetComponent<Image>().color = current.data.Find(d => d.motif == selectedMotif.texture).color;
+            current.SetColor(current.data.Find(d => d.motif == selectedMotif.texture).color);
             yield return new WaitForSeconds(0.5f);
             current = current.data.Find(d => d.motif == selectedMotif.texture).nextCell;
         }
@@ -263,6 +273,8 @@ public class MG_PatternWeaving : MiniGameBase
     {
         selectedMotif = motifs[motif_index];
         motifSelectorCanvas.SetActive(false);
+
+        selectedMotif.startCell.SetSelectedData(selectedMotif.texture);
         StartGame();
     }
 

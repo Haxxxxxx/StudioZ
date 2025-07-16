@@ -1,9 +1,9 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Button))]
+[RequireComponent(typeof(EventTrigger))]
 [RequireComponent(typeof(Image))]
 public class GridCell_PatternWeaving : MonoBehaviour
 {
@@ -22,17 +22,14 @@ public class GridCell_PatternWeaving : MonoBehaviour
         }
     }
 
-    private Button button;
-    private Image image;
+    [SerializeField] private EventTrigger eventTrigger;
+    [SerializeField] private Image image;
 
     public Vector2Int cellPos;
-    [SerializeField] public List<MotifData> data  = new List<MotifData>();
+    [SerializeField] public List<MotifData> data = new List<MotifData>();
+    public MotifData selectedData { get; private set; }
+    private bool isNextCell = false;
 
-    private void Awake()
-    {
-        button = GetComponent<Button>();
-        image = GetComponent<Image>();
-    }
 
     public void AddMotifData(Texture2D motif, Color color, GridCell_PatternWeaving nextCell = null)
     {
@@ -42,8 +39,40 @@ public class GridCell_PatternWeaving : MonoBehaviour
         }
     }
 
-    public void BS_ChangeState()
+    public void SetColor(Color color)
     {
-        image.color = image.color == Color.white ? Color.black : Color.white;
+        image.color = color;
+    }
+
+    public void SetSelectedData(Texture2D texture2D)
+    {
+        selectedData = data.Find(d => d.motif == texture2D);
+
+        if (selectedData != null && selectedData.nextCell != null)
+        {
+            selectedData.nextCell.SetSelectedData(texture2D);
+        }
+    }
+
+    public void SetIsNextCell()
+    {
+        isNextCell = true;
+        image.color = new Color(selectedData.color.r, selectedData.color.g, selectedData.color.b, 0.5f);
+        MG_PatternWeaving.instance.nextCell = this;
+    }
+
+    public void OnPointerEnter()
+    {
+        if (isNextCell)
+        {
+            image.color = selectedData.color;
+            isNextCell = false;
+            eventTrigger.enabled = false;
+
+            if (selectedData.nextCell != null)
+            {
+                selectedData.nextCell.SetIsNextCell();
+            }
+        }
     }
 }
