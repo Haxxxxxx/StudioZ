@@ -1,14 +1,7 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 using System.Collections.Generic;
-using System.Linq.Expressions;
-using Unity.VisualScripting;
 using System;
-
-
-
-
 
 
 #if UNITY_EDITOR
@@ -24,17 +17,19 @@ public class MG_PatternWeaving : MiniGameBase
 
     public class PatternWeavingActionName : MiniGameActionName
     {
-
+        public string GoodWeaving { get; private set; } = "good_weaving";
+        public string BadWeaving { get; private set; } = "bad_weaving";
+        public string BadWeavingButSameColor { get; private set; } = "bad_weaving_but_same_color";
     }
 
     [System.Serializable]
-    public class Motif
+    public class Pattern
     {
         public Texture2D texture;
         public GridCell_PatternWeaving startCell;
         [NonSerialized] public bool isFinished = false;
 
-        public Motif(Texture2D texture, GridCell_PatternWeaving startCell)
+        public Pattern(Texture2D texture, GridCell_PatternWeaving startCell)
         {
             this.texture = texture;
             this.startCell = startCell;
@@ -52,13 +47,13 @@ public class MG_PatternWeaving : MiniGameBase
     [SerializeField] private int gridHeight;
     [SerializeField] private float gridSpacing;
 
-    [Header("Motif Settings")]
-    [SerializeField] private GameObject motifSelectorCanvas;
-    [SerializeField] private Motif selectedMotif;
-    [SerializeField][NonReorderable] private List<Motif> motifs = new List<Motif>();
+    [Header("Pattern Settings")]
+    [SerializeField] private GameObject patternSelectorCanvas;
+    [SerializeField] private Pattern selectedPattern;
+    [SerializeField][NonReorderable] private List<Pattern> patterns = new List<Pattern>();
 
     [Header("Editor Settings")]
-    public bool editMotifPath = false;
+    public bool editPatternPath = false;
     public GridCell_PatternWeaving lastSelectedCell;
 
 
@@ -76,14 +71,14 @@ public class MG_PatternWeaving : MiniGameBase
         base.Start();
         
         ClearGrid();
-        motifSelectorCanvas.SetActive(true);
+        patternSelectorCanvas.SetActive(true);
     }
 
     public override void StartGame()
     {
         base.StartGame();
 
-        selectedMotif.startCell.SetIsNextCell();
+        selectedPattern.startCell.SetIsNextCell();
     }
 
 
@@ -146,28 +141,20 @@ public class MG_PatternWeaving : MiniGameBase
 
     public void GetCellTargetColorFromMotif(GridCell_PatternWeaving cell)
     {
-        if (selectedMotif == null)
+        if (selectedPattern == null)
         {
             Debug.LogError("Selected motif not assigned.");
         }
         Vector2Int cellPxPos = GetPixelPositionInImage(cell);
 
-        Color targetColor = selectedMotif.texture.GetPixel(cellPxPos.x, cellPxPos.y);
+        Color targetColor = selectedPattern.texture.GetPixel(cellPxPos.x, cellPxPos.y);
 
         if (!AreColorsSimilar(targetColor, new Color(0.965f, 0.875f, 0.780f, 1f))) 
         {
-            cell.AddMotifData(selectedMotif.texture, targetColor);
+            cell.AddPatternData(selectedPattern.texture, targetColor);
             Undo.RecordObject(cell, "Add data");
             EditorUtility.SetDirty(cell);
         }
-    }
-
-    private bool AreColorsSimilar(Color a, Color b, float epsilon = 0.01f)
-    {
-        return Mathf.Abs(a.r - b.r) < epsilon &&
-               Mathf.Abs(a.g - b.g) < epsilon &&
-               Mathf.Abs(a.b - b.b) < epsilon &&
-               Mathf.Abs(a.a - b.a) < epsilon;
     }
 
     private Vector2Int GetPixelPositionInImage(GridCell_PatternWeaving cell)
@@ -176,8 +163,8 @@ public class MG_PatternWeaving : MiniGameBase
         float localPosY = cell.transform.localPosition.y + gridParent.rect.height / 2f;
 
 
-        int pixelX = (int)(localPosX * selectedMotif.texture.width / gridParent.rect.width);
-        int pixelY = (int)(localPosY * selectedMotif.texture.height / gridParent.rect.height);
+        int pixelX = (int)(localPosX * selectedPattern.texture.width / gridParent.rect.width);
+        int pixelY = (int)(localPosY * selectedPattern.texture.height / gridParent.rect.height);
 
         return new Vector2Int(pixelX, pixelY);
     }
@@ -194,19 +181,19 @@ public class MG_PatternWeaving : MiniGameBase
 
     private void OnSelectionChanged()
     {
-        if (!editMotifPath || Selection.activeGameObject == null 
+        if (!editPatternPath || Selection.activeGameObject == null 
             || !Selection.activeGameObject.TryGetComponent<GridCell_PatternWeaving>(out GridCell_PatternWeaving cell))
         {
-            editMotifPath = false;
+            editPatternPath = false;
             lastSelectedCell = null;
             return;
         }
             
         if(lastSelectedCell != null)
         {
-            if (lastSelectedCell.data.Find(d => d.motif == selectedMotif.texture) != null)
+            if (lastSelectedCell.data.Find(d => d.texture == selectedPattern.texture) != null)
             {
-                lastSelectedCell.data.Find(d => d.motif == selectedMotif.texture).nextCell = cell;
+                lastSelectedCell.data.Find(d => d.texture == selectedPattern.texture).nextCell = cell;
                 Undo.RecordObject(lastSelectedCell, "Update Motif Path");
                 EditorUtility.SetDirty(lastSelectedCell);
             }
@@ -225,9 +212,9 @@ public class MG_PatternWeaving : MiniGameBase
         {
             if (child.TryGetComponent<GridCell_PatternWeaving>(out GridCell_PatternWeaving cell))
             {
-                if (cell.data.Count != 0 && cell.data.Find(d => d.motif == selectedMotif.texture) != null)
+                if (cell.data.Count != 0 && cell.data.Find(d => d.texture == selectedPattern.texture) != null)
                 {
-                    cell.SetColor(cell.data.Find(d => d.motif == selectedMotif.texture).color);
+                    cell.SetColor(cell.data.Find(d => d.texture == selectedPattern.texture).color);
                 }
                 else
                 {
@@ -240,6 +227,14 @@ public class MG_PatternWeaving : MiniGameBase
 #endif
 
     #endregion
+
+    public bool AreColorsSimilar(Color a, Color b, float epsilon = 0.01f)
+    {
+        return Mathf.Abs(a.r - b.r) < epsilon &&
+               Mathf.Abs(a.g - b.g) < epsilon &&
+               Mathf.Abs(a.b - b.b) < epsilon &&
+               Mathf.Abs(a.a - b.a) < epsilon;
+    }
 
     [ContextMenu("Clear Grid")]
     private void ClearGrid()
@@ -257,24 +252,41 @@ public class MG_PatternWeaving : MiniGameBase
     {
         ClearGrid();
 
-        GridCell_PatternWeaving current = selectedMotif.startCell;
+        GridCell_PatternWeaving current = selectedPattern.startCell;
 
         while (current != null && Application.isPlaying)
         {
-            current.SetColor(current.data.Find(d => d.motif == selectedMotif.texture).color);
+            current.SetColor(current.data.Find(d => d.texture == selectedPattern.texture).color);
             yield return new WaitForSeconds(0.5f);
-            current = current.data.Find(d => d.motif == selectedMotif.texture).nextCell;
+            current = current.data.Find(d => d.texture == selectedPattern.texture).nextCell;
         }
+    }
+
+    public void PatternFinished()
+    {
+        patterns.Find(p => p.texture == selectedPattern.texture).isFinished = true;
+
+        foreach (Pattern pattern in patterns)
+        {
+            if (!pattern.isFinished)
+            {
+                patternSelectorCanvas.SetActive(true);
+                ClearGrid();
+                return;
+            }
+        }
+
+        EndGame();
     }
 
     #region Button Function
 
     public void BS_SelectMotif(int motif_index)
     {
-        selectedMotif = motifs[motif_index];
-        motifSelectorCanvas.SetActive(false);
+        selectedPattern = patterns[motif_index];
+        patternSelectorCanvas.SetActive(false);
 
-        selectedMotif.startCell.SetSelectedData(selectedMotif.texture);
+        selectedPattern.startCell.SetSelectedData(selectedPattern.texture);
         StartGame();
     }
 
