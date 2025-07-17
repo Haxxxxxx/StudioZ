@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -68,6 +69,7 @@ public class GridCell_PatternWeaving : MonoBehaviour
         isNextCell = true;
         image.color = new Color(selectedData.color.r, selectedData.color.g, selectedData.color.b, 0.5f);
         mgPatternWeaving.nextCell = this;
+        StartCoroutine(PulseOpacity());
     }
 
     public void OnPointerEnter()
@@ -88,16 +90,18 @@ public class GridCell_PatternWeaving : MonoBehaviour
                 mgPatternWeaving.PatternFinished();
             }
         }
-        else if(Vector2Int.Distance(mgPatternWeaving.nextCell.cellPos, cellPos) > 2)
+        else if (Vector2Int.Distance(mgPatternWeaving.nextCell.cellPos, cellPos) > 1.5)
         {
-            if (mgPatternWeaving.AreColorsSimilar(mgPatternWeaving.nextCell.selectedData.color, selectedData.color))
-            {
-                mgPatternWeaving.PerformAction(mgPatternWeaving.miniGameActionName.BadWeavingButSameColor);
-            }
-            else
-            {
-                mgPatternWeaving.PerformAction(mgPatternWeaving.miniGameActionName.BadWeaving);
-            }
+            mgPatternWeaving.PerformAction(mgPatternWeaving.miniGameActionName.BadWeaving);
+        }
+    }
+
+    private IEnumerator PulseOpacity()
+    {
+        while (isNextCell)
+        {
+            image.color = new Color(image.color.r, image.color.g, image.color.b, Mathf.Lerp(0.25f, 0.75f, Mathf.PingPong(Time.time, 1)));
+            yield return null;
         }
     }
 }

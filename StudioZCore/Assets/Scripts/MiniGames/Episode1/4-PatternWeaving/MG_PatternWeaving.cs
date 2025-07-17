@@ -2,6 +2,8 @@ using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using UnityEngine.UI;
+
 
 
 #if UNITY_EDITOR
@@ -19,7 +21,6 @@ public class MG_PatternWeaving : MiniGameBase
     {
         public string GoodWeaving { get; private set; } = "good_weaving";
         public string BadWeaving { get; private set; } = "bad_weaving";
-        public string BadWeavingButSameColor { get; private set; } = "bad_weaving_but_same_color";
     }
 
     [System.Serializable]
@@ -56,6 +57,9 @@ public class MG_PatternWeaving : MiniGameBase
     public bool editPatternPath = false;
     public GridCell_PatternWeaving lastSelectedCell;
 
+    [Header("UI References")]
+    [SerializeField] private Image patternImg;
+
 
     #endregion
 
@@ -71,6 +75,7 @@ public class MG_PatternWeaving : MiniGameBase
         base.Start();
         
         ClearGrid();
+        patternImg.gameObject.SetActive(false);
         patternSelectorCanvas.SetActive(true);
     }
 
@@ -284,9 +289,11 @@ public class MG_PatternWeaving : MiniGameBase
     public void BS_SelectMotif(int motif_index)
     {
         selectedPattern = patterns[motif_index];
-        patternSelectorCanvas.SetActive(false);
-
+        patternImg.sprite = Sprite.Create(selectedPattern.texture, new Rect(0, 0, selectedPattern.texture.width, selectedPattern.texture.height), Vector2.zero);
         selectedPattern.startCell.SetSelectedData(selectedPattern.texture);
+
+        patternImg.gameObject.SetActive(true);
+        patternSelectorCanvas.SetActive(false);
         StartGame();
     }
 
