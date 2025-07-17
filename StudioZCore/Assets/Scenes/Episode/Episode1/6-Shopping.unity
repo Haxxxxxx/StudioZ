@@ -1348,6 +1348,10 @@ MonoBehaviour:
   miniGameActionData: []
   dialogueIntro: {fileID: 11400000, guid: fc24ca27c8f2f244c83a218c8472ce61, type: 2}
   dialogueOutro: {fileID: 0}
+  bundleCombinations:
+  - {fileID: 0}
+  bundleSpawnPoints: []
+  coins: 0
 --- !u!1001 &1428483848
 PrefabInstance:
   m_ObjectHideFlags: 0

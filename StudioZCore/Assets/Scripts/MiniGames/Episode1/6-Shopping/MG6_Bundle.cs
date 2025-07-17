@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MG6_Bundle : MonoBehaviour
+public class MG6_BundleOld : MonoBehaviour
 {
     [SerializeField] private bool viable = false;
     [SerializeField] private int price = 6;
