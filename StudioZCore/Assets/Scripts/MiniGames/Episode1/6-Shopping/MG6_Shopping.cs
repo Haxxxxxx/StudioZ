@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor.AddressableAssets.Build.Layout;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MG6_Shopping : MiniGameBase
 {
@@ -8,8 +10,24 @@ public class MG6_Shopping : MiniGameBase
     [SerializeField] private List<Transform> bundleSpawnPoints;
     [SerializeField] private int coins;
 
-    private List<MG6_Bundle> initializedBundles;
+    [SerializeField] private GameObject bundlePrefab;
+    private int currentRound = 0;
     
+    private List<MG6_Bundle> initializedBundles;
+
+    public override void StartGame()
+    {
+        base.StartGame();
+
+        if (bundleCombinations == null)
+        {
+            Debug.LogError("Game Manager bundle combinations is null");
+            return;
+        }
+        
+        InitializeBundles();
+    }
+
     public void InitializeBundles()
     {
         // foreach (MG6_Bundle bundle in initializedBundles)
@@ -17,20 +35,42 @@ public class MG6_Shopping : MiniGameBase
         //     Destroy(bundle.gameObject);
         //     initializedBundles.Remove(bundle);
         // }
-        // Spawn next bundles
+
+        if (bundleCombinations[currentRound].GetBundles().Count > bundleSpawnPoints.Count)
+        {
+            Debug.LogWarning("There is less spawn points than bundles in round " + currentRound + ". Some bundles will not be spawned, add more spawn points to fix.");
+        }
+        
+        for (int i = 0; i < bundleSpawnPoints.Count; i++)
+        {
+            if (bundleCombinations[currentRound].GetBundles().Count > i)
+            {
+                MG6_Bundle bundle = bundleCombinations[currentRound].GetBundles()[i];
+                GameObject current = Instantiate(bundlePrefab, bundleSpawnPoints[i]);
+
+                current.GetComponent<Image>().sprite = bundle.sprite;
+                current.GetComponentInChildren<TextMeshProUGUI>().text = "Price: " + bundle.price;
+                // Call SelectBundle when the player clicks the button
+                current.GetComponent<Button>().onClick.AddListener(() => SelectBundle(bundle));
+            }
+        }
+
+        currentRound++;
     }
     
     public void SelectBundle(MG6_Bundle bundle)
     {
+        Debug.Log("Trying to buy bundle. Price: " + bundle.price + ". Viable: " + bundle.viable);
+        
         // Remove coins
-        if (bundle.GetPrice() > coins)
+        if (bundle.price > coins)
         {
             return;
         }
         
-        coins -= bundle.GetPrice();
+        coins -= bundle.price;
         
-        if (bundle.IsViable())
+        if (bundle.viable)
         {
             // add score
             currentScore += 2;

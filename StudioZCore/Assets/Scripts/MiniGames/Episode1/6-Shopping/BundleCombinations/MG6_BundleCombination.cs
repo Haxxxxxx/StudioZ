@@ -17,17 +17,7 @@ public class MG6_BundleCombination : ScriptableObject
 [System.Serializable]
 public class MG6_Bundle
 {
-    [SerializeField] private bool viable = false;
-    [SerializeField] private int price = 6;
-    [SerializeField] private Sprite sprite;
-    
-    public bool IsViable()
-    {
-        return viable;
-    }
-
-    public int GetPrice()
-    {
-        return price;
-    }
+    public bool viable = false;
+    public int price = 6; 
+    public Sprite sprite;
 }
