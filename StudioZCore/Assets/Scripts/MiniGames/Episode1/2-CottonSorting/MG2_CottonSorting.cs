@@ -4,7 +4,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public class MG2_CottonSorting : MiniGameBase
 {
     #region Variables
@@ -27,6 +26,7 @@ public class MG2_CottonSorting : MiniGameBase
 
 
     [Header("Phase 1")]
+    [SerializeField] private GameObject curtainScene;
     [SerializeField] public GameObject Phase1;
     [SerializeField] public GameObject recycleTrashCan;
     [SerializeField] public GameObject basicTrashCan;
@@ -34,7 +34,7 @@ public class MG2_CottonSorting : MiniGameBase
     [SerializeField] private List<GameObject> randomElementsList;
     [HideInInspector] public int playerNumberOfRandomElements = 0;
     [HideInInspector] public SORTINGERROR currentSortingError = SORTINGERROR.NONE;
-    private int maxNumberOfRandomElements = 10;
+    private int maxNumberOfRandomElements = 1; // TODO : A changer
     private int cottonSortingErrors = 0;
     private int trashSortingErrors = 0;
 
@@ -43,6 +43,10 @@ public class MG2_CottonSorting : MiniGameBase
 
     [Header("Phase 2")]
     [SerializeField] public GameObject Phase2;
+    [SerializeField] public GameObject ThreadOnTreadmillPrefab;
+    [SerializeField] public List<Sprite> ThreadOnTreadmillSpriteList;
+    public float baseSpeed = 1f;
+    public float treadmillSpeed = 1f;
 
     [Header("Dialogues")]
     [SerializeField] private Dialogue afterCurtainDialogue;
@@ -70,6 +74,7 @@ public class MG2_CottonSorting : MiniGameBase
     [SerializeField] private Animation haloOpacity;
     [SerializeField] private Image dontClickBackground;
     [SerializeField] private GameObject part1RandomParent;
+    [SerializeField] private GameObject part2ThreadOnTreadmillParent;
     [SerializeField] private Canvas uiCanvas;
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private GameObject quizTimeLayout;
@@ -85,15 +90,43 @@ public class MG2_CottonSorting : MiniGameBase
     protected override void Start()
     {
         uiCanvas.gameObject.SetActive(false);
+
+        if (curtainScene.activeSelf == false) curtainScene.SetActive(true);
+        if (Phase1.activeSelf == false) Phase1.SetActive(true);
+        if (quizTimeLayout.activeSelf == true) quizTimeLayout.SetActive(false);
+        if (Phase2.activeSelf == true) Phase2.SetActive(false);
+
         //base.Start();
         if (dialogueManager != null && dialogueIntro != null)
         {
-            dialogueManager.OnDialogueFinished += DisableBackgroundClick;
+            dialogueManager.OnDialogueFinished += DisableBackgroundAntiClick;
             dialogueManager.CurrentDialogue = dialogueIntro;
         }
 
         UpdateScoreText();
+
     }
+    #endregion
+
+    #region Useful functions
+    private void SetCanBackgroundClick(bool raycastTarget)
+    {
+        if (dontClickBackground) dontClickBackground.raycastTarget = raycastTarget;
+    }
+    private void EnableBackgroundAntiClick()
+    {
+        SetCanBackgroundClick(true);
+    }
+    private void DisableBackgroundAntiClick()
+    {
+        SetCanBackgroundClick(false);
+    }
+
+    private void UpdateScoreText()
+    {
+        scoreText.text = currentScore + "/" + maxNumberOfRandomElements;
+    }
+
     #endregion
 
     #region Tuto + Phase1
@@ -101,6 +134,8 @@ public class MG2_CottonSorting : MiniGameBase
     {
         Debug.Log("Cotton Sorting MiniGame Started");
         base.StartGame();
+
+        DisableBackgroundAntiClick();
 
         uiCanvas.gameObject.SetActive(true);
         dialogueManager.OnDialogueFinished -= StartGame;
@@ -148,23 +183,6 @@ public class MG2_CottonSorting : MiniGameBase
 
         }
     }
-    private void SetCanBackgroundClick(bool raycastTarget)
-    {
-        if (dontClickBackground) dontClickBackground.raycastTarget = raycastTarget;
-    }
-    private void EnableBackgroundClick()
-    {
-        SetCanBackgroundClick(true);
-    }
-    private void DisableBackgroundClick()
-    {
-        SetCanBackgroundClick(false);
-    }
-
-    private void UpdateScoreText()
-    {
-        scoreText.text = currentScore +"/" + maxNumberOfRandomElements;
-    }
 
     private bool CanPopRandomElement()
     {
@@ -186,23 +204,45 @@ public class MG2_CottonSorting : MiniGameBase
     }
     #endregion
 
-    #region Phase2
-    private void StartPhase2()
-    {
-        dialogueManager.OnDialogueFinished -= StartPhase2;
-        dialogueManager.CurrentDialogue = startPhase2Dialogue;
-
-        Phase1.SetActive(false);
-        quizTimeLayout.SetActive(false);
-        Phase2.SetActive(true);
-    }
+    #region Quiz
     private void SetActiveQuiz()
     {
         quizTimeLayout.SetActive(true);
     }
     #endregion
 
+    #region Phase2
+    private void StartPhase2Intro()
+    {
+        dialogueManager.OnDialogueFinished -= StartPhase2Intro;
+        dialogueManager.OnDialogueFinished += StartPhase2Game;
+        dialogueManager.CurrentDialogue = startPhase2Dialogue;
 
+        Phase1.SetActive(false);
+        quizTimeLayout.SetActive(false);
+        Phase2.SetActive(true);
+    }
+
+    private void StartPhase2Game()
+    {
+        dialogueManager.OnDialogueFinished -= StartPhase2Game;
+        PopThreadOnTreadmill();
+    }
+
+    private void PopThreadOnTreadmill()
+    {
+        Sprite randomSprite = ThreadOnTreadmillSpriteList[Random.Range(0, ThreadOnTreadmillSpriteList.Count)];
+        GameObject randomElement = Instantiate(ThreadOnTreadmillPrefab, part2ThreadOnTreadmillParent.transform);
+        randomElement.GetComponent<Image>().sprite = randomSprite;
+
+        ThreadOnTreadmill threadOnTreadmill = randomElement.GetComponent<ThreadOnTreadmill>();
+        if (threadOnTreadmill != null)
+        {
+            threadOnTreadmill.StartTreadMill();
+        }
+    }
+
+    #endregion
 
     #region Button
     public void BS_ClickOnRope()
@@ -212,7 +252,8 @@ public class MG2_CottonSorting : MiniGameBase
         if (shadowOpacity) shadowOpacity.Play();
         if (haloOpacity) haloOpacity.Play();
 
-        dialogueManager.OnDialogueFinished -= DisableBackgroundClick;
+        EnableBackgroundAntiClick();
+        dialogueManager.OnDialogueFinished -= DisableBackgroundAntiClick;
         dialogueManager.OnDialogueFinished += StartGame;
         dialogueManager.CurrentDialogue = afterCurtainDialogue;
     }
@@ -235,10 +276,10 @@ public class MG2_CottonSorting : MiniGameBase
 
     public void BS_ChooseAnswerQuiz(int id)
     {
-        EnableBackgroundClick();
+        EnableBackgroundAntiClick();
         dialogueManager.OnDialogueFinished -= SetActiveQuiz;
-        dialogueManager.OnDialogueFinished -= DisableBackgroundClick;
-        dialogueManager.OnDialogueFinished += DisableBackgroundClick;
+        dialogueManager.OnDialogueFinished -= DisableBackgroundAntiClick;
+        dialogueManager.OnDialogueFinished += DisableBackgroundAntiClick;
         switch (id)
         {
             case 1:
@@ -254,8 +295,8 @@ public class MG2_CottonSorting : MiniGameBase
 
         if (id == goodAnswerId)
         {
-            dialogueManager.OnDialogueFinished -= DisableBackgroundClick;
-            dialogueManager.OnDialogueFinished += StartPhase2;
+            dialogueManager.OnDialogueFinished -= DisableBackgroundAntiClick;
+            dialogueManager.OnDialogueFinished += StartPhase2Intro;
 
         }
     }
