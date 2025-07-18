@@ -1668,7 +1668,7 @@ MonoBehaviour:
   dialogueOutro: {fileID: 0}
   bundleCombinations:
   - {fileID: 11400000, guid: ff41a4716486c67448bb8d1b3d20fc16, type: 2}
-  - {fileID: 11400000, guid: ff41a4716486c67448bb8d1b3d20fc16, type: 2}
+  - {fileID: 11400000, guid: 7123f70f234cfcf48b43ca7fa5bc42ad, type: 2}
   bundleSpawnPoints:
   - {fileID: 247334624}
   - {fileID: 4605072}
