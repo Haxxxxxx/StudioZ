@@ -40,6 +40,7 @@ public class MG_PatternWeaving : MiniGameBase
     [Header("MiniGame Settings")]
     public PatternWeavingActionName miniGameActionName = new PatternWeavingActionName();
     [NonSerialized] public GridCell_PatternWeaving nextCell;
+    private bool firstPattern = false;
 
     [Header("Grid References")]
     [SerializeField] private RectTransform gridParent;
@@ -77,13 +78,6 @@ public class MG_PatternWeaving : MiniGameBase
         ClearGrid();
         patternImg.gameObject.SetActive(false);
         patternSelectorCanvas.SetActive(true);
-    }
-
-    public override void StartGame()
-    {
-        base.StartGame();
-
-        selectedPattern.startCell.SetIsNextCell();
     }
 
 
@@ -291,10 +285,16 @@ public class MG_PatternWeaving : MiniGameBase
         selectedPattern = patterns[motif_index];
         patternImg.sprite = Sprite.Create(selectedPattern.texture, new Rect(0, 0, selectedPattern.texture.width, selectedPattern.texture.height), Vector2.zero);
         selectedPattern.startCell.SetSelectedData(selectedPattern.texture);
+        selectedPattern.startCell.SetIsNextCell();
 
         patternImg.gameObject.SetActive(true);
         patternSelectorCanvas.SetActive(false);
-        StartGame();
+
+        if(!firstPattern)
+        {
+            StartGame();
+            firstPattern = true;
+        }
     }
 
     #endregion
