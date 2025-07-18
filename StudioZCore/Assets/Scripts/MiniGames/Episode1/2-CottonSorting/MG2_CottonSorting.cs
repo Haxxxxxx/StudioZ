@@ -34,7 +34,7 @@ public class MG2_CottonSorting : MiniGameBase
     [SerializeField] private List<GameObject> randomElementsList;
     [HideInInspector] public int playerNumberOfRandomElements = 0;
     [HideInInspector] public SORTINGERROR currentSortingError = SORTINGERROR.NONE;
-    private int maxNumberOfRandomElements = 1; // TODO : A changer
+    private int maxNumberOfRandomElements = 10; // TODO : A changer
     private int cottonSortingErrors = 0;
     private int trashSortingErrors = 0;
 
