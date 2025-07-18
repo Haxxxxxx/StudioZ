@@ -5,6 +5,7 @@ using UnityEngine.Localization;
 #region enum
 public enum POSITION
 {
+    NONE,
     MIDDLE,
     LEFT,
     RIGHT
@@ -14,7 +15,8 @@ public enum CHARACTER // TODO : A changer !
     VOIXOFF,
     LYRA,
     PIK,
-    PROFANE
+    PROFANE,
+    CHIFFON
 }
 #endregion
 
