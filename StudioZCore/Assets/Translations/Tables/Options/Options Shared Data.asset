@@ -23,6 +23,30 @@ MonoBehaviour:
     m_Key: fr
     m_Metadata:
       m_Items: []
+  - m_Id: 443899932798976
+    m_Key: sound
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2237589072343040
+    m_Key: music
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2237589114286080
+    m_Key: voices
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2237589114286081
+    m_Key: languages
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2237589114286082
+    m_Key: accessibility
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2237589114286083
+    m_Key: legal_notices
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
