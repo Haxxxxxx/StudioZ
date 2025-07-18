@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 [RequireComponent(typeof(Image))]
 [RequireComponent(typeof(DraggableItem))]
-public class Seed_CottonCultivator : MonoBehaviour
+public class Seed_CottonCultivation : MonoBehaviour
 {
 
     public enum SeedType
@@ -32,7 +32,7 @@ public class Seed_CottonCultivator : MonoBehaviour
     [field: NonSerialized] public Image image { get; private set; }
     [field: NonSerialized] public DraggableItem draggableItem { get; private set; }
 
-    private List<FieldHole_CottonCultivator> fieldHoles = new List<FieldHole_CottonCultivator>();
+    private List<FieldHole_CottonCultivation> fieldHoles = new List<FieldHole_CottonCultivation>();
     private GameObject goodSeedContainer;
     private GameObject badSeedContainer;
     private bool isSorted = false;
@@ -121,11 +121,11 @@ public class Seed_CottonCultivator : MonoBehaviour
     {
         if (!fieldHoles.Any(h => h.gameObject == dropZoneObj)) return;
 
-        if (dropZoneObj.TryGetComponent<FieldHole_CottonCultivator>(out FieldHole_CottonCultivator currentHole))
+        if (dropZoneObj.TryGetComponent<FieldHole_CottonCultivation>(out FieldHole_CottonCultivation currentHole))
         {
-            if (currentHole.holeState == FieldHole_CottonCultivator.HoleState.HoleCreated)
+            if (currentHole.holeState == FieldHole_CottonCultivation.HoleState.HoleCreated)
             {
-                currentHole.SetHoleState(FieldHole_CottonCultivator.HoleState.Seeded);
+                currentHole.SetHoleState(FieldHole_CottonCultivation.HoleState.Seeded);
                 currentHole.seededSeed = this;
                 transform.SetParent(currentHole.transform);
                 transform.localPosition = new Vector3(0, -15f, 0);

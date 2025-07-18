@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadMiniGame()
     {
-        SceneManager.LoadSceneAsync(currentMiniGame.sceneName, LoadSceneMode.Single);
+        SceneManager.LoadSceneAsync(currentMiniGame.sceneAsset.name, LoadSceneMode.Single);
     }
 
     private void AdaptCameraScale()

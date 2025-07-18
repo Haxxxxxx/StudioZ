@@ -13,7 +13,7 @@ public abstract class MiniGameBase : MonoBehaviour
     [System.Serializable]
     public class MiniGameActionData
     {
-        public string actionName;
+        [ReadOnly] public string actionName;
         public int pointValue;
         public Dialogue actionDialogue;
 
@@ -29,15 +29,16 @@ public abstract class MiniGameBase : MonoBehaviour
 
     [Header("Default Settings")]
     [SerializeField] protected DialogueManager dialogueManager;
+    [SerializeField] protected GameResultHandler gameResultHandler;
 
-    [SerializeField] protected float chrono;
+    [SerializeField] protected float chrono = 0;
     [SerializeField] private TextMeshProUGUI chronoText;
 
     protected bool isFinished = false;
     protected bool isPaused = false;
     protected int currentScore = 0;
 
-    [SerializeField] protected List<MiniGameActionData> miniGameActionData = new List<MiniGameActionData>();
+    [SerializeField][NonReorderable] protected List<MiniGameActionData> miniGameActionData = new List<MiniGameActionData>();
     protected Dictionary<string, MiniGameActionResult> actionResults = new Dictionary<string, MiniGameActionResult>();
     protected int actionCount = 0;
 
@@ -118,8 +119,7 @@ public abstract class MiniGameBase : MonoBehaviour
     public virtual void EndGame()
     {
         isFinished = true;
-        CalculateStars();
-        Debug.Log($"Score final : {currentScore} | Durée : {GetChronoInString()}");
+        gameResultHandler.ShowGameResult(CalculateStars(), GetChronoInString());
     }
 
     public virtual void PerformAction(string actionName)
