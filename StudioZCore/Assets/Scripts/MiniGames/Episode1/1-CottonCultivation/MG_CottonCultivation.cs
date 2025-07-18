@@ -12,7 +12,6 @@ public class MG_CottonCultivation : MiniGameBase
 
     public static MG_CottonCultivation instance { get; private set; }
 
-    [System.Serializable]
     public class CottonCultivationActionName : MiniGameActionName
     {
         public string PickHealthySeed { get; private set; } = "pick_healthy_seed";
@@ -66,6 +65,7 @@ public class MG_CottonCultivation : MiniGameBase
         fieldHoles = FindObjectsByType<FieldHole_CottonCultivation>(FindObjectsSortMode.None).ToList<FieldHole_CottonCultivation>();
         unsortedSeed = FindObjectsByType<Seed_CottonCultivation>(FindObjectsSortMode.None).ToList<Seed_CottonCultivation>();
     }
+
 
     public override void StartGame()
     {

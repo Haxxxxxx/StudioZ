@@ -22,6 +22,10 @@ MonoBehaviour:
     m_Localized: Suivant
     m_Metadata:
       m_Items: []
+  - m_Id: 10212543134920704
+    m_Localized: 'Score :'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

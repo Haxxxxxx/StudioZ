@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3331cb81152107947b3ef83027280468, type: 3}
   m_Name: CottonCultivatorData
   m_EditorClassIdentifier: 
-  miniGameName: C
+  miniGameName: CottonCultivation
   sceneAsset: {fileID: 102900000, guid: 5f5cd425c961b924dafc3a987e242a14, type: 3}

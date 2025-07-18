@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: Localization-Assets-Shared
   m_EditorClassIdentifier: 
   m_GroupName: Localization-Assets-Shared
-  m_Data:
-    m_SerializedData: []
   m_GUID: 390a0c48edb1e5544b3e5c67c47dd8c3
   m_SerializeEntries:
   - m_GUID: 0108a1c01abc12d4da0c39f137ee51bb
@@ -33,8 +31,8 @@ MonoBehaviour:
     m_ReadOnly: 1
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 97d5d470cdf627843badd88f4a5893fb
-    m_Address: Assets/Translations/Tables/Dialogues/Dialogues Shared Data.asset
+  - m_GUID: a2001e612c441464a94d22ecd5705f50
+    m_Address: Assets/Translations/Tables/Dialogues/E1/E1_MG2 Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
