@@ -1668,12 +1668,13 @@ MonoBehaviour:
   dialogueOutro: {fileID: 0}
   bundleCombinations:
   - {fileID: 11400000, guid: ff41a4716486c67448bb8d1b3d20fc16, type: 2}
+  - {fileID: 11400000, guid: ff41a4716486c67448bb8d1b3d20fc16, type: 2}
   bundleSpawnPoints:
   - {fileID: 247334624}
   - {fileID: 4605072}
   - {fileID: 1649176650}
   - {fileID: 252957614}
-  coins: 0
+  coins: 10
   bundlePrefab: {fileID: 3196609254028679597, guid: 78533af5ad037824689890eac506d4a4, type: 3}
 --- !u!1001 &1428483848
 PrefabInstance:

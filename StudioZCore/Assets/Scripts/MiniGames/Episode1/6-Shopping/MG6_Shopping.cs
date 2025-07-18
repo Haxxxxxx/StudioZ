@@ -13,7 +13,7 @@ public class MG6_Shopping : MiniGameBase
     [SerializeField] private GameObject bundlePrefab;
     private int currentRound = 0;
     
-    private List<MG6_Bundle> initializedBundles;
+    private List<GameObject> initializedBundles;
 
     public override void StartGame()
     {
@@ -24,18 +24,25 @@ public class MG6_Shopping : MiniGameBase
             Debug.LogError("Game Manager bundle combinations is null");
             return;
         }
+
+        // Initialize list
+        initializedBundles = new List<GameObject>();
         
         InitializeBundles();
     }
 
     public void InitializeBundles()
     {
-        // foreach (MG6_Bundle bundle in initializedBundles)
-        // {
-        //     Destroy(bundle.gameObject);
-        //     initializedBundles.Remove(bundle);
-        // }
+        Debug.Log("Initializing bundles");
+        // Destroy spawned bundles and clear the list
+        foreach (var bundle in initializedBundles)
+        {
+           Destroy(bundle);
+        }
+        initializedBundles.Clear();
+        
 
+        // TOFIX: Will do nullref if currentRound > bundleComb.count
         if (bundleCombinations[currentRound].GetBundles().Count > bundleSpawnPoints.Count)
         {
             Debug.LogWarning("There is less spawn points than bundles in round " + currentRound + ". Some bundles will not be spawned, add more spawn points to fix.");
@@ -52,10 +59,10 @@ public class MG6_Shopping : MiniGameBase
                 current.GetComponentInChildren<TextMeshProUGUI>().text = "Price: " + bundle.price;
                 // Call SelectBundle when the player clicks the button
                 current.GetComponent<Button>().onClick.AddListener(() => SelectBundle(bundle));
+                
+                initializedBundles.Add(current);
             }
         }
-
-        currentRound++;
     }
     
     public void SelectBundle(MG6_Bundle bundle)
@@ -65,6 +72,7 @@ public class MG6_Shopping : MiniGameBase
         // Remove coins
         if (bundle.price > coins)
         {
+            Debug.Log("Not enough coins to buy");
             return;
         }
         
@@ -82,5 +90,7 @@ public class MG6_Shopping : MiniGameBase
         }
         
         // Next bundle proposition
+        currentRound++;
+        InitializeBundles();
     }
 }
