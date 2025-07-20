@@ -91,6 +91,112 @@ MonoBehaviour:
       to press the transports in the order you think is right.
     m_Metadata:
       m_Items: []
+  - m_Id: 35517828829184
+    m_Localized: They are manufactured in the countries where they are sold
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35529832927232
+    m_Localized: They are shipped from their country of manufacture
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35658799386624
+    m_Localized: Sheep from all over the world mail them to each other
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42505191165952
+    m_Localized: No, it's not that. Try again.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50648746954752
+    m_Localized: Bravo Lyra you didn't get fooled by his disguises! You've kept your
+      environmental conscience and that's great!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50907455819776
+    m_Localized: Yes, I'm not naive and I recognized him well behind his ridiculous
+      get-up!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50920655294464
+    m_Localized: 'More good news: we''ve delivered all the clothes to their delivery
+      points, so now it''s time to calculate your score!'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52049417998336
+    m_Localized: Excellent choice! You've combined two effective and reasonable means.
+      This shirt took its time, but the planet thanks you! Moving on!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52454143168512
+    m_Localized: Great job! You've thought about the planet while finding a realistic
+      route. These jeans arrive beautifully and without polluting too much.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52446933159936
+    m_Localized: You're becoming a real strategist! It's a great ride, both realistic
+      and environmentally friendly.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52487655657472
+    m_Localized: Well done! You've crossed the ocean without polluting the air, and
+      the last stretch is reasonable. Mission accomplished!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52503501737984
+    m_Localized: Perfect! Short, to the point and very reasonable. You got it right
+      the first time!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52523005251584
+    m_Localized: It's fast, it's true... but planes pollute a lot. Sometimes, taking
+      your time is better for the planet! You'll know next time
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52561156640768
+    m_Localized: Not bad at all! It's a bit longer and more circuitous, but it works.
+      Bravo for your logical mind!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52581733896192
+    m_Localized: Well done! It's a good solution, even if trucks pollute a little
+      more than trains.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52602705416192
+    m_Localized: It's fast, but this flight left a heavy pollution trail behind.
+      We can do better!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52618127872000
+    m_Localized: It's fast, but for such a short trip, you don't need to fly. Try
+      a gentler alternative.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52633063788544
+    m_Localized: Oops! The train can't cross the ocean. We have to find a means of
+      transport that floats or flies.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52665678696448
+    m_Localized: That would be very practical... but unfortunately, a truck can't
+      cross an ocean! Try again!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52682036482048
+    m_Localized: Hmm... Haven't you forgotten something? You have to cross the ocean
+      before you can take the train!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52699614810112
+    m_Localized: A truck that runs on water? I'd like to see that! Try something
+      else.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52715876126720
+    m_Localized: Trains are great... but there are no rails on the sea yet! Maybe
+      a truck would be better?
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

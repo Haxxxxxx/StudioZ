@@ -31,7 +31,14 @@ public class MG5_Transport : MiniGameBase
     [SerializeField] private GameObject[] transportSlots = new GameObject[2]; 
     [SerializeField] private List<TransportStep> transports;
     [SerializeField] private List<TransportScenario> scenarios;
+    [SerializeField] private GameObject quiz;
 
+
+    [Header("Dialogue")]
+    [SerializeField] private Dialogue dialogueNextIntro;
+    [SerializeField] private Dialogue badAnswer;
+
+    private int goodAnswerId = 2;
     private int currentScenario = 0;
     private List<string> playerSelection = new List<string>();
     private int attempt = 0;
@@ -39,7 +46,14 @@ public class MG5_Transport : MiniGameBase
     protected override void Start()
     {
         dialogueManager.CurrentDialogue = dialogueIntro;
-        ShowScenario(currentScenario);
+        dialogueManager.OnDialogueFinished += OnDialogueFinishedHandler;
+        dialogueManager.StartDialogue();
+    }
+
+    private void OnDialogueFinishedHandler()
+    {
+        dialogueManager.OnDialogueFinished -= OnDialogueFinishedHandler;
+        if(!quiz || !quiz.activeSelf) quiz.SetActive(true);
     }
 
     private void ShowScenario(int index)
@@ -101,5 +115,18 @@ public class MG5_Transport : MiniGameBase
             ShowScenario(currentScenario);
         else
             EndGame();
+    }
+
+    public void BS_ChooseAnswerQuiz(int id)
+    {
+        if (id == goodAnswerId)
+        {
+            quiz.SetActive(false);
+            dialogueManager.CurrentDialogue = dialogueNextIntro;
+        }
+        else
+        {
+            dialogueManager.CurrentDialogue = badAnswer;
+        }
     }
 }
