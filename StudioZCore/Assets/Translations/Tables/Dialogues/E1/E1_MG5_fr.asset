@@ -183,30 +183,13 @@ MonoBehaviour:
       n\u2019est pas n\xE9cessaire. Essaie une alternative plus douce."
     m_Metadata:
       m_Items: []
-  - m_Id: 52633063788544
-    m_Localized: "Oups ! Le train ne peut pas traverser les oc\xE9ans. Il faut trouver
-      un moyen de transport qui flotte ou vole."
-    m_Metadata:
-      m_Items: []
-  - m_Id: 52665678696448
-    m_Localized: "Ce serait bien pratique\u2026 mais malheureusement, un camion ne
-      peut pas traverser un oc\xE9an ! essaie encore "
-    m_Metadata:
-      m_Items: []
   - m_Id: 52682036482048
     m_Localized: "Hmm\u2026 Tu n\u2019as pas oubli\xE9 quelque chose ? Il faut d\u2019abord
-      traverser l\u2019oc\xE9an pour pouvoir prendre le train !"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 52699614810112
-    m_Localized: "Un camion qui roule sur l\u2019eau ? J\u2019aimerais voir \xE7a
-      ! Essaie autre chose."
+      traverser l\u2019oc\xE9an !"
     m_Metadata:
       m_Items: []
   - m_Id: 52715876126720
-    m_Localized: "Le train, c\u2019est bien\u2026 mais il n\u2019y a pas encore de
-      rails sur la mer ! Peut-\xEAtre qu\u2019un camion ferait mieux l\u2019affaire
-      ?"
+    m_Localized: Le bateau et l'avion ne peuvent pas rouler, choisi autre chose !
     m_Metadata:
       m_Items: []
   references:

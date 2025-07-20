@@ -143,24 +143,12 @@ MonoBehaviour:
     m_Key: E1_MG5_mid5
     m_Metadata:
       m_Items: []
-  - m_Id: 52633063788544
-    m_Key: E1_MG5_worst1
-    m_Metadata:
-      m_Items: []
-  - m_Id: 52665678696448
-    m_Key: E1_MG5_worst2
-    m_Metadata:
-      m_Items: []
   - m_Id: 52682036482048
-    m_Key: E1_MG5_worst3
-    m_Metadata:
-      m_Items: []
-  - m_Id: 52699614810112
-    m_Key: E1_MG5_worst4
+    m_Key: E1_MG5_worstSea
     m_Metadata:
       m_Items: []
   - m_Id: 52715876126720
-    m_Key: E1_MG5_worst5
+    m_Key: E1_MG5_worstGround
     m_Metadata:
       m_Items: []
   m_Metadata:

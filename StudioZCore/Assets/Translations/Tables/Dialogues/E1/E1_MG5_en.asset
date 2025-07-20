@@ -172,29 +172,12 @@ MonoBehaviour:
       a gentler alternative.
     m_Metadata:
       m_Items: []
-  - m_Id: 52633063788544
-    m_Localized: Oops! The train can't cross the ocean. We have to find a means of
-      transport that floats or flies.
-    m_Metadata:
-      m_Items: []
-  - m_Id: 52665678696448
-    m_Localized: That would be very practical... but unfortunately, a truck can't
-      cross an ocean! Try again!
-    m_Metadata:
-      m_Items: []
   - m_Id: 52682036482048
-    m_Localized: Hmm... Haven't you forgotten something? You have to cross the ocean
-      before you can take the train!
-    m_Metadata:
-      m_Items: []
-  - m_Id: 52699614810112
-    m_Localized: A truck that runs on water? I'd like to see that! Try something
-      else.
+    m_Localized: Hmm... Haven't you forgotten something? You have to cross the ocean!
     m_Metadata:
       m_Items: []
   - m_Id: 52715876126720
-    m_Localized: Trains are great... but there are no rails on the sea yet! Maybe
-      a truck would be better?
+    m_Localized: "You can't drive a boat or a plane \u2013 pick something else!"
     m_Metadata:
       m_Items: []
   references:

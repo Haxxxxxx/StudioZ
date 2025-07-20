@@ -4,27 +4,38 @@ using TMPro;
 
 public class MG5_Transport : MiniGameBase
 {
+    public enum TransportType
+    {
+        Boat,
+        Truck,
+        Plane,
+        Train
+    }
+
     [System.Serializable]
     public class TransportStep
     {
-        public string name;
+        public TransportType name;
         public int speed;
         public int pollutionScore;
         public Sprite icon;
+    }
+    [System.Serializable]
+    public class Combination
+    {
+        public List<TransportType> steps;
     }
 
     [System.Serializable]
     public class TransportScenario
     {
         public string clothName;
-        public string start;
-        public string finish;
-        public List<string[]> bestCombinations; // Ex: [["Bateau", "Camion"]]
-        public List<string[]> mediumCombinations; // Ex: [["Avion", "Camion"]]
-        public List<string[]> impossibleCombinations; // Ex: [["Train"]]
+        public Sprite icon;
+        public GameObject start;
+        public GameObject finish;
+        public List<TransportType> bestCombination;
         public Dialogue bestFeedback;
         public Dialogue mediumFeedback;
-        public Dialogue impossibleFeedback;
     }
 
     [Header("UI")]
@@ -37,10 +48,12 @@ public class MG5_Transport : MiniGameBase
     [Header("Dialogue")]
     [SerializeField] private Dialogue dialogueNextIntro;
     [SerializeField] private Dialogue badAnswer;
+    [SerializeField] private Dialogue worstAnswerSea;
+    [SerializeField] private Dialogue worstAnswerGround;
 
     private int goodAnswerId = 2;
     private int currentScenario = 0;
-    private List<string> playerSelection = new List<string>();
+    private List<TransportType> playerSelection = new List<TransportType>();
     private int attempt = 0;
 
     protected override void Start()
@@ -67,7 +80,7 @@ public class MG5_Transport : MiniGameBase
     }
 
     // Appelé quand le joueur sélectionne un transport
-    public void OnSelectTransport(string transportName)
+    public void OnSelectTransport(TransportType transportName)
     {
         if (playerSelection.Count >= 3) return;
         playerSelection.Add(transportName);
@@ -81,32 +94,39 @@ public class MG5_Transport : MiniGameBase
         var sc = scenarios[currentScenario];
         attempt++;
 
-        if (IsCombination(sc.bestCombinations, playerSelection))
+        if (playerSelection[0] == TransportType.Train || playerSelection[0]==TransportType.Truck)
+        {
+            dialogueManager.CurrentDialogue = worstAnswerSea;
+            return;
+        }
+        else if (playerSelection[1] == TransportType.Boat || playerSelection[1] == TransportType.Plane)
+        {
+            dialogueManager.CurrentDialogue = worstAnswerGround;
+            return;
+        }
+        else if (IsCombination(sc.bestCombination, playerSelection))
         {
             currentScore += attempt == 1 ? 10 : 5;
             NextScenario();
         }
-        else if (IsCombination(sc.mediumCombinations, playerSelection))
+        else
         {
-            currentScore += attempt == 1 ? 5 : 3;
+            dialogueManager.CurrentDialogue = sc.mediumFeedback;
             NextScenario();
         }
     }
 
-    private bool IsCombination(List<string[]> combos, List<string> selection)
+    private bool IsCombination(List<TransportType> combo, List<TransportType> selection)
     {
-        foreach (var combo in combos)
+        if (combo.Count != selection.Count) return false;
+        for (int i = 0; i < combo.Count; i++)
         {
-            if (combo.Length != selection.Count) continue;
-            bool match = true;
-            for (int i = 0; i < combo.Length; i++)
-            {
-                if (combo[i] != selection[i]) { match = false; break; }
-            }
-            if (match) return true;
+            if (combo[i] != selection[i]) return false;
         }
-        return false;
+        return true;
     }
+
+
 
     private void NextScenario()
     {
