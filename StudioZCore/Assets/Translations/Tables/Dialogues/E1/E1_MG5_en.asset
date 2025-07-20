@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: E1_MG5_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 4e04fe2e0b43d5449b2134802884e59c, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 21002063872
+    m_Localized: That's it Lyra, we've seen all the steps involved in making a t-shirt.
+      I hope you've remembered each step, because all that work goes into it... just
+      for one piece of cloth!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 486305566720
+    m_Localized: Yes, I had no idea it would take so much time and resources. It's
+      amazing! Well, can we go home now?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 587568648192
+    m_Localized: Not so fast! We've seen how clothes are made... but how do you think
+      they get to the stores?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8958078226432
+    m_Localized: Exactly! This is what we call importing. Clothes sometimes travel
+      thousands of kilometers before landing in boutiques around the world. And that
+      has an impact on our planet...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9181852733440
+    m_Localized: By the way, look, we've arrived at the clothing import center! This
+      is where it all happens!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9430738538496
+    m_Localized: This place is huge! So this is where all the clothes are managed
+      and sent!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10142100885504
+    m_Localized: Exactly! And you'll be in charge of importing his clothes all over
+      the world!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10250502672384
+    m_Localized: When you're ready, press the big button and I'll explain the next
+      mini-game.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10565801086976
+    m_Localized: Take a look at the T-shirt on the bottom left of your screen, and
+      click on it to find out all about it.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10787453276160
+    m_Localized: Now that you've got all the information you need about the T-shirt,
+      it's up to you to make its way to the store! You can choose between 4 means
+      of transport.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11520386928640
+    m_Localized: You have to choose the best option to pollute as little as possible.
+      You have the right to choose several means of transport, but the more you use,
+      the more you pollute, so think carefully!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11640817979392
+    m_Localized: Oh! It's like a puzzle! I just have to find the right combination.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11725375148032
+    m_Localized: Exactly, Lyra! Do you want to do the first one together?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11855155302400
+    m_Localized: All right! First, you need to find the starting and finishing points
+      of your suit. See if there's a sea or ocean between them, then it's up to you
+      to press the transports in the order you think is right.
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

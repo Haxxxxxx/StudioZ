@@ -8,7 +8,7 @@ public class MG5_Transport : MiniGameBase
     public class TransportStep
     {
         public string name;
-        public string description;
+        public int speed;
         public int pollutionScore;
         public Sprite icon;
     }
@@ -16,21 +16,19 @@ public class MG5_Transport : MiniGameBase
     [System.Serializable]
     public class TransportScenario
     {
-        public string habitName;
-        public string depart;
-        public string arrivee;
-        public string distance;
+        public string clothName;
+        public string start;
+        public string finish;
         public List<string[]> bestCombinations; // Ex: [["Bateau", "Camion"]]
         public List<string[]> mediumCombinations; // Ex: [["Avion", "Camion"]]
         public List<string[]> impossibleCombinations; // Ex: [["Train"]]
-        public string bestFeedback;
-        public string mediumFeedback;
-        public string impossibleFeedback;
+        public Dialogue bestFeedback;
+        public Dialogue mediumFeedback;
+        public Dialogue impossibleFeedback;
     }
 
     [Header("UI")]
-    [SerializeField] private TMP_Text infoText;
-    [SerializeField] private GameObject[] transportSlots; // 3 slots pour les choix
+    [SerializeField] private GameObject[] transportSlots = new GameObject[2]; 
     [SerializeField] private List<TransportStep> transports;
     [SerializeField] private List<TransportScenario> scenarios;
 
@@ -40,7 +38,7 @@ public class MG5_Transport : MiniGameBase
 
     protected override void Start()
     {
-        base.Start();
+        dialogueManager.CurrentDialogue = dialogueIntro;
         ShowScenario(currentScenario);
     }
 
@@ -49,7 +47,6 @@ public class MG5_Transport : MiniGameBase
         playerSelection.Clear();
         attempt = 0;
         var sc = scenarios[index];
-        infoText.text = $"{sc.habitName}\nDépart : {sc.depart} 🇦🇮\nArrivée : {sc.arrivee} 🇩🇪\nDistance : {sc.distance}";
         // Affiche les drapeaux, reset les slots, etc.
         foreach (var slot in transportSlots)
             slot.SetActive(false);
@@ -73,23 +70,12 @@ public class MG5_Transport : MiniGameBase
         if (IsCombination(sc.bestCombinations, playerSelection))
         {
             currentScore += attempt == 1 ? 10 : 5;
-            infoText.text = sc.bestFeedback;
             NextScenario();
         }
         else if (IsCombination(sc.mediumCombinations, playerSelection))
         {
             currentScore += attempt == 1 ? 5 : 3;
-            infoText.text = sc.mediumFeedback;
             NextScenario();
-        }
-        else if (IsCombination(sc.impossibleCombinations, playerSelection))
-        {
-            infoText.text = sc.impossibleFeedback;
-            // Ne passe pas au suivant, laisse réessayer
-        }
-        else
-        {
-            infoText.text = "Essaie une autre combinaison !";
         }
     }
 

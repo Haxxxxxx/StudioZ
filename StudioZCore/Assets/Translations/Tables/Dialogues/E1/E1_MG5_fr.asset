@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: E1_MG5_fr
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: fr
+  m_SharedData: {fileID: 11400000, guid: 4e04fe2e0b43d5449b2134802884e59c, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 21002063872
+    m_Localized: "\xC7a y est Lyra, nous avons vu toutes les \xE9tapes pour confectionner
+      un t-shirt. J\u2019esp\xE8re que tu as bien retenu chaque \xE9tape, car tout
+      ce travail est n\xE9cessaire\u2026 juste pour un seul v\xEAtement !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 486305566720
+    m_Localized: "Oui, j\u2019\xE9tais loin d\u2019imaginer que \xE7a demandait autant
+      de temps et de ressources. C\u2019est fou ! Bon, on peut rentrer \xE0 la maison
+      maintenant ?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 587568648192
+    m_Localized: "Diantre, pas si vite ! On a vu comment on fabriquait les habits\u2026
+      mais \xE0 ton avis, comment arrivent-ils jusque dans les magasins ?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8958078226432
+    m_Localized: "Exactement ! C\u2019est ce qu\u2019on appelle l\u2019importation.
+      Les v\xEAtements voyagent parfois des milliers de kilom\xE8tres avant d\u2019atterrir
+      dans les boutiques du monde entier. Et \xE7a, \xE7a a un impact sur notre 
+      plan\xE8te\u2026\r\n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9181852733440
+    m_Localized: "D\u2019ailleurs regarde nous arrivons dans le centre des importations
+      de v\xEAtements ! C'est ici que tout se passe ! "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9430738538496
+    m_Localized: "Cet endroit est immense ! C\u2019est donc ici que sont g\xE9r\xE9s
+      et envoy\xE9s tous les habits ?! "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10142100885504
+    m_Localized: "Exactement ! Et c'est toi qui va g\xE9rer les importations de ses
+      habits \xE0 travers le monde ! "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10250502672384
+    m_Localized: "Quand tu seras pr\xEAte, appuie sur le gros bouton et je t\u2019expliquerai
+      le mini jeu suivant."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10565801086976
+    m_Localized: "Regarde ce t-shirt qui est en bas \xE0 gauche de ton \xE9cran,
+      clique dessus pour avoir toutes les informations sur lui."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10787453276160
+    m_Localized: "Tu as maintenant toutes les informations sur ce t-shirt, maintenant
+      ta mission va \xEAtre de lui cr\xE9er son chemin pour qu\u2019il arrive jusqu\u2019au
+      magasin ! Tu as le choix entre 4 moyens de transport."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11520386928640
+    m_Localized: "Tu dois choisir la meilleure option pour polluer le moins possible.
+      Tu as le droit de choisir plusieurs moyens de transports, mais plus tu en utilises
+      et plus tu vas polluer donc r\xE9fl\xE9chis bien !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11640817979392
+    m_Localized: "Oh ! C\u2019est comme un puzzle ! Je dois juste trouver la bonne
+      combinaison."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11725375148032
+    m_Localized: "Exactement Lyra ! Tu veux qu\u2019on fasse le premier ensemble
+      ?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11855155302400
+    m_Localized: "D\u2019accord ! Dans un premier temps, tu dois trouver le point
+      de d\xE9part et le point d'arriv\xE9e de ton habit. Regarde s\u2019il y a une
+      mer ou un oc\xE9an qui les s\xE9pare, ensuite c'est \xE0 toi de jouer, appuie
+      sur les transports dans l\u2019ordre que tu penses \xEAtre le bon. "
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

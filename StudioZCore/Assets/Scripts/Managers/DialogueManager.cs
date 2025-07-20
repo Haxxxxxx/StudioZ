@@ -36,6 +36,7 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue()
     {
+        Debug.Log($"Starting dialogue: {currentDialogue?.name}");
         if (!bubble || !bubble.activeSelf) bubble.SetActive(true);
         if (typeLineCoroutine != null) StopCoroutine(typeLineCoroutine);
 
