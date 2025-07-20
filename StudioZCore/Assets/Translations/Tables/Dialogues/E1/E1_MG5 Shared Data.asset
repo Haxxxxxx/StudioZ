@@ -151,6 +151,14 @@ MonoBehaviour:
     m_Key: E1_MG5_worstGround
     m_Metadata:
       m_Items: []
+  - m_Id: 89045733609472
+    m_Key: yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89084224737280
+    m_Key: no
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -180,6 +180,14 @@ MonoBehaviour:
     m_Localized: "You can't drive a boat or a plane \u2013 pick something else!"
     m_Metadata:
       m_Items: []
+  - m_Id: 89045733609472
+    m_Localized: Yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89084224737280
+    m_Localized: No
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
