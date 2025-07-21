@@ -27,6 +27,8 @@ ShaderVariantCollection:
         passType: 0
       - keywords: SAMPLING_BLUR_DETAIL
         passType: 0
+      - keywords: SAMPLING_BLUR_DETAIL TONE_GRAYSCALE
+        passType: 0
       - keywords: SAMPLING_BLUR_FAST
         passType: 0
       - keywords: SAMPLING_BLUR_MEDIUM
