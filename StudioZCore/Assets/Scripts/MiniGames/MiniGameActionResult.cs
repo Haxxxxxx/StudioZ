@@ -1,11 +1,14 @@
-public class MiniGameActionResult 
+namespace MiniGames
 {
-    public int pointValue;
-    public Dialogue actionDialogue;
-
-    public MiniGameActionResult(int value = 1, Dialogue actionDialogue = null)
+    public class MiniGameActionResult
     {
-        pointValue = value;
-        this.actionDialogue = actionDialogue;
+        public int pointValue;
+        public Dialogue actionDialogue;
+
+        public MiniGameActionResult(int value = 1, Dialogue actionDialogue = null)
+        {
+            pointValue = value;
+            this.actionDialogue = actionDialogue;
+        }
     }
 }
