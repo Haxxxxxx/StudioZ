@@ -4,7 +4,7 @@ using UnityEditor.AddressableAssets.Build.Layout;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MG6_Shopping : MiniGameBase
+public class MG6_Shopping : MiniGames.MiniGameBase
 {
     [SerializeField] private List<MG6_BundleCombination> bundleCombinations;
     [SerializeField] private List<Transform> bundleSpawnPoints;
