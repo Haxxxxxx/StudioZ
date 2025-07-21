@@ -6,6 +6,7 @@ public class ThreadOnTreadmill : MonoBehaviour
 {
     private Rigidbody2D rb;
     private Coroutine movingCoroutine;
+    private Coroutine fallingCoroutine;
     private MG2_CottonSorting mgCottonSorting;
 
     private float treadmillSpeed;
@@ -33,6 +34,7 @@ public class ThreadOnTreadmill : MonoBehaviour
     private void OnDestroy()
     {
         movingCoroutine = null;
+        fallingCoroutine = null;
     }
 
     private IEnumerator MovingOnTreadmill()
@@ -43,25 +45,40 @@ public class ThreadOnTreadmill : MonoBehaviour
 
             yield return null;
         }
+        fallingCoroutine = StartCoroutine(FallingOfTreadmill());
     }
+
+    private IEnumerator FallingOfTreadmill()
+    {
+        while (isFalling)
+        {
+            rb.MovePosition(rb.position + new Vector2(0, -10));
+
+            yield return null;
+        }
+    }
+
+
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("TreadmillEnd") && isFalling == false)
+        if (collision.gameObject.CompareTag("TreadmillEnd"))
         {
-            Debug.Log("Trigger: Thread is falling!");
-            isFalling = true;
-
-            if (rb != null)
+            if (isFalling == false)
             {
-                rb.constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionX;
+                Debug.Log("Trigger: Thread is falling!");
+                isFalling = true;
+
+                if (rb != null)
+                {
+                    rb.constraints = RigidbodyConstraints2D.None;
+                }
+            }
+            else
+            {
+                Debug.Log("Trigger: Thread is destroyed!");
+                Destroy(gameObject);
             }
         }
-
-        if (collision.gameObject.CompareTag("Destroyer"))
-        {
-            Debug.Log("Trigger: Thread finished falling!");
-            Destroy(gameObject);
-        }
+        Debug.Log("Trigger: EXIT");
     }
-
 }

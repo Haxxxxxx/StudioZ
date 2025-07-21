@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
@@ -34,7 +35,7 @@ public class MG2_CottonSorting : MiniGameBase
     [SerializeField] private List<GameObject> randomElementsList;
     [HideInInspector] public int playerNumberOfRandomElements = 0;
     [HideInInspector] public SORTINGERROR currentSortingError = SORTINGERROR.NONE;
-    private int maxNumberOfRandomElements = 10; // TODO : A changer
+    private int maxNumberOfRandomElements = 1; // TODO : A changer
     private int cottonSortingErrors = 0;
     private int trashSortingErrors = 0;
 
@@ -43,10 +44,12 @@ public class MG2_CottonSorting : MiniGameBase
 
     [Header("Phase 2")]
     [SerializeField] public GameObject Phase2;
+    [SerializeField] public GameObject WheelsParent;
     [SerializeField] public GameObject ThreadOnTreadmillPrefab;
     [SerializeField] public List<Sprite> ThreadOnTreadmillSpriteList;
     public float baseSpeed = 1f;
     public float treadmillSpeed = 1f;
+    public bool isTreadmillOn = false;
 
     [Header("Dialogues")]
     [SerializeField] private Dialogue afterCurtainDialogue;
@@ -226,7 +229,28 @@ public class MG2_CottonSorting : MiniGameBase
     private void StartPhase2Game()
     {
         dialogueManager.OnDialogueFinished -= StartPhase2Game;
-        PopThreadOnTreadmill();
+        isTreadmillOn = true;
+        StartWheelsAnim();
+
+        StartCoroutine(PopThreadOnTreadmillCoroutine());
+    }
+
+    private void StartWheelsAnim()
+    {
+        for (int i = 0; i < WheelsParent.transform.childCount; i++)
+        {
+            Animation anim = WheelsParent.transform.GetChild(i).gameObject.GetComponent<Animation>();
+            if (anim != null) anim.Play();
+        }
+    }
+
+    private IEnumerator PopThreadOnTreadmillCoroutine()
+    {
+        while (isTreadmillOn) {
+            PopThreadOnTreadmill();
+            yield return new WaitForSeconds(5);
+        }
+        yield return null;
     }
 
     private void PopThreadOnTreadmill()
