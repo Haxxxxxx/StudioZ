@@ -8,7 +8,8 @@ public enum POSITION
     NONE,
     MIDDLE,
     LEFT,
-    RIGHT
+    RIGHT,
+    TOP
 }
 public enum CHARACTER // TODO : A changer !
 {

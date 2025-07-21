@@ -7,6 +7,15 @@ using UnityEngine.UI;
 
 public class MG2_CottonSorting : MiniGameBase
 {
+    #region data
+    [System.Serializable]
+    public class HoldData
+    {
+        public GameObject handleObject;
+        public Sprite handleSprite;
+    }
+    #endregion
+
     #region Variables
     public enum SORTINGERROR
     {
@@ -28,7 +37,7 @@ public class MG2_CottonSorting : MiniGameBase
 
     [Header("Phase 1")]
     [SerializeField] private GameObject curtainScene;
-    [SerializeField] public GameObject Phase1;
+    [SerializeField] private GameObject Phase1;
     [SerializeField] public GameObject recycleTrashCan;
     [SerializeField] public GameObject basicTrashCan;
     [SerializeField] public Button bag;
@@ -43,13 +52,15 @@ public class MG2_CottonSorting : MiniGameBase
     [SerializeField] private int goodAnswerId;
 
     [Header("Phase 2")]
-    [SerializeField] public GameObject Phase2;
-    [SerializeField] public GameObject WheelsParent;
-    [SerializeField] public GameObject ThreadOnTreadmillPrefab;
-    [SerializeField] public List<Sprite> ThreadOnTreadmillSpriteList;
+    [SerializeField] private GameObject Phase2;
+    [SerializeField] private GameObject WheelsParent;
+    [SerializeField] private GameObject ThreadOnTreadmillPrefab;
+    [SerializeField] private List<Sprite> ThreadOnTreadmillSpriteList;
+    [SerializeField] private Sprite emptyHoldSprite;
+    [SerializeField] private HoldData[] holds;
     public float baseSpeed = 1f;
     public float treadmillSpeed = 1f;
-    public bool isTreadmillOn = false;
+    private bool isTreadmillOn = false;
 
     [Header("Dialogues")]
     [SerializeField] private Dialogue afterCurtainDialogue;
