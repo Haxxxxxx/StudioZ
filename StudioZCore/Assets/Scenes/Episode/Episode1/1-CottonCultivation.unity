@@ -1804,7 +1804,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 935031338}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9361131b6dff7c247afe7fdb51a007d6, type: 3}
+  m_Script: {fileID: 11500000, guid: d78bd95915b91454cb135e7dc6cafaac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueManager: {fileID: 549537208}
@@ -1818,10 +1818,10 @@ MonoBehaviour:
   - actionName: pick_corrupted_seed
     pointValue: -1
     actionDialogue: {fileID: 0}
-  - actionName: throw_corrupted_seed
-    pointValue: 1
-    actionDialogue: {fileID: 0}
   - actionName: throw_healthy_seed
+    pointValue: -1
+    actionDialogue: {fileID: 0}
+  - actionName: throw_corrupted_seed
     pointValue: 1
     actionDialogue: {fileID: 0}
   - actionName: use_shovel
@@ -1840,14 +1840,11 @@ MonoBehaviour:
     pointValue: 1
     actionDialogue: {fileID: 0}
   dialogueIntro: {fileID: 11400000, guid: 31e8d2b0b4227784b8ab75f5b14f8078, type: 2}
-  dialogueOutro: {fileID: 11400000, guid: 49e2ca51fe1c95b448e054af1cc5a924, type: 2}
+  dialogueOutro: {fileID: 0}
   cottonToHarvest: 1
-  toolsBtn:
-  - {fileID: 1029372050}
-  - {fileID: 280529432}
-  - {fileID: 2045886453}
-  - {fileID: 1631259274}
+  toolsBtn: []
   cottonText: {fileID: 1063409621}
+  phase1Tuto: {fileID: 11400000, guid: 1804b715a7a5a554c9cdaf0d45277c3b, type: 2}
 --- !u!1 &940768277
 GameObject:
   m_ObjectHideFlags: 0
@@ -3233,7 +3230,7 @@ MonoBehaviour:
   m_ColorIntensity: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_ColorGlow: 0
-  m_SamplingFilter: 3
+  m_SamplingFilter: 2
   m_SamplingIntensity: 1
   m_SamplingWidth: 1
   m_SamplingScale: 1
@@ -4998,6 +4995,14 @@ PrefabInstance:
     - target: {fileID: 894844691673176053, guid: ecaa64d8796b99148aae5f0a6aff6b02, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: DialogueManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3714536126244023790, guid: ecaa64d8796b99148aae5f0a6aff6b02, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3714536126244023790, guid: ecaa64d8796b99148aae5f0a6aff6b02, type: 3}
+      propertyPath: m_isRightToLeft
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5533913456098386736, guid: ecaa64d8796b99148aae5f0a6aff6b02, type: 3}
       propertyPath: m_Name

@@ -58,6 +58,9 @@ namespace MiniGames
             private List<Seed_CottonCultivation> badSortedSeed = new List<Seed_CottonCultivation>();
             private float minDistance;
 
+            [Header("Dialogue References")]
+            [SerializeField] private Dialogue phase1Tuto;
+
             #endregion
 
 
@@ -71,6 +74,14 @@ namespace MiniGames
                 unsortedSeed = FindObjectsByType<Seed_CottonCultivation>(FindObjectsSortMode.None).ToList<Seed_CottonCultivation>();
             }
 
+            protected override void Start()
+            {
+                if (dialogueManager != null && dialogueIntro != null)
+                {
+                    dialogueManager.OnDialogueFinished += Phase1Tuto;
+                    dialogueManager.CurrentDialogue = dialogueIntro;
+                }
+            }
 
             public override void StartGame()
             {
@@ -79,6 +90,13 @@ namespace MiniGames
             }
 
             #region Phase1
+
+            private void Phase1Tuto()
+            {
+                dialogueManager.OnDialogueFinished -= Phase1Tuto;
+                dialogueManager.OnDialogueFinished += StartGame;
+                dialogueManager.CurrentDialogue = phase1Tuto;
+            }
 
             public void UpdateUnsortedSeed(Seed_CottonCultivation sortedSeed, bool goodSeed, GameObject container)
             {

@@ -34,6 +34,37 @@ MonoBehaviour:
       Profane n\u2019est s\xFBrement pas tr\xE8s loin."
     m_Metadata:
       m_Items: []
+  - m_Id: 14066477436776448
+    m_Localized: "Regarde ce grand sac plein de graines ! Tu vois, toutes ne sont
+      pas bonnes pour faire pousser du coton. Suis moi je te montre ! \r\n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14066808396722176
+    m_Localized: 'Alors, on a trois sortes de graines ici :'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14066912096694272
+    m_Localized: "Les graines toutes rondes, bien claires ? Ce sont les graines saines
+      ! Ce sont elles qu\u2019on veut planter."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14067144435970048
+    m_Localized: "Les graines toutes bizarres et violettes ? Oups\u2026 celles-l\xE0
+      ont \xE9t\xE9 corrompues par Profane. Si tu les plantes, elles ralentissent
+      la pousse du coton.\r\n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14067320626098176
+    m_Localized: "Celles qui ressemblent \xE0 des bouts d\u2019\xE9corce ou du ma\xEFs
+      ? Elles sont inutiles. Elles ne feront pousser que du vent !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14067510607097856
+    m_Localized: "\xC0 toi de jouer maintenant  ! Attrape les graines saines et mets
+      les dans le sac. Si tu te trompes, pas de panique, on peut toujours recommencer
+      !"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

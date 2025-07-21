@@ -27,6 +27,30 @@ MonoBehaviour:
     m_Key: E1_MG1_intro3
     m_Metadata:
       m_Items: []
+  - m_Id: 14066477436776448
+    m_Key: E1_MG1_part1_tuto1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14066808396722176
+    m_Key: E1_MG1_part1_tuto2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14066912096694272
+    m_Key: E1_MG1_part1_tuto3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14067144435970048
+    m_Key: E1_MG1_part1_tuto4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14067320626098176
+    m_Key: E1_MG1_part1_tuto5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14067510607097856
+    m_Key: E1_MG1_part1_tuto6
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
