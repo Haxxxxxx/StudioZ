@@ -42,6 +42,7 @@ public class DraggableItem : MonoBehaviour, IDragHandler, IEndDragHandler, IBegi
         offset.y = eventData.position.y - transform.position.y;
 
         OnDragStart?.Invoke(eventData);
+        Debug.Log("On Drag Start");
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -61,6 +62,7 @@ public class DraggableItem : MonoBehaviour, IDragHandler, IEndDragHandler, IBegi
             OnDragEnd?.Invoke(eventData);
             isDragged = false;
             canvasGroup.blocksRaycasts = true;
+            Debug.Log("On Drag End");
         }
     }
 }

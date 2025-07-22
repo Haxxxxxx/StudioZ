@@ -19,6 +19,10 @@ MonoBehaviour:
     m_Key: next
     m_Metadata:
       m_Items: []
+  - m_Id: 10212543134920704
+    m_Key: 'score:'
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
