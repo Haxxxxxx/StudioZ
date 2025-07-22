@@ -22,10 +22,15 @@ public class MG3_Confection : MiniGameBase
         public string AssembleFail           { get; private set; } = "assemble_fail";
     }
     
+    public ConfectionActionName miniGameActionName = new ConfectionActionName();
+    
     [Header("UI References")]
-    [SerializeField] private Image targetModel;          // T‑shirt modèle affiché à gauche
-    [SerializeField] private Transform patternContainer; // Parent des 3 patrons proposés
-    [SerializeField] private Button validateAssemblyBtn; // Bouton “Assembler”
+    [SerializeField] private Image targetModel; 
+    [SerializeField] private Transform patternContainer; 
+    [SerializeField] private GameObject patronButtonPrefab;
+    [SerializeField] private Canvas selectCanvas;
+    [SerializeField] private Canvas cutCanvas;
+    [SerializeField] private Image cutPatreon;
     
     [SerializeField] private List<TShirtPatternData> possibleModels = new();
     [SerializeField] private List<TShirtPatternData> allPatrons = new();
@@ -81,13 +86,11 @@ public class MG3_Confection : MiniGameBase
 
         foreach (var pattern in finalChoices)
         {
-            GameObject go = new GameObject("PatronBtn", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image), typeof(Button));
-            go.transform.SetParent(patternContainer, false);
-
-            var img = go.GetComponent<Image>();
+            GameObject go = Instantiate(patronButtonPrefab, patternContainer);
+            Image img = go.GetComponent<Image>();
             img.sprite = pattern.fullSprite;
 
-            var btn = go.GetComponent<Button>();
+            Button btn = go.GetComponent<Button>();
             btn.onClick.AddListener(() => OnPatternSelectedCol(pattern));
         }
     }
@@ -99,6 +102,9 @@ public class MG3_Confection : MiniGameBase
         {
             //PerformAction(miniGameActionName.PickCorrectPattern);
             Debug.Log("✅ Bon col !");
+            selectCanvas.gameObject.SetActive(false);
+            cutPatreon.sprite = selected.fullSprite;
+            cutCanvas.gameObject.SetActive(true);
             // À toi de lancer l'étape de découpe ici
         }
         else
