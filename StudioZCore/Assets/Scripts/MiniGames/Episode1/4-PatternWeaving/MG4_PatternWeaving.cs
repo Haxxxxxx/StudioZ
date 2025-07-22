@@ -77,11 +77,16 @@ namespace MiniGames
 
             protected override void Start()
             {
-                base.Start();
+                patternSelectorCanvas.SetActive(false);
+
+                if (dialogueManager != null && dialogueIntro != null)
+                {
+                    dialogueManager.OnDialogueFinished += () => patternSelectorCanvas.SetActive(true);
+                    dialogueManager.CurrentDialogue = dialogueIntro;
+                }
 
                 ClearGrid();
                 patternImg.gameObject.SetActive(false);
-                patternSelectorCanvas.SetActive(true);
             }
 
 
