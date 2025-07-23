@@ -87,18 +87,18 @@ MonoBehaviour:
       m_LocalVariables: []
     redButtonText:
       m_TableReference:
-        m_TableCollectionName: 
+        m_TableCollectionName: GUID:99f4455949f0ac74fbe528517cf0cf25
       m_TableEntryReference:
-        m_KeyId: 0
+        m_KeyId: 203587088384
         m_Key: 
       m_FallbackState: 0
       m_WaitForCompletion: 0
       m_LocalVariables: []
     greenButtonText:
       m_TableReference:
-        m_TableCollectionName: 
+        m_TableCollectionName: GUID:99f4455949f0ac74fbe528517cf0cf25
       m_TableEntryReference:
-        m_KeyId: 0
+        m_KeyId: 106916769792
         m_Key: 
       m_FallbackState: 0
       m_WaitForCompletion: 0
@@ -117,18 +117,18 @@ MonoBehaviour:
       m_LocalVariables: []
     redButtonText:
       m_TableReference:
-        m_TableCollectionName: 
+        m_TableCollectionName: GUID:99f4455949f0ac74fbe528517cf0cf25
       m_TableEntryReference:
-        m_KeyId: 0
+        m_KeyId: 203587088384
         m_Key: 
       m_FallbackState: 0
       m_WaitForCompletion: 0
       m_LocalVariables: []
     greenButtonText:
       m_TableReference:
-        m_TableCollectionName: 
+        m_TableCollectionName: GUID:99f4455949f0ac74fbe528517cf0cf25
       m_TableEntryReference:
-        m_KeyId: 0
+        m_KeyId: 106916769792
         m_Key: 
       m_FallbackState: 0
       m_WaitForCompletion: 0

@@ -41,7 +41,11 @@ public class PopupManager : MonoBehaviour
         
         if (!popupPrefab || !popupPrefab.activeSelf) popupPrefab.SetActive(true);
         OnPopupOpened?.Invoke();
+        
         textComponent.text = text.GetLocalizedString();
+        nextButton.GetComponentInChildren<TextMeshProUGUI>().text = greenBtnText.GetLocalizedString();
+        cancelButton.GetComponentInChildren<TextMeshProUGUI>().text = redBtnText.GetLocalizedString();
+        
         nextButton.onClick.AddListener(() => OnContinue?.Invoke());
         cancelButton.onClick.AddListener(() => OnCancel?.Invoke());
 
