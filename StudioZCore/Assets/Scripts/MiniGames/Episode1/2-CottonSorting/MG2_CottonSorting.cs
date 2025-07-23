@@ -5,15 +5,25 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum ThreadColor
+{
+    Blue,
+    Orange,
+    Green,
+    Pink,
+    Purple
+}
+
 public class MG2_CottonSorting : MiniGameBase
 {
     #region data
     [System.Serializable]
-    public class HoldData
+    public class ThreadData
     {
-        public GameObject handleObject;
-        public Sprite handleSprite;
+        public ThreadColor color;
+        public Sprite sprite;
     }
+
     #endregion
 
     #region Variables
@@ -55,9 +65,13 @@ public class MG2_CottonSorting : MiniGameBase
     [SerializeField] private GameObject Phase2;
     [SerializeField] private GameObject WheelsParent;
     [SerializeField] private GameObject ThreadOnTreadmillPrefab;
-    [SerializeField] private List<Sprite> ThreadOnTreadmillSpriteList;
+    //[SerializeField] private List<Sprite> ThreadOnTreadmillSpriteList;
     [SerializeField] private Sprite emptyHoldSprite;
-    [SerializeField] private HoldData[] holds;
+    [SerializeField] private List<ThreadData> allThreads;
+    [SerializeField] private List<GameObject> holdsInMachine;
+    [SerializeField] private LineRenderer lineRenderer;
+
+
     public float baseSpeed = 1f;
     public float treadmillSpeed = 1f;
     private bool isTreadmillOn = false;
@@ -239,6 +253,7 @@ public class MG2_CottonSorting : MiniGameBase
 
     private void StartPhase2Game()
     {
+        DisableBackgroundAntiClick();
         dialogueManager.OnDialogueFinished -= StartPhase2Game;
         isTreadmillOn = true;
         StartWheelsAnim();
@@ -266,7 +281,8 @@ public class MG2_CottonSorting : MiniGameBase
 
     private void PopThreadOnTreadmill()
     {
-        Sprite randomSprite = ThreadOnTreadmillSpriteList[Random.Range(0, ThreadOnTreadmillSpriteList.Count)];
+        ThreadData randomThread = allThreads[Random.Range(0, allThreads.Count)];
+        Sprite randomSprite = randomThread.sprite;
         GameObject randomElement = Instantiate(ThreadOnTreadmillPrefab, part2ThreadOnTreadmillParent.transform);
         randomElement.GetComponent<Image>().sprite = randomSprite;
 
@@ -274,6 +290,8 @@ public class MG2_CottonSorting : MiniGameBase
         if (threadOnTreadmill != null)
         {
             threadOnTreadmill.StartTreadMill();
+            threadOnTreadmill.ThreadSpriteColor = randomThread.color;
+            threadOnTreadmill.lineRenderer = lineRenderer;
         }
     }
 

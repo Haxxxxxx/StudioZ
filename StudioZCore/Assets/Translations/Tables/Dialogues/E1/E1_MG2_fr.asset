@@ -196,6 +196,32 @@ MonoBehaviour:
       et attentif car  j\u2019ai comme un mauvais pressentiment !"
     m_Metadata:
       m_Items: []
+  - m_Id: 7998695552282624
+    m_Localized: "Excellent continue comme ca et la filatures n\u2019aura bient\xF4t
+      plus aucun secret pour toi"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7998846001967104
+    m_Localized: "Dommage ce n'\xE9tait pas la bonne prise, ne te d\xE9courage pas
+      tu vas y arriver."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7999030417125376
+    m_Localized: "Que c\u2019est mignon, vous essayez de fabriquer du fil ? Permettez-moi
+      de tout emm\xEAler ! "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7999080711024640
+    m_Localized: "Je savais qu\u2019il n\u2019\xE9tait pas loin celui ci ! fait attention
+      Lyra, il va essayer de saboter notre filature ! reste vigilant \xE0 ce qu\u2019il
+      fait !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7999216140906496
+    m_Localized: "On a r\xE9ussi \xE0 faire beaucoup de bobines de fils, on est vraiment
+      une \xE9quipe d\u2019enfer !! Bravo a toi, tu es trop fort !! "
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
