@@ -41,21 +41,23 @@ namespace MiniGames
 
             [Header("MiniGame Settings")]
             private ToolsType toolType = ToolsType.None;
+            private Button selectedToolBtn;
+            [SerializeField] private int goodSeedToSort = 5;
             [SerializeField] private int cottonToHarvest = 1;
+            private int goodSeedSorted = 0;
             private int cottonHarvested = 0;
             public CottonCultivationActionName miniGameActionName = new CottonCultivationActionName();
+            [SerializeField] private List<GameObject> seeds = new List<GameObject>();
 
             [Header("UI References")]
             [SerializeField] private List<Button> toolsBtn = new List<Button>();
+            [SerializeField] private TextMeshProUGUI goodSeedText;
             [SerializeField] private TextMeshProUGUI cottonText;
-
-            private Button selectedToolBtn;
+            [SerializeField] private Button seedBagBtn;
 
             [field: NonSerialized] public List<FieldHole_CottonCultivation> fieldHoles { get; private set; } = new List<FieldHole_CottonCultivation>();
-
-            private List<Seed_CottonCultivation> unsortedSeed = new List<Seed_CottonCultivation>();
-            private List<Seed_CottonCultivation> goodSortedSeed = new List<Seed_CottonCultivation>();
-            private List<Seed_CottonCultivation> badSortedSeed = new List<Seed_CottonCultivation>();
+            private List<Seed_CottonCultivation> goodSortedSeedList = new List<Seed_CottonCultivation>();
+            private List<Seed_CottonCultivation> badSortedSeedList = new List<Seed_CottonCultivation>();
             private float minDistance;
 
             [Header("Dialogue References")]
@@ -71,7 +73,6 @@ namespace MiniGames
                 base.Awake();
 
                 fieldHoles = FindObjectsByType<FieldHole_CottonCultivation>(FindObjectsSortMode.None).ToList<FieldHole_CottonCultivation>();
-                unsortedSeed = FindObjectsByType<Seed_CottonCultivation>(FindObjectsSortMode.None).ToList<Seed_CottonCultivation>();
             }
 
             protected override void Start()
@@ -98,14 +99,8 @@ namespace MiniGames
                 dialogueManager.CurrentDialogue = phase1Tuto;
             }
 
-            public void UpdateUnsortedSeed(Seed_CottonCultivation sortedSeed, bool goodSeed, GameObject container)
+            public void SortSeed(Seed_CottonCultivation sortedSeed, bool goodSeed, GameObject container)
             {
-                if (!unsortedSeed.Remove(sortedSeed))
-                {
-                    Debug.LogWarning($"Attempted to sort a seed that is not in the unsorted list: {sortedSeed.name}");
-                    return;
-                }
-
                 /*   Vector2 itemSize = sortedSeed.GetComponent<RectTransform>().rect.size * sortedSeed.GetComponent<RectTransform>().lossyScale;
                    minDistance = Mathf.Max(itemSize.x, itemSize.y);
 
@@ -125,17 +120,30 @@ namespace MiniGames
                    sortedSeed.transform.SetParent(container.transform, false);
                    sortedSeed.GetComponent<RectTransform>().anchoredPosition = pos;*/
 
-                (goodSeed ? goodSortedSeed : badSortedSeed).Add(sortedSeed);
 
-                if (unsortedSeed.Count == 0)
+                if (goodSeed)
                 {
-                    GameObject seeds = GameObject.Find("Seeds");
-                    goodSortedSeed.ForEach(seed =>
+                    goodSortedSeedList.Add(sortedSeed);
+                    goodSeedSorted++;
+                    goodSeedText.text = $"Good Seeds : {goodSeedSorted} / {goodSeedToSort}";
+                }
+                else
+                {
+                    badSortedSeedList.Add(sortedSeed);
+                }
+
+                if (goodSeedSorted >= goodSeedToSort)
+                {
+                    goodSortedSeedList.ForEach(seed =>
                     {
                         seed.draggableItem.enabled = true;
-                        seed.transform.SetParent(seeds.transform);
+                        seed.transform.SetParent(seedBagBtn.gameObject.transform);
                     });
                 }
+                else
+                {
+                    seedBagBtn.interactable = true;
+                }    
             }
 
             private bool IsOverlapping(Vector2 newPos, List<Seed_CottonCultivation> items)
@@ -147,6 +155,28 @@ namespace MiniGames
                 }
                 return false;
             }
+
+            #region Button Fonction
+
+            public void BS_SpawnRandomSeed()
+            {
+                int randomIndex = UnityEngine.Random.Range(0, 3);
+                switch (randomIndex)
+                {
+                    case 0:
+                        Instantiate(seeds[0], seedBagBtn.gameObject.transform);
+                        break;
+                    case 1:
+                        Instantiate(seeds[1 + UnityEngine.Random.Range(0, 2)], seedBagBtn.gameObject.transform);
+                        break;
+                    case 2:
+                        Instantiate(seeds[3], seedBagBtn.gameObject.transform);
+                        break;
+                }
+                seedBagBtn.interactable = false;
+            }
+
+            #endregion
 
             #endregion
 
@@ -231,7 +261,7 @@ namespace MiniGames
 
                     if (cottonText != null)
                     {
-                        cottonText.text = $"Cotton : {cottonHarvested}";
+                        cottonText.text = $"Cotton : {cottonHarvested} / {cottonToHarvest}";
                     }
 
                     if (cottonHarvested >= cottonToHarvest)
@@ -244,6 +274,8 @@ namespace MiniGames
                     //? Perform negativeAction for using glove in bad state
                 }
             }
+
+            #region Button Fonction
 
             public void BS_SetSelectedTools(int _toolsType)
             {
@@ -267,6 +299,8 @@ namespace MiniGames
                     selectedToolBtn.GetComponentInChildren<UIEffect>().enabled = true;
                 }
             }
+
+            #endregion
 
             #endregion
 

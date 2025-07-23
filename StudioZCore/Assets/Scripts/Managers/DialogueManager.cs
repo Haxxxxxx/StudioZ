@@ -17,7 +17,9 @@ public class DialogueManager : MonoBehaviour
     private int index;
     private Coroutine typeLineCoroutine;
 
+    public event System.Action OnDialogueStart;
     public event System.Action OnDialogueFinished;
+
 
     public Dialogue CurrentDialogue
     {
@@ -46,6 +48,7 @@ public class DialogueManager : MonoBehaviour
 
         textComponent.text = string.Empty;
         index = 0;
+        OnDialogueStart?.Invoke();
         typeLineCoroutine = StartCoroutine(TypeLine());
     }
 

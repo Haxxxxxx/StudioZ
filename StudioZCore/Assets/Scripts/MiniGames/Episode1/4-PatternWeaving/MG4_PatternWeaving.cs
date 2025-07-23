@@ -14,7 +14,7 @@ namespace MiniGames
 {
     namespace Episode1
     {
-        [ExecuteAlways]
+        /*[ExecuteAlways]*/ // Uncomment to enable in editor mode and add a new pattern
         public class MG4_PatternWeaving : MiniGameBase
         {
             #region Variables
@@ -88,6 +88,8 @@ namespace MiniGames
                 ClearGrid();
                 patternImg.gameObject.SetActive(false);
             }
+
+            
 
 
             #region Editor Funcions
@@ -179,12 +181,12 @@ namespace MiniGames
 
             private void OnEnable()
             {
-                UnityEditor.Selection.selectionChanged += OnSelectionChanged;
+                Selection.selectionChanged += OnSelectionChanged;
             }
 
             private void OnDisable()
             {
-                UnityEditor.Selection.selectionChanged -= OnSelectionChanged;
+                Selection.selectionChanged -= OnSelectionChanged;
             }
 
             private void OnSelectionChanged()

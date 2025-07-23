@@ -3084,10 +3084,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: DialogueManager, Assembly-CSharp
       objectReference: {fileID: 0}
-    - target: {fileID: 3714536126244023790, guid: ecaa64d8796b99148aae5f0a6aff6b02, type: 3}
-      propertyPath: m_text
-      value: Nous
-      objectReference: {fileID: 0}
     - target: {fileID: 5533913456098386736, guid: ecaa64d8796b99148aae5f0a6aff6b02, type: 3}
       propertyPath: m_Name
       value: DialogueBubble
@@ -3606,7 +3602,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueManager: {fileID: 298056214}
   gameResultHandler: {fileID: 1668226064}
-  chrono: 5
+  chrono: 0
   chronoText: {fileID: 742993387}
   miniGameActionData:
   - actionName: good_weaving
@@ -16020,7 +16016,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 00:05
+  m_text: 00:00
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

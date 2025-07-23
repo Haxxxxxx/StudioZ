@@ -80,7 +80,6 @@ namespace MiniGames
                 {
                     CheckSeedInField(dropZoneObj);
                 }
-
             }
 
             #region Phase1
@@ -90,12 +89,14 @@ namespace MiniGames
                 if (dropZoneObj == goodSeedContainer)
                 {
                     DropSeedInContainer(true);
-                    return;
                 }
                 else if (dropZoneObj == badSeedContainer)
                 {
                     DropSeedInContainer(false);
-                    return;
+                }
+                else
+                {
+                    draggableItem.ResetPosition();
                 }
             }
 
@@ -117,7 +118,7 @@ namespace MiniGames
                     mgCottonCultivation.PerformAction(actionName);
                 }
 
-                mgCottonCultivation.UpdateUnsortedSeed(this, isGoodContainer, targetContainer);
+                mgCottonCultivation.SortSeed(this, isGoodContainer, targetContainer);
             }
 
             #endregion
@@ -127,7 +128,11 @@ namespace MiniGames
 
             private void CheckSeedInField(GameObject dropZoneObj)
             {
-                if (!fieldHoles.Any(h => h.gameObject == dropZoneObj)) return;
+                if (!fieldHoles.Any(h => h.gameObject == dropZoneObj))
+                {
+                    draggableItem.ResetPosition();
+                    return;
+                }
 
                 if (dropZoneObj.TryGetComponent<FieldHole_CottonCultivation>(out FieldHole_CottonCultivation currentHole))
                 {
