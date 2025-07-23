@@ -14,6 +14,7 @@ public class MG6_Shopping : MiniGames.MiniGameBase
     private int currentRound = 0;
     
     private List<GameObject> initializedBundles;
+    private PopupManager popupManager;
 
     public override void StartGame()
     {
@@ -25,15 +26,17 @@ public class MG6_Shopping : MiniGames.MiniGameBase
             return;
         }
 
+        popupManager = PopupManager.Instance;
+        
         // Initialize list
         initializedBundles = new List<GameObject>();
         
         InitializeBundles();
     }
 
-    public void InitializeBundles()
+    private void InitializeBundles()
     {
-        Debug.Log("Initializing bundles");
+        Debug.Log("Initializing bundles. Current round: " + currentRound);
         // Destroy spawned bundles and clear the list
         foreach (var bundle in initializedBundles)
         {
@@ -57,6 +60,7 @@ public class MG6_Shopping : MiniGames.MiniGameBase
 
                 current.GetComponent<Image>().sprite = bundle.sprite;
                 current.GetComponentInChildren<TextMeshProUGUI>().text = "Price: " + bundle.price;
+                
                 // Call SelectBundle when the player clicks the button
                 current.GetComponent<Button>().onClick.AddListener(() => SelectBundle(bundle));
                 
@@ -67,15 +71,32 @@ public class MG6_Shopping : MiniGames.MiniGameBase
     
     public void SelectBundle(MG6_Bundle bundle)
     {
+        // Open popup
+        popupManager.StartPopup(bundle.popupText, bundle.redButtonText, bundle.greenButtonText);
+
+        // Clear previous subscriptions to avoid multiple calls
+        popupManager.ClearOnContinue();
+        popupManager.ClearOnCancel();
+
+        // Add new subscriptions
+        popupManager.OnContinue += () => TryBuyBundle(bundle);
+        popupManager.OnCancel += () => popupManager.ClosePopup();
+    }
+
+    public void TryBuyBundle(MG6_Bundle bundle)
+    {
         Debug.Log("Trying to buy bundle. Price: " + bundle.price + ". Viable: " + bundle.viable);
         
         // Remove coins
         if (bundle.price > coins)
         {
             Debug.Log("Not enough coins to buy");
+            // ADD POPUP TO LET THE USER KNOW
+            
             return;
         }
         
+        popupManager.ClosePopup();
         coins -= bundle.price;
         
         if (bundle.viable)

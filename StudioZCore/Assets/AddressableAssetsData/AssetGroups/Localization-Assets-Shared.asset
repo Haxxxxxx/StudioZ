@@ -38,6 +38,11 @@ MonoBehaviour:
     m_ReadOnly: 1
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 99f4455949f0ac74fbe528517cf0cf25
+    m_Address: Assets/Translations/Tables/Others/E1_MG6BundlePopups Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a2001e612c441464a94d22ecd5705f50
     m_Address: Assets/Translations/Tables/Dialogues/E1/E1_MG2 Shared Data.asset
     m_ReadOnly: 1

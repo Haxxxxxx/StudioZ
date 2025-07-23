@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 
 [CreateAssetMenu(fileName = "NewMG6_Bundle", menuName = "Minigames/MG6/BundleCombination")]
 public class MG6_BundleCombination : ScriptableObject
@@ -20,4 +21,7 @@ public class MG6_Bundle
     public bool viable = false;
     public int price = 6; 
     public Sprite sprite;
+    public LocalizedString popupText;
+    public LocalizedString redButtonText;
+    public LocalizedString greenButtonText;
 }

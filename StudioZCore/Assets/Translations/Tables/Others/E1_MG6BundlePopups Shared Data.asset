@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: E1_MG6BundlePopups Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: E1_MG6BundlePopups
+  m_TableCollectionNameGuidString: 99f4455949f0ac74fbe528517cf0cf25
+  m_Entries:
+  - m_Id: 106916769792
+    m_Key: BTN_Buy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 203587088384
+    m_Key: BTN_Back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 246591287296
+    m_Key: 'E1_MG6_B1
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 324844417024
+    m_Key: E1_MG6_B2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 402329989120
+    m_Key: E1_MG6_B3
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 2673774218192355408
+  references:
+    version: 2
+    RefIds:
+    - rid: 2673774218192355408
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1753277689490

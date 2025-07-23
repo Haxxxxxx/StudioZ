@@ -16,15 +16,123 @@ MonoBehaviour:
   - viable: 1
     price: 3
     sprite: {fileID: 21300000, guid: a94dc2499bb5d9644b9e59b479689790, type: 3}
-  - viable: 0
-    price: 12
-    sprite: {fileID: -7443756053782179069, guid: 1ee9f2c3e60cf5a40bcab74671c3826c, type: 3}
+    popupText:
+      m_TableReference:
+        m_TableCollectionName: GUID:99f4455949f0ac74fbe528517cf0cf25
+      m_TableEntryReference:
+        m_KeyId: 246591287296
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    redButtonText:
+      m_TableReference:
+        m_TableCollectionName: GUID:99f4455949f0ac74fbe528517cf0cf25
+      m_TableEntryReference:
+        m_KeyId: 203587088384
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    greenButtonText:
+      m_TableReference:
+        m_TableCollectionName: GUID:99f4455949f0ac74fbe528517cf0cf25
+      m_TableEntryReference:
+        m_KeyId: 106916769792
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
   - viable: 0
     price: 10
     sprite: {fileID: 3576788891958831751, guid: f857462bc1ad01c42aff327df4ae55b7, type: 3}
+    popupText:
+      m_TableReference:
+        m_TableCollectionName: GUID:99f4455949f0ac74fbe528517cf0cf25
+      m_TableEntryReference:
+        m_KeyId: 402329989120
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    redButtonText:
+      m_TableReference:
+        m_TableCollectionName: GUID:99f4455949f0ac74fbe528517cf0cf25
+      m_TableEntryReference:
+        m_KeyId: 203587088384
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    greenButtonText:
+      m_TableReference:
+        m_TableCollectionName: GUID:99f4455949f0ac74fbe528517cf0cf25
+      m_TableEntryReference:
+        m_KeyId: 106916769792
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
   - viable: 0
     price: 10
     sprite: {fileID: 2975981130085599486, guid: 660948dad521b3646813fdb508655677, type: 3}
+    popupText:
+      m_TableReference:
+        m_TableCollectionName: GUID:99f4455949f0ac74fbe528517cf0cf25
+      m_TableEntryReference:
+        m_KeyId: 324844417024
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    redButtonText:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    greenButtonText:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
   - viable: 0
     price: 3
     sprite: {fileID: 5658593092123914163, guid: 91e8eec7e75501a43a7f9bcbc52e5c4c, type: 3}
+    popupText:
+      m_TableReference:
+        m_TableCollectionName: GUID:99f4455949f0ac74fbe528517cf0cf25
+      m_TableEntryReference:
+        m_KeyId: 324844417024
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    redButtonText:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    greenButtonText:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []

@@ -17,6 +17,12 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 49ebdc644c9244346b09563ba0474501
   m_SerializeEntries:
+  - m_GUID: 34a54d0229560c64db1e24703859614f
+    m_Address: E1_MG6BundlePopups_fr
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-fr
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 43a939f3607ecc24eae846d5d8ed1fab
     m_Address: TestTable_fr
     m_ReadOnly: 1
