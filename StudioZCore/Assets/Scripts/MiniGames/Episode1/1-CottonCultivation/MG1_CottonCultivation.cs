@@ -47,7 +47,7 @@ namespace MiniGames
             private int goodSeedSorted = 0;
             private int cottonHarvested = 0;
             public CottonCultivationActionName miniGameActionName = new CottonCultivationActionName();
-            [SerializeField] private List<GameObject> seeds = new List<GameObject>();
+            [SerializeField] private List<GameObject> seedsOnBag = new List<GameObject>();
 
             [Header("UI References")]
             [SerializeField] private List<Button> toolsBtn = new List<Button>();
@@ -160,19 +160,9 @@ namespace MiniGames
 
             public void BS_SpawnRandomSeed()
             {
-                int randomIndex = UnityEngine.Random.Range(0, 3);
-                switch (randomIndex)
-                {
-                    case 0:
-                        Instantiate(seeds[0], seedBagBtn.gameObject.transform);
-                        break;
-                    case 1:
-                        Instantiate(seeds[1 + UnityEngine.Random.Range(0, 2)], seedBagBtn.gameObject.transform);
-                        break;
-                    case 2:
-                        Instantiate(seeds[3], seedBagBtn.gameObject.transform);
-                        break;
-                }
+                int randomIndex = UnityEngine.Random.Range(0, seedsOnBag.Count);
+                Instantiate(seedsOnBag[randomIndex], seedBagBtn.gameObject.transform);
+                seedsOnBag.RemoveAt(randomIndex);
                 seedBagBtn.interactable = false;
             }
 

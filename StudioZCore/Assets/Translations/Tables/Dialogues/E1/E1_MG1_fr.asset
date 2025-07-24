@@ -44,19 +44,19 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 14066912096694272
-    m_Localized: "Les graines toutes rondes, bien claires ? Ce sont les graines saines
-      ! Ce sont elles qu\u2019on veut planter."
+    m_Localized: "{sprite index=\"6\"}Les graines toutes rondes, bien claires ? Ce
+      sont les graines saines ! Ce sont elles qu\u2019on veut planter."
     m_Metadata:
       m_Items: []
   - m_Id: 14067144435970048
-    m_Localized: "Les graines toutes bizarres et violettes ? Oups\u2026 celles-l\xE0
-      ont \xE9t\xE9 corrompues par Profane. Si tu les plantes, elles ralentissent
-      la pousse du coton.\r\n"
+    m_Localized: "{sprite index=\"3\"}Les graines toutes bizarres et violettes ?
+      Oups\u2026 celles-l\xE0 ont \xE9t\xE9 corrompues par Profane. Si tu les plantes,
+      elles ralentissent la pousse du coton.\r\n"
     m_Metadata:
       m_Items: []
   - m_Id: 14067320626098176
-    m_Localized: "Celles qui ressemblent \xE0 des bouts d\u2019\xE9corce ou du ma\xEFs
-      ? Elles sont inutiles. Elles ne feront pousser que du vent !"
+    m_Localized: "{sprite index=\"5\"}Celles qui ressemblent \xE0 des bouts d\u2019\xE9corce
+      ou du ma\xEFs ? Elles sont inutiles. Elles ne feront pousser que du vent !"
     m_Metadata:
       m_Items: []
   - m_Id: 14067510607097856

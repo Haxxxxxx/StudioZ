@@ -148,7 +148,7 @@ namespace MiniGames
                     }
                     else
                     {
-                        Debug.LogWarning($"Cannot plant seed in hole {currentHole.name}, it is not created.");
+                        /*Debug.LogWarning($"Cannot plant seed in hole {currentHole.name}, it is not created.");*/
                     }
                 }
             }
