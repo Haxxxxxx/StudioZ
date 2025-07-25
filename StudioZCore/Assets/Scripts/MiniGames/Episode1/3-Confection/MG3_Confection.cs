@@ -50,6 +50,16 @@ namespace MiniGames
             private PatternPart_SO selectedCol;
             private PatternPart_SO selectedSleeves;
             private PatternPart_SO selectedTorso;
+            
+            [SerializeField] private PatternCutLine cutLine;
+            [SerializeField] private RectTransform cutZonesParent;
+            [SerializeField] private Vector2 zoneSize = new Vector2(30, 30);
+            [SerializeField] private Color idleZoneColor = Color.red;
+            [SerializeField] private int bakeStepRuntime = 2; // sous-échantillonnage des points baked
+            
+            private readonly List<PatternPart_SO> cuttingQueue = new();
+            private int cuttingIndex = 0;
+
 
             public override void StartGame()
             {
@@ -125,13 +135,58 @@ namespace MiniGames
 
             private void GoToCuttingPhase()
             {
-                Debug.Log("🧵 Pièces sélectionnées, passage à la découpe !");
                 selectCanvas.gameObject.SetActive(false);
                 cutCanvas.gameObject.SetActive(true);
 
-                // Pour test : afficher une des pièces découpables
-                cutPatreon.sprite = selectedCol.partSprite;
+                cuttingQueue.Clear();
+                cuttingQueue.Add(selectedCol);
+                cuttingQueue.Add(selectedSleeves);
+                cuttingQueue.Add(selectedTorso);
+
+                cuttingIndex = 0;
+
+                cutLine.OnCutFinished -= HandleCutFinished;
+                cutLine.OnCutFinished += HandleCutFinished;
+
+                StartCutForCurrentPart();
             }
+
+            private void StartCutForCurrentPart()
+            {
+                var part = cuttingQueue[cuttingIndex];
+
+                // Affiche la pièce
+                cutPatreon.sprite = part.partSprite;
+
+                // Génère les points visibles
+                var zones = CutZoneFromBaked.CreateZonesFromBaked(
+                    part,
+                    cutPatreon.rectTransform,
+                    cutZonesParent,
+                    zoneSize,
+                    idleZoneColor,
+                    bakeStepRuntime);
+
+                // Donne-les au tracer (PatternCutLine)
+                cutLine.SetCutZones(zones);
+            }
+
+            private void HandleCutFinished(bool success)
+            {
+                PerformAction(success ? miniGameActionName.CutPerfect : miniGameActionName.CutOverflow);
+
+                cuttingIndex++;
+                if (cuttingIndex < cuttingQueue.Count)
+                {
+                    StartCutForCurrentPart();
+                }
+                else
+                {
+                    Debug.Log("Découpe terminée → Assemblage !");
+                    // TODO: GoToAssemblyPhase();
+                }
+            }
+
             
             private void ClearPatternContainer()
             {

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "NewPatternPart", menuName = "MG3/Pattern Part")]
 public class PatternPart_SO : ScriptableObject
@@ -15,6 +16,11 @@ public class PatternPart_SO : ScriptableObject
 
     [Header("Visuel")]
     public Sprite partSprite;
+    
+    [Header("Baked outline (0..1, dans l’espace du sprite)")]
+    public List<Vector2> bakedOutline01 = new List<Vector2>();
+
+    public bool HasBakedOutline => bakedOutline01 != null && bakedOutline01.Count > 0;
 
     /// <summary>
     /// Vérifie si ce SO correspond à la partie cible du modèle.
