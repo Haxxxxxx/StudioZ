@@ -24,6 +24,13 @@ public class MG2_CottonSorting : MiniGameBase
         public Sprite sprite;
     }
 
+    [System.Serializable]
+    public class ThreadColorData
+    {
+        public ThreadColor color;
+        public Color unityColor;
+    }
+
     #endregion
 
     #region Variables
@@ -69,8 +76,10 @@ public class MG2_CottonSorting : MiniGameBase
     [SerializeField] private Sprite emptyHoldSprite;
     [SerializeField] private List<ThreadData> allThreads;
     [SerializeField] private List<GameObject> holdsInMachine;
-    [SerializeField] private LineRenderer lineRenderer;
+    [SerializeField] public GameObject threadLine;
 
+    [SerializeField] private List<ThreadColorData> colorMappings;
+    private Dictionary<ThreadColor, Color> colorDict;
 
     public float baseSpeed = 1f;
     public float treadmillSpeed = 1f;
@@ -113,6 +122,12 @@ public class MG2_CottonSorting : MiniGameBase
     {
         instance = this;
         base.Awake();
+
+        colorDict = new Dictionary<ThreadColor, Color>();
+        foreach (var mapping in colorMappings)
+        {
+            colorDict[mapping.color] = mapping.unityColor;
+        }
     }
 
     protected override void Start()
@@ -153,6 +168,13 @@ public class MG2_CottonSorting : MiniGameBase
     private void UpdateScoreText()
     {
         scoreText.text = currentScore + "/" + maxNumberOfRandomElements;
+    }
+    public Color GetColor(ThreadColor color)
+    {
+        if (colorDict.TryGetValue(color, out var c))
+            return c;
+        else
+            return Color.white;
     }
 
     #endregion
@@ -291,7 +313,6 @@ public class MG2_CottonSorting : MiniGameBase
         {
             threadOnTreadmill.StartTreadMill();
             threadOnTreadmill.ThreadSpriteColor = randomThread.color;
-            threadOnTreadmill.lineRenderer = lineRenderer;
         }
     }
 

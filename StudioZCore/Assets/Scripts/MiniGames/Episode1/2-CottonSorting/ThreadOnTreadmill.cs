@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using static DraggableItem;
 
 
 public class ThreadOnTreadmill : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
@@ -9,6 +11,7 @@ public class ThreadOnTreadmill : MonoBehaviour, IBeginDragHandler, IDragHandler,
     public ThreadColor ThreadSpriteColor
     {
         set { threadSpriteColor = value; }
+        get { return threadSpriteColor; }
     }
 
     private Rigidbody2D rb;
@@ -19,9 +22,9 @@ public class ThreadOnTreadmill : MonoBehaviour, IBeginDragHandler, IDragHandler,
     private float treadmillSpeed;
     private float baseSpeed;
 
-    [HideInInspector] public LineRenderer lineRenderer;
-    private Camera mainCamera;
-
+    [HideInInspector] public GameObject threadLine;
+    private GameObject threadLineChild;
+    [HideInInspector] public DropEvent OnDropped;
 
     [HideInInspector] private bool isFalling = false;
 
@@ -29,18 +32,13 @@ public class ThreadOnTreadmill : MonoBehaviour, IBeginDragHandler, IDragHandler,
     {
         rb = GetComponent<Rigidbody2D>();
         mgCottonSorting = MG2_CottonSorting.instance;
-
-        mainCamera = Camera.main;
     }
 
     private void Start()
     {
         treadmillSpeed = mgCottonSorting.treadmillSpeed;
         baseSpeed = mgCottonSorting.baseSpeed;
-
-
-        lineRenderer.positionCount = 2;
-        lineRenderer.enabled = false;
+        threadLine = mgCottonSorting.threadLine;
     }
 
     public void StartTreadMill()
@@ -98,11 +96,13 @@ public class ThreadOnTreadmill : MonoBehaviour, IBeginDragHandler, IDragHandler,
         Debug.Log("Trigger: EXIT");
     }
 
-    #region Line renderer
+    #region Thread Line
 
     public void OnBeginDrag(PointerEventData eventData)
-    {
-        lineRenderer.enabled = true;
+    { 
+        threadLineChild = Instantiate(threadLine, transform.GetChild(0).transform);
+
+        threadLineChild.GetComponent<Image>().color = mgCottonSorting.GetColor(threadSpriteColor);
         UpdateLine(eventData);
 
         Debug.Log("BeginDrag!");
@@ -116,24 +116,37 @@ public class ThreadOnTreadmill : MonoBehaviour, IBeginDragHandler, IDragHandler,
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        lineRenderer.enabled = false;
+        Destroy(threadLineChild);
         Debug.Log("EndDrag!");
     }
 
     private void UpdateLine(PointerEventData eventData)
     {
-        Vector3 start = ((RectTransform)transform).position;
-        Vector3 end = eventData.position;
+        RectTransform rect = threadLineChild.GetComponent<RectTransform>();
 
-        start.z = 1f;
-        end.z = 1f;
+        // Souris en position monde UI
+        RectTransformUtility.ScreenPointToWorldPointInRectangle(
+            rect,
+            eventData.position,
+            eventData.pressEventCamera,
+            out Vector3 mouseWorldPos
+        );
 
-        lineRenderer.SetPosition(0, start);
-        lineRenderer.SetPosition(1, end);
+        //Vector3 start = rect.position;
+        Vector3 start = rect.TransformPoint(Vector3.zero);
+        Vector3 dir = mouseWorldPos - start;
+        float distance = dir.magnitude / 2;
 
-        Debug.Log("start is: " + start);
-        Debug.Log("end is: " + end);
+        // Etire largeur vers la souris
+        rect.sizeDelta = new Vector2(distance, rect.sizeDelta.y);
+
+        // Tourne vers la souris
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        rect.rotation = Quaternion.Euler(0f, 0f, angle);
     }
+
+
+
     #endregion
 
 }
