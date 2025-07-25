@@ -9,17 +9,37 @@ using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
-    [SerializeField] private GameObject bubble;
-    [SerializeField] private TextMeshProUGUI textComponent;
+    public enum TYPE
+    {
+        DEFAULT,
+        ACTION
+    }
+
+    [Header("Dialogue References")]
+    [SerializeField] private GameObject defaultBubble;
+    [SerializeField] private TextMeshProUGUI defaultTextComponent;
     [SerializeField] private Image imageComponent;
+    [SerializeField] private TextMeshProUGUI defaultNameTextComponent;
+
+    [Header("Action Dialogue References")]
+    [SerializeField] private GameObject actionBubble;
+    [SerializeField] private TextMeshProUGUI actionTextComponent;
+    [SerializeField] private TextMeshProUGUI actionNameTextComponent;
+
+
+    [Header("Sprite Asset")]
     [SerializeField] private TMP_SpriteAsset spriteAsset;
 
-    private TextMeshProUGUI nameTextComponent;
-
+    [Header("Dialogue Settings")]
     [SerializeField] private float textSpeed;
+
+    private GameObject bubble;
+    private TextMeshProUGUI textComponent;
+    private TextMeshProUGUI nameTextComponent;
 
     private Dialogue currentDialogue = null;
     private int index;
+    private TYPE type = TYPE.DEFAULT;
     private Coroutine typeLineCoroutine;
     private string spriteAssetPattern = @"\{sprite index=""(\d+)""\}";
 
@@ -42,9 +62,7 @@ public class DialogueManager : MonoBehaviour
 
     void Start()
     {
-        GameObject nameBubble = bubble.transform.Find("SpeakerNameBubble/SpeakerName").gameObject;
-
-        if (nameBubble != null) nameTextComponent = nameBubble.GetComponent<TextMeshProUGUI>();
+        
     }
 
     public void StartDialogue()
@@ -79,14 +97,33 @@ public class DialogueManager : MonoBehaviour
 
         string localizedLine = stringOp.Result;
 
-        localizedLine = CheckForSetImage(localizedLine);
+        if(type == TYPE.DEFAULT) localizedLine = CheckForSetExternImage(localizedLine);
 
-        foreach (char c in localizedLine.ToCharArray())
+        int i = 0;
+        while (i < localizedLine.Length)
         {
-            textComponent.text += c;
+            if (localizedLine[i] == '<')
+            {
+                int closingIndex = localizedLine.IndexOf('>', i);
+                if (closingIndex != -1)
+                {
+                    string tag = localizedLine.Substring(i, closingIndex - i + 1);
+                    textComponent.text += tag;
+                    i = closingIndex + 1;
+                    if (tag.StartsWith("<sprite"))
+                    {
+                        yield return new WaitForSeconds(textSpeed * 3f);
+                    }
+                    continue;
+                }
+            }
+
+            // Sinon, c’est une lettre normale
+            textComponent.text += localizedLine[i];
+            i++;
+
             yield return new WaitForSeconds(textSpeed);
         }
-
     }
 
     public void ToggleBubble()
@@ -94,7 +131,7 @@ public class DialogueManager : MonoBehaviour
         bubble.SetActive(!bubble.activeSelf);
     }
 
-    private string CheckForSetImage(string localizedLine)
+    private string CheckForSetExternImage(string localizedLine)
     {
         if (spriteAsset == null || spriteAsset.spriteCharacterTable == null) return localizedLine;
 
@@ -134,6 +171,23 @@ public class DialogueManager : MonoBehaviour
         }
         return localizedLine;
     }
+
+    public void SetNextDialogueAsDefault()
+    {
+        type = TYPE.DEFAULT;
+        bubble = defaultBubble;
+        textComponent = defaultTextComponent;
+        nameTextComponent = defaultNameTextComponent;
+    }
+
+    public void SetNextDialogueAsAction()
+    {
+        type = TYPE.ACTION;
+        bubble = actionBubble;
+        textComponent = actionTextComponent;
+        nameTextComponent = actionNameTextComponent;
+    }
+
 
     public void BS_NextLine()
     {

@@ -62,6 +62,7 @@ namespace MiniGames
 
             [Header("Dialogue References")]
             [SerializeField] private Dialogue phase1Tuto;
+            [SerializeField] private Dialogue phase2Tuto;
 
             #endregion
 
@@ -125,7 +126,7 @@ namespace MiniGames
                 {
                     goodSortedSeedList.Add(sortedSeed);
                     goodSeedSorted++;
-                    goodSeedText.text = $"Good Seeds : {goodSeedSorted} / {goodSeedToSort}";
+                    goodSeedText.text = $"Good Seeds : {goodSeedSorted}/{goodSeedToSort}";
                 }
                 else
                 {
@@ -139,6 +140,8 @@ namespace MiniGames
                         seed.draggableItem.enabled = true;
                         seed.transform.SetParent(seedBagBtn.gameObject.transform);
                     });
+
+                    Phase2Tuto();
                 }
                 else
                 {
@@ -172,6 +175,14 @@ namespace MiniGames
 
 
             #region Phase2
+
+            private void Phase2Tuto()
+            {
+                PauseMiniGame();
+                dialogueManager.OnDialogueFinished -= StartGame;
+                dialogueManager.OnDialogueFinished += UnPauseMiniGame;
+                dialogueManager.CurrentDialogue = phase2Tuto;
+            }
 
             public void CheckToolTypeForHole(FieldHole_CottonCultivation currentHole)
             {
@@ -251,12 +262,15 @@ namespace MiniGames
 
                     if (cottonText != null)
                     {
-                        cottonText.text = $"Cotton : {cottonHarvested} / {cottonToHarvest}";
+                        cottonText.text = $"Cotton : {cottonHarvested}/{cottonToHarvest}";
                     }
 
                     if (cottonHarvested >= cottonToHarvest)
                     {
-                        EndGame();
+                        PauseMiniGame();
+                        dialogueManager.OnDialogueFinished -= UnPauseMiniGame;
+                        dialogueManager.OnDialogueFinished += EndGame;
+                        dialogueManager.CurrentDialogue = dialogueOutro;
                     }
                 }
                 else

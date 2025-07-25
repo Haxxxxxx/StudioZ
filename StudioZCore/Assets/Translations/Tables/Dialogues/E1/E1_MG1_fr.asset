@@ -65,6 +65,50 @@ MonoBehaviour:
       !"
     m_Metadata:
       m_Items: []
+  - m_Id: 15486100233269248
+    m_Localized: Trop bien ! On a assez de bonnes graines, on peut planter maintenant.
+      Mais attention, il faut respecter le bon ordre pour que le coton pousse bien
+      !
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15486864594841600
+    m_Localized: '{sprite index="2"} La pelle : pour creuser un petit trou confortable.
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15487127586091008
+    m_Localized: "{sprite index=\"6\"} Les graines :  d\xE9poser d\xE9licatement
+      dans le trou."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15487320184336384
+    m_Localized: "{sprite index=\"0\"} L\u2019arrosoir : pas trop, juste ce qu\u2019il
+      faut !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15487405752332288
+    m_Localized: "{sprite index=\"7\"} Le soleil : un petit rayon pour r\xE9chauffer
+      les graines."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15487490615685120
+    m_Localized: '{sprite index="4"} Le gant : pour ramasser le cotton'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15487822263496704
+    m_Localized: "Tu doit les utiliser dans le bon ordre : <br><align=\"center\"><size=\"70%\"><sprite
+      index=\"2\"> \u2192 <sprite index=\"6\"> \u2192 <sprite index=\"2\"> \u2192
+      <sprite index=\"0\"> \u2192 <sprite index=\"7\"> \u2192 <sprite index=\"4\">"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15488240238473216
+    m_Localized: "Super boulot ! Tu as aid\xE9 la nature, repouss\xE9 la pollution
+      ( Profane ), et appris \xE0 bien cultiver. Chaque petit geste compte pour rendre
+      le monde plus doux.\r\nAllez, on continue notre voyage vers la prochaine \xE9tape
+      : la filature !"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

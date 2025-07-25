@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Localization;
 
@@ -10,21 +11,15 @@ public enum POSITION
     LEFT,
     RIGHT
 }
-public enum CHARACTER // TODO : A changer !
-{
-    VOIXOFF,
-    LYRA,
-    PIK,
-    PROFANE,
-    CHIFFON
-}
 #endregion
 
 #region data
 [System.Serializable]
 public class DialogueData
 {
-    public CHARACTER character; // TODO : A changer !
+    public CharacterData character;
+    [HideInInspector] public int expresionIndex = 0; 
+    [HideInInspector] public CharacterData.CharacterExpression expression;
     public POSITION position;
     public LocalizedString text;
 }
