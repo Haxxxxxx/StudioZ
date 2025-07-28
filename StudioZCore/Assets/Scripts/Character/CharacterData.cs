@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "CharacterData", menuName = "Scriptable Objects/CharacterData")]
+[CreateAssetMenu(fileName = "CharacterData", menuName = "Game/Character")]
 public class CharacterData : ScriptableObject
 {
     [System.Serializable]

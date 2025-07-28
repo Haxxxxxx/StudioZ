@@ -1,31 +1,29 @@
-using System;
 using UnityEngine;
 using UnityEngine.Localization;
 
-
-#region enum
-public enum POSITION
-{
-    NONE,
-    MIDDLE,
-    LEFT,
-    RIGHT
-}
-#endregion
 
 #region data
 [System.Serializable]
 public class DialogueData
 {
+    #region enum
+    public enum POSITION
+    {
+        NONE,
+        MIDDLE,
+        LEFT,
+        RIGHT
+    }
+    #endregion
+
     public CharacterData character;
-    [HideInInspector] public int expresionIndex = 0; 
-    [HideInInspector] public CharacterData.CharacterExpression expression;
+    public int characterExpresionIndex;
     public POSITION position;
     public LocalizedString text;
 }
 #endregion
 
-[CreateAssetMenu(menuName = "ScriptableObjects/Dialogue")]
+[CreateAssetMenu(menuName = "Game/Dialogue")]
 public class Dialogue : ScriptableObject
 {
     [SerializeField] private DialogueData[] lines;

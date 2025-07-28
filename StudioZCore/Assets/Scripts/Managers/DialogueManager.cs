@@ -19,13 +19,14 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject defaultBubble;
     [SerializeField] private TextMeshProUGUI defaultTextComponent;
     [SerializeField] private Image imageComponent;
-    [SerializeField] private TextMeshProUGUI defaultNameTextComponent;
+    [SerializeField] private TextMeshProUGUI defaultSpeakerNameTextComponent;
+    [SerializeField] private Image defaultSpeakerImageComponent;
 
     [Header("Action Dialogue References")]
     [SerializeField] private GameObject actionBubble;
     [SerializeField] private TextMeshProUGUI actionTextComponent;
-    [SerializeField] private TextMeshProUGUI actionNameTextComponent;
-
+    [SerializeField] private TextMeshProUGUI actionSpeakerNameTextComponent;
+    [SerializeField] private Image actionSpeakerImageComponent;
 
     [Header("Sprite Asset")]
     [SerializeField] private TMP_SpriteAsset spriteAsset;
@@ -35,7 +36,8 @@ public class DialogueManager : MonoBehaviour
 
     private GameObject bubble;
     private TextMeshProUGUI textComponent;
-    private TextMeshProUGUI nameTextComponent;
+    private TextMeshProUGUI speakerNameTextComponent;
+    private Image speakerImageComponent;
 
     private Dialogue currentDialogue = null;
     private int index;
@@ -62,7 +64,7 @@ public class DialogueManager : MonoBehaviour
 
     void Start()
     {
-        
+        SetNextDialogueAsDefault();
     }
 
     public void StartDialogue()
@@ -89,9 +91,20 @@ public class DialogueManager : MonoBehaviour
         var stringOp = line.text.GetLocalizedStringAsync();
         yield return stringOp;
 
-        if (nameTextComponent && (nameTextComponent.text != line.character.ToString()))
+        if(speakerImageComponent != null && line.character.expressions != null && line.character.expressions.Count > 0)
         {
-            nameTextComponent.text = line.character.ToString();
+            speakerImageComponent.gameObject.SetActive(true);
+            speakerImageComponent.sprite = line.character.expressions[line.characterExpresionIndex].expressionSprite;
+        }
+        else if (speakerImageComponent != null)
+        {
+            speakerImageComponent.sprite = null;
+            speakerImageComponent.gameObject.SetActive(false);
+        }
+
+        if (speakerNameTextComponent && (speakerNameTextComponent.text != line.character.characterName))
+        {
+            speakerNameTextComponent.text = line.character.characterName;
             //Debug.Log("nameTextComponent update name");
         }
 
@@ -177,7 +190,8 @@ public class DialogueManager : MonoBehaviour
         type = TYPE.DEFAULT;
         bubble = defaultBubble;
         textComponent = defaultTextComponent;
-        nameTextComponent = defaultNameTextComponent;
+        speakerNameTextComponent = defaultSpeakerNameTextComponent;
+        speakerImageComponent = defaultSpeakerImageComponent;
     }
 
     public void SetNextDialogueAsAction()
@@ -185,7 +199,8 @@ public class DialogueManager : MonoBehaviour
         type = TYPE.ACTION;
         bubble = actionBubble;
         textComponent = actionTextComponent;
-        nameTextComponent = actionNameTextComponent;
+        speakerNameTextComponent = actionSpeakerNameTextComponent;
+        speakerImageComponent = actionSpeakerImageComponent;
     }
 
 
