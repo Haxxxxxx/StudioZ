@@ -795,7 +795,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: 200
+  m_Spacing: 150
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
@@ -816,14 +816,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2830189, g: 0.19246799, b: 0.19090424, a: 1}
+  m_Color: {r: 0.5471698, g: 0.5471698, b: 0.5471698, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 7d7f1d96a2d728549aadf45af8467436, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1225,7 +1225,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 140, y: 300}
+  m_SizeDelta: {x: 155, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &264128468
 MonoBehaviour:
@@ -1796,7 +1796,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 140, y: 300}
+  m_SizeDelta: {x: 155, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &483384696
 MonoBehaviour:
@@ -1872,7 +1872,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 140, y: 300}
+  m_SizeDelta: {x: 155, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &491767940
 MonoBehaviour:
@@ -1894,7 +1894,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 4966732595609684114, guid: ff9f15bc7169ad84fbcfdd3b1fdffd11, type: 3}
+  m_Sprite: {fileID: -5081021081398759137, guid: c56547ef161dfb348b2ca3c40c0aaeb3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3723,6 +3723,12 @@ MonoBehaviour:
   - actionName: pick_incorrect_bin
     pointValue: 0
     actionDialogue: {fileID: 0}
+  - actionName: threading_cotton
+    pointValue: 1
+    actionDialogue: {fileID: 0}
+  - actionName: missed_thread_cotton
+    pointValue: 1
+    actionDialogue: {fileID: 0}
   dialogueIntro: {fileID: 11400000, guid: 7258cf5f6eb5c7b48b8e2543efe425ba, type: 2}
   dialogueOutro: {fileID: 11400000, guid: 1c2e9c0dfc8dc4049bc7eca135fce3bd, type: 2}
   curtainScene: {fileID: 1921889261}
@@ -3757,6 +3763,7 @@ MonoBehaviour:
   - {fileID: 1116438170}
   - {fileID: 1452022680}
   threadLine: {fileID: 179674036488059275, guid: c8c45994012d17548aa0c96647436b42, type: 3}
+  threadingTime: 2
   colorMappings:
   - color: 0
     unityColor: {r: 0.3019608, g: 0.54901963, b: 0.87843144, a: 1}
@@ -3768,8 +3775,8 @@ MonoBehaviour:
     unityColor: {r: 0.7686275, g: 0.28627452, b: 0.40784317, a: 1}
   - color: 4
     unityColor: {r: 0.61960787, g: 0.47450984, b: 0.7411765, a: 1}
-  baseSpeed: 2
-  treadmillSpeed: 2
+  baseSpeed: 3
+  treadmillSpeed: 1
   afterCurtainDialogue: {fileID: 11400000, guid: 978c34bf116c56648a1efe34fd01434e, type: 2}
   afterPhase1Dialogue: {fileID: 11400000, guid: e2f6adc11f460ae40acf09fcec33d141, type: 2}
   firstCorrectCotton: {fileID: 11400000, guid: db2351485a2a6164ea5c64688ee0b498, type: 2}

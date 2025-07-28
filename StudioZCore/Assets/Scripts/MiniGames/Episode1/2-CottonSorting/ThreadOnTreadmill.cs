@@ -79,7 +79,7 @@ public class ThreadOnTreadmill : MonoBehaviour, IBeginDragHandler, IDragHandler,
         {
             if (isFalling == false)
             {
-                Debug.Log("Trigger: Thread is falling!");
+                //Debug.Log("Trigger: Thread is falling!");
                 isFalling = true;
 
                 if (rb != null)
@@ -89,11 +89,10 @@ public class ThreadOnTreadmill : MonoBehaviour, IBeginDragHandler, IDragHandler,
             }
             else
             {
-                Debug.Log("Trigger: Thread is destroyed!");
+                // TODO : if good color -1 pts
                 Destroy(gameObject);
             }
         }
-        Debug.Log("Trigger: EXIT");
     }
 
     #region Thread Line
@@ -105,45 +104,44 @@ public class ThreadOnTreadmill : MonoBehaviour, IBeginDragHandler, IDragHandler,
         threadLineChild.GetComponent<Image>().color = mgCottonSorting.GetColor(threadSpriteColor);
         UpdateLine(eventData);
 
-        Debug.Log("BeginDrag!");
+        //Debug.Log("BeginDrag!");
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         UpdateLine(eventData);
-        Debug.Log("Dragging!");
+        //Debug.Log("Dragging!");
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
         Destroy(threadLineChild);
-        Debug.Log("EndDrag!");
+        //Debug.Log("EndDrag!");
     }
 
     private void UpdateLine(PointerEventData eventData)
     {
         RectTransform rect = threadLineChild.GetComponent<RectTransform>();
 
-        // Souris en position monde UI
-        RectTransformUtility.ScreenPointToWorldPointInRectangle(
-            rect,
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            rect.parent as RectTransform,
             eventData.position,
             eventData.pressEventCamera,
-            out Vector3 mouseWorldPos
+            out Vector2 localMousePos
         );
 
-        //Vector3 start = rect.position;
-        Vector3 start = rect.TransformPoint(Vector3.zero);
-        Vector3 dir = mouseWorldPos - start;
-        float distance = dir.magnitude / 2;
+        Vector2 dir = localMousePos;
+        float distance = dir.magnitude;
 
-        // Etire largeur vers la souris
+        // Appliquer la taille
         rect.sizeDelta = new Vector2(distance, rect.sizeDelta.y);
 
-        // Tourne vers la souris
+        // Appliquer la rotation
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        rect.rotation = Quaternion.Euler(0f, 0f, angle);
+        rect.localRotation = Quaternion.Euler(0f, 0f, angle);
     }
+
+
 
 
 

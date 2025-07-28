@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -12,13 +13,21 @@ public class HoldInMachine : MonoBehaviour, IDropHandler
         set { holdAcceptedColor = value; }
     }
 
+    private MG2_CottonSorting mgCottonSorting;
     [SerializeField] private Sprite holdFullSprite;
     private Image currentImage;
-
     [HideInInspector] public bool isEmpty = true;
+    private float threadingTime;
+    private Sprite emptyHoldSprite;
+    private Coroutine threadingCoroutine;
+
 
     private void Start()
     {
+        mgCottonSorting = MG2_CottonSorting.instance;
+        threadingTime = mgCottonSorting.threadingTime;
+        emptyHoldSprite = mgCottonSorting.emptyHoldSprite;
+
         currentImage = GetComponent<Image>();
         if (transform.parent.TryGetComponent(out Image imageComponent))
         {
@@ -34,7 +43,7 @@ public class HoldInMachine : MonoBehaviour, IDropHandler
             if (threadOnTreadmill.ThreadSpriteColor == holdAcceptedColor)
             {
                 Debug.Log("Good hold");
-                OnGoodHold();
+                OnGoodHold(droppedObject);
             }
             else
             {
@@ -43,17 +52,31 @@ public class HoldInMachine : MonoBehaviour, IDropHandler
         }
     }
 
-    private void OnGoodHold()
+    private void OnGoodHold(GameObject droppedObject)
     {
         if (isEmpty)
         {
             isEmpty = false;
             currentImage.sprite = holdFullSprite;
-            Debug.Log("Was Empty");
+            Destroy(droppedObject);
+            threadingCoroutine = StartCoroutine(Threading());
         }
         else
         {
             Debug.Log("Was not Empty");
         }
+    }
+
+    private void EmptyingHold()
+    {
+        isEmpty = true;
+        currentImage.sprite = emptyHoldSprite;
+    }
+
+    private IEnumerator Threading()
+    {
+        yield return new WaitForSeconds(threadingTime);
+        mgCottonSorting.PerformAction(mgCottonSorting.miniGameActionName.ThreadingCotton);
+        EmptyingHold();
     }
 }

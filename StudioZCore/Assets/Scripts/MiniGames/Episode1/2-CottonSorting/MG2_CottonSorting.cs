@@ -48,9 +48,12 @@ public class MG2_CottonSorting : MiniGameBase
     {
         public string PickCorrectBin { get; private set; } = "pick_correct_bin";
         public string PickIncorrectBin { get; private set; } = "pick_incorrect_bin";
+        public string ThreadingCotton { get; private set; } = "threading_cotton";
+        public string MissedThreadCotton { get; private set; } = "missed_thread_cotton";
     }
     public CottonSortingActionName miniGameActionName = new CottonSortingActionName();
 
+    private int maxScoreCurrentPhase;
 
     [Header("Phase 1")]
     [SerializeField] private GameObject curtainScene;
@@ -61,7 +64,8 @@ public class MG2_CottonSorting : MiniGameBase
     [SerializeField] private List<GameObject> randomElementsList;
     [HideInInspector] public int playerNumberOfRandomElements = 0;
     [HideInInspector] public SORTINGERROR currentSortingError = SORTINGERROR.NONE;
-    private int maxNumberOfRandomElements = 1; // TODO : A changer
+    private int playerScorePhase1 = 0;
+    private int maxScorePhase1 = 1; // TODO : A changer
     private int cottonSortingErrors = 0;
     private int trashSortingErrors = 0;
 
@@ -72,17 +76,20 @@ public class MG2_CottonSorting : MiniGameBase
     [SerializeField] private GameObject Phase2;
     [SerializeField] private GameObject WheelsParent;
     [SerializeField] private GameObject ThreadOnTreadmillPrefab;
-    //[SerializeField] private List<Sprite> ThreadOnTreadmillSpriteList;
-    [SerializeField] private Sprite emptyHoldSprite;
+    [SerializeField] public Sprite emptyHoldSprite;
     [SerializeField] private List<ThreadData> allThreads;
     [SerializeField] private List<GameObject> holdsInMachine;
     [SerializeField] public GameObject threadLine;
+    [SerializeField] public float threadingTime = 2f;
+    private int playerScorePhase2 = 0;
+    private int maxScorePhase2 = 10; // TODO : A changer
+
 
     [SerializeField] private List<ThreadColorData> colorMappings;
     private Dictionary<ThreadColor, Color> colorDict;
 
     public float baseSpeed = 1f;
-    public float treadmillSpeed = 1f;
+    [HideInInspector] public float treadmillSpeed = 1f; // Multiplicator
     private bool isTreadmillOn = false;
 
     [Header("Dialogues")]
@@ -146,6 +153,7 @@ public class MG2_CottonSorting : MiniGameBase
             dialogueManager.CurrentDialogue = dialogueIntro;
         }
 
+        maxScoreCurrentPhase = maxScorePhase1;
         UpdateScoreText();
 
     }
@@ -167,7 +175,8 @@ public class MG2_CottonSorting : MiniGameBase
 
     private void UpdateScoreText()
     {
-        scoreText.text = currentScore + "/" + maxNumberOfRandomElements;
+        scoreText.text = currentScore + "/" + maxScoreCurrentPhase;
+
     }
     public Color GetColor(ThreadColor color)
     {
@@ -175,6 +184,60 @@ public class MG2_CottonSorting : MiniGameBase
             return c;
         else
             return Color.white;
+    }
+
+    public override void PerformAction(string actionName)
+    {
+        base.PerformAction(actionName);
+
+        // Phase 1
+        if (actionName == "pick_correct_bin" || actionName == "pick_incorrect_bin")
+        {
+            UpdateScoreText();
+
+            if (currentSortingError == SORTINGERROR.NONE) return;
+            else if (currentSortingError == SORTINGERROR.COTTON && cottonSortingErrors < 2)
+            {
+                cottonSortingErrors++;
+
+                if (cottonSortingErrors == 1)
+                {
+                    dialogueManager.CurrentDialogue = firstCottonErrorDialogue;
+                }
+                else
+                {
+                    dialogueManager.CurrentDialogue = secondCottonErrorDialogue;
+                }
+
+                PauseMiniGame();
+                dialogueManager.OnDialogueFinished -= UnPauseMiniGame;
+                dialogueManager.OnDialogueFinished += UnPauseMiniGame;
+            }
+            else if (currentSortingError == SORTINGERROR.OTHER && trashSortingErrors < 2)
+            {
+                trashSortingErrors++;
+
+                if (trashSortingErrors == 1)
+                {
+                    dialogueManager.CurrentDialogue = firstTrashErrorDialogue;
+                }
+                else
+                {
+                    dialogueManager.CurrentDialogue = secondTrashErrorDialogue;
+                }
+
+                PauseMiniGame();
+                dialogueManager.OnDialogueFinished -= UnPauseMiniGame;
+                dialogueManager.OnDialogueFinished += UnPauseMiniGame;
+
+            }
+        }
+        // Phase 2
+        else
+        {
+            UpdateScoreText();
+            UpdateTreadmillSpeed(0.1f);
+        }
     }
 
     #endregion
@@ -191,48 +254,6 @@ public class MG2_CottonSorting : MiniGameBase
         dialogueManager.OnDialogueFinished -= StartGame;
     }
 
-    public override void PerformAction(string actionName)
-    {
-        base.PerformAction(actionName);
-        UpdateScoreText();
-
-        if (currentSortingError == SORTINGERROR.NONE) return;
-        else if (currentSortingError == SORTINGERROR.COTTON && cottonSortingErrors < 2)
-        {
-            cottonSortingErrors++;
-
-            if (cottonSortingErrors == 1) 
-            {
-                dialogueManager.CurrentDialogue = firstCottonErrorDialogue;
-            }
-            else 
-            {
-                dialogueManager.CurrentDialogue = secondCottonErrorDialogue;
-            }
-
-            PauseMiniGame();
-            dialogueManager.OnDialogueFinished -= UnPauseMiniGame;
-            dialogueManager.OnDialogueFinished += UnPauseMiniGame;
-        }
-        else if (currentSortingError == SORTINGERROR.OTHER && trashSortingErrors < 2)
-        {
-            trashSortingErrors++;
-
-            if (trashSortingErrors == 1) 
-            {
-                dialogueManager.CurrentDialogue = firstTrashErrorDialogue;
-            }
-            else
-            {
-                dialogueManager.CurrentDialogue = secondTrashErrorDialogue;
-            }
-
-            PauseMiniGame();
-            dialogueManager.OnDialogueFinished -= UnPauseMiniGame;
-            dialogueManager.OnDialogueFinished += UnPauseMiniGame;
-
-        }
-    }
 
     private bool CanPopRandomElement()
     {
@@ -242,7 +263,7 @@ public class MG2_CottonSorting : MiniGameBase
 
     public bool ShouldPhase1End()
     {
-        if (playerNumberOfRandomElements >= maxNumberOfRandomElements) return true;
+        if (playerNumberOfRandomElements >= maxScorePhase1) return true;
         else return false;
     }
 
@@ -251,6 +272,8 @@ public class MG2_CottonSorting : MiniGameBase
         EndGame();
         dialogueManager.OnDialogueFinished += SetActiveQuiz;
         dialogueManager.CurrentDialogue = afterPhase1Dialogue;
+
+        playerScorePhase1 = currentScore;
     }
     #endregion
 
@@ -271,10 +294,15 @@ public class MG2_CottonSorting : MiniGameBase
         Phase1.SetActive(false);
         quizTimeLayout.SetActive(false);
         Phase2.SetActive(true);
+
+        maxScoreCurrentPhase = maxScorePhase2;
+        UpdateScoreText();
+
     }
 
     private void StartPhase2Game()
     {
+        currentScore = 0;
         DisableBackgroundAntiClick();
         dialogueManager.OnDialogueFinished -= StartPhase2Game;
         isTreadmillOn = true;
@@ -296,7 +324,10 @@ public class MG2_CottonSorting : MiniGameBase
     {
         while (isTreadmillOn) {
             PopThreadOnTreadmill();
-            yield return new WaitForSeconds(5);
+
+            // Pop plus vite si treadmill plus rapide avec une base de 0.5f min
+            float wait = 4 - (treadmillSpeed - baseSpeed);
+            yield return new WaitForSeconds(wait == 0 ? 0.5f : wait);
         }
         yield return null;
     }
@@ -314,6 +345,11 @@ public class MG2_CottonSorting : MiniGameBase
             threadOnTreadmill.StartTreadMill();
             threadOnTreadmill.ThreadSpriteColor = randomThread.color;
         }
+    }
+
+    public void UpdateTreadmillSpeed(float speedDifference)
+    {
+        treadmillSpeed += speedDifference;
     }
 
     #endregion
