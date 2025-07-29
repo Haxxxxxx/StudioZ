@@ -68,6 +68,10 @@ namespace MiniGames
             [SerializeField] private Dialogue phase1Tuto;
             [SerializeField] private Dialogue phase2Tuto;
 
+            private float lastActionDialogueTime = -10f;
+            private float cooldown = 10f;
+            private float actionPercent = 0.3f;
+
             #endregion
 
 
@@ -100,7 +104,9 @@ namespace MiniGames
             {
                 base.PerformAction(actionName);
 
-                if(!actionResults.TryGetValue(actionName, out MiniGameActionResult result) || result.actionDialogue == null || result.actionDialogue.Lines.Length > 0) return;
+                if(!actionResults.TryGetValue(actionName, out MiniGameActionResult result) || result.actionDialogue == null || result.actionDialogue.Lines.Count == 0) return;
+
+                if (!TryEncouragePlayer())
 
                 if (actionName == miniGameActionName.PickHealthySeed)
                 {
@@ -108,23 +114,40 @@ namespace MiniGames
                     dialogueManager.CurrentDialogue = result.actionDialogue;
                     result.actionDialogue = null;
                 }
-                else if (actionName == miniGameActionName.PickCorruptedSeed)
+                else if (actionName == miniGameActionName.PickCorruptedSeed || actionName == miniGameActionName.PlantUselessSeed || actionName == miniGameActionName.PlantHealthySeed)
                 {
-                    dialogueManager.SetNextDialogueAsAction();
-                    int randomIndex = Random.Range(0, result.actionDialogue.Lines.Length);
-                    MoveToFirst(result.actionDialogue.Lines, result.actionDialogue.Lines[randomIndex]);
-                    dialogueManager.CurrentDialogue = result.actionDialogue;
-                    /*result.actionDialogue.Lines = null;*/
+                    RandomActionDialogue(result);
                 }
             }
 
-            
-            public void MoveToFirst(DialogueData[] array, DialogueData item)
+            private bool TryEncouragePlayer()
             {
-                int index = System.Array.IndexOf(array, item);
-                if (index > 0)
+                if (Time.time - lastActionDialogueTime < cooldown) return false;
+
+                actionPercent = Mathf.Clamp01(actionPercent + (0.5f * (1f - (float)currentScore / actionCount)));
+
+                if (Random.value < actionPercent) 
                 {
-                    (array[index], array[0]) = (array[0], array[index]);
+                    lastActionDialogueTime = Time.time;
+                    return true;
+                }
+                return false;
+            }
+
+            private void RandomActionDialogue(MiniGameActionResult result)
+            {
+                dialogueManager.SetNextDialogueAsAction();
+                int randomIndex = Random.Range(0, result.actionDialogue.Lines.Count);
+                MoveToFirst(result.actionDialogue.Lines, result.actionDialogue.Lines[randomIndex]);
+                dialogueManager.CurrentDialogue = result.actionDialogue;
+                result.actionDialogue.Lines.RemoveAt(0);
+            }
+            
+            private void MoveToFirst(List<DialogueData> list, DialogueData item)
+            {
+                if (list.Remove(item))
+                {
+                    list.Insert(0, item);
                 }
             }
 

@@ -81,7 +81,7 @@ public class DialogueManager : MonoBehaviour
 
     IEnumerator TypeLine()
     {
-        if (currentDialogue == null || index >= currentDialogue.Lines.Length)
+        if (currentDialogue == null || index >= currentDialogue.Lines.Count)
             yield break;
 
         DialogueData line = currentDialogue.Lines[index];
@@ -195,7 +195,8 @@ public class DialogueManager : MonoBehaviour
 
     private void SetSpeakerInfo(DialogueData line)
     {
-        if (speakerImageComponent != null && line.character.expressions != null && line.character.expressions.Count > 0)
+        if (speakerImageComponent != null && line.character.expressions != null && 
+            line.character.expressions.Count > 0 && line.character.expressions[line.characterExpresionIndex].expressionSprite != null)
         {
             speakerImageComponent.gameObject.SetActive(true);
             speakerImageComponent.sprite = line.character.expressions[line.characterExpresionIndex].expressionSprite;
@@ -216,7 +217,7 @@ public class DialogueManager : MonoBehaviour
 
     public void BS_NextLine()
     {
-        if (index < currentDialogue.Lines.Length - 1)
+        if (index < currentDialogue.Lines.Count - 1)
         {
             //NEXT LINE
             index++;

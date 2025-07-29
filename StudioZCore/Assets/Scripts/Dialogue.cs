@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
 
@@ -26,7 +27,7 @@ public class DialogueData
 [CreateAssetMenu(menuName = "Game/Dialogue")]
 public class Dialogue : ScriptableObject
 {
-    [SerializeField] private DialogueData[] lines;
-    [HideInInspector] public DialogueData[] Lines => lines;
+    [SerializeField] private List<DialogueData> lines = new List<DialogueData>();
+    [HideInInspector] public List<DialogueData> Lines => lines;
 }
 
