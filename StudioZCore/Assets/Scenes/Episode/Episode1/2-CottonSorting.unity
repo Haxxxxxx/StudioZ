@@ -2614,7 +2614,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 100, y: 0}
-  m_SizeDelta: {x: 400, y: 400}
+  m_SizeDelta: {x: 350, y: 350}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!111 &843551347
 Animation:
@@ -3936,7 +3936,7 @@ MonoBehaviour:
     pointValue: 1
     actionDialogue: {fileID: 0}
   - actionName: missed_thread_cotton
-    pointValue: 1
+    pointValue: -1
     actionDialogue: {fileID: 0}
   dialogueIntro: {fileID: 11400000, guid: 7258cf5f6eb5c7b48b8e2543efe425ba, type: 2}
   dialogueOutro: {fileID: 11400000, guid: 1c2e9c0dfc8dc4049bc7eca135fce3bd, type: 2}
@@ -4006,6 +4006,7 @@ MonoBehaviour:
   reactionQuizAnswer3: {fileID: 11400000, guid: 7fe5e5888ef892049b3fad6bdd58d5d0, type: 2}
   startPhase2Dialogue: {fileID: 11400000, guid: bcf50cfa99e9bac469f28239dddc8ff7, type: 2}
   afterPhase2Dialogue: {fileID: 11400000, guid: 65d220409ea8579418dfabff9e547887, type: 2}
+  firstPopProfane: {fileID: 11400000, guid: 6e1c7cc81b999384292e4ce128728680, type: 2}
   curtainsLayout: {fileID: 1921889264}
   rope: {fileID: 881155240}
   shadowOpacity: {fileID: 1171731913}

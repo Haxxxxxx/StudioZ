@@ -89,7 +89,7 @@ public class ThreadOnTreadmill : MonoBehaviour, IBeginDragHandler, IDragHandler,
             }
             else
             {
-                // if good color -1 pts
+                // if good color falls -1 pts
                 if (mgCottonSorting.goodColors.Contains(threadSpriteColor))
                 {
                     mgCottonSorting.PerformAction(mgCottonSorting.miniGameActionName.MissedThreadCotton);

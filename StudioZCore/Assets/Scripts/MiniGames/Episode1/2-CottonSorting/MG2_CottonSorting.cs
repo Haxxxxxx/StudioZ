@@ -88,7 +88,7 @@ public class MG2_CottonSorting : MiniGameBase
     private int lastThreadIndex = 4;
     private int playerScorePhase2 = 0;
     private int trackingGoodColors = 0;
-    private int maxScorePhase2 = 5; // TODO : A changer
+    private int maxScorePhase2 = 15; // TODO : A changer
     public float baseSpeed = 1f;
     private bool isProfaneAttacking = false;
     [HideInInspector] public float treadmillSpeed = 1f; // Multiplicator
@@ -100,6 +100,8 @@ public class MG2_CottonSorting : MiniGameBase
     [SerializeField] private List<GameObject> holdsInMachine;
     [SerializeField] private List<ThreadColorData> colorMappings;
     private Dictionary<ThreadColor, Color> colorDict;
+
+    private bool hasProfaneAlreadyAppeared = false;
 
     [Header("Phase 3")]
     [SerializeField] private GameObject Phase3;
@@ -122,6 +124,7 @@ public class MG2_CottonSorting : MiniGameBase
 
     [SerializeField] private Dialogue startPhase2Dialogue;
     [SerializeField] private Dialogue afterPhase2Dialogue;
+    [SerializeField] private Dialogue firstPopProfane;
 
 
     [Header("UI References")]
@@ -252,10 +255,20 @@ public class MG2_CottonSorting : MiniGameBase
             UpdateScoreText();
             if (actionName == "threading_cotton") UpdateTreadmillSpeed(treadmillAcceleration);
             else UpdateTreadmillSpeed(-(treadmillAcceleration));
+            
             trackingGoodColors += 1;
             if (trackingGoodColors == maxScorePhase2)
             {
                 EndPhase2();
+            }
+            else if (currentScore >= 3 && (currentScore % 3 == 0))
+            {
+                if (hasProfaneAlreadyAppeared == false) FirstPopProfane();
+                else
+                {
+                    PopProfane();
+                    ProfaneAttack();
+                }
             }
         }
     }
@@ -390,9 +403,12 @@ public class MG2_CottonSorting : MiniGameBase
         int randomInt = Random.Range(0, allThreads.Count);
 
         // not last Thread
-        if (randomInt == lastThreadIndex) {
-            if (randomInt <= allThreads.Count) randomInt += 1;
-            else randomInt -= 1;
+        if (randomInt == lastThreadIndex)
+        {
+            if (randomInt < allThreads.Count - 1)
+                randomInt += 1;
+            else
+                randomInt -= 1;
         }
 
         ThreadData randomThread = allThreads[randomInt];
@@ -412,20 +428,43 @@ public class MG2_CottonSorting : MiniGameBase
         }
     }
 
-    private IEnumerator PopProfane()
+    private void FirstPopProfane()
     {
-        profane.SetActive(true);
-        yield return new WaitForSeconds(2f);
-        if (profane.activeSelf && !isProfaneAttacking)
-        {
-            ProfaneAttack();
-        }
+        PopProfane();
+        hasProfaneAlreadyAppeared = true;
+
+        PauseMiniGame();
+        dialogueManager.OnDialogueFinished += UnPauseMiniGame;
+        dialogueManager.OnDialogueFinished += StartProfaneAttack;
+        dialogueManager.CurrentDialogue = firstPopProfane;
+
+        ProfaneAttack();
     }
 
-    private void ProfaneAttack()
+    private void PopProfane()
     {
-        isProfaneAttacking = true;
-        profane.GetComponent<Animation>().Play("ProfaneAction");
+        profane.SetActive(true);
+    }
+
+    private void StartProfaneAttack()
+    {
+        StartCoroutine(ProfaneAttack());
+    }
+
+    private IEnumerator ProfaneAttack()
+    {
+        yield return new WaitForSeconds(3f);
+
+        if (profane.activeSelf && !isProfaneAttacking)
+        {
+            isProfaneAttacking = true;
+            Animation anim = profane.GetComponent<Animation>();
+            anim.Play("ProfaneAction");
+
+            AnimationClip clip = anim.GetClip("ProfaneAction");
+            yield return new WaitForSeconds(clip.length);
+            isProfaneAttacking = false;
+        }
     }
 
     private void DestroyAllThreads()
@@ -437,14 +476,17 @@ public class MG2_CottonSorting : MiniGameBase
 
     public void UpdateTreadmillSpeed(float speedDifference)
     {
-        if ((speedDifference > 0 && (treadmillSpeed + speedDifference <= treadmillMaxSpeed))
-            || (speedDifference < 0 && (treadmillSpeed + speedDifference >= treadmillMinSpeed))) { 
-            
-            treadmillSpeed += speedDifference;
+        float newSpeed = Mathf.Clamp(treadmillSpeed + speedDifference, treadmillMinSpeed, treadmillMaxSpeed);
+
+        if (!Mathf.Approximately(newSpeed, treadmillSpeed))
+        {
+            treadmillSpeed = newSpeed;
+
             for (int i = 0; i < currentThreadsOnTreadmill.Count; i++)
             {
                 currentThreadsOnTreadmill[i].GetComponent<ThreadOnTreadmill>().treadmillSpeed = treadmillSpeed;
             }
+
             Debug.Log("Updating Speed, now at: " + treadmillSpeed);
         }
     }
@@ -534,7 +576,8 @@ public class MG2_CottonSorting : MiniGameBase
 
     public void BS_ClickOnProfane()
     {
-        StartCoroutine(PlayAndDisable(profane, "ProfaneHit"));
+        // On peut le tuer que s'il attack pas
+        if (!isProfaneAttacking) StartCoroutine(PlayAndDisable(profane, "ProfaneHit"));
     }
 
 
