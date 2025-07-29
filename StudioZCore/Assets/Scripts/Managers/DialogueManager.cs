@@ -33,6 +33,7 @@ public class DialogueManager : MonoBehaviour
 
     [Header("Dialogue Settings")]
     [SerializeField] private float textSpeed;
+    [SerializeField] private float timeToWaitForCloseActionDialogue = 3;
 
     private GameObject bubble;
     private TextMeshProUGUI textComponent;
@@ -91,22 +92,7 @@ public class DialogueManager : MonoBehaviour
         var stringOp = line.text.GetLocalizedStringAsync();
         yield return stringOp;
 
-        if(speakerImageComponent != null && line.character.expressions != null && line.character.expressions.Count > 0)
-        {
-            speakerImageComponent.gameObject.SetActive(true);
-            speakerImageComponent.sprite = line.character.expressions[line.characterExpresionIndex].expressionSprite;
-        }
-        else if (speakerImageComponent != null)
-        {
-            speakerImageComponent.sprite = null;
-            speakerImageComponent.gameObject.SetActive(false);
-        }
-
-        if (speakerNameTextComponent && (speakerNameTextComponent.text != line.character.characterName))
-        {
-            speakerNameTextComponent.text = line.character.characterName;
-            //Debug.Log("nameTextComponent update name");
-        }
+        SetSpeakerInfo(line);
 
         string localizedLine = stringOp.Result;
 
@@ -131,11 +117,15 @@ public class DialogueManager : MonoBehaviour
                 }
             }
 
-            // Sinon, c’est une lettre normale
             textComponent.text += localizedLine[i];
             i++;
 
             yield return new WaitForSeconds(textSpeed);
+        }
+
+        if(type == TYPE.ACTION)
+        {
+            Invoke(nameof(EndDialogue), timeToWaitForCloseActionDialogue);
         }
     }
 
@@ -203,6 +193,26 @@ public class DialogueManager : MonoBehaviour
         speakerImageComponent = actionSpeakerImageComponent;
     }
 
+    private void SetSpeakerInfo(DialogueData line)
+    {
+        if (speakerImageComponent != null && line.character.expressions != null && line.character.expressions.Count > 0)
+        {
+            speakerImageComponent.gameObject.SetActive(true);
+            speakerImageComponent.sprite = line.character.expressions[line.characterExpresionIndex].expressionSprite;
+        }
+        else if (speakerImageComponent != null)
+        {
+            speakerImageComponent.sprite = null;
+            speakerImageComponent.gameObject.SetActive(false);
+        }
+
+        if (speakerNameTextComponent && (speakerNameTextComponent.text != line.character.characterName))
+        {
+            speakerNameTextComponent.text = line.character.characterName;
+            //Debug.Log("nameTextComponent update name");
+        }
+    }
+
 
     public void BS_NextLine()
     {
@@ -216,12 +226,18 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            //END
-            textComponent.text = string.Empty;
-            ToggleBubble();
-
-            OnDialogueFinished?.Invoke();
+            EndDialogue();
         }
+    }
+
+    public void EndDialogue()
+    {
+        textComponent.text = string.Empty;
+        ToggleBubble();
+        CancelInvoke(nameof(EndDialogue));
+        if (type != TYPE.DEFAULT) SetNextDialogueAsDefault();
+
+        OnDialogueFinished?.Invoke();
     }
 
     // Fonction pour les tests

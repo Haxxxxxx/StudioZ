@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 064d2704e1e1d9e4383ab2f65a977339, type: 3}
-  m_Name: VoixOff
+  m_Script: {fileID: 11500000, guid: 58731780e4ee9ce47bd93acc4a28186e, type: 3}
+  m_Name: Chiffon
   m_EditorClassIdentifier: 
-  characterName: Voix Off
-  expressions: []
+  lines: []
+  references:
+    version: 2
+    RefIds: []

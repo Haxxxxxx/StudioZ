@@ -88,7 +88,20 @@ namespace MiniGames
             public override void StartGame()
             {
                 Debug.Log("Cotton Cultivation MiniGame Started");
+                dialogueManager.OnDialogueFinished -= Phase1Tuto;
                 base.StartGame();
+            }
+
+            public override void PerformAction(string actionName)
+            {
+                base.PerformAction(actionName);
+
+                if (actionName == miniGameActionName.PickHealthySeed && actionResults.TryGetValue(actionName, out MiniGameActionResult result) && result.actionDialogue != null)
+                {
+                    dialogueManager.SetNextDialogueAsAction();
+                    dialogueManager.CurrentDialogue = result.actionDialogue;
+                    result.actionDialogue = null;
+                }
             }
 
             #region Phase1
