@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: VoixOff
   m_EditorClassIdentifier: 
   characterName: Voix Off
-  expressions: []
+  expressions:
+  - expressionName: T-Shirt
+    expressionSprite: {fileID: 21300000, guid: 53998ba1d584b374cbf6d4996baf1aa4, type: 3}

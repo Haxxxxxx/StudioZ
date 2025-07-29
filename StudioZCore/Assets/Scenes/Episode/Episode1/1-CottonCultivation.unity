@@ -1801,7 +1801,7 @@ MonoBehaviour:
     actionDialogue: {fileID: 11400000, guid: 8997671becd48824b83d7b0e8a079b8f, type: 2}
   - actionName: pick_corrupted_seed
     pointValue: -1
-    actionDialogue: {fileID: 0}
+    actionDialogue: {fileID: 11400000, guid: 08512d354ba255e42b7992d45b09247d, type: 2}
   - actionName: throw_healthy_seed
     pointValue: -1
     actionDialogue: {fileID: 0}
@@ -1823,6 +1823,15 @@ MonoBehaviour:
   - actionName: use_glove
     pointValue: 1
     actionDialogue: {fileID: 0}
+  - actionName: plant_healthy_seed
+    pointValue: 1
+    actionDialogue: {fileID: 11400000, guid: f883597bbc42a3242aae4a015dcd9285, type: 2}
+  - actionName: plant_corrupted_seed
+    pointValue: -1
+    actionDialogue: {fileID: 0}
+  - actionName: plant_useless_seed
+    pointValue: 0
+    actionDialogue: {fileID: 11400000, guid: 4f821617decd6d9479a6d5e64337f75f, type: 2}
   dialogueIntro: {fileID: 11400000, guid: 31e8d2b0b4227784b8ab75f5b14f8078, type: 2}
   dialogueOutro: {fileID: 11400000, guid: 5120cae68db9d0f439066211eadb2a54, type: 2}
   goodSeedToSort: 5

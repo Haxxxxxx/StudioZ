@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System;
 using TMPro;
 using Coffee.UIEffects;
+using Random = UnityEngine.Random;
 
 namespace MiniGames
 {
@@ -28,6 +29,9 @@ namespace MiniGames
                 public string UseWateringCan { get; private set; } = "use_watering_can";
                 public string UseSunlight { get; private set; } = "use_sunlight";
                 public string UseGlove { get; private set; } = "use_glove";
+                public string PlantHealthySeed { get; private set; } = "plant_healthy_seed";
+                public string PlantCorruptedSeed { get; private set; } = "plant_corrupted_seed";
+                public string PlantUselessSeed { get; private set; } = "plant_useless_seed";
             }
 
             public enum ToolsType
@@ -96,11 +100,31 @@ namespace MiniGames
             {
                 base.PerformAction(actionName);
 
-                if (actionName == miniGameActionName.PickHealthySeed && actionResults.TryGetValue(actionName, out MiniGameActionResult result) && result.actionDialogue != null)
+                if(!actionResults.TryGetValue(actionName, out MiniGameActionResult result) || result.actionDialogue == null || result.actionDialogue.Lines.Length > 0) return;
+
+                if (actionName == miniGameActionName.PickHealthySeed)
                 {
                     dialogueManager.SetNextDialogueAsAction();
                     dialogueManager.CurrentDialogue = result.actionDialogue;
                     result.actionDialogue = null;
+                }
+                else if (actionName == miniGameActionName.PickCorruptedSeed)
+                {
+                    dialogueManager.SetNextDialogueAsAction();
+                    int randomIndex = Random.Range(0, result.actionDialogue.Lines.Length);
+                    MoveToFirst(result.actionDialogue.Lines, result.actionDialogue.Lines[randomIndex]);
+                    dialogueManager.CurrentDialogue = result.actionDialogue;
+                    /*result.actionDialogue.Lines = null;*/
+                }
+            }
+
+            
+            public void MoveToFirst(DialogueData[] array, DialogueData item)
+            {
+                int index = System.Array.IndexOf(array, item);
+                if (index > 0)
+                {
+                    (array[index], array[0]) = (array[0], array[index]);
                 }
             }
 

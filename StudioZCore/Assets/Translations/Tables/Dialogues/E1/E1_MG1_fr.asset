@@ -114,6 +114,62 @@ MonoBehaviour:
       faire des merveilles ! "
     m_Metadata:
       m_Items: []
+  - m_Id: 16991782493237248
+    m_Localized: "Ouiiii ! Tu viens de planter une graine de champion ! Grace a toi
+      on va avoir du coton de qualit\xE9 !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16991868237393920
+    m_Localized: "Parfait ! C\u2019est exactement ce qu\u2019il fallait ! Tu deviens
+      un pro du coton dis donc !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16992224061173760
+    m_Localized: "Trop bien jou\xE9 ! Cette graine va pousser plus vite que le haricot
+      magique  !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16992713926520832
+    m_Localized: "Oh non, celle-l\xE0 \xE9tait corrompue\u2026 mais ne t\u2019inqui\xE8te
+      pas, on va vite rattraper \xE7a ! tu veux que je te r\xE9explique ?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16992991195181056
+    m_Localized: "\"Hmm\u2026 Profane t\u2019a jou\xE9 un mauvais tour ! Mais tu
+      apprends super vite, la prochaine fois \xE7a ne se passera pas comme \xE7a,
+      allez on continue !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16993206174232576
+    m_Localized: "Petite erreur, \xE7a arrive, on n\u2019\xE9choue pas, on apprend
+      ! tu verras on les rep\xE8re de mieux en mieux ensemble!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16993369110360064
+    m_Localized: "Pas de panique ! Ce n\u2019\xE9tait pas la bonne, mais chaque essai
+      te rend plus fort !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16993743774953472
+    m_Localized: "\u201CEuh\u2026 je crois que tu viens de planter un\u2026 morceau
+      de biscotte ?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16993828504088576
+    m_Localized: "Pas s\xFBr que \xE7a pousse\u2026 sauf si on veut r\xE9colter du
+      pop corn!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16993838146793472
+    m_Localized: "Cette graine-l\xE0 ? Elle fait surtout des bulles ! Allez, on se
+      concentre !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16993849265893376
+    m_Localized: "Celle-ci ne servira pas \xE0 faire pousser du coton\u2026 mais
+      on d\xE9couvre en jouant, et c\u2019est comme \xE7a qu\u2019on apprend !"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -144,6 +144,20 @@ namespace MiniGames
                         transform.localPosition = new Vector3(0, -15f, 0);
                         transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
                         draggableItem.enabled = false;
+
+                        switch(seedType)
+                        {
+                            case SeedType.Healthy:
+                                mgCottonCultivation.PerformAction(mgCottonCultivation.miniGameActionName.PlantHealthySeed);
+                                break;
+                            case SeedType.Corrupted:
+                                mgCottonCultivation.PerformAction(mgCottonCultivation.miniGameActionName.PlantCorruptedSeed);
+                                break;
+                            case SeedType.Useless:
+                                mgCottonCultivation.PerformAction(mgCottonCultivation.miniGameActionName.PlantUselessSeed);
+                                break;
+                        }
+
                         Debug.Log($"Seed {seedType} planted in hole: {currentHole.name}");
                     }
                     else
