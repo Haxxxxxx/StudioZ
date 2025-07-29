@@ -136,7 +136,7 @@ public abstract class MiniGameBase : MonoBehaviour
         }
     }
 
-    private IEnumerator StartChrono()
+    protected IEnumerator StartChrono()
     {
         yield return new WaitForSeconds(1);
         while (!isFinished)

@@ -10,6 +10,7 @@ public class HoldInMachine : MonoBehaviour, IDropHandler
     [SerializeField] private ThreadColor holdAcceptedColor;
     public ThreadColor HoldAcceptedColor
     {
+        get { return holdAcceptedColor; }
         set { holdAcceptedColor = value; }
     }
 
@@ -42,7 +43,6 @@ public class HoldInMachine : MonoBehaviour, IDropHandler
         {
             if (threadOnTreadmill.ThreadSpriteColor == holdAcceptedColor)
             {
-                Debug.Log("Good hold");
                 OnGoodHold(droppedObject);
             }
             else
@@ -58,6 +58,7 @@ public class HoldInMachine : MonoBehaviour, IDropHandler
         {
             isEmpty = false;
             currentImage.sprite = holdFullSprite;
+            mgCottonSorting.currentThreadsOnTreadmill.Remove(droppedObject);
             Destroy(droppedObject);
             threadingCoroutine = StartCoroutine(Threading());
         }

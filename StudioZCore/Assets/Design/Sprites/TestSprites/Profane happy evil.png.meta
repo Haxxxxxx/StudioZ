@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6ca534d0e7340014d968ca482e7bf603
+guid: 18b147556e68c664c8c6708f6b2a9f37
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6122198488575028226
-    second: try2_0
+      213: 358098881210256769
+    second: Profane happy evil_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: try2_0
+      name: Profane happy evil_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 97
-        height: 99
-      alignment: 9
-      pivot: {x: 0.27260977, y: 0.44176906}
-      border: {x: 3, y: 22, z: 47, w: 32}
+        y: 28
+        width: 562
+        height: 454
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ef35d0459e4990ba0800000000000000
-      internalID: -6122198488575028226
+      spriteID: 18d8001090938f400800000000000000
+      internalID: 358098881210256769
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: f02e4431a57cffb4889c3c12160c9080
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      try2_0: -6122198488575028226
+      Profane happy evil_0: 358098881210256769
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

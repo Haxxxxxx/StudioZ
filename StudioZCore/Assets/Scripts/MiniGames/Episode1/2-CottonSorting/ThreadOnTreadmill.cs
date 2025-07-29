@@ -19,7 +19,7 @@ public class ThreadOnTreadmill : MonoBehaviour, IBeginDragHandler, IDragHandler,
     private Coroutine fallingCoroutine;
     private MG2_CottonSorting mgCottonSorting;
 
-    private float treadmillSpeed;
+    public float treadmillSpeed;
     private float baseSpeed;
 
     [HideInInspector] public GameObject threadLine;
@@ -89,7 +89,12 @@ public class ThreadOnTreadmill : MonoBehaviour, IBeginDragHandler, IDragHandler,
             }
             else
             {
-                // TODO : if good color -1 pts
+                // if good color -1 pts
+                if (mgCottonSorting.goodColors.Contains(threadSpriteColor))
+                {
+                    mgCottonSorting.PerformAction(mgCottonSorting.miniGameActionName.MissedThreadCotton);
+                }
+                mgCottonSorting.currentThreadsOnTreadmill.Remove(gameObject);
                 Destroy(gameObject);
             }
         }
@@ -140,10 +145,6 @@ public class ThreadOnTreadmill : MonoBehaviour, IBeginDragHandler, IDragHandler,
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         rect.localRotation = Quaternion.Euler(0f, 0f, angle);
     }
-
-
-
-
 
     #endregion
 
