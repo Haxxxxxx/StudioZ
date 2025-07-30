@@ -128,6 +128,12 @@ namespace MiniGames
 
             private void CheckSeedInField(GameObject dropZoneObj)
             {
+                if (dropZoneObj == goodSeedContainer) 
+                {
+                    draggableItem.CancelResetPosition();
+                    return;
+                }
+
                 if (!fieldHoles.Any(h => h.gameObject == dropZoneObj))
                 {
                     draggableItem.ResetPosition();

@@ -33,13 +33,20 @@ namespace MiniGames
 
             private bool isCoroutineRunning = false;
             private bool isPressed = false;
-            public float wateringTime = 2f;
-            public float sunshineTime = 2f;
+            public float timeToWater = 2f;
+            private float wateringTime = 0;
+            public float timeToSunshine = 2f;
+            private float sunshineTime = 0;
+
 
             [Header("Sprites")]
             [SerializeField] private Sprite holeCreatedSprite;
             [field: NonSerialized] public Seed_CottonCultivation seededSeed;
             [SerializeField] private Sprite holeFilledSprite;
+
+            [Header("UI References")]
+            [SerializeField] private Slider progressBar;
+            [SerializeField] private Image fillImage;
 
 
             private void Awake()
@@ -75,6 +82,7 @@ namespace MiniGames
             private void Start()
             {
                 mgCottonCultivation = MG1_CottonCultivation.instance;
+                progressBar.gameObject.SetActive(false);
             }
 
             private void OnEnable()
@@ -104,8 +112,8 @@ namespace MiniGames
 
             public void SetHoleState(HoleState newState)
             {
-                if ((newState == HoleState.Watered && wateringTime > 0) ||
-                    (newState == HoleState.Sunny && sunshineTime > 0))
+                if ((newState == HoleState.Watered && wateringTime < timeToWater) ||
+                    (newState == HoleState.Sunny && sunshineTime < timeToSunshine))
                 {
                     if (!isCoroutineRunning)
                     {
@@ -145,13 +153,23 @@ namespace MiniGames
 
             private IEnumerator OnClickPressed(HoleState newState)
             {
+                if(progressBar == null || fillImage == null) yield break;
+
                 isCoroutineRunning = true;
 
+                fillImage.color = (newState == HoleState.Watered ? Color.blue : Color.yellow);
+
+                float timeToReach = (newState == HoleState.Watered ? timeToWater : timeToSunshine);
                 float timePressed = (newState == HoleState.Watered ? wateringTime : sunshineTime);
 
-                while (isPressed && timePressed > 0)
+                progressBar.gameObject.SetActive(true);
+                progressBar.maxValue = timeToReach;
+                progressBar.value = timePressed;
+
+                while (isPressed && timePressed < timeToReach)
                 {
-                    timePressed -= Time.deltaTime;
+                    timePressed += Time.deltaTime;
+                    progressBar.value = timePressed;
 
                     if (newState == HoleState.Watered)
                     {
@@ -165,19 +183,11 @@ namespace MiniGames
                     yield return null;
                 }
 
+                progressBar.gameObject.SetActive(false);
                 isCoroutineRunning = false;
-                if (timePressed > 0) yield break;
+                if (timePressed < timeToReach) yield break;
 
-                if (newState == HoleState.Watered)
-                {
-                    wateringTime = 0;
-                    mgCottonCultivation.PerformAction(mgCottonCultivation.miniGameActionName.UseWateringCan);
-                }
-                else
-                {
-                    sunshineTime = 0;
-                    mgCottonCultivation.PerformAction(mgCottonCultivation.miniGameActionName.UseSunlight);
-                }
+                mgCottonCultivation.PerformAction((newState == HoleState.Watered ? mgCottonCultivation.miniGameActionName.UseWateringCan : mgCottonCultivation.miniGameActionName.UseSunlight));
 
                 SetHoleState(newState);
             }

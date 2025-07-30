@@ -62,7 +62,6 @@ namespace MiniGames
             [field: NonSerialized] public List<FieldHole_CottonCultivation> fieldHoles { get; private set; } = new List<FieldHole_CottonCultivation>();
             private List<Seed_CottonCultivation> goodSortedSeedList = new List<Seed_CottonCultivation>();
             private List<Seed_CottonCultivation> badSortedSeedList = new List<Seed_CottonCultivation>();
-            private float minDistance;
 
             [Header("Dialogue References")]
             [SerializeField] private Dialogue phase1Tuto;
@@ -96,7 +95,7 @@ namespace MiniGames
             public override void StartGame()
             {
                 Debug.Log("Cotton Cultivation MiniGame Started");
-                dialogueManager.OnDialogueFinished -= Phase1Tuto;
+                dialogueManager.OnDialogueFinished -= StartGame;
                 base.StartGame();
             }
 
@@ -106,7 +105,7 @@ namespace MiniGames
 
                 if(!actionResults.TryGetValue(actionName, out MiniGameActionResult result) || result.actionDialogue == null || result.actionDialogue.Lines.Count == 0) return;
 
-                if (!TryEncouragePlayer())
+                if (!CanEncouragePlayer()) return;
 
                 if (actionName == miniGameActionName.PickHealthySeed)
                 {
@@ -120,13 +119,18 @@ namespace MiniGames
                 }
             }
 
-            private bool TryEncouragePlayer()
+            private bool CanEncouragePlayer()
             {
                 if (Time.time - lastActionDialogueTime < cooldown) return false;
 
+                return true;
+            }
+
+            private bool RandomlyEncouragePlayer()
+            {
                 actionPercent = Mathf.Clamp01(actionPercent + (0.5f * (1f - (float)currentScore / actionCount)));
 
-                if (Random.value < actionPercent) 
+                if (Random.value < actionPercent)
                 {
                     lastActionDialogueTime = Time.time;
                     return true;
@@ -136,6 +140,8 @@ namespace MiniGames
 
             private void RandomActionDialogue(MiniGameActionResult result)
             {
+                if(!RandomlyEncouragePlayer()) return;
+
                 dialogueManager.SetNextDialogueAsAction();
                 int randomIndex = Random.Range(0, result.actionDialogue.Lines.Count);
                 MoveToFirst(result.actionDialogue.Lines, result.actionDialogue.Lines[randomIndex]);
@@ -162,31 +168,14 @@ namespace MiniGames
 
             public void SortSeed(Seed_CottonCultivation sortedSeed, bool goodSeed, GameObject container)
             {
-                /*   Vector2 itemSize = sortedSeed.GetComponent<RectTransform>().rect.size * sortedSeed.GetComponent<RectTransform>().lossyScale;
-                   minDistance = Mathf.Max(itemSize.x, itemSize.y);
-
-                   float radius = Mathf.Min(container.GetComponent<RectTransform>().rect.width, container.GetComponent<RectTransform>().rect.height) / 2f ;
-                   Vector2 pos;
-                   int attempts = 0;
-                   const int maxAttempts = 50;
-
-                   do
-                   {
-                       pos = UnityEngine.Random.insideUnitCircle * radius;
-                       sortedSeed.GetComponent<RectTransform>().anchoredPosition = pos;
-                       attempts++;
-                       if (attempts > maxAttempts) break;
-                   } while (IsOverlapping(pos, (goodSeed ? goodSortedSeed : badSortedSeed)));
-
-                   sortedSeed.transform.SetParent(container.transform, false);
-                   sortedSeed.GetComponent<RectTransform>().anchoredPosition = pos;*/
-
-
                 if (goodSeed)
                 {
                     goodSortedSeedList.Add(sortedSeed);
-                    goodSeedSorted++;
-                    goodSeedText.text = $"Good Seeds : {goodSeedSorted}/{goodSeedToSort}";
+                    if (sortedSeed.seedType == Seed_CottonCultivation.SeedType.Healthy)
+                    {
+                        goodSeedSorted++;
+                        goodSeedText.text = $"Good Seeds : {goodSeedSorted}/{goodSeedToSort}";
+                    }
                 }
                 else
                 {
@@ -202,6 +191,12 @@ namespace MiniGames
                     });
 
                     Phase2Tuto();
+
+                    badSortedSeedList.ForEach(seed =>
+                    {
+                        Destroy(seed.gameObject);
+                    });
+                    Destroy(GameObject.Find("BadSeedContainer"));
                 }
                 else
                 {
@@ -209,23 +204,12 @@ namespace MiniGames
                 }    
             }
 
-            private bool IsOverlapping(Vector2 newPos, List<Seed_CottonCultivation> items)
-            {
-                foreach (var item in items)
-                {
-                    if (Vector2.Distance(item.GetComponent<RectTransform>().anchoredPosition, newPos) < minDistance)
-                        return true;
-                }
-                return false;
-            }
-
             #region Button Fonction
 
             public void BS_SpawnRandomSeed()
             {
-                int randomIndex = UnityEngine.Random.Range(0, seedsOnBag.Count);
+                int randomIndex = Random.Range(0, seedsOnBag.Count);
                 Instantiate(seedsOnBag[randomIndex], seedBagBtn.gameObject.transform);
-                seedsOnBag.RemoveAt(randomIndex);
                 seedBagBtn.interactable = false;
             }
 
@@ -239,9 +223,15 @@ namespace MiniGames
             private void Phase2Tuto()
             {
                 PauseMiniGame();
-                dialogueManager.OnDialogueFinished -= StartGame;
-                dialogueManager.OnDialogueFinished += UnPauseMiniGame;
+                dialogueManager.OnDialogueFinished -= Phase2Tuto;
+                dialogueManager.OnDialogueFinished += EndOfPhase2Tuto;
                 dialogueManager.CurrentDialogue = phase2Tuto;
+            }
+
+            private void EndOfPhase2Tuto()
+            {
+                UnPauseMiniGame();
+                dialogueManager.OnDialogueFinished -= EndOfPhase2Tuto;
             }
 
             public void CheckToolTypeForHole(FieldHole_CottonCultivation currentHole)
