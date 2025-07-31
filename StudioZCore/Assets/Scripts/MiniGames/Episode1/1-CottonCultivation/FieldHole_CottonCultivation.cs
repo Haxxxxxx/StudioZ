@@ -37,6 +37,7 @@ namespace MiniGames
             private float wateringTime = 0;
             public float timeToSunshine = 2f;
             private float sunshineTime = 0;
+            public float timeToCottonReady = 5f;
 
 
             [Header("Sprites")]
@@ -134,7 +135,6 @@ namespace MiniGames
                         image.color = Color.white;
                         break;
                     case HoleState.Seeded:
-
                         break;
                     case HoleState.HoleFilled:
                         image.sprite = holeFilledSprite;
@@ -145,6 +145,7 @@ namespace MiniGames
                         break;
                     case HoleState.Sunny:
                         seededSeed.NextCottonState();
+
                         break;
                 }
 
@@ -157,7 +158,9 @@ namespace MiniGames
 
                 isCoroutineRunning = true;
 
-                fillImage.color = (newState == HoleState.Watered ? Color.blue : Color.yellow);
+                Color baseColor = (newState == HoleState.Watered ? new Color(0.2f, 0.4f, 0.8f) : new Color(1f, 0.90f, 0f));
+                Color goodColor = (newState == HoleState.Watered ? new Color(0.4f, 0.9f, 1.0f) : new Color(1f, 0.647f, 0f));
+                Color overColor = new Color(1f, 0.6f, 0.2f);
 
                 float timeToReach = (newState == HoleState.Watered ? timeToWater : timeToSunshine);
                 float timePressed = (newState == HoleState.Watered ? wateringTime : sunshineTime);
@@ -166,7 +169,7 @@ namespace MiniGames
                 progressBar.maxValue = timeToReach;
                 progressBar.value = timePressed;
 
-                while (isPressed && timePressed < timeToReach)
+                while (isPressed)
                 {
                     timePressed += Time.deltaTime;
                     progressBar.value = timePressed;
@@ -180,6 +183,22 @@ namespace MiniGames
                         sunshineTime = timePressed;
                     }
 
+                    if (timePressed >= timeToReach)
+                    {
+                        if (holeState != newState)
+                        {
+                            SetHoleState(newState);
+                        }
+                        else if(newState == HoleState.Watered && timePressed < timeToReach * 2f)
+                        {
+                            fillImage.color = Color.Lerp(goodColor, overColor, Mathf.InverseLerp(timeToReach, timeToReach * 2f, timePressed));
+                        }
+                    }
+                    else
+                    {
+                        fillImage.color = Color.Lerp(baseColor, goodColor, Mathf.InverseLerp(0, timeToReach, timePressed));
+                    }
+
                     yield return null;
                 }
 
@@ -189,7 +208,8 @@ namespace MiniGames
 
                 mgCottonCultivation.PerformAction((newState == HoleState.Watered ? mgCottonCultivation.miniGameActionName.UseWateringCan : mgCottonCultivation.miniGameActionName.UseSunlight));
 
-                SetHoleState(newState);
+                if(newState == HoleState.Watered && timePressed > timeToReach * 2f) mgCottonCultivation.PerformAction(mgCottonCultivation.miniGameActionName.UseWateringTooMuch);
+                else if (newState == HoleState.Sunny) StartCoroutine(seededSeed.WaitForCottonReady(timeToCottonReady, progressBar, fillImage));
             }
         }
     }

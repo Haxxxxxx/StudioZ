@@ -27,6 +27,7 @@ namespace MiniGames
                 public string UseShovel { get; private set; } = "use_shovel";
                 public string UseShovelIncorrectly { get; private set; } = "use_shovel_incorrectly";
                 public string UseWateringCan { get; private set; } = "use_watering_can";
+                public string UseWateringTooMuch { get; private set; } = "use_watering_too_much";
                 public string UseSunlight { get; private set; } = "use_sunlight";
                 public string UseGlove { get; private set; } = "use_glove";
                 public string PlantHealthySeed { get; private set; } = "plant_healthy_seed";
@@ -43,6 +44,7 @@ namespace MiniGames
                 Glove,
             }
 
+
             [Header("MiniGame Settings")]
             private ToolsType toolType = ToolsType.None;
             private Button selectedToolBtn;
@@ -52,6 +54,10 @@ namespace MiniGames
             private int cottonHarvested = 0;
             public CottonCultivationActionName miniGameActionName = new CottonCultivationActionName();
             [SerializeField] private List<GameObject> seedsOnBag = new List<GameObject>();
+            [SerializeField][Range(0, 1)] private float healthySeedPercent = 0.45f;
+            [SerializeField][Range(0, 1)] private float uselessSeedPercent = 0.3f;
+            [SerializeField][Range(0, 1)] private float corruptedSeedPercent = 0.25f;
+
 
             [Header("UI References")]
             [SerializeField] private List<Button> toolsBtn = new List<Button>();
@@ -66,9 +72,10 @@ namespace MiniGames
             [Header("Dialogue References")]
             [SerializeField] private Dialogue phase1Tuto;
             [SerializeField] private Dialogue phase2Tuto;
+            [SerializeField] private Dialogue cottonReadyDialogue;
 
             private float lastActionDialogueTime = -10f;
-            private float cooldown = 10f;
+            private float cooldown = 5f;
             private float actionPercent = 0.3f;
 
             #endregion
@@ -113,13 +120,14 @@ namespace MiniGames
                     dialogueManager.CurrentDialogue = result.actionDialogue;
                     result.actionDialogue = null;
                 }
-                else if (actionName == miniGameActionName.PickCorruptedSeed || actionName == miniGameActionName.PlantUselessSeed || actionName == miniGameActionName.PlantHealthySeed)
+                else if (actionName == miniGameActionName.PickCorruptedSeed || actionName == miniGameActionName.PlantUselessSeed 
+                    || actionName == miniGameActionName.PlantHealthySeed || actionName == miniGameActionName.UseGlove)
                 {
                     RandomActionDialogue(result);
                 }
             }
 
-            private bool CanEncouragePlayer()
+            public bool CanEncouragePlayer()
             {
                 if (Time.time - lastActionDialogueTime < cooldown) return false;
 
@@ -204,12 +212,61 @@ namespace MiniGames
                 }    
             }
 
+            private void Normalize()
+            {
+                float total = healthySeedPercent + uselessSeedPercent + corruptedSeedPercent;
+                if (total > 0f)
+                {
+                    healthySeedPercent /= total;
+                    uselessSeedPercent /= total;
+                    corruptedSeedPercent /= total;
+                }
+                else
+                {
+                    healthySeedPercent = 1f;
+                    uselessSeedPercent = 0f;
+                    corruptedSeedPercent = 0f;
+                }
+            }
+
+            private (float, float, float) UpdatePercentValue(float changedValue, float modifiedValue1, float modifiedValue2)
+            {
+                if (changedValue - 5 >= 0)
+                {
+                    changedValue -= 5;
+                    modifiedValue1 += 2.5f;
+                    modifiedValue2 += 2.5f;
+                }
+                else
+                {
+                    modifiedValue2 += changedValue / 2;
+                    modifiedValue1 += changedValue / 2;
+                    changedValue = 0f;
+                }
+                return (changedValue, modifiedValue1, modifiedValue2);
+            }
+
             #region Button Fonction
 
             public void BS_SpawnRandomSeed()
             {
-                int randomIndex = Random.Range(0, seedsOnBag.Count);
-                Instantiate(seedsOnBag[randomIndex], seedBagBtn.gameObject.transform);
+                Normalize();
+                float randomValue = Random.value;
+                if(randomValue <= healthySeedPercent)
+                {
+                    Instantiate(seedsOnBag[0], seedBagBtn.gameObject.transform);
+                    (healthySeedPercent, corruptedSeedPercent, uselessSeedPercent) = UpdatePercentValue(healthySeedPercent, corruptedSeedPercent, uselessSeedPercent);   
+                }
+                else if (randomValue <= healthySeedPercent + uselessSeedPercent)
+                {
+                    Instantiate(seedsOnBag[Random.Range(1,3)], seedBagBtn.gameObject.transform);
+                    (uselessSeedPercent, healthySeedPercent, corruptedSeedPercent) = UpdatePercentValue(uselessSeedPercent, healthySeedPercent, corruptedSeedPercent);
+                }
+                else
+                {
+                    Instantiate(seedsOnBag[3], seedBagBtn.gameObject.transform);
+                    (corruptedSeedPercent, healthySeedPercent, uselessSeedPercent) = UpdatePercentValue(corruptedSeedPercent, healthySeedPercent, uselessSeedPercent);
+                }
                 seedBagBtn.interactable = false;
             }
 
@@ -232,6 +289,16 @@ namespace MiniGames
             {
                 UnPauseMiniGame();
                 dialogueManager.OnDialogueFinished -= EndOfPhase2Tuto;
+            }
+
+            public void PlayCottonReadyDialogue()
+            {
+                if (cottonReadyDialogue != null)
+                {
+                    dialogueManager.SetNextDialogueAsAction();
+                    dialogueManager.CurrentDialogue = cottonReadyDialogue;
+                    cottonReadyDialogue = null;
+                }
             }
 
             public void CheckToolTypeForHole(FieldHole_CottonCultivation currentHole)
@@ -280,13 +347,9 @@ namespace MiniGames
 
             private void UseWateringCan(FieldHole_CottonCultivation currentHole)
             {
-                if (currentHole.holeState == FieldHole_CottonCultivation.HoleState.HoleFilled)
+                if (currentHole.holeState == FieldHole_CottonCultivation.HoleState.HoleFilled && currentHole.seededSeed.seedType == Seed_CottonCultivation.SeedType.Healthy)
                 {
                     currentHole.SetHoleState(FieldHole_CottonCultivation.HoleState.Watered);
-                }
-                else if (currentHole.holeState != FieldHole_CottonCultivation.HoleState.Watered)
-                {
-                    //? Perform negativeAction for using watering can in bad state
                 }
             }
 
@@ -295,10 +358,6 @@ namespace MiniGames
                 if (currentHole.holeState == FieldHole_CottonCultivation.HoleState.Watered)
                 {
                     currentHole.SetHoleState(FieldHole_CottonCultivation.HoleState.Sunny);
-                }
-                else if (currentHole.holeState != FieldHole_CottonCultivation.HoleState.Sunny)
-                {
-                    //? Perform negativeAction for using sunlight in bad state
                 }
             }
 
@@ -322,10 +381,6 @@ namespace MiniGames
                         dialogueManager.OnDialogueFinished += EndGame;
                         dialogueManager.CurrentDialogue = dialogueOutro;
                     }
-                }
-                else
-                {
-                    //? Perform negativeAction for using glove in bad state
                 }
             }
 

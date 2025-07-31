@@ -131,6 +131,22 @@ MonoBehaviour:
     m_Key: E1_MG1_uselessSeedPlanted4
     m_Metadata:
       m_Items: []
+  - m_Id: 17714949964705792
+    m_Key: E1_MG1_cottonReady1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17715119922098176
+    m_Key: E1_MG1_cottonHarvest1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17715227644407808
+    m_Key: E1_MG1_cottonHarvest2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17715241875681280
+    m_Key: E1_MG1_cottonHarvest3
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -158,6 +159,7 @@ namespace MiniGames
                                 break;
                             case SeedType.Corrupted:
                                 mgCottonCultivation.PerformAction(mgCottonCultivation.miniGameActionName.PlantCorruptedSeed);
+                                fieldHoles.ForEach(h => h.timeToCottonReady += 1);
                                 break;
                             case SeedType.Useless:
                                 mgCottonCultivation.PerformAction(mgCottonCultivation.miniGameActionName.PlantUselessSeed);
@@ -190,7 +192,6 @@ namespace MiniGames
                 {
                     seedState = SeedState.CottonFlower;
                     image.sprite = cottonState2Sprite;
-                    Invoke(nameof(NextCottonState), 2f);
                 }
                 else if (seedState == SeedState.CottonFlower)
                 {
@@ -201,6 +202,32 @@ namespace MiniGames
                 {
                     Debug.LogWarning("Seed is already in the final state.");
                 }
+            }
+
+            public IEnumerator WaitForCottonReady(float timeToWait, Slider progressBar, Image fill)
+            {
+                float timeWaited = 0f;
+                progressBar.gameObject.SetActive(true);
+                progressBar.maxValue = timeToWait;
+                progressBar.value = 0f;
+                fill.color = Color.green;
+
+                while (timeWaited < timeToWait)
+                {
+                    yield return null;
+                    timeWaited += Time.deltaTime;
+                    progressBar.value = timeWaited;
+                }
+
+                progressBar.gameObject.SetActive(false);
+                NextCottonState();
+
+                while (!mgCottonCultivation.CanEncouragePlayer())
+                {
+                    yield return null;
+                }
+
+                mgCottonCultivation.PlayCottonReadyDialogue();
             }
 
             public int RecoltCotton()

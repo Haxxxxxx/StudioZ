@@ -170,6 +170,26 @@ MonoBehaviour:
       on d\xE9couvre en jouant, et c\u2019est comme \xE7a qu\u2019on apprend !"
     m_Metadata:
       m_Items: []
+  - m_Id: 17714949964705792
+    m_Localized: "Bravo, regarde ton coton tout doux ! C\u2019est l\u2019heure de
+      le r\xE9colter"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17715119922098176
+    m_Localized: "Impressionnant on dirait que tu as fait \xE7a toute ta vie ! tu
+      es un vrai jardinier\r\n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17715227644407808
+    m_Localized: "Waouh ! Ce n\u2019est qu\u2019un d\xE9but, mais c\u2019est d\xE9j\xE0
+      super prometteur !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17715241875681280
+    m_Localized: "Avec un peu d\u2019entra\xEEnement, tu vas devenir un.e pro de
+      la culture \xE9colo !"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
