@@ -126,7 +126,11 @@ public abstract class MiniGameBase : MonoBehaviour
     {
         if (actionResults.TryGetValue(actionName, out MiniGameActionResult result))
         {
-            currentScore += result.pointValue;
+            if (currentScore + result.pointValue < 0) 
+                currentScore = 0; // capé à 0
+            else 
+                currentScore += result.pointValue;
+            
             actionCount++;
             Debug.Log($"Performed {actionName}, gained {result.pointValue} points. Total score: {currentScore}");
         }
@@ -176,8 +180,6 @@ public abstract class MiniGameBase : MonoBehaviour
         else if (ratio >= 0.5f) return 2;
         else return 1;
     }
-
-
 
     public string GetChronoInString()
     {

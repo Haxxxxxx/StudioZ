@@ -2345,7 +2345,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   holdAcceptedColor: 0
-  holdFullSprite: {fileID: 3229389613762165112, guid: 1b3e90e6af4c3754999d40c39489851e, type: 3}
   isEmpty: 1
 --- !u!1 &735514359
 GameObject:
@@ -3515,7 +3514,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   holdAcceptedColor: 1
-  holdFullSprite: {fileID: -8416154257547363039, guid: 67fc8c075f2b5844b8fb84a7498f7469, type: 3}
   isEmpty: 1
 --- !u!1 &1171731908
 GameObject:
@@ -3955,18 +3953,23 @@ MonoBehaviour:
   Phase2: {fileID: 1512489851}
   WheelsParent: {fileID: 171935570}
   profane: {fileID: 843551345}
+  profaneNormal: {fileID: -8691090369710217222, guid: 2f20761d50b5acf4c9975239224917a4, type: 3}
+  profaneAttacking: {fileID: 358098881210256769, guid: 18b147556e68c664c8c6708f6b2a9f37, type: 3}
+  profaneHurt: {fileID: -638579678019111931, guid: 2a36026749813eb4dabde078ec71d379, type: 3}
   ThreadOnTreadmillPrefab: {fileID: 388196503459129047, guid: 77f5dc7c5e6fa3641a99f4c3fcaf5914, type: 3}
   emptyHoldSprite: {fileID: -650162134932277116, guid: 37e4d2099e60dec4d875378172fdfd0d, type: 3}
   threadLine: {fileID: 179674036488059275, guid: c8c45994012d17548aa0c96647436b42, type: 3}
-  threadingTime: 2
-  treadmillAcceleration: 0.7
+  threadingTime: 1.5
+  treadmillAcceleration: 0.25
   goodColors: 
   currentThreadsOnTreadmill: []
-  baseSpeed: 4
+  baseSpeed: 3
   treadmillSpeed: 1
   treadmillMinSpeed: 2
-  treadmillMaxSpeed: 6
-  allThreads:
+  treadmillMaxSpeed: 5
+  popThreadMinTime: 1.5
+  popThreadMaxTime: 3
+  allThreadData:
   - color: 0
     sprite: {fileID: 5553613250518436250, guid: 08a26df25b362d648889d0ac151a5876, type: 3}
   - color: 1
@@ -3977,6 +3980,17 @@ MonoBehaviour:
     sprite: {fileID: -2670487422504047785, guid: 3a01af68216dcc842b549fb859453111, type: 3}
   - color: 4
     sprite: {fileID: 6204739849071515793, guid: 75dc4ba0e5c2d6d468d344a5ee5aa25a, type: 3}
+  allHoldData:
+  - color: 0
+    sprite: {fileID: 3229389613762165112, guid: 1b3e90e6af4c3754999d40c39489851e, type: 3}
+  - color: 1
+    sprite: {fileID: -8416154257547363039, guid: 67fc8c075f2b5844b8fb84a7498f7469, type: 3}
+  - color: 2
+    sprite: {fileID: 6344737095178413849, guid: ece224301496eda49ac92154dd700b36, type: 3}
+  - color: 3
+    sprite: {fileID: 3456479147638735581, guid: 7555701e7e885d041a9d611c5c2204b4, type: 3}
+  - color: 4
+    sprite: {fileID: -7337659315398417784, guid: f1522ad6cd1243d489c86639ab2b5c36, type: 3}
   holdsInMachine:
   - {fileID: 715736492}
   - {fileID: 1116438170}
@@ -4265,7 +4279,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   holdAcceptedColor: 2
-  holdFullSprite: {fileID: 6344737095178413849, guid: ece224301496eda49ac92154dd700b36, type: 3}
   isEmpty: 1
 --- !u!1 &1474407705
 GameObject:

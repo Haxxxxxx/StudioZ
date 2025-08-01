@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static MG2_CottonSorting;
 
 // WARNING: HOLD IN MACHINE PARENT HAS TO BE ITS BACKGROUND COLOR
 
@@ -11,15 +12,20 @@ public class HoldInMachine : MonoBehaviour, IDropHandler
     public ThreadColor HoldAcceptedColor
     {
         get { return holdAcceptedColor; }
-        set { holdAcceptedColor = value; }
+        set 
+        { 
+            holdAcceptedColor = value;
+            UpdateBGColor(value);
+            UpdateFullSprite(value);
+        }
     }
 
     private MG2_CottonSorting mgCottonSorting;
-    [SerializeField] private Sprite holdFullSprite;
     private Image currentImage;
     [HideInInspector] public bool isEmpty = true;
     private float threadingTime;
     private Sprite emptyHoldSprite;
+    private Sprite holdFullSprite;
     private Coroutine threadingCoroutine;
 
 
@@ -30,9 +36,24 @@ public class HoldInMachine : MonoBehaviour, IDropHandler
         emptyHoldSprite = mgCottonSorting.emptyHoldSprite;
 
         currentImage = GetComponent<Image>();
+        UpdateBGColor(holdAcceptedColor);
+        UpdateFullSprite(holdAcceptedColor);
+    }
+
+    private void UpdateBGColor(ThreadColor threadColor)
+    {
         if (transform.parent.TryGetComponent(out Image imageComponent))
         {
-            imageComponent.color = MG2_CottonSorting.instance.GetColor(holdAcceptedColor);
+            imageComponent.color = mgCottonSorting.GetColor(threadColor);
+        }
+    }
+
+    private void UpdateFullSprite(ThreadColor threadColor)
+    {
+        HoldData data = mgCottonSorting.allHoldData.Find(d => d.color == threadColor);
+        if (data != null)
+        {
+            holdFullSprite = data.sprite;
         }
     }
 

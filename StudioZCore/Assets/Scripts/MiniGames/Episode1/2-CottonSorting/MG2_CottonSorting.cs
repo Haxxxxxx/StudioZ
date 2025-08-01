@@ -6,6 +6,8 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.VFX;
+using static UnityEditor.AddressableAssets.Build.Layout.BuildLayout;
 
 public enum ThreadColor
 {
@@ -27,10 +29,25 @@ public class MG2_CottonSorting : MiniGameBase
     }
 
     [System.Serializable]
+    public class HoldData
+    {
+        public ThreadColor color;
+        public Sprite sprite;
+    }
+
+    [System.Serializable]
     public class ThreadColorData
     {
         public ThreadColor color;
         public Color unityColor;
+    }
+
+    [System.Serializable]
+    public class Phase2WaveData
+    {
+        public float treadmillSpeed;
+        public float popThreadWait;
+        public int threadNumber;
     }
 
     #endregion
@@ -78,6 +95,9 @@ public class MG2_CottonSorting : MiniGameBase
     [SerializeField] private GameObject Phase2;
     [SerializeField] private GameObject WheelsParent;
     [SerializeField] private GameObject profane;
+    [SerializeField] private Sprite profaneNormal;
+    [SerializeField] private Sprite profaneAttacking;
+    [SerializeField] private Sprite profaneHurt;
     [SerializeField] private GameObject ThreadOnTreadmillPrefab;
     [SerializeField] public Sprite emptyHoldSprite;
     [SerializeField] public GameObject threadLine;
@@ -85,23 +105,31 @@ public class MG2_CottonSorting : MiniGameBase
     [SerializeField] private float treadmillAcceleration = 0.7f;
     [HideInInspector] public List<ThreadColor> goodColors;
     [HideInInspector] public List<GameObject> currentThreadsOnTreadmill;
+    private Image profaneImage;
     private int lastThreadIndex = 4;
     private int playerScorePhase2 = 0;
     private int trackingGoodColors = 0;
     private int maxScorePhase2 = 15; // TODO : A changer
     public float baseSpeed = 1f;
+    private bool isPhase2 = false;
     private bool isProfaneAttacking = false;
     [HideInInspector] public float treadmillSpeed = 1f; // Multiplicator
-    [SerializeField] private float treadmillMinSpeed = 2f;
+    [SerializeField] private float treadmillMinSpeed = 1f;
     [SerializeField] private float treadmillMaxSpeed = 5f;
+    [SerializeField] private float popThreadMinTime = 1f;
+    [SerializeField] private float popThreadMaxTime = 3f;
     private bool isTreadmillOn = false;
 
-    [SerializeField] private List<ThreadData> allThreads;
+    [SerializeField] private List<ThreadData> allThreadData;
+    [SerializeField] public List<HoldData> allHoldData;
     [SerializeField] private List<GameObject> holdsInMachine;
     [SerializeField] private List<ThreadColorData> colorMappings;
+    [SerializeField] private List<Phase2WaveData> phase2WaveDatas;
     private Dictionary<ThreadColor, Color> colorDict;
 
     private bool hasProfaneAlreadyAppeared = false;
+    private float popThreadWait = 0f;
+    private Coroutine coroutineTreadmill;
 
     [Header("Phase 3")]
     [SerializeField] private GameObject Phase3;
@@ -207,11 +235,11 @@ public class MG2_CottonSorting : MiniGameBase
     {
         base.PerformAction(actionName);
 
+        UpdateScoreText();
+
         // Phase 1
         if (actionName == "pick_correct_bin" || actionName == "pick_incorrect_bin")
         {
-            UpdateScoreText();
-
             if (currentSortingError == SORTINGERROR.NONE) return;
             else if (currentSortingError == SORTINGERROR.COTTON && cottonSortingErrors < 2)
             {
@@ -252,20 +280,22 @@ public class MG2_CottonSorting : MiniGameBase
         // Phase 2
         else
         {
-            UpdateScoreText();
             if (actionName == "threading_cotton") UpdateTreadmillSpeed(treadmillAcceleration);
             else UpdateTreadmillSpeed(-(treadmillAcceleration));
             
             trackingGoodColors += 1;
+            Debug.Log("Number total actions: " + currentScore + "/" + trackingGoodColors);
             if (trackingGoodColors == maxScorePhase2)
             {
+                DestroyAllThreads();
                 EndPhase2();
             }
-            else if (currentScore >= 3 && (currentScore % 3 == 0))
+            else if (trackingGoodColors >= 3 && (trackingGoodColors % 3 == 0))
             {
                 if (hasProfaneAlreadyAppeared == false) FirstPopProfane();
                 else
                 {
+                    Debug.Log("Not first Profane");
                     PopProfane();
                     ProfaneAttack();
                 }
@@ -281,6 +311,8 @@ public class MG2_CottonSorting : MiniGameBase
         yield return new WaitForSeconds(clip.length);
 
         target.SetActive(false);
+
+        if (target == profane) profaneImage.sprite = profaneNormal;
     }
 
     #endregion
@@ -359,12 +391,15 @@ public class MG2_CottonSorting : MiniGameBase
         isTreadmillOn = true;
         StartWheelsAnim();
 
+        profaneImage = profane.GetComponent<Image>();
+
         // Here relance le timer
         isFinished = false;
         UnPauseMiniGame();
         StartCoroutine(StartChrono());
 
-        StartCoroutine(PopThreadOnTreadmillCoroutine());
+        isPhase2 = true;
+        coroutineTreadmill = StartCoroutine(PopThreadOnTreadmillCoroutine());
     }
 
     private void StartWheelsAnim()
@@ -387,31 +422,38 @@ public class MG2_CottonSorting : MiniGameBase
 
     private IEnumerator PopThreadOnTreadmillCoroutine()
     {
-        while (isTreadmillOn) {
-            PopThreadOnTreadmill();
+        while (isPhase2)
+        {
+            if (popThreadWait <= 0) yield return new WaitForSeconds(popThreadWait); //pour quand Profane a pop que les threads se supperposent pas
 
-            // Pop plus vite si treadmill plus rapide avec une base de 0.5f min
-            float wait = 2 - (treadmillSpeed - baseSpeed);
-            Debug.Log("Waiting for: " + wait);
-            yield return new WaitForSeconds(wait == 0 ? 0.5f : wait);
+            while (isTreadmillOn) {
+                PopThreadOnTreadmill();
+
+                // max speed -> min time || min speed -> max time || current time -> wait
+                float normalizedSpeed = Mathf.InverseLerp(treadmillMinSpeed, treadmillMaxSpeed, treadmillSpeed);
+                popThreadWait = Mathf.Lerp(popThreadMaxTime, popThreadMinTime, normalizedSpeed);
+
+                Debug.Log("Waiting for: " + popThreadWait);
+                yield return new WaitForSeconds(popThreadWait);
+            }
+            yield return null;
         }
-        yield return null;
     }
 
     private void PopThreadOnTreadmill()
     {
-        int randomInt = Random.Range(0, allThreads.Count);
+        int randomInt = Random.Range(0, allThreadData.Count);
 
         // not last Thread
         if (randomInt == lastThreadIndex)
         {
-            if (randomInt < allThreads.Count - 1)
+            if (randomInt < allThreadData.Count - 1)
                 randomInt += 1;
             else
                 randomInt -= 1;
         }
 
-        ThreadData randomThread = allThreads[randomInt];
+        ThreadData randomThread = allThreadData[randomInt];
         lastThreadIndex = randomInt;
 
         Sprite randomSprite = randomThread.sprite;
@@ -430,15 +472,16 @@ public class MG2_CottonSorting : MiniGameBase
 
     private void FirstPopProfane()
     {
+        EnableBackgroundAntiClick();
         PopProfane();
+        StopTreadmillSpeed();
+        PauseMiniGame();
+        isTreadmillOn = false;
+
         hasProfaneAlreadyAppeared = true;
 
-        PauseMiniGame();
-        dialogueManager.OnDialogueFinished += UnPauseMiniGame;
         dialogueManager.OnDialogueFinished += StartProfaneAttack;
         dialogueManager.CurrentDialogue = firstPopProfane;
-
-        ProfaneAttack();
     }
 
     private void PopProfane()
@@ -448,56 +491,125 @@ public class MG2_CottonSorting : MiniGameBase
 
     private void StartProfaneAttack()
     {
+        isTreadmillOn = true;
+        DisableBackgroundAntiClick();
+        UnPauseMiniGame();
         StartCoroutine(ProfaneAttack());
+        UpdateTreadmillSpeed(treadmillSpeed); // relance tapis roulant
     }
 
     private IEnumerator ProfaneAttack()
     {
-        yield return new WaitForSeconds(3f);
-
-        if (profane.activeSelf && !isProfaneAttacking)
+        while (profane.activeSelf)
         {
-            isProfaneAttacking = true;
-            Animation anim = profane.GetComponent<Animation>();
-            anim.Play("ProfaneAction");
+            yield return new WaitForSeconds(3f);
 
-            AnimationClip clip = anim.GetClip("ProfaneAction");
-            yield return new WaitForSeconds(clip.length);
-            isProfaneAttacking = false;
+            if (profane.activeSelf && !isProfaneAttacking)
+            {
+                profaneImage.sprite = profaneAttacking;
+                isProfaneAttacking = true;
+
+                StartCoroutine(ProfaneChooseAttack());
+
+                Animation anim = profane.GetComponent<Animation>();
+                anim.Play("ProfaneAction");
+                AnimationClip clip = anim.GetClip("ProfaneAction");
+                
+                yield return new WaitForSeconds(clip.length);
+                isProfaneAttacking = false;
+                profaneImage.sprite = profaneNormal;
+            }
         }
     }
 
+    private IEnumerator ProfaneChooseAttack()
+    {
+        yield return new WaitForSeconds(0.5f); // petit delai pour plus de visuel
+        ProfaneChangeColor();
+    }
+
+    private void ProfaneChangeOrder()
+    {
+
+    }
+
+    private void ProfaneChangeColor()
+    {
+        if (holdsInMachine.Count == 0 || colorMappings.Count == 0) return;
+
+        GameObject randomHold = holdsInMachine[Random.Range(0, holdsInMachine.Count)];
+        HoldInMachine holdComponent = randomHold.GetComponent<HoldInMachine>();
+        if (holdComponent == null) return;
+
+        ThreadColor oldColor = holdComponent.HoldAcceptedColor;
+        ThreadColor newColor = oldColor;
+
+        while (newColor == oldColor || !holdComponent.isEmpty || goodColors.Contains(newColor))
+        {
+            newColor = colorMappings[Random.Range(0, colorMappings.Count)].color;
+        }
+
+        goodColors.Remove(oldColor);
+        goodColors.Add(newColor);
+        holdComponent.HoldAcceptedColor = newColor;
+    }
+
+
     private void DestroyAllThreads()
     {
-        for (int i = 0; i < currentThreadsOnTreadmill.Count; i++) {
-            Destroy(currentThreadsOnTreadmill[0].gameObject);
+        Debug.Log("Destroying all threads");
+
+        foreach (Transform child in part2ThreadOnTreadmillParent.transform)
+        {
+            Destroy(child.gameObject);
         }
     }
 
     public void UpdateTreadmillSpeed(float speedDifference)
     {
-        float newSpeed = Mathf.Clamp(treadmillSpeed + speedDifference, treadmillMinSpeed, treadmillMaxSpeed);
-
-        if (!Mathf.Approximately(newSpeed, treadmillSpeed))
+        if (isTreadmillOn)
         {
-            treadmillSpeed = newSpeed;
+            float newSpeed = Mathf.Clamp(treadmillSpeed + speedDifference, treadmillMinSpeed, treadmillMaxSpeed);
 
+            if (!Mathf.Approximately(newSpeed, treadmillSpeed))
+            {
+                treadmillSpeed = newSpeed;
+
+                for (int i = 0; i < currentThreadsOnTreadmill.Count; i++)
+                {
+                    ThreadOnTreadmill thread = currentThreadsOnTreadmill[i].GetComponent<ThreadOnTreadmill>();
+                    if (thread != null) thread.treadmillSpeed = treadmillSpeed;
+                }
+
+                Debug.Log("Updating Speed: " + treadmillSpeed);
+            }
+        }
+    }
+
+    public void StopTreadmillSpeed()
+    {
+        if (isTreadmillOn)
+        {
             for (int i = 0; i < currentThreadsOnTreadmill.Count; i++)
             {
-                currentThreadsOnTreadmill[i].GetComponent<ThreadOnTreadmill>().treadmillSpeed = treadmillSpeed;
+                ThreadOnTreadmill thread = currentThreadsOnTreadmill[i].GetComponent<ThreadOnTreadmill>();
+                if (thread != null) thread.treadmillSpeed = 0f;
             }
 
-            Debug.Log("Updating Speed, now at: " + treadmillSpeed);
+            Debug.Log("Stop Speed");
         }
     }
 
     public void EndPhase2()
     {
+        profane.SetActive(false);
         PauseMiniGame();
         isTreadmillOn = false;
+        isPhase2 = false;
         StopWheelsAnim();
-        DestroyAllThreads();
+        
         EnableBackgroundAntiClick();
+        StopAllCoroutines();
 
         dialogueManager.OnDialogueFinished += StartPhase3;
         dialogueManager.CurrentDialogue = afterPhase2Dialogue;
@@ -577,7 +689,11 @@ public class MG2_CottonSorting : MiniGameBase
     public void BS_ClickOnProfane()
     {
         // On peut le tuer que s'il attack pas
-        if (!isProfaneAttacking) StartCoroutine(PlayAndDisable(profane, "ProfaneHit"));
+        if (!isProfaneAttacking)
+        {
+            profaneImage.sprite = profaneHurt;
+            StartCoroutine(PlayAndDisable(profane, "ProfaneHit"));
+        }
     }
 
 
