@@ -116,10 +116,10 @@ TextureImporter:
       name: Props_Base_Courte_Patron_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 332
-        height: 530
+        x: 248
+        y: 173
+        width: 334
+        height: 348
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

@@ -8,9 +8,6 @@ public class PatternCutLine : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     [Header("Line")]
     [SerializeField] private LineRenderer lineRenderer;
 
-    [Header("Validation")]
-    [SerializeField] private int minZonesToHit = 8;
-
     private readonly List<Vector3> points = new();
     private readonly HashSet<RectTransform> visitedZones = new();
 
@@ -23,7 +20,6 @@ public class PatternCutLine : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         cutZones = zones;
         visitedZones.Clear();
 
-        // Reset couleur
         foreach (var z in cutZones)
         {
             var img = z.GetComponent<Image>();
@@ -48,8 +44,8 @@ public class PatternCutLine : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     public void OnEndDrag(PointerEventData eventData)
     {
         AddPoint(eventData.position);
-        bool success = visitedZones.Count >= minZonesToHit;
-        OnCutFinished?.Invoke(success);
+        bool allVisited = visitedZones.Count == cutZones.Count && cutZones.Count > 0;
+        OnCutFinished?.Invoke(allVisited);
     }
 
     private void AddPoint(Vector3 screenPos)

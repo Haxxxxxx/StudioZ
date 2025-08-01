@@ -116,10 +116,10 @@ TextureImporter:
       name: Props_Base_Chemise_Patron_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 332
-        height: 539
+        x: 248
+        y: 77
+        width: 334
+        height: 541
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

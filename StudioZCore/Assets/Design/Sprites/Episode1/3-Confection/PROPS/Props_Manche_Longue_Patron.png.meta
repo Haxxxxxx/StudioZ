@@ -119,10 +119,10 @@ TextureImporter:
       name: Props_Manche_Longue_Patron_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 211
-        height: 556
+        x: 81
+        y: 63
+        width: 212
+        height: 558
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,10 +141,10 @@ TextureImporter:
       name: Props_Manche_Longue_Patron_1
       rect:
         serializedVersion: 2
-        x: 453
-        y: 0
-        width: 213
-        height: 556
+        x: 535
+        y: 63
+        width: 214
+        height: 558
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

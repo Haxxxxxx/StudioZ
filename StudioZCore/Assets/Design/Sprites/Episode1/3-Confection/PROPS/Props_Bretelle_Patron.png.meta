@@ -119,10 +119,10 @@ TextureImporter:
       name: Props_Bretelle_Patron_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 74
-        height: 141
+        x: 238
+        y: 311
+        width: 75
+        height: 143
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,10 +141,10 @@ TextureImporter:
       name: Props_Bretelle_Patron_1
       rect:
         serializedVersion: 2
-        x: 247
-        y: 0
-        width: 74
-        height: 141
+        x: 486
+        y: 311
+        width: 75
+        height: 143
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -163,7 +163,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 

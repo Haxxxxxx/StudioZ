@@ -116,10 +116,10 @@ TextureImporter:
       name: Props_Col_V_Patron_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 284
-        height: 123
+        x: 272
+        y: 286
+        width: 286
+        height: 125
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
