@@ -97,8 +97,8 @@ public class HoldInMachine : MonoBehaviour, IDropHandler
 
     private IEnumerator Threading()
     {
-        yield return new WaitForSeconds(threadingTime);
         mgCottonSorting.PerformAction(mgCottonSorting.miniGameActionName.ThreadingCotton);
+        yield return new WaitForSeconds(threadingTime);
         EmptyingHold();
     }
 }

@@ -36,7 +36,7 @@ public class ThreadOnTreadmill : MonoBehaviour, IBeginDragHandler, IDragHandler,
 
     private void Start()
     {
-        treadmillSpeed = mgCottonSorting.treadmillSpeed;
+        //treadmillSpeed = mgCottonSorting.treadmillSpeed;
         baseSpeed = mgCottonSorting.baseSpeed;
         threadLine = mgCottonSorting.threadLine;
     }
