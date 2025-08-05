@@ -27,6 +27,158 @@ MonoBehaviour:
     m_Key: E1_MG1_intro3
     m_Metadata:
       m_Items: []
+  - m_Id: 14066477436776448
+    m_Key: E1_MG1_part1_tuto1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14066808396722176
+    m_Key: E1_MG1_part1_tuto2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14066912096694272
+    m_Key: E1_MG1_part1_tuto3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14067144435970048
+    m_Key: E1_MG1_part1_tuto4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14067320626098176
+    m_Key: E1_MG1_part1_tuto5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14067510607097856
+    m_Key: E1_MG1_part1_tuto6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15486100233269248
+    m_Key: E1_MG1_part2_tuto1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15486864594841600
+    m_Key: E1_MG1_part2_tuto2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15487127586091008
+    m_Key: E1_MG1_part2_tuto3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15487320184336384
+    m_Key: E1_MG1_part2_tuto4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15487405752332288
+    m_Key: E1_MG1_part2_tuto5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15487490615685120
+    m_Key: E1_MG1_part2_tuto6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15487822263496704
+    m_Key: E1_MG1_part2_tuto7
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15488240238473216
+    m_Key: E1_MG1_outro1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16962112804630528
+    m_Key: E1_MG1_healthySeedPicked1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16991782493237248
+    m_Key: E1_MG1_healthySeedPlanted1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16991868237393920
+    m_Key: E1_MG1_healthySeedPlanted2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16992224061173760
+    m_Key: E1_MG1_healthySeedPlanted3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16992713926520832
+    m_Key: E1_MG1_corruptedSeedPicked1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16992991195181056
+    m_Key: E1_MG1_corruptedSeedPicked2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16993206174232576
+    m_Key: E1_MG1_corruptedSeedPicked3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16993369110360064
+    m_Key: E1_MG1_corruptedSeedPicked4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16993743774953472
+    m_Key: E1_MG1_uselessSeedPlanted1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16993828504088576
+    m_Key: E1_MG1_uselessSeedPlanted2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16993838146793472
+    m_Key: E1_MG1_uselessSeedPlanted3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16993849265893376
+    m_Key: E1_MG1_uselessSeedPlanted4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17714949964705792
+    m_Key: E1_MG1_cottonReady1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17715119922098176
+    m_Key: E1_MG1_cottonHarvest1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17715227644407808
+    m_Key: E1_MG1_cottonHarvest2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17715241875681280
+    m_Key: E1_MG1_cottonHarvest3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18037303987154944
+    m_Key: E1_MG1_profaneEntry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18037865356996608
+    m_Key: E1_MG1_profaneWarning
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18038876658216960
+    m_Key: E1_MG1_profaneSeed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18039089389121536
+    m_Key: E1_MG1_profanePesticide
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18039506462322688
+    m_Key: E1_MG1_profaneCement
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18039675517939712
+    m_Key: E1_MG1_profaneExit1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18039851854868480
+    m_Key: E1_MG1_profaneExit2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18039929432715264
+    m_Key: E1_MG1_profaneExit3
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
