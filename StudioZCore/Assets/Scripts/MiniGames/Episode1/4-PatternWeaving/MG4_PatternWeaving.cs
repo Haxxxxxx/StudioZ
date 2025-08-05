@@ -3,8 +3,6 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 using UnityEngine.UI;
-using UnityEngine.UI.Extensions;
-using System.Linq;
 
 
 
@@ -67,12 +65,7 @@ namespace MiniGames
             public GridCell_PatternWeaving lastSelectedCell;
 
             [Header("UI References")]
-            [SerializeField] private GameObject gameCanvas;
             [SerializeField] private Image patternImg;
-            private List<UILineRenderer> lineRendererList = new List<UILineRenderer>();
-            private UILineRenderer currentLineRenderer;
-            private Vector2Int lastCellPos = Vector2Int.zero;
-            [SerializeField] private GameObject lineRendererPrefab;
 
 
             #endregion
@@ -279,28 +272,6 @@ namespace MiniGames
                     yield return new WaitForSeconds(0.5f);
                     current = current.data.Find(d => d.texture == selectedPattern.texture).nextCell;
                 }
-            }
-
-            public void AddCellPointInLineRenderer(GridCell_PatternWeaving cell)
-            {
-                if(currentLineRenderer == null || currentLineRenderer.color != cell.selectedData.color || Vector2.Distance(lastCellPos, cell.cellPos) > 1.5f)
-                {
-                    currentLineRenderer = Instantiate(lineRendererPrefab, gameCanvas.transform).GetComponent<UILineRenderer>();
-                    currentLineRenderer.color = cell.selectedData.color;
-                }
-
-                lastCellPos = cell.cellPos;
-                if (currentLineRenderer.Points.Length == 1 && currentLineRenderer.Points[0] == Vector2.zero)
-                {
-                    currentLineRenderer.Points = new Vector2[] { ((RectTransform)cell.transform).localPosition };
-                }
-                else
-                {
-                    currentLineRenderer.Points = currentLineRenderer.Points
-                        .Concat(new Vector2[] { ((RectTransform)cell.transform).localPosition })
-                        .ToArray();
-                }
-
             }
 
             public void PatternFinished()

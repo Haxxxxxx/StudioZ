@@ -1,10 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using UnityEngine.UI.Extensions;
 
 namespace MiniGames
 {
@@ -81,8 +79,7 @@ namespace MiniGames
             {
                 if (isNextCell)
                 {
-                    /*image.color = selectedData.color;*/
-                    mgPatternWeaving.AddCellPointInLineRenderer(this);
+                    image.color = selectedData.color;
                     isNextCell = false;
                     eventTrigger.enabled = false;
                     mgPatternWeaving.PerformAction(mgPatternWeaving.miniGameActionName.GoodWeaving);
