@@ -63,7 +63,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    void Start()
+    void Awake()
     {
         SetNextDialogueAsDefault();
     }

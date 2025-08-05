@@ -21,6 +21,7 @@ namespace MiniGames
                 HoleFilled,
                 Watered,
                 Sunny,
+                Cemented
             }
 
             private MG1_CottonCultivation mgCottonCultivation;
@@ -44,6 +45,7 @@ namespace MiniGames
             [SerializeField] private Sprite holeCreatedSprite;
             [field: NonSerialized] public Seed_CottonCultivation seededSeed;
             [SerializeField] private Sprite holeFilledSprite;
+            [SerializeField] private Sprite holeCementedSprite;
 
             [Header("UI References")]
             [SerializeField] private Slider progressBar;
@@ -145,7 +147,9 @@ namespace MiniGames
                         break;
                     case HoleState.Sunny:
                         seededSeed.NextCottonState();
-
+                        break;
+                    case HoleState.Cemented:
+                        image.sprite = holeCementedSprite;
                         break;
                 }
 

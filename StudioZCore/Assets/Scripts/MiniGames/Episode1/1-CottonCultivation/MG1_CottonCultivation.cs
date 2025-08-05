@@ -6,6 +6,7 @@ using System;
 using TMPro;
 using Coffee.UIEffects;
 using Random = UnityEngine.Random;
+using System.Collections;
 
 namespace MiniGames
 {
@@ -73,13 +74,18 @@ namespace MiniGames
             [SerializeField] private Dialogue phase1Tuto;
             [SerializeField] private Dialogue phase2Tuto;
             [SerializeField] private Dialogue cottonReadyDialogue;
-
             private float lastActionDialogueTime = -10f;
             private float cooldown = 5f;
             private float actionPercent = 0.3f;
 
+            [Header("Profane References")]
+            [SerializeField] private ProfaneBehavior_CottonCultivation profaneBehaviour;
+
+
             #endregion
 
+
+            #region Base Functions
 
             protected override void Awake()
             {
@@ -127,6 +133,10 @@ namespace MiniGames
                 }
             }
 
+            #endregion
+
+            #region Action Dialogue
+
             public bool CanEncouragePlayer()
             {
                 if (Time.time - lastActionDialogueTime < cooldown) return false;
@@ -164,6 +174,8 @@ namespace MiniGames
                     list.Insert(0, item);
                 }
             }
+
+            #endregion
 
             #region Phase1
 
@@ -289,6 +301,7 @@ namespace MiniGames
             {
                 UnPauseMiniGame();
                 dialogueManager.OnDialogueFinished -= EndOfPhase2Tuto;
+                StartCoroutine(SpawnProfane());
             }
 
             public void PlayCottonReadyDialogue()
@@ -298,6 +311,40 @@ namespace MiniGames
                     dialogueManager.SetNextDialogueAsAction();
                     dialogueManager.CurrentDialogue = cottonReadyDialogue;
                     cottonReadyDialogue = null;
+                }
+            }
+
+            private IEnumerator SpawnProfane() 
+            {
+                if (profaneBehaviour == null) yield break;
+
+                yield return new WaitForSeconds(5f);
+
+                /*float spawnPercent = 0.2f;
+                while(Random.value > spawnPercent)
+                {
+                    yield return new WaitForSeconds(5f);
+                    spawnPercent += 0.1f;
+                }*/
+
+                profaneBehaviour.gameObject.SetActive(true);
+                dialogueManager.OnDialogueFinished += EndOfProfaneEntryDialogue ;
+                dialogueManager.CurrentDialogue = profaneBehaviour.profaneEntry;
+            }
+
+            private void EndOfProfaneEntryDialogue()
+            {
+                dialogueManager.OnDialogueFinished -= EndOfProfaneEntryDialogue;
+                profaneBehaviour.StartCoroutine(profaneBehaviour.Behaviour());
+            }
+
+            public void PlayProfaneDialogue(Dialogue profaneDialogue, bool action = false)
+            {
+                if (profaneDialogue != null)
+                {
+                    if (action) dialogueManager.SetNextDialogueAsAction();
+
+                    dialogueManager.CurrentDialogue = profaneDialogue;
                 }
             }
 
@@ -363,7 +410,7 @@ namespace MiniGames
 
             private void UseGlove(FieldHole_CottonCultivation currentHole)
             {
-                if (currentHole.seededSeed.seedState == Seed_CottonCultivation.SeedState.CottonReady)
+                if (currentHole.seededSeed != null && currentHole.seededSeed.seedState == Seed_CottonCultivation.SeedState.CottonReady)
                 {
                     cottonHarvested += currentHole.seededSeed.RecoltCotton();
                     currentHole.enabled = false;

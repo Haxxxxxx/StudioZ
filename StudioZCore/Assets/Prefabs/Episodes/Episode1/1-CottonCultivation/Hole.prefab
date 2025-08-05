@@ -397,5 +397,6 @@ MonoBehaviour:
   timeToCottonReady: 5
   holeCreatedSprite: {fileID: 7987285736505760686, guid: 0ef7d531beada2d4dbbda98eaef5c083, type: 3}
   holeFilledSprite: {fileID: -8205570100048385872, guid: 1b844eede35a0604e9cddce81a8b0c9f, type: 3}
+  holeCementedSprite: {fileID: -5871420278372049916, guid: b3c50a167c45ced43b92c22ff2ac21d8, type: 3}
   progressBar: {fileID: 7008221420534870148}
   fillImage: {fileID: 2951076930515292413}
