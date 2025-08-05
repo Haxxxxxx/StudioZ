@@ -16,15 +16,147 @@ MonoBehaviour:
   m_TableCollectionNameGuidString: bddaf320a3bfd9044bd82d3c12563c8a
   m_Entries:
   - m_Id: 421059637248
-    m_Key: E1_MG4_intro1
+    m_Key: E1_MG4_part1_intro1
     m_Metadata:
       m_Items: []
   - m_Id: 583844769792
-    m_Key: E1_MG4_intro2
+    m_Key: E1_MG4_part1_intro2
     m_Metadata:
       m_Items: []
   - m_Id: 3740226301952
-    m_Key: E1_MG4_intro3
+    m_Key: E1_MG4_part1_intro3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5061911861014528
+    m_Key: E1_MG4_part2_intro1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5062051606835200
+    m_Key: E1_MG4_part2_intro2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5062132871475200
+    m_Key: E1_MG4_part2_intro3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5062146200973312
+    m_Key: E1_MG4_part2_intro4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5062211380457472
+    m_Key: E1_MG4_part2_intro_choice1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5062329265565696
+    m_Key: E1_MG4_part2_intro_choice2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5062418008649728
+    m_Key: E1_MG4_part3_intro1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5062518499979264
+    m_Key: E1_MG4_part3_intro2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5062605900886016
+    m_Key: E1_MG4_before_tuto1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5062653837586432
+    m_Key: E1_MG4_before_tuto2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5062703024189440
+    m_Key: E1_MG4_before_tuto3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5062846083510272
+    m_Key: E1_MG4_before_tuto4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5062882590732288
+    m_Key: E1_MG4_before_tuto_choice1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5062971501588480
+    m_Key: E1_MG4_before_tuto_choice2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5063025125765120
+    m_Key: E1_MG4_tuto_done
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5063225806434304
+    m_Key: E1_MG4_tuto_failed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5063397613514752
+    m_Key: E1_MG4_after_tuto1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5063823033380864
+    m_Key: E1_MG4_outro1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064050645676032
+    m_Key: E1_MG4_outro2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064091435282432
+    m_Key: E1_MG4_outro3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5063631135584256
+    m_Key: E1_MG4_sun_pattern_first
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5063736928514048
+    m_Key: E1_MG4_rocket_pattern_first
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5063775524499456
+    m_Key: E1_MG4_sock_pattern_first
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064257357754368
+    m_Key: E1_MG4_sun_pattern_done
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064333538897920
+    m_Key: E1_MG4_sun_pattern_failed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064514032381952
+    m_Key: E1_MG4_rocket_pattern_done
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064598614716416
+    m_Key: E1_MG4_rocket_pattern_failed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064667032203264
+    m_Key: E1_MG4_sock_pattern_done
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064728931741696
+    m_Key: E1_MG4_sock_pattern_failed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064987149873152
+    m_Key: E1_MG4_chiffon_quest1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5065073955188736
+    m_Key: E1_MG4_chiffon_quest2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5065115508158464
+    m_Key: E1_MG4_chiffon_quest3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5065150299910144
+    m_Key: E1_MG4_chiffon_not_found
     m_Metadata:
       m_Items: []
   m_Metadata:
