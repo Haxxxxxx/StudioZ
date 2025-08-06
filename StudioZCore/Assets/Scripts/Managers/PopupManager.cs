@@ -48,7 +48,6 @@ public class PopupManager : MonoBehaviour
         
         nextButton.onClick.AddListener(() => OnContinue?.Invoke());
         cancelButton.onClick.AddListener(() => OnCancel?.Invoke());
-
     }
     
     public void ClearOnContinue()
