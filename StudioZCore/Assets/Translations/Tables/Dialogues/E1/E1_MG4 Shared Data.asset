@@ -44,11 +44,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 5062211380457472
-    m_Key: E1_MG4_part2_intro_choice1
+    m_Key: E1_MG4_press_lever
     m_Metadata:
       m_Items: []
   - m_Id: 5062329265565696
-    m_Key: E1_MG4_part2_intro_choice2
+    m_Key: E1_MG4_dont_press_lever
     m_Metadata:
       m_Items: []
   - m_Id: 5062418008649728
@@ -60,27 +60,27 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 5062605900886016
-    m_Key: E1_MG4_before_tuto1
+    m_Key: E1_MG4_part1_before_tuto1
     m_Metadata:
       m_Items: []
   - m_Id: 5062653837586432
-    m_Key: E1_MG4_before_tuto2
+    m_Key: E1_MG4_part1_before_tuto2
     m_Metadata:
       m_Items: []
   - m_Id: 5062703024189440
-    m_Key: E1_MG4_before_tuto3
+    m_Key: E1_MG4_part2_before_tuto1
     m_Metadata:
       m_Items: []
   - m_Id: 5062846083510272
-    m_Key: E1_MG4_before_tuto4
+    m_Key: E1_MG4_part2_before_tuto2
     m_Metadata:
       m_Items: []
   - m_Id: 5062882590732288
-    m_Key: E1_MG4_before_tuto_choice1
+    m_Key: E1_MG4_before_tuto_answer1
     m_Metadata:
       m_Items: []
   - m_Id: 5062971501588480
-    m_Key: E1_MG4_before_tuto_choice2
+    m_Key: E1_MG4_before_tuto_answer2
     m_Metadata:
       m_Items: []
   - m_Id: 5063025125765120

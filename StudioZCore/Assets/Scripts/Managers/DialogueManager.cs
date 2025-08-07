@@ -46,7 +46,6 @@ public class DialogueManager : MonoBehaviour
     private Coroutine typeLineCoroutine;
     private string spriteAssetPattern = @"\{sprite index=""(\d+)""\}";
 
-    public event System.Action OnDialogueStart;
     public event System.Action OnDialogueFinished;
 
 
@@ -75,7 +74,6 @@ public class DialogueManager : MonoBehaviour
 
         textComponent.text = string.Empty;
         index = 0;
-        OnDialogueStart?.Invoke();
         typeLineCoroutine = StartCoroutine(TypeLine());
     }
 
