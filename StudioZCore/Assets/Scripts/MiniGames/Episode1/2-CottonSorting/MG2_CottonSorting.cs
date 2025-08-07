@@ -104,24 +104,19 @@ public class MG2_CottonSorting : MiniGameBase
     [SerializeField] public Sprite emptyHoldSprite;
     [SerializeField] public GameObject threadLine;
     [SerializeField] public float threadingTime = 2f;
-    //[SerializeField] private float treadmillAcceleration = 0.7f;
     [HideInInspector] public List<ThreadColor> goodColors;
     [HideInInspector] public List<GameObject> currentThreadsOnTreadmill;
+    public float baseSpeed = 1f;
+
     private Image profaneImage;
-    private int lastThreadIndex = 4;
     private int playerScorePhase2 = 0;
     private int trackingGoodColors = 0;
     private int spawnedGoodColors = 0;
-    private int maxScorePhase2; // TODO : A changer
-    public float baseSpeed = 1f;
-    //private bool isPhase2 = false;
     private bool isProfaneAttacking = false;
-    //[HideInInspector] public float treadmillSpeed = 1f; // Multiplicator
-    //[SerializeField] private float treadmillMinSpeed = 1f;
-    //[SerializeField] private float treadmillMaxSpeed = 5f;
-    //[SerializeField] private float popThreadMinTime = 1f;
-    //[SerializeField] private float popThreadMaxTime = 3f;
-    //private bool isTreadmillOn = false;
+    private bool hasProfaneAlreadyAppeared = false;
+    private int currentWaveIndex = 0;
+    private int lastThreadIndex = 4; // ne commence jamais par rose
+    private int maxScorePhase2; // TODO : A changer
 
     [SerializeField] private List<ThreadData> allThreadData;
     [SerializeField] public List<HoldData> allHoldData;
@@ -130,11 +125,8 @@ public class MG2_CottonSorting : MiniGameBase
     [SerializeField] private List<Phase2WaveData> phase2WaveDatas;
     private Dictionary<ThreadColor, Color> colorDict;
 
-    private bool hasProfaneAlreadyAppeared = false;
-    //private float popThreadWait = 0f;
     private Coroutine coroutineTreadmill;
     private Coroutine coroutineProfaneAttack;
-    private int currentWaveIndex = 0;
 
     [Header("Phase 3")]
     [SerializeField] private GameObject Phase3;
@@ -285,13 +277,10 @@ public class MG2_CottonSorting : MiniGameBase
         }
         // Phase 2
         else
-        {
-            //if (actionName == "threading_cotton") UpdateTreadmillSpeed(treadmillAcceleration);
-            //else UpdateTreadmillSpeed(-(treadmillAcceleration));
+        {            
+            //Debug.Log("Number total actions: " + currentScore + "/" + trackingGoodColors+ " and max this wave is: " + phase2WaveDatas[currentWaveIndex].goodThreadNumber);
             
             trackingGoodColors += 1;
-            Debug.Log("Number total actions: " + currentScore + "/" + trackingGoodColors+ " and max this wave is: " + phase2WaveDatas[currentWaveIndex].goodThreadNumber);
-            
             if (trackingGoodColors >= phase2WaveDatas[currentWaveIndex].goodThreadNumber)
             {
                 DestroyAllThreads(); // normalement pas besoin
@@ -416,8 +405,6 @@ public class MG2_CottonSorting : MiniGameBase
         StopAllCoroutines();
         profane.SetActive(false);
         PauseMiniGame();
-        //isTreadmillOn = false;
-        //isPhase2 = false;
         ShouldPlayWheelsAnim(false);
 
         EnableBackgroundAntiClick();
@@ -425,8 +412,8 @@ public class MG2_CottonSorting : MiniGameBase
         dialogueManager.OnDialogueFinished += StartPhase3;
         dialogueManager.CurrentDialogue = afterPhase2Dialogue;
 
-        playerScorePhase2 = currentScore; // On stock au cas où
-        currentScore += playerScorePhase1; // TOTAL SCORE
+        playerScorePhase2 += currentScore; // On stock au cas où
+        playerScorePhase2 += playerScorePhase1; // TOTAL SCORE
         maxScoreCurrentPhase += maxScorePhase1; // TOTAL MAX
     }
 
@@ -435,9 +422,7 @@ public class MG2_CottonSorting : MiniGameBase
     {
         Debug.Log("Start wave "+ currentWaveIndex);
 
-        //Phase2WaveData wave = phase2WaveDatas[currentWaveIndex];
-        //isTreadmillOn = true;
-
+        if (profane.activeSelf) profane.SetActive(false);
         currentScore = 0;
         maxScoreCurrentPhase = phase2WaveDatas[currentWaveIndex].goodThreadNumber;
         UpdateScoreText();
@@ -458,14 +443,12 @@ public class MG2_CottonSorting : MiniGameBase
     {
         Debug.Log("End wave " + currentWaveIndex);
 
-        //isTreadmillOn = false;
-
         profane.SetActive(false);
         PauseMiniGame();
         ShouldPlayWheelsAnim(false);
         EnableBackgroundAntiClick();
-        StopCoroutine(coroutineTreadmill);
-        StopCoroutine(coroutineProfaneAttack);
+        if (coroutineTreadmill != null) StopCoroutine(coroutineTreadmill);
+        if (coroutineProfaneAttack != null) StopCoroutine(coroutineProfaneAttack);
         nextWaveLayout.gameObject.SetActive(true);
 
         yield return new WaitForSeconds(2f);
@@ -473,7 +456,7 @@ public class MG2_CottonSorting : MiniGameBase
         currentWaveIndex += 1;
         playerScorePhase2 += currentScore;
 
-        //normalement ne devrait pas poser probleme mais au cas ou
+        //normalement ne devrait pas poser probleme mais au cas ou on vérifie
         if (currentWaveIndex <= phase2WaveDatas.Count)
         {
             if (currentWaveIndex == 1)
@@ -484,8 +467,7 @@ public class MG2_CottonSorting : MiniGameBase
             {
                 StartWave();
             }
-        }
-            
+        }   
     }
     #endregion
 
@@ -503,8 +485,6 @@ public class MG2_CottonSorting : MiniGameBase
     private IEnumerator PopThreadOnTreadmillCoroutine()
     {
         while (spawnedGoodColors < phase2WaveDatas[currentWaveIndex].goodThreadNumber) {
-
-            //yield return new WaitUntil(() => !profane.activeSelf); // finalement non
             
             PopThreadOnTreadmill();
 
@@ -585,10 +565,10 @@ public class MG2_CottonSorting : MiniGameBase
     {
         while (profane.activeSelf)
         {
-            yield return new WaitForSeconds(5f);
-
             if (profane.activeSelf && !isProfaneAttacking)
             {
+                yield return new WaitForSeconds(3f);
+
                 profaneImage.sprite = profaneAttacking;
                 isProfaneAttacking = true;
 
@@ -596,7 +576,6 @@ public class MG2_CottonSorting : MiniGameBase
                 anim.Play("ProfaneAction");
                 AnimationClip clip = anim.GetClip("ProfaneAction");
 
-                //StartCoroutine(ProfaneChangeColor());
                 ProfaneChangeOrder();
 
                 yield return new WaitForSeconds(clip.length);
@@ -604,6 +583,7 @@ public class MG2_CottonSorting : MiniGameBase
                 isProfaneAttacking = false;
                 profaneImage.sprite = profaneNormal;
             }
+            else yield return null;
         }
     }
 
@@ -619,30 +599,6 @@ public class MG2_CottonSorting : MiniGameBase
         Debug.Log("Changing index " + indexA + " into " + indexB + " place");
         machineWithHolds.transform.GetChild(indexA).transform.SetSiblingIndex(indexB);
     }
-
-    //private IEnumerator ProfaneChangeColor()
-    //{
-    //    if (holdsInMachine.Count == 0 || colorMappings.Count == 0) yield break;
-
-    //    yield return new WaitForSeconds(0.5f); // petit delai pour plus de visuel
-
-    //    GameObject randomHold = holdsInMachine[Random.Range(0, holdsInMachine.Count)];
-    //    HoldInMachine holdComponent = randomHold.GetComponent<HoldInMachine>();
-        
-    //    if (holdComponent == null) yield break;
-
-    //    ThreadColor oldColor = holdComponent.HoldAcceptedColor;
-    //    ThreadColor newColor = oldColor;
-
-    //    while (newColor == oldColor || !holdComponent.isEmpty || goodColors.Contains(newColor))
-    //    {
-    //        newColor = colorMappings[Random.Range(0, colorMappings.Count)].color;
-    //    }
-
-    //    goodColors.Remove(oldColor);
-    //    goodColors.Add(newColor);
-    //    holdComponent.HoldAcceptedColor = newColor;
-    //}
     #endregion
 
     #endregion

@@ -4062,11 +4062,11 @@ MonoBehaviour:
   Phase2: {fileID: 1512489851}
   WheelsParent: {fileID: 171935570}
   profane: {fileID: 843551345}
+  machineWithHolds: {fileID: 175903592}
   profaneNormal: {fileID: -8691090369710217222, guid: 2f20761d50b5acf4c9975239224917a4, type: 3}
   profaneAttacking: {fileID: 358098881210256769, guid: 18b147556e68c664c8c6708f6b2a9f37, type: 3}
   profaneHurt: {fileID: -638579678019111931, guid: 2a36026749813eb4dabde078ec71d379, type: 3}
   ThreadOnTreadmillPrefab: {fileID: 388196503459129047, guid: 77f5dc7c5e6fa3641a99f4c3fcaf5914, type: 3}
-  machineWithHolds: {fileID: 175903592}
   emptyHoldSprite: {fileID: -650162134932277116, guid: 37e4d2099e60dec4d875378172fdfd0d, type: 3}
   threadLine: {fileID: 179674036488059275, guid: c8c45994012d17548aa0c96647436b42, type: 3}
   threadingTime: 1.5
@@ -4112,13 +4112,13 @@ MonoBehaviour:
     unityColor: {r: 0.61960787, g: 0.47450984, b: 0.7411765, a: 1}
   phase2WaveDatas:
   - treadmillSpeed: 1.8
-    popThreadWait: 2
+    popThreadWait: 2.2
     goodThreadNumber: 5
   - treadmillSpeed: 2.5
     popThreadWait: 2
     goodThreadNumber: 8
   - treadmillSpeed: 4
-    popThreadWait: 1.5
+    popThreadWait: 1.8
     goodThreadNumber: 11
   Phase3: {fileID: 566644017}
   afterCurtainDialogue: {fileID: 11400000, guid: 978c34bf116c56648a1efe34fd01434e, type: 2}
