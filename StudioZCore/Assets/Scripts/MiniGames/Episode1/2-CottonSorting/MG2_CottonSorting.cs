@@ -133,6 +133,7 @@ public class MG2_CottonSorting : MiniGameBase
     private bool hasProfaneAlreadyAppeared = false;
     //private float popThreadWait = 0f;
     private Coroutine coroutineTreadmill;
+    private Coroutine coroutineProfaneAttack;
     private int currentWaveIndex = 0;
 
     [Header("Phase 3")]
@@ -410,6 +411,9 @@ public class MG2_CottonSorting : MiniGameBase
 
     public void EndPhase2()
     {
+        StopCoroutine(coroutineTreadmill);
+        StopCoroutine(coroutineProfaneAttack);
+        StopAllCoroutines();
         profane.SetActive(false);
         PauseMiniGame();
         //isTreadmillOn = false;
@@ -417,8 +421,6 @@ public class MG2_CottonSorting : MiniGameBase
         ShouldPlayWheelsAnim(false);
 
         EnableBackgroundAntiClick();
-        StopCoroutine(coroutineTreadmill);
-        StopAllCoroutines();
 
         dialogueManager.OnDialogueFinished += StartPhase3;
         dialogueManager.CurrentDialogue = afterPhase2Dialogue;
@@ -436,7 +438,6 @@ public class MG2_CottonSorting : MiniGameBase
         //Phase2WaveData wave = phase2WaveDatas[currentWaveIndex];
         //isTreadmillOn = true;
 
-        profane.SetActive(false);
         currentScore = 0;
         maxScoreCurrentPhase = phase2WaveDatas[currentWaveIndex].goodThreadNumber;
         UpdateScoreText();
@@ -459,10 +460,12 @@ public class MG2_CottonSorting : MiniGameBase
 
         //isTreadmillOn = false;
 
+        profane.SetActive(false);
         PauseMiniGame();
         ShouldPlayWheelsAnim(false);
         EnableBackgroundAntiClick();
         StopCoroutine(coroutineTreadmill);
+        StopCoroutine(coroutineProfaneAttack);
         nextWaveLayout.gameObject.SetActive(true);
 
         yield return new WaitForSeconds(2f);
@@ -571,7 +574,7 @@ public class MG2_CottonSorting : MiniGameBase
     {
         DisableBackgroundAntiClick();
         PopProfane();
-        StartCoroutine(ProfaneAttack());
+        coroutineProfaneAttack = StartCoroutine(ProfaneAttack());
     }
 
     private void PopProfane()
