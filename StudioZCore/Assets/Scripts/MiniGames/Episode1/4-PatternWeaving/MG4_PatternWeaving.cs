@@ -57,6 +57,7 @@ namespace MiniGames
             [NonSerialized] public Color currentColor = Color.white;
             private bool firstPattern = false;
             private Coroutine viewPathCoroutine;
+            private bool chiffonFound = false;
 
             [Header("Grid References")]
             [SerializeField] private RectTransform gridParent;
@@ -79,6 +80,7 @@ namespace MiniGames
             [SerializeField] private Image patternImg;
             [SerializeField] private Button leverBtn;
             [SerializeField] private GameObject quizz;
+            [SerializeField] private Button chiffonBtn;
 
             [Header("Dialogue References")]
             [SerializeField] private Dialogue dialogueIntroPart2;
@@ -90,6 +92,8 @@ namespace MiniGames
             [SerializeField] private Dialogue dialogueTutoDone;
             [SerializeField] private Dialogue dialogueTutoFailed;
             [SerializeField] private Dialogue dialogueAfterTuto;
+            [SerializeField] private Dialogue dialogueChiffonQuest;
+            [SerializeField] private Dialogue dialogueChiffonNotFound;
 
 
             #endregion
@@ -99,21 +103,23 @@ namespace MiniGames
                 instance = this;
 
                 base.Awake();
+
+                patternSelectorCanvas.SetActive(false);
+                ClearGrid();
+                patternImg.gameObject.SetActive(false);
+                leverBtn.interactable = false;
+                chiffonBtn.gameObject.SetActive(false);
+
             }
 
             protected override void Start()
             {
-                patternSelectorCanvas.SetActive(false);
 
                 if (dialogueManager != null && dialogueIntro != null)
                 {
                     dialogueManager.OnDialogueFinished += EndOfIntroPart1;
                     dialogueManager.CurrentDialogue = dialogueIntro;
                 }
-
-                ClearGrid();
-                patternImg.gameObject.SetActive(false);
-                leverBtn.interactable = false;
             }
 
             public override void StartGame()
@@ -358,15 +364,14 @@ namespace MiniGames
                 }
             }
 
-            public void PatternFinished()
+            public void CheckPatternScore()
             {
-                patterns.Find(p => p.texture == selectedPattern.texture).isFinished = true;
-
                 if (selectedPattern.texture == patterns[3].texture)
                 {
-                    if(selectedPattern.patternScore == 12)
+                    if (selectedPattern.patternScore == 12)
                     {
-                        dialogueManager.OnDialogueFinished += EndOfAfterTuto;
+                        patterns.Find(p => p.texture == selectedPattern.texture).isFinished = true;
+                        dialogueManager.OnDialogueFinished += StartAfterTuto;
                         dialogueManager.CurrentDialogue = dialogueTutoDone;
                     }
                     else
@@ -374,9 +379,22 @@ namespace MiniGames
                         dialogueManager.OnDialogueFinished += ResetTuto;
                         dialogueManager.CurrentDialogue = dialogueTutoFailed;
                     }
-                    return;
                 }
+                else
+                {
+                    patterns.Find(p => p.texture == selectedPattern.texture).isFinished = true;
+                    dialogueManager.OnDialogueFinished += PatternFinished;
+                    bool isHighScore = (float)currentScore / actionCount >= 0.75f;
 
+                    dialogueManager.CurrentDialogue = isHighScore
+                        ? selectedPattern.dialoguePatternDone
+                        : selectedPattern.dialoguePatternFailed;
+                }
+            }
+
+            private void PatternFinished()
+            {
+                dialogueManager.OnDialogueFinished -= PatternFinished;
                 foreach (Pattern pattern in patterns)
                 {
                     if (!pattern.isFinished)
@@ -386,7 +404,8 @@ namespace MiniGames
                     }
                 }
 
-                EndGame();
+                dialogueManager.OnDialogueFinished += (chiffonFound ? EndGame : StartChiffonNotFound);
+                dialogueManager.CurrentDialogue = dialogueOutro;
             }
 
             #endregion
@@ -443,6 +462,13 @@ namespace MiniGames
                 quizz.SetActive(true);
             }
 
+            private void StartAfterTuto()
+            {
+                dialogueManager.OnDialogueFinished -= StartAfterTuto;
+                dialogueManager.OnDialogueFinished += EndOfAfterTuto;
+                dialogueManager.CurrentDialogue = dialogueAfterTuto;
+            }
+
             private void EndOfAfterTuto()
             {
                 dialogueManager.OnDialogueFinished -= EndOfAfterTuto;
@@ -462,6 +488,19 @@ namespace MiniGames
                     dialogueManager.OnDialogueFinished += StartGame;
                     dialogueManager.CurrentDialogue = selectedPattern.dialogueFirstSelected;
                 }
+            }
+
+            private void EndOfChiffonQuest()
+            {
+                dialogueManager.OnDialogueFinished -= EndOfChiffonQuest;
+                chiffonBtn.gameObject.SetActive(false);
+            }
+
+            private void StartChiffonNotFound()
+            {
+                dialogueManager.OnDialogueFinished -= StartChiffonNotFound;
+                dialogueManager.OnDialogueFinished += EndGame;
+                dialogueManager.CurrentDialogue = dialogueChiffonNotFound;
             }
 
             #endregion
@@ -488,6 +527,7 @@ namespace MiniGames
                 dialogueManager.OnDialogueFinished += StartIntroPart3;
                 dialogueManager.CurrentDialogue = dialoguePressLever;
                 leverBtn.interactable = false;
+                chiffonBtn.gameObject.SetActive(true);
             }
 
             public void BS_QuizzAnswer(int answer_index)
@@ -505,6 +545,13 @@ namespace MiniGames
                     dialogueManager.CurrentDialogue = dialogueBeforeTutoPart2;
                     viewPathCoroutine = StartCoroutine(ViewPath());
                 }
+            }
+
+            public void BS_ChiffonFound()
+            {
+                chiffonFound = true;
+                dialogueManager.OnDialogueFinished += EndOfChiffonQuest;
+                dialogueManager.CurrentDialogue = dialogueChiffonQuest;
             }
 
             #endregion

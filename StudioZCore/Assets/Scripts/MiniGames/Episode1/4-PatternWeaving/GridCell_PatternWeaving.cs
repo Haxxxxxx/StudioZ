@@ -114,7 +114,7 @@ namespace MiniGames
                     }
                     else
                     {
-                        mgPatternWeaving.PatternFinished();
+                        mgPatternWeaving.CheckPatternScore();
                     }
                 }
                 else if(this == mgPatternWeaving.pathTakenCell.Last() && this != mgPatternWeaving.validPathCell.Last())
