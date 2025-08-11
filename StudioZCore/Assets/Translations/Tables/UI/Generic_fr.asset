@@ -10,32 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
-  m_Name: E1_MG6BundlePopups_fr
+  m_Name: Generic_fr
   m_EditorClassIdentifier: 
   m_LocaleId:
     m_Code: fr
-  m_SharedData: {fileID: 11400000, guid: 99f4455949f0ac74fbe528517cf0cf25, type: 2}
+  m_SharedData: {fileID: 11400000, guid: 02454d4bd0a70ae4e98c8f14ee7f3b30, type: 2}
   m_Metadata:
     m_Items: []
   m_TableData:
-  - m_Id: 106916769792
-    m_Localized: Acheter
+  - m_Id: 35051565056
+    m_Localized: Retour
     m_Metadata:
       m_Items: []
-  - m_Id: 246591287296
-    m_Localized: 'Contient: joie'
+  - m_Id: 69021233152
+    m_Localized: Annuler
     m_Metadata:
       m_Items: []
-  - m_Id: 324844417024
-    m_Localized: 'Contient: rien'
+  - m_Id: 99979390976
+    m_Localized: Ok
     m_Metadata:
       m_Items: []
-  - m_Id: 402329989120
-    m_Localized: 'Contient: chat cool'
-    m_Metadata:
-      m_Items: []
-  - m_Id: 6869067809714176
-    m_Localized: Pas assez d'argent !
+  - m_Id: 157114200064
+    m_Localized: Confirmer
     m_Metadata:
       m_Items: []
   references:

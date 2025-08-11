@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEditor.AddressableAssets.Build.Layout;
 using UnityEngine;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
 
 public class MG6_Shopping : MiniGames.MiniGameBase
@@ -9,13 +11,15 @@ public class MG6_Shopping : MiniGames.MiniGameBase
     [SerializeField] private List<MG6_BundleCombination> bundleCombinations;
     [SerializeField] private List<Transform> bundleSpawnPoints;
     [SerializeField] private int coins;
+    [SerializeField] private TextMeshProUGUI coinsText;
 
-    [SerializeField] private GameObject bundlePrefab;
     private int currentRound = 0;
     
+    [SerializeField] private GameObject bundlePrefab;
     private List<GameObject> initializedBundles;
+    
     private PopupManager popupManager;
-
+    
     public override void StartGame()
     {
         base.StartGame();
@@ -72,7 +76,7 @@ public class MG6_Shopping : MiniGames.MiniGameBase
     public void SelectBundle(MG6_Bundle bundle)
     {
         // Open popup
-        popupManager.StartPopup(bundle.popupText, bundle.redButtonText, bundle.greenButtonText);
+        popupManager.StartPopup(bundle.popupText.GetLocalizedString(), bundle.redButtonText.GetLocalizedString(), bundle.greenButtonText.GetLocalizedString());
 
         // Clear previous subscriptions to avoid multiple calls
         popupManager.ClearOnContinue();
@@ -92,12 +96,14 @@ public class MG6_Shopping : MiniGames.MiniGameBase
         {
             Debug.Log("Not enough coins to buy");
             // ADD POPUP TO LET THE USER KNOW
-            
+            string okText = LocalizationSettings.StringDatabase.GetLocalizedString("Generic", "OK");
+            popupManager.StartPopup(LocalizationSettings.StringDatabase.GetLocalizedString("E1_MG6BundlePopups", "NoCoins"), okText, null);
             return;
         }
         
         popupManager.ClosePopup();
         coins -= bundle.price;
+        coinsText.text = "Coins: " + coins;
         
         if (bundle.viable)
         {

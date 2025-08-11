@@ -33,7 +33,7 @@ public class PopupManager : MonoBehaviour
         Instance = this;
     }
 
-    public void StartPopup(LocalizedString text, LocalizedString redBtnText, LocalizedString greenBtnText)
+    public void StartPopup(string text, string redBtnText, string greenBtnText)
     {
         // Clear previous subscriptions to the Action
         // Debug.Log("Trying to invoke " + OnContinue?.GetInvocationList().Length);
@@ -42,10 +42,27 @@ public class PopupManager : MonoBehaviour
         if (!popupPrefab || !popupPrefab.activeSelf) popupPrefab.SetActive(true);
         OnPopupOpened?.Invoke();
         
-        textComponent.text = text.GetLocalizedString();
-        nextButton.GetComponentInChildren<TextMeshProUGUI>().text = greenBtnText.GetLocalizedString();
-        cancelButton.GetComponentInChildren<TextMeshProUGUI>().text = redBtnText.GetLocalizedString();
-        
+        textComponent.text = text;
+
+        if (redBtnText == null)
+        {
+            cancelButton.gameObject.SetActive(false);
+        }
+        else
+        {
+            cancelButton.gameObject.SetActive(true);
+            cancelButton.GetComponentInChildren<TextMeshProUGUI>().text = redBtnText;
+        }
+
+        if (greenBtnText == null)
+        {
+            nextButton.gameObject.SetActive(false);
+        }
+        else
+        {
+            nextButton.gameObject.SetActive(true);
+            nextButton.GetComponentInChildren<TextMeshProUGUI>().text = greenBtnText;
+        }
         nextButton.onClick.AddListener(() => OnContinue?.Invoke());
         cancelButton.onClick.AddListener(() => OnCancel?.Invoke());
     }

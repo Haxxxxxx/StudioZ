@@ -10,41 +10,35 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
-  m_Name: E1_MG6BundlePopups Shared Data
+  m_Name: Generic Shared Data
   m_EditorClassIdentifier: 
-  m_TableCollectionName: E1_MG6BundlePopups
-  m_TableCollectionNameGuidString: 99f4455949f0ac74fbe528517cf0cf25
+  m_TableCollectionName: Generic
+  m_TableCollectionNameGuidString: 02454d4bd0a70ae4e98c8f14ee7f3b30
   m_Entries:
-  - m_Id: 106916769792
-    m_Key: BTN_Buy
+  - m_Id: 35051565056
+    m_Key: BACK
     m_Metadata:
       m_Items: []
-  - m_Id: 246591287296
-    m_Key: 'E1_MG6_B1
-
-'
+  - m_Id: 69021233152
+    m_Key: CANCEL
     m_Metadata:
       m_Items: []
-  - m_Id: 324844417024
-    m_Key: E1_MG6_B2
+  - m_Id: 99979390976
+    m_Key: OK
     m_Metadata:
       m_Items: []
-  - m_Id: 402329989120
-    m_Key: E1_MG6_B3
-    m_Metadata:
-      m_Items: []
-  - m_Id: 6869067809714176
-    m_Key: NoCoins
+  - m_Id: 157114200064
+    m_Key: Confirm
     m_Metadata:
       m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
-    rid: 2673774218192355408
+    rid: 6929711877281022034
   references:
     version: 2
     RefIds:
-    - rid: 2673774218192355408
+    - rid: 6929711877281022034
       type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
       data:
-        m_CustomEpoch: 1753277689490
+        m_CustomEpoch: 1754916057909

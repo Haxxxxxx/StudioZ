@@ -22,10 +22,6 @@ MonoBehaviour:
     m_Localized: Buy
     m_Metadata:
       m_Items: []
-  - m_Id: 203587088384
-    m_Localized: Back
-    m_Metadata:
-      m_Items: []
   - m_Id: 246591287296
     m_Localized: 'Contains: Joy'
     m_Metadata:
@@ -36,6 +32,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 402329989120
     m_Localized: 'Contains: Cool cat'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6869067809714176
+    m_Localized: Not enough coins!
     m_Metadata:
       m_Items: []
   references:
