@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 45ab375bdf91cd14b9f3aff8dcd282a6, type: 3}
-  m_Name: NewMG6_Bundle
+  m_Name: BundleComb2
   m_EditorClassIdentifier: 
   bundles:
   - viable: 1
     price: 3
-    sprite: {fileID: 21300000, guid: a94dc2499bb5d9644b9e59b479689790, type: 3}
+    sprite: {fileID: 21300000, guid: 87252895d6e35cc478e2c7677b68e538, type: 3}
     popupText:
       m_TableReference:
         m_TableCollectionName: GUID:99f4455949f0ac74fbe528517cf0cf25
@@ -75,7 +75,7 @@ MonoBehaviour:
       m_LocalVariables: []
   - viable: 0
     price: 10
-    sprite: {fileID: 2975981130085599486, guid: 660948dad521b3646813fdb508655677, type: 3}
+    sprite: {fileID: 6204739849071515793, guid: 75dc4ba0e5c2d6d468d344a5ee5aa25a, type: 3}
     popupText:
       m_TableReference:
         m_TableCollectionName: GUID:99f4455949f0ac74fbe528517cf0cf25
@@ -105,7 +105,7 @@ MonoBehaviour:
       m_LocalVariables: []
   - viable: 0
     price: 3
-    sprite: {fileID: 5658593092123914163, guid: 91e8eec7e75501a43a7f9bcbc52e5c4c, type: 3}
+    sprite: {fileID: -7116901312061554412, guid: 7beaf3ec89885a949909f6deeb4d1594, type: 3}
     popupText:
       m_TableReference:
         m_TableCollectionName: GUID:99f4455949f0ac74fbe528517cf0cf25

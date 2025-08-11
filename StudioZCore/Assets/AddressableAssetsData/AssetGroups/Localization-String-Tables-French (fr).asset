@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: Localization-String-Tables-French (fr)
   m_EditorClassIdentifier: 
   m_GroupName: Localization-String-Tables-French (fr)
-  m_Data:
-    m_SerializedData: []
   m_GUID: 49ebdc644c9244346b09563ba0474501
   m_SerializeEntries:
   - m_GUID: 34a54d0229560c64db1e24703859614f
@@ -32,6 +30,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 534abddab4ca9314eaa43de75a117666
     m_Address: Others_fr
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-fr
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6597946f8ba1ab44fbe19edca4fd7eb5
+    m_Address: E1_MG6_fr
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-fr
