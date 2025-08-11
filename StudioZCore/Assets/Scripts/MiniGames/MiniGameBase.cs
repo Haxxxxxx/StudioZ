@@ -44,6 +44,9 @@ public abstract class MiniGameBase : MonoBehaviour
     [SerializeField] protected Dialogue dialogueIntro;
     [SerializeField] protected Dialogue dialogueOutro;
 
+    protected event System.Action OnReversedChronoEnded;
+
+
     protected virtual void Awake()
     {
         foreach (var actionData in miniGameActionData)
@@ -159,6 +162,29 @@ public abstract class MiniGameBase : MonoBehaviour
                 yield return null;
             }
         }
+    }
+
+    protected IEnumerator StartReversedChrono()
+    {
+        chronoText.text = GetChronoInString();
+        yield return new WaitForSeconds(1);
+        while (chrono > 0)
+        {
+            if (!isPaused)
+            {
+                chrono -= 1;
+                if (chronoText != null)
+                {
+                    chronoText.text = GetChronoInString();
+                }
+                yield return new WaitForSeconds(1);
+            }
+            else
+            {
+                yield return null;
+            }
+        }
+        OnReversedChronoEnded?.Invoke();
     }
 
     protected void PauseMiniGame()

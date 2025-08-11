@@ -130,6 +130,15 @@ public class MG2_CottonSorting : MiniGameBase
 
     [Header("Phase 3")]
     [SerializeField] private GameObject Phase3;
+    [SerializeField] private RotateCrank crank;
+    [SerializeField] private TextMeshProUGUI roundsText;
+    [SerializeField] private float chronoPhase3;
+    private int totalRotations = 0;
+
+    [Header("Others")]
+    private float totalChrono;
+    private int totalScorePlayer;
+    private int totalMaxScorePlayer;
 
     [Header("Dialogues")]
     [SerializeField] private Dialogue afterCurtainDialogue;
@@ -151,6 +160,12 @@ public class MG2_CottonSorting : MiniGameBase
     [SerializeField] private Dialogue afterPhase2Dialogue;
     [SerializeField] private Dialogue firstPopProfane;
 
+    [SerializeField] private Dialogue startPhase3Dialogue;
+    [SerializeField] private Dialogue phase3_score1;
+    [SerializeField] private Dialogue phase3_score2;
+    [SerializeField] private Dialogue phase3_score3;
+    [SerializeField] private Dialogue phase3_score4;
+
 
     [Header("UI References")]
     [SerializeField] private Animation curtainsLayout;
@@ -161,9 +176,14 @@ public class MG2_CottonSorting : MiniGameBase
     [SerializeField] private GameObject part1RandomParent;
     [SerializeField] private GameObject part2ThreadOnTreadmillParent;
     [SerializeField] private Canvas uiCanvas;
+    [SerializeField] private GameObject scoreLayout;
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private GameObject quizTimeLayout;
     [SerializeField] private GameObject nextWaveLayout;
+    [SerializeField] private GameObject finalScoreLayout;
+    [SerializeField] private TextMeshProUGUI finalChronoText;
+    [SerializeField] private TextMeshProUGUI finalScoreText;
+
     #endregion
 
     #region UnityFunctions
@@ -187,7 +207,8 @@ public class MG2_CottonSorting : MiniGameBase
         if (Phase1.activeSelf == false) Phase1.SetActive(true);
         if (quizTimeLayout.activeSelf == true) quizTimeLayout.SetActive(false);
         if (Phase2.activeSelf == true) Phase2.SetActive(false);
-        if (Phase3.activeSelf == true) Phase2.SetActive(false);
+        if (Phase3.activeSelf == true) Phase3.SetActive(false); 
+        if (finalScoreLayout.activeSelf == true ) finalScoreLayout.SetActive(false);
 
         //base.Start();
         if (dialogueManager != null && dialogueIntro != null)
@@ -195,6 +216,8 @@ public class MG2_CottonSorting : MiniGameBase
             dialogueManager.OnDialogueFinished += DisableBackgroundAntiClick;
             dialogueManager.CurrentDialogue = dialogueIntro;
         }
+
+        crank.OnFullRotation += FullRotation;
 
         maxScoreCurrentPhase = maxScorePhase1;
         UpdateScoreText();
@@ -219,8 +242,8 @@ public class MG2_CottonSorting : MiniGameBase
     private void UpdateScoreText()
     {
         scoreText.text = currentScore + "/" + maxScoreCurrentPhase;
-
     }
+
     public Color GetColor(ThreadColor color)
     {
         if (colorDict.TryGetValue(color, out var c))
@@ -311,9 +334,12 @@ public class MG2_CottonSorting : MiniGameBase
 
         target.SetActive(false);
 
-        if (target == profane) profaneImage.sprite = profaneNormal;
+        if (target == profane)
+        {
+            if (coroutineProfaneAttack != null) StopCoroutine(coroutineProfaneAttack);
+            profaneImage.sprite = profaneNormal;
+        }
     }
-
     #endregion
 
     #region Tuto + Phase1
@@ -348,6 +374,8 @@ public class MG2_CottonSorting : MiniGameBase
         dialogueManager.CurrentDialogue = afterPhase1Dialogue;
 
         playerScorePhase1 = currentScore;
+        totalScorePlayer += playerScorePhase1; // TOTAL SCORE PLAYER
+        totalMaxScorePlayer += maxScorePhase1; // TOTAL MAX
     }
     #endregion
 
@@ -400,21 +428,25 @@ public class MG2_CottonSorting : MiniGameBase
 
     public void EndPhase2()
     {
-        StopCoroutine(coroutineTreadmill);
-        StopCoroutine(coroutineProfaneAttack);
+        if (coroutineTreadmill != null) StopCoroutine(coroutineTreadmill);
+        if (coroutineProfaneAttack != null) StopCoroutine(coroutineProfaneAttack);
         StopAllCoroutines();
+        Debug.Log("Phase 2 was ended, here are the coroutines: "+ coroutineTreadmill + " and " +coroutineProfaneAttack );
+
         profane.SetActive(false);
         PauseMiniGame();
         ShouldPlayWheelsAnim(false);
-
         EnableBackgroundAntiClick();
 
-        dialogueManager.OnDialogueFinished += StartPhase3;
+        dialogueManager.OnDialogueFinished -= StartWave; // SUPER IMPORTANT NE PAS RETIRER
+        dialogueManager.OnDialogueFinished += StartPhase3Intro;
         dialogueManager.CurrentDialogue = afterPhase2Dialogue;
 
-        playerScorePhase2 += currentScore; // On stock au cas où
-        playerScorePhase2 += playerScorePhase1; // TOTAL SCORE
-        maxScoreCurrentPhase += maxScorePhase1; // TOTAL MAX
+        playerScorePhase2 += currentScore; // On stock
+
+        totalScorePlayer += playerScorePhase2; // TOTAL SCORE PLAYER
+        totalMaxScorePlayer += maxScorePhase2; // TOTAL MAX
+        totalChrono = chrono; // TOTAL CHRONO
     }
 
     #region Wave
@@ -423,40 +455,49 @@ public class MG2_CottonSorting : MiniGameBase
         Debug.Log("Start wave "+ currentWaveIndex);
 
         if (profane.activeSelf) profane.SetActive(false);
+        if (!uiCanvas.gameObject.activeSelf) uiCanvas.gameObject.SetActive(true);
+
+        // score
         currentScore = 0;
         maxScoreCurrentPhase = phase2WaveDatas[currentWaveIndex].goodThreadNumber;
         UpdateScoreText();
 
+        // reset trackers
         trackingGoodColors = 0;
         spawnedGoodColors = 0;
 
-        UpdateScoreText();
+        // else
         UnPauseMiniGame();
-        ShouldPlayWheelsAnim(true);
         DisableBackgroundAntiClick();
+        ShouldPlayWheelsAnim(true);
         uiCanvas.gameObject.SetActive(true);
         nextWaveLayout.gameObject.SetActive(false);
+
+        if (coroutineTreadmill != null) StopCoroutine(coroutineTreadmill);
         coroutineTreadmill = StartCoroutine(PopThreadOnTreadmillCoroutine());
     }
 
+    // To end every wave EXCEPT THE LAST ONE (see Perform Action for more info)
     private IEnumerator EndWave()
     {
         Debug.Log("End wave " + currentWaveIndex);
 
-        profane.SetActive(false);
         PauseMiniGame();
-        ShouldPlayWheelsAnim(false);
         EnableBackgroundAntiClick();
+        ShouldPlayWheelsAnim(false);
+        profane.SetActive(false);
+        uiCanvas.gameObject.SetActive(false);
+        nextWaveLayout.gameObject.SetActive(true);
+
         if (coroutineTreadmill != null) StopCoroutine(coroutineTreadmill);
         if (coroutineProfaneAttack != null) StopCoroutine(coroutineProfaneAttack);
-        nextWaveLayout.gameObject.SetActive(true);
 
         yield return new WaitForSeconds(2f);
 
         currentWaveIndex += 1;
         playerScorePhase2 += currentScore;
 
-        //normalement ne devrait pas poser probleme mais au cas ou on vérifie
+        //normalement ne devrait pas poser probleme mais au cas ou on vérifie avec if
         if (currentWaveIndex <= phase2WaveDatas.Count)
         {
             if (currentWaveIndex == 1)
@@ -484,7 +525,7 @@ public class MG2_CottonSorting : MiniGameBase
 
     private IEnumerator PopThreadOnTreadmillCoroutine()
     {
-        while (spawnedGoodColors < phase2WaveDatas[currentWaveIndex].goodThreadNumber) {
+        while (spawnedGoodColors < phase2WaveDatas[currentWaveIndex].goodThreadNumber && part2ThreadOnTreadmillParent.activeSelf) {
             
             PopThreadOnTreadmill();
 
@@ -544,16 +585,20 @@ public class MG2_CottonSorting : MiniGameBase
     {
         PopProfane();
         EnableBackgroundAntiClick();
+
         nextWaveLayout.SetActive(false);
+        hasProfaneAlreadyAppeared = true;
+
         dialogueManager.OnDialogueFinished += StartWave;
         dialogueManager.CurrentDialogue = firstPopProfane;
-        hasProfaneAlreadyAppeared = true;
     }
 
     private void StartProfaneAttack()
     {
         DisableBackgroundAntiClick();
         PopProfane();
+        
+        if (coroutineProfaneAttack != null) StopCoroutine(coroutineProfaneAttack);
         coroutineProfaneAttack = StartCoroutine(ProfaneAttack());
     }
 
@@ -565,10 +610,10 @@ public class MG2_CottonSorting : MiniGameBase
     {
         while (profane.activeSelf)
         {
+            yield return new WaitForSeconds(3f); // important que ca soit avant le if pour si jamais il est tué
+
             if (profane.activeSelf && !isProfaneAttacking)
             {
-                yield return new WaitForSeconds(3f);
-
                 profaneImage.sprite = profaneAttacking;
                 isProfaneAttacking = true;
 
@@ -583,8 +628,9 @@ public class MG2_CottonSorting : MiniGameBase
                 isProfaneAttacking = false;
                 profaneImage.sprite = profaneNormal;
             }
-            else yield return null;
+            else yield break;
         }
+        yield break;
     }
 
     private void ProfaneChangeOrder()
@@ -596,7 +642,7 @@ public class MG2_CottonSorting : MiniGameBase
         while (indexB == indexA)
             indexB = Random.Range(0, holdsInMachine.Count);
 
-        Debug.Log("Changing index " + indexA + " into " + indexB + " place");
+        //Debug.Log("Changing index " + indexA + " into " + indexB + " place");
         machineWithHolds.transform.GetChild(indexA).transform.SetSiblingIndex(indexB);
     }
     #endregion
@@ -604,11 +650,70 @@ public class MG2_CottonSorting : MiniGameBase
     #endregion
 
     #region Phase 3
-    private void StartPhase3()
+    private void StartPhase3Intro()
     {
         Phase2.SetActive(false);
         Phase3.SetActive(true);
+
+        uiCanvas.gameObject.SetActive(false);
+        scoreLayout.SetActive(false);
+        EnableBackgroundAntiClick();
+
+        dialogueManager.OnDialogueFinished -= StartPhase3Intro;
+        dialogueManager.OnDialogueFinished += StartPhase3Game;
+        dialogueManager.CurrentDialogue = startPhase3Dialogue;
     }
+
+    private void StartPhase3Game()
+    {
+        DisableBackgroundAntiClick();
+        uiCanvas.gameObject.SetActive(true);
+
+        isFinished = true; // to stop chrono
+        chrono = chronoPhase3;
+        UnPauseMiniGame();
+        StartCoroutine(StartReversedChrono());
+        
+        OnReversedChronoEnded += EndPhase3;
+    }
+
+    private void EndPhase3()
+    {
+        // TODO ici reaction par rapport à résultats 1/2/3/4
+
+        Phase3.SetActive(false);
+        EnableBackgroundAntiClick();
+
+        dialogueManager.OnDialogueFinished -= StartPhase3Game;
+        dialogueManager.OnDialogueFinished += EndingScreen;
+        dialogueManager.CurrentDialogue = dialogueOutro;
+    }
+
+    private void EndingScreen()
+    {
+        DisableBackgroundAntiClick();
+        UpdateFinalScoreLayout();
+        finalScoreLayout.SetActive(true);
+    }
+
+    private void FullRotation()
+    {
+        //Debug.Log("Tour complet !");
+        totalRotations += 1;
+        UpdateTextRotation();
+    }
+
+    private void UpdateFinalScoreLayout()
+    {
+        finalChronoText.text = totalChrono.ToString() + "s";
+        finalScoreText.text = totalScorePlayer.ToString();
+    }
+
+    private void UpdateTextRotation()
+    {
+        roundsText.text = totalRotations.ToString();
+    }
+
     #endregion
 
     #region Button
@@ -677,8 +782,6 @@ public class MG2_CottonSorting : MiniGameBase
             StartCoroutine(PlayAndDisable(profane, "ProfaneHit"));
         }
     }
-
-
     #endregion
 
 }

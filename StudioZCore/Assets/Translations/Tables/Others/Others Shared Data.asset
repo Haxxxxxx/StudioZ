@@ -31,6 +31,18 @@ MonoBehaviour:
     m_Key: faster
     m_Metadata:
       m_Items: []
+  - m_Id: 21030177283731456
+    m_Key: rounds
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22536248661864448
+    m_Key: total_time
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22536392253861888
+    m_Key: total_score
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

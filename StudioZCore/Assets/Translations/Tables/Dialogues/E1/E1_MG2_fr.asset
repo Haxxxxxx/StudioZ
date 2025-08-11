@@ -213,8 +213,7 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 7999080711024640
     m_Localized: "Je savais qu\u2019il n\u2019\xE9tait pas loin celui ci ! fait attention
-      Lyra, il va essayer de saboter notre filature ! reste vigilant \xE0 ce qu\u2019il
-      fait !"
+      Lyra, il va essayer de saboter notre filature !"
     m_Metadata:
       m_Items: []
   - m_Id: 7999216140906496
@@ -263,6 +262,11 @@ MonoBehaviour:
     m_Localized: "Tu t\u2019es super bien d\xE9brouill\xE9 ! On peut maintenant passer
       \xE0 l\u2019\xE9tape suivante : la confection ! C\u2019est l\xE0 que les v\xEAtements
       prennent vraiment forme."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15227337768398848
+    m_Localized: Lorsqu'il apparait clique lui dessus avant qu'il attaque pour le
+      faire partir.
     m_Metadata:
       m_Items: []
   references:

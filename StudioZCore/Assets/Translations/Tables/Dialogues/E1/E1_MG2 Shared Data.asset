@@ -163,6 +163,10 @@ MonoBehaviour:
     m_Key: E1_MG2_part2_Profane2
     m_Metadata:
       m_Items: []
+  - m_Id: 15227337768398848
+    m_Key: E1_MG2_part2_Profane3
+    m_Metadata:
+      m_Items: []
   - m_Id: 7999216140906496
     m_Key: E1_MG2_part2_end
     m_Metadata:

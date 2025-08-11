@@ -36,7 +36,6 @@ public class ThreadOnTreadmill : MonoBehaviour, IBeginDragHandler, IDragHandler,
 
     private void Start()
     {
-        //treadmillSpeed = mgCottonSorting.treadmillSpeed;
         baseSpeed = mgCottonSorting.baseSpeed;
         threadLine = mgCottonSorting.threadLine;
     }
@@ -48,8 +47,9 @@ public class ThreadOnTreadmill : MonoBehaviour, IBeginDragHandler, IDragHandler,
 
     private void OnDestroy()
     {
-        movingCoroutine = null;
-        fallingCoroutine = null;
+        if (movingCoroutine != null) StopCoroutine(movingCoroutine);
+        if (fallingCoroutine != null) StopCoroutine(fallingCoroutine);
+        StopAllCoroutines();
     }
 
     private IEnumerator MovingOnTreadmill()
@@ -60,7 +60,7 @@ public class ThreadOnTreadmill : MonoBehaviour, IBeginDragHandler, IDragHandler,
 
             yield return null;
         }
-        fallingCoroutine = StartCoroutine(FallingOfTreadmill());
+        if (gameObject.activeSelf) fallingCoroutine = StartCoroutine(FallingOfTreadmill());
     }
 
     private IEnumerator FallingOfTreadmill()
