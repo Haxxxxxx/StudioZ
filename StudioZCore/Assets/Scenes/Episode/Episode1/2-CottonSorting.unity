@@ -4949,6 +4949,7 @@ MonoBehaviour:
   recycleTrashCan: {fileID: 1474407705}
   basicTrashCan: {fileID: 270362702}
   bag: {fileID: 315331408}
+  maxScorePhase1: 15
   randomElementsList:
   - {fileID: 3837105280430689641, guid: b757078d05e8c154fb754dc4c95ce8f5, type: 3}
   - {fileID: 3837105280430689641, guid: f51e999627df7954bab9685d1f36d5a9, type: 3}
@@ -5010,17 +5011,26 @@ MonoBehaviour:
   phase2WaveDatas:
   - treadmillSpeed: 1.8
     popThreadWait: 2.2
-    goodThreadNumber: 1
+    goodThreadNumber: 5
   - treadmillSpeed: 2.5
     popThreadWait: 2
-    goodThreadNumber: 1
+    goodThreadNumber: 8
   - treadmillSpeed: 4
     popThreadWait: 1.8
-    goodThreadNumber: 1
+    goodThreadNumber: 11
   Phase3: {fileID: 566644017}
   crank: {fileID: 1864283691}
   roundsText: {fileID: 1548944076}
   chronoPhase3: 15
+  phase3CongratDialogues:
+  - congratDialogue: {fileID: 11400000, guid: 351d4ad1bd6c5754687de726bb89e967, type: 2}
+    minRoundsNumber: 25
+  - congratDialogue: {fileID: 11400000, guid: 00b668006108bfb49a29c8ab7dacf68a, type: 2}
+    minRoundsNumber: 15
+  - congratDialogue: {fileID: 11400000, guid: b9fd0fef50bdc9f42b0ef044f807edcb, type: 2}
+    minRoundsNumber: 10
+  - congratDialogue: {fileID: 11400000, guid: 90f248423a5748f4f903b50e0fcd4c4c, type: 2}
+    minRoundsNumber: 0
   afterCurtainDialogue: {fileID: 11400000, guid: 978c34bf116c56648a1efe34fd01434e, type: 2}
   afterPhase1Dialogue: {fileID: 11400000, guid: e2f6adc11f460ae40acf09fcec33d141, type: 2}
   firstCorrectCotton: {fileID: 11400000, guid: db2351485a2a6164ea5c64688ee0b498, type: 2}
@@ -5036,10 +5046,6 @@ MonoBehaviour:
   afterPhase2Dialogue: {fileID: 11400000, guid: 65d220409ea8579418dfabff9e547887, type: 2}
   firstPopProfane: {fileID: 11400000, guid: 6e1c7cc81b999384292e4ce128728680, type: 2}
   startPhase3Dialogue: {fileID: 11400000, guid: 9930f8e6eb0b3e34895441bbc2135b56, type: 2}
-  phase3_score1: {fileID: 11400000, guid: 351d4ad1bd6c5754687de726bb89e967, type: 2}
-  phase3_score2: {fileID: 11400000, guid: 00b668006108bfb49a29c8ab7dacf68a, type: 2}
-  phase3_score3: {fileID: 11400000, guid: b9fd0fef50bdc9f42b0ef044f807edcb, type: 2}
-  phase3_score4: {fileID: 11400000, guid: 90f248423a5748f4f903b50e0fcd4c4c, type: 2}
   curtainsLayout: {fileID: 1921889264}
   rope: {fileID: 881155240}
   shadowOpacity: {fileID: 1171731913}

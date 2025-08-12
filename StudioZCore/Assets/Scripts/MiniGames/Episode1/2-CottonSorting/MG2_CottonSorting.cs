@@ -51,6 +51,13 @@ public class MG2_CottonSorting : MiniGameBase
         public int goodThreadNumber;
     }
 
+    [System.Serializable]
+    public class Phase3CongratDialogue
+    {
+        public Dialogue congratDialogue;
+        public int minRoundsNumber;
+    }
+
     #endregion
 
     #region Variables
@@ -81,11 +88,11 @@ public class MG2_CottonSorting : MiniGameBase
     [SerializeField] public GameObject recycleTrashCan;
     [SerializeField] public GameObject basicTrashCan;
     [SerializeField] public Button bag;
+    [SerializeField] private int maxScorePhase1 = 10;
     [SerializeField] private List<GameObject> randomElementsList;
     [HideInInspector] public int playerNumberOfRandomElements = 0;
     [HideInInspector] public SORTINGERROR currentSortingError = SORTINGERROR.NONE;
     private int playerScorePhase1 = 0;
-    private int maxScorePhase1 = 1; // TODO : A changer
     private int cottonSortingErrors = 0;
     private int trashSortingErrors = 0;
 
@@ -133,6 +140,7 @@ public class MG2_CottonSorting : MiniGameBase
     [SerializeField] private RotateCrank crank;
     [SerializeField] private TextMeshProUGUI roundsText;
     [SerializeField] private float chronoPhase3;
+    [SerializeField] private List<Phase3CongratDialogue> phase3CongratDialogues; // doit être du meilleur au moins bon
     private int totalRotations = 0;
 
     [Header("Others")]
@@ -161,10 +169,10 @@ public class MG2_CottonSorting : MiniGameBase
     [SerializeField] private Dialogue firstPopProfane;
 
     [SerializeField] private Dialogue startPhase3Dialogue;
-    [SerializeField] private Dialogue phase3_score1;
-    [SerializeField] private Dialogue phase3_score2;
-    [SerializeField] private Dialogue phase3_score3;
-    [SerializeField] private Dialogue phase3_score4;
+    //[SerializeField] private Dialogue phase3_score1;
+    //[SerializeField] private Dialogue phase3_score2;
+    //[SerializeField] private Dialogue phase3_score3;
+    //[SerializeField] private Dialogue phase3_score4;
 
 
     [Header("UI References")]
@@ -470,7 +478,7 @@ public class MG2_CottonSorting : MiniGameBase
         UnPauseMiniGame();
         DisableBackgroundAntiClick();
         ShouldPlayWheelsAnim(true);
-        uiCanvas.gameObject.SetActive(true);
+        scoreLayout.gameObject.SetActive(true);
         nextWaveLayout.gameObject.SetActive(false);
 
         if (coroutineTreadmill != null) StopCoroutine(coroutineTreadmill);
@@ -486,7 +494,7 @@ public class MG2_CottonSorting : MiniGameBase
         EnableBackgroundAntiClick();
         ShouldPlayWheelsAnim(false);
         profane.SetActive(false);
-        uiCanvas.gameObject.SetActive(false);
+        scoreLayout.gameObject.SetActive(false);
         nextWaveLayout.gameObject.SetActive(true);
 
         if (coroutineTreadmill != null) StopCoroutine(coroutineTreadmill);
@@ -604,6 +612,8 @@ public class MG2_CottonSorting : MiniGameBase
 
     private void PopProfane()
     {
+        profaneImage.sprite = profaneNormal; // au cas où
+        isProfaneAttacking = false;          // au cas où
         profane.SetActive(true);
     }
     private IEnumerator ProfaneAttack()
@@ -674,19 +684,49 @@ public class MG2_CottonSorting : MiniGameBase
         UnPauseMiniGame();
         StartCoroutine(StartReversedChrono());
         
-        OnReversedChronoEnded += EndPhase3;
+        OnReversedChronoEnded += Phase3SayCongratDialogue;
+    }
+
+    // Ici reaction par rapport à résultats 1/2/3/4 
+    private void Phase3SayCongratDialogue()
+    {
+        EnableBackgroundAntiClick();
+
+        dialogueManager.OnDialogueFinished -= StartPhase3Game;
+        dialogueManager.OnDialogueFinished -= Phase3SayCongratDialogue;
+
+        Dialogue congratDialogue = GetAccurateCongratDialogue();
+
+        if (congratDialogue != null)
+        {
+            dialogueManager.OnDialogueFinished += EndPhase3;
+            dialogueManager.CurrentDialogue = congratDialogue;
+        }
+        else
+            EndPhase3();
     }
 
     private void EndPhase3()
     {
-        // TODO ici reaction par rapport à résultats 1/2/3/4
-
         Phase3.SetActive(false);
-        EnableBackgroundAntiClick();
+        chronoText.gameObject.SetActive(false);
 
-        dialogueManager.OnDialogueFinished -= StartPhase3Game;
+        dialogueManager.OnDialogueFinished -= EndPhase3;
         dialogueManager.OnDialogueFinished += EndingScreen;
         dialogueManager.CurrentDialogue = dialogueOutro;
+    }
+
+
+    private Dialogue GetAccurateCongratDialogue()
+    {
+        for (int i = 0; i < phase3CongratDialogues.Count; i++)
+        {
+            if (phase3CongratDialogues[i].minRoundsNumber <= totalRotations)
+            {
+                return phase3CongratDialogues[i].congratDialogue;
+            }
+        }
+        return null;
     }
 
     private void EndingScreen()
@@ -706,7 +746,7 @@ public class MG2_CottonSorting : MiniGameBase
     private void UpdateFinalScoreLayout()
     {
         finalChronoText.text = totalChrono.ToString() + "s";
-        finalScoreText.text = totalScorePlayer.ToString();
+        finalScoreText.text = totalScorePlayer.ToString() + "/" + totalMaxScorePlayer.ToString();
     }
 
     private void UpdateTextRotation()
