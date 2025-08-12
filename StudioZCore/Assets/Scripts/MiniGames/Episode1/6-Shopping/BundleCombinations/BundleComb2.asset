@@ -12,6 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45ab375bdf91cd14b9f3aff8dcd282a6, type: 3}
   m_Name: BundleComb2
   m_EditorClassIdentifier: 
+  situationDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:99f4455949f0ac74fbe528517cf0cf25
+    m_TableEntryReference:
+      m_KeyId: 7183858583498752
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   bundles:
   - viable: 1
     price: 3

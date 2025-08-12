@@ -38,6 +38,10 @@ MonoBehaviour:
     m_Localized: Pas assez d'argent !
     m_Metadata:
       m_Items: []
+  - m_Id: 7183858583498752
+    m_Localized: "L'hiver arrive, il me faut des v\xEAtements pour le froid."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

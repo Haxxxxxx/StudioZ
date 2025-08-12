@@ -10,9 +10,11 @@ public class MG6_Shopping : MiniGames.MiniGameBase
 {
     [SerializeField] private List<MG6_BundleCombination> bundleCombinations;
     [SerializeField] private List<Transform> bundleSpawnPoints;
-    [SerializeField] private int coins;
+    
     [SerializeField] private TextMeshProUGUI coinsText;
+    [SerializeField] private TextMeshProUGUI bundleHintText;
 
+    [SerializeField] private int coins;
     private int currentRound = 0;
     
     [SerializeField] private GameObject bundlePrefab;
@@ -71,6 +73,9 @@ public class MG6_Shopping : MiniGames.MiniGameBase
                 initializedBundles.Add(current);
             }
         }
+        
+        // Update hint text
+        bundleHintText.text = bundleCombinations[currentRound].situationDescription.GetLocalizedString();
     }
     
     public void SelectBundle(MG6_Bundle bundle)
@@ -96,8 +101,8 @@ public class MG6_Shopping : MiniGames.MiniGameBase
         {
             Debug.Log("Not enough coins to buy");
             // ADD POPUP TO LET THE USER KNOW
-            string okText = LocalizationSettings.StringDatabase.GetLocalizedString("Generic", "OK");
-            popupManager.StartPopup(LocalizationSettings.StringDatabase.GetLocalizedString("E1_MG6BundlePopups", "NoCoins"), okText, null);
+            popupManager.StartPopup(LocalizationSettings.StringDatabase.GetLocalizedString("E1_MG6BundlePopups", "NoCoins"), 
+                LocalizationSettings.StringDatabase.GetLocalizedString("Generic", "OK"), null);
             return;
         }
         

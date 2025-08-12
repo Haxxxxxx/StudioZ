@@ -37,6 +37,10 @@ MonoBehaviour:
     m_Key: NoCoins
     m_Metadata:
       m_Items: []
+  - m_Id: 7183858583498752
+    m_Key: E1_MG6_BC1_Hint
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
