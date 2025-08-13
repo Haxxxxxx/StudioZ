@@ -33,13 +33,15 @@ namespace MiniGames
             [SerializeField] private Canvas selectCanvas;
             [SerializeField] private Canvas cutCanvas;
             [SerializeField] private Image cutPatreon;
+            [SerializeField] private Canvas assemblyCanvas;
+            [SerializeField] private Image finalPatronImage;
 
             [Header("ScriptableObjects")]
             [SerializeField] private List<TShirtPatternData> possibleModels = new();
             [SerializeField] private List<TShirtPatternData> allPatrons = new();
-
-            [SerializeField] private List<PatternPart_SO> allParts = new(); // 9 parties au total
-
+            [SerializeField] private List<PatternPart_SO> allParts = new();
+            
+            private List<TShirtPatternData> remainingModels = new();
             private TShirtPatternData currentTargetModel;
 
             // Étapes
@@ -65,11 +67,42 @@ namespace MiniGames
             {
                 base.StartGame();
 
-                currentTargetModel = possibleModels[UnityEngine.Random.Range(0, possibleModels.Count)];
+                // Clone la liste pour suivre ce qu'il reste à faire
+                remainingModels = new List<TShirtPatternData>(possibleModels);
+    
+                LaunchNextModel();
+            }
+
+            private void LaunchNextModel()
+            {
+                if (remainingModels.Count == 0)
+                {
+                    Debug.Log("🎉 Tous les modèles sont terminés !");
+                    EndMiniGame();
+                    return;
+                }
+
+                currentTargetModel = remainingModels[UnityEngine.Random.Range(0, remainingModels.Count)];
+                remainingModels.Remove(currentTargetModel);
+
                 targetModel.sprite = currentTargetModel.fullSprite;
 
                 currentStep = Step.Col;
+
+                selectedCol = null;
+                selectedSleeves = null;
+                selectedTorso = null;
+
+                selectCanvas.gameObject.SetActive(true);
+                assemblyCanvas.gameObject.SetActive(false);
+                cutCanvas.gameObject.SetActive(false);
+
                 ShowNextSelection();
+            }
+
+            public void OnNextModelClicked()
+            {
+                LaunchNextModel();
             }
 
             private void ShowNextSelection()
@@ -183,7 +216,7 @@ namespace MiniGames
                 else
                 {
                     Debug.Log("Découpe terminée → Assemblage !");
-                    // TODO: GoToAssemblyPhase();
+                    GoToAssemblyPhase();
                 }
             }
 
@@ -195,6 +228,54 @@ namespace MiniGames
                     Destroy(child.gameObject);
                 }
             }
+            
+            private void GoToAssemblyPhase()
+            {
+                cutCanvas.gameObject.SetActive(false);
+                assemblyCanvas.gameObject.SetActive(true);
+
+                // Vérifie si le patron choisi correspond exactement au modèle cible
+                bool match = 
+                    selectedCol.colValue == currentTargetModel.col &&
+                    selectedSleeves.sleeveValue == currentTargetModel.sleeves &&
+                    selectedTorso.torsoValue == currentTargetModel.torso;
+
+                // Trouve le sprite final correspondant (même si match == false, pour l’affichage)
+                var final = allPatrons.FirstOrDefault(p =>
+                    p.col == selectedCol.colValue &&
+                    p.sleeves == selectedSleeves.sleeveValue &&
+                    p.torso == selectedTorso.torsoValue);
+
+                if (final != null)
+                {
+                    finalPatronImage.sprite = final.fullSprite;
+                }
+                else
+                {
+                    finalPatronImage.sprite = null; // Ou un sprite par défaut
+                }
+
+                // ActionName selon match
+                if (match)
+                {
+                    PerformAction(miniGameActionName.AssembleSuccess);
+                    Debug.Log("🧵 Patron final correspond bien au modèle !");
+                }
+                else
+                {
+                    PerformAction(miniGameActionName.AssembleFail);
+                    Debug.LogWarning("❌ Patron final ne correspond pas au modèle !");
+                }
+            }
+
+
+            private void EndMiniGame()
+            {
+                Debug.Log("✨ Mini-jeu terminé !");
+                // Appelle base.EndGame() ou affiche un écran final
+                base.EndGame(); // selon comment MiniGameBase est fait
+            }
+
 
         }
 

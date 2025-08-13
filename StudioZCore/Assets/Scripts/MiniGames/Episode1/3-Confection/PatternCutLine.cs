@@ -5,12 +5,11 @@ using UnityEngine.UI;
 
 public class PatternCutLine : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    [Header("Line")]
-    [SerializeField] private LineRenderer lineRenderer;
+    [Header("Ciseaux UI")]
+    [SerializeField] private RectTransform scissorsIcon; // référence à ton Image de ciseau dans le Canvas
+    [SerializeField] private Canvas canvas; // ton canvas principal
 
-    private readonly List<Vector3> points = new();
     private readonly HashSet<RectTransform> visitedZones = new();
-
     private List<RectTransform> cutZones = new();
 
     public System.Action<bool> OnCutFinished;
@@ -29,37 +28,36 @@ public class PatternCutLine : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        points.Clear();
         visitedZones.Clear();
-        lineRenderer.positionCount = 0;
-        AddPoint(eventData.position);
+        scissorsIcon.gameObject.SetActive(true);
+        UpdateScissorsPosition(eventData);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        AddPoint(eventData.position);
+        UpdateScissorsPosition(eventData);
         CheckZones(eventData);
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        AddPoint(eventData.position);
+        UpdateScissorsPosition(eventData);
         bool allVisited = visitedZones.Count == cutZones.Count && cutZones.Count > 0;
         OnCutFinished?.Invoke(allVisited);
+
+        scissorsIcon.gameObject.SetActive(false);
     }
 
-    private void AddPoint(Vector3 screenPos)
+    private void UpdateScissorsPosition(PointerEventData eventData)
     {
-        Vector3 worldPos;
-        RectTransformUtility.ScreenPointToWorldPointInRectangle(
-            (RectTransform)transform, screenPos, null, out worldPos);
+        Vector2 localPos;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            canvas.transform as RectTransform,
+            eventData.position,
+            canvas.worldCamera,
+            out localPos);
 
-        if (points.Count == 0 || Vector3.Distance(points[^1], worldPos) > 5f)
-        {
-            points.Add(worldPos);
-            lineRenderer.positionCount = points.Count;
-            lineRenderer.SetPosition(points.Count - 1, worldPos);
-        }
+        scissorsIcon.localPosition = localPos;
     }
 
     private void CheckZones(PointerEventData eventData)
@@ -73,7 +71,6 @@ public class PatternCutLine : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
                 if (!visitedZones.Contains(zone))
                 {
                     visitedZones.Add(zone);
-                    // Changer couleur
                     var img = zone.GetComponent<Image>();
                     if (img != null) img.color = Color.green;
                 }
