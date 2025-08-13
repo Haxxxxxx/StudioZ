@@ -42,6 +42,10 @@ MonoBehaviour:
     m_Localized: Winter is coming, I need clothes to keep myself warm.
     m_Metadata:
       m_Items: []
+  - m_Id: 7539353542488064
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

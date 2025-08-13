@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 45ab375bdf91cd14b9f3aff8dcd282a6, type: 3}
-  m_Name: BundleComb1
+  m_Name: BC1
   m_EditorClassIdentifier: 
   situationDescription:
     m_TableReference:
@@ -22,8 +22,8 @@ MonoBehaviour:
     m_WaitForCompletion: 0
     m_LocalVariables: []
   bundles:
-  - viable: 1
-    price: 3
+  - viable: 0
+    price: 8
     sprite: {fileID: 21300000, guid: a94dc2499bb5d9644b9e59b479689790, type: 3}
     popupText:
       m_TableReference:
@@ -59,6 +59,36 @@ MonoBehaviour:
       m_TableReference:
         m_TableCollectionName: GUID:99f4455949f0ac74fbe528517cf0cf25
       m_TableEntryReference:
+        m_KeyId: 324844417024
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    redButtonText:
+      m_TableReference:
+        m_TableCollectionName: GUID:02454d4bd0a70ae4e98c8f14ee7f3b30
+      m_TableEntryReference:
+        m_KeyId: 69021233152
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    greenButtonText:
+      m_TableReference:
+        m_TableCollectionName: GUID:99f4455949f0ac74fbe528517cf0cf25
+      m_TableEntryReference:
+        m_KeyId: 106916769792
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+  - viable: 1
+    price: 6
+    sprite: {fileID: 2975981130085599486, guid: 660948dad521b3646813fdb508655677, type: 3}
+    popupText:
+      m_TableReference:
+        m_TableCollectionName: GUID:99f4455949f0ac74fbe528517cf0cf25
+      m_TableEntryReference:
         m_KeyId: 402329989120
         m_Key: 
       m_FallbackState: 0
@@ -83,43 +113,13 @@ MonoBehaviour:
       m_WaitForCompletion: 0
       m_LocalVariables: []
   - viable: 0
-    price: 10
-    sprite: {fileID: 2975981130085599486, guid: 660948dad521b3646813fdb508655677, type: 3}
-    popupText:
-      m_TableReference:
-        m_TableCollectionName: GUID:99f4455949f0ac74fbe528517cf0cf25
-      m_TableEntryReference:
-        m_KeyId: 324844417024
-        m_Key: 
-      m_FallbackState: 0
-      m_WaitForCompletion: 0
-      m_LocalVariables: []
-    redButtonText:
-      m_TableReference:
-        m_TableCollectionName: GUID:02454d4bd0a70ae4e98c8f14ee7f3b30
-      m_TableEntryReference:
-        m_KeyId: 69021233152
-        m_Key: 
-      m_FallbackState: 0
-      m_WaitForCompletion: 0
-      m_LocalVariables: []
-    greenButtonText:
-      m_TableReference:
-        m_TableCollectionName: GUID:99f4455949f0ac74fbe528517cf0cf25
-      m_TableEntryReference:
-        m_KeyId: 106916769792
-        m_Key: 
-      m_FallbackState: 0
-      m_WaitForCompletion: 0
-      m_LocalVariables: []
-  - viable: 0
-    price: 3
+    price: 2
     sprite: {fileID: 5658593092123914163, guid: 91e8eec7e75501a43a7f9bcbc52e5c4c, type: 3}
     popupText:
       m_TableReference:
         m_TableCollectionName: GUID:99f4455949f0ac74fbe528517cf0cf25
       m_TableEntryReference:
-        m_KeyId: 324844417024
+        m_KeyId: 7538941590532096
         m_Key: 
       m_FallbackState: 0
       m_WaitForCompletion: 0

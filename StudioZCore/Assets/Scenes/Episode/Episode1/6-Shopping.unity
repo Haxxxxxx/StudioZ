@@ -1697,6 +1697,8 @@ MonoBehaviour:
   bundleCombinations:
   - {fileID: 11400000, guid: ff41a4716486c67448bb8d1b3d20fc16, type: 2}
   - {fileID: 11400000, guid: 5994daccb4d71d54c9179001546df913, type: 2}
+  - {fileID: 11400000, guid: 4f3e3f68e6ce1bf42abc1e332d342b24, type: 2}
+  - {fileID: 11400000, guid: bdf07275a38e26846ab2543fa51c83ee, type: 2}
   bundleSpawnPoints:
   - {fileID: 247334624}
   - {fileID: 4605072}
@@ -1704,7 +1706,7 @@ MonoBehaviour:
   - {fileID: 252957614}
   coinsText: {fileID: 1044966387}
   bundleHintText: {fileID: 583965869}
-  coins: 10
+  coins: 26
   bundlePrefab: {fileID: 3196609254028679597, guid: 78533af5ad037824689890eac506d4a4, type: 3}
 --- !u!1001 &1428483848
 PrefabInstance:
