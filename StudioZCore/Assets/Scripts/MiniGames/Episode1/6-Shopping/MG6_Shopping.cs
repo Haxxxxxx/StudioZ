@@ -37,6 +37,7 @@ public class MG6_Shopping : MiniGames.MiniGameBase
         // Initialize list
         initializedBundles = new List<GameObject>();
         
+        coinsText.gameObject.SetActive(true);
         InitializeBundles();
     }
 
@@ -74,8 +75,9 @@ public class MG6_Shopping : MiniGames.MiniGameBase
             }
         }
         
-        // Update hint text
+        // Update text
         bundleHintText.text = bundleCombinations[currentRound].situationDescription.GetLocalizedString();
+        coinsText.text = "Coins: " + coins;
     }
     
     public void SelectBundle(MG6_Bundle bundle)
@@ -108,7 +110,6 @@ public class MG6_Shopping : MiniGames.MiniGameBase
         
         popupManager.ClosePopup();
         coins -= bundle.price;
-        coinsText.text = "Coins: " + coins;
         
         if (bundle.viable)
         {
