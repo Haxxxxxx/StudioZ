@@ -123,6 +123,27 @@ public class MG6_Shopping : MiniGames.MiniGameBase
         
         // Next bundle proposition
         currentRound++;
+        
+        // check if end of minigame
+        if (currentRound == bundleCombinations.Count)
+        {
+            Debug.Log("END OF MG6");
+            EndGame();
+            return;
+        }
         InitializeBundles();
+    }
+
+    void EndGame()
+    {
+        // Destroy spawned bundles and clear the list
+        foreach (var bundle in initializedBundles)
+        {
+            Destroy(bundle);
+        }
+        initializedBundles.Clear();
+        
+        // Show score
+        popupManager.StartPopup("You score is: " + currentScore, null, "OK");
     }
 }
