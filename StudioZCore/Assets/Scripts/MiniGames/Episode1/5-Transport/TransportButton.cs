@@ -6,5 +6,6 @@ public class TransportButton : MonoBehaviour
     public void OnClick()
     {
         FindFirstObjectByType<MG5_Transport>().OnTransportButtonClicked(type);
+        Debug.Log("Transport button clicked: " + type);
     }
 }

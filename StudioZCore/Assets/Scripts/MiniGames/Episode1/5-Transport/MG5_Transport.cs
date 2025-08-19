@@ -45,6 +45,10 @@ public class MG5_Transport : MiniGameBase
     [SerializeField] private GameObject quiz;
     [SerializeField] private GameObject yesNo;
     [SerializeField] private Image clothIcon;
+    [SerializeField] private Image invisibleBG;
+    [SerializeField] private GameObject validateButton;
+    private GameObject startFlag;
+    private GameObject finishFlag;
 
 
     [Header("Dialogue")]
@@ -85,16 +89,21 @@ public class MG5_Transport : MiniGameBase
 
     private void ShowScenario(int index)
     {
+        invisibleBG.enabled = false;
+        validateButton.SetActive(true);
+
         Debug.Log(index + " - " + scenarios.Count + " - " + currentScenario);
         playerSelection.Clear();
         attempt = 0;
         var sc = scenarios[index];
         clothIcon.color = white;
-        sc.start.SetActive(true);
-        sc.finish.SetActive(true);
+        startFlag = sc.start;
+        finishFlag = sc.finish;
+        startFlag.SetActive(true);
+        finishFlag.SetActive(true);
         // Affiche les drapeaux, reset les slots, etc.
         foreach (var slot in transportSlots)
-            slot.SetActive(false);
+            slot.transform.GetChild(0).GetComponent<Image>().sprite=null;
     }
 
     // Appelé quand le joueur sélectionne un transport
@@ -102,6 +111,7 @@ public class MG5_Transport : MiniGameBase
     {
         if (playerSelection.Count >= 3) return;
         playerSelection.Add(transportName);
+        Debug.Log($"Transport selected: {transportName}, total selected: {playerSelection.Count}");
         transportSlots[playerSelection.Count - 1].SetActive(true);
         // Met à jour l'icône du slot, etc.
     }
@@ -111,25 +121,30 @@ public class MG5_Transport : MiniGameBase
     {
         var sc = scenarios[currentScenario];
         attempt++;
-
+        if (playerSelection.Count < 2)
+        {
+            Feedback(badAnswer);
+            return;
+        }
         if (playerSelection[0] == TransportType.Train || playerSelection[0]==TransportType.Truck)
         {
-            dialogueManager.CurrentDialogue = worstAnswerSea;
+            Feedback(worstAnswerSea);
             return;
         }
         else if (playerSelection[1] == TransportType.Boat || playerSelection[1] == TransportType.Plane)
         {
-            dialogueManager.CurrentDialogue = worstAnswerGround;
+            Feedback(worstAnswerGround);
             return;
         }
         else if (IsCombination(sc.bestCombination, playerSelection))
         {
             currentScore += attempt == 1 ? 10 : 5;
+            Feedback(sc.bestFeedback);
             NextScenario();
         }
         else
         {
-            dialogueManager.CurrentDialogue = sc.mediumFeedback;
+            Feedback(sc.mediumFeedback);
             NextScenario();
         }
     }
@@ -148,12 +163,13 @@ public class MG5_Transport : MiniGameBase
     {
         for (int i = 0; i < transportSlots.Length; i++)
         {
-            var img = transportSlots[i].GetComponentInChildren<Image>();
+            var img = transportSlots[i].transform.GetChild(0).GetComponent<Image>();
             if (i < playerSelection.Count)
             {
                 var step = transports.Find(t => t.name == playerSelection[i]);
+                Debug.Log($"Slot {i}: {playerSelection[i]}, step found: {step != null}, icon: {(step != null ? step.icon : null)}");
                 img.sprite = step != null ? step.icon : null;
-                img.color = white; // white = new Color(1,1,1,1)
+                img.color = white;
                 transportSlots[i].SetActive(true);
             }
             else
@@ -181,6 +197,8 @@ public class MG5_Transport : MiniGameBase
 
     private void NextScenario()
     {
+        startFlag.SetActive(false);
+        finishFlag.SetActive(false);
         currentScenario++;
         if (currentScenario < scenarios.Count)
             ShowScenario(currentScenario);
@@ -229,5 +247,27 @@ public class MG5_Transport : MiniGameBase
             dialogueManager.OnDialogueFinished -= OnDialogueFinishedHandler;
         }
         EndGame();
+    }
+
+    private void Feedback(Dialogue dialogue)
+    {
+        if (dialogue != null)
+        {
+            validateButton.SetActive(false);
+            invisibleBG.enabled = true;
+            dialogueManager.CurrentDialogue = dialogue;
+            dialogueManager.OnDialogueFinished += ShowValidateButton;
+        }
+        else
+        {
+            Debug.LogWarning("Dialogue is null, cannot provide feedback.");
+        }
+    }
+
+    private void ShowValidateButton()
+    {
+        dialogueManager.OnDialogueFinished -= ShowValidateButton;
+        validateButton.SetActive(true);
+        invisibleBG.enabled = false;
     }
 }
