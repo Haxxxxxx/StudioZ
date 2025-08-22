@@ -78,6 +78,22 @@ public class MG6_Shopping : MiniGames.MiniGameBase
         // Update text
         bundleHintText.text = bundleCombinations[currentRound].situationDescription.GetLocalizedString();
         coinsText.text = "Coins: " + coins;
+        
+        // Check if the player has enough coins to buy any bundle
+        bool hasAffordableBundle = false;
+        foreach (var bundle in bundleCombinations[currentRound].GetBundles())
+        {
+            if (bundle.price <= coins)
+            {
+                hasAffordableBundle = true;
+                break;
+            }
+        }
+
+        if (!hasAffordableBundle) {
+            popupManager.StartPopup("You ran out of money, Try again!", "OK", null);
+            popupManager.OnCancel += EndGame;
+        }
     }
     
     public void SelectBundle(MG6_Bundle bundle)
