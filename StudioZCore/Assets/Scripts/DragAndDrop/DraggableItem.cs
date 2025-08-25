@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -19,9 +20,15 @@ public class DraggableItem : MonoBehaviour, IDragHandler, IEndDragHandler, IBegi
 
     public DropEvent OnDropped;
 
+    [Header("Options")]
+    [SerializeField] private bool resetPositionOnIncorrectDrop = true;
+
     private CanvasGroup canvasGroup;
-    [field : NonSerialized] public bool isDragged = false;
     private Vector2 offset = Vector2.zero;
+    [field: NonSerialized] public bool isDragged = false;
+    [field: NonSerialized] public Vector2 startPosition;
+    private bool resetPosition = true;
+
 
     private void Awake()
     {
@@ -37,12 +44,12 @@ public class DraggableItem : MonoBehaviour, IDragHandler, IEndDragHandler, IBegi
     public void OnBeginDrag(PointerEventData eventData)
     {
         isDragged = true;
+        startPosition = transform.position;
         canvasGroup.blocksRaycasts = false;
         offset.x = eventData.position.x - transform.position.x;
         offset.y = eventData.position.y - transform.position.y;
 
         OnDragStart?.Invoke(eventData);
-        Debug.Log("On Drag Start");
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -62,7 +69,31 @@ public class DraggableItem : MonoBehaviour, IDragHandler, IEndDragHandler, IBegi
             OnDragEnd?.Invoke(eventData);
             isDragged = false;
             canvasGroup.blocksRaycasts = true;
-            Debug.Log("On Drag End");
+
+            if (OnDropped != null && resetPositionOnIncorrectDrop)
+            {
+                StartCoroutine(WaitForResetPosition());
+            }
         }
+    }
+
+    private IEnumerator WaitForResetPosition()
+    {
+        yield return new WaitForEndOfFrame();
+        if (resetPosition)
+        {
+            ResetPosition();
+        }
+        resetPosition = true;
+    }
+
+    public void ResetPosition()
+    {
+        transform.position = startPosition;
+    }
+
+    public void CancelResetPosition()
+    {
+        resetPosition = false;
     }
 }

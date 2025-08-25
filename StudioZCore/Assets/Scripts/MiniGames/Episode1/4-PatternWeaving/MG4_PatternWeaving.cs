@@ -3,6 +3,10 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 using UnityEngine.UI;
+using System.Linq;
+
+
+
 
 
 
@@ -14,7 +18,7 @@ namespace MiniGames
 {
     namespace Episode1
     {
-        [ExecuteAlways]
+        /*[ExecuteAlways]*/ // Uncomment to enable in editor mode and add a new pattern
         public class MG4_PatternWeaving : MiniGameBase
         {
             #region Variables
@@ -32,7 +36,12 @@ namespace MiniGames
             {
                 public Texture2D texture;
                 public GridCell_PatternWeaving startCell;
+                public Dialogue dialogueFirstSelected;
+                public Dialogue dialoguePatternDone;
+                public Dialogue dialoguePatternFailed;
                 [NonSerialized] public bool isFinished = false;
+                [NonSerialized] public int patternScore;
+                [NonSerialized] public int patternActionCount;
 
                 public Pattern(Texture2D texture, GridCell_PatternWeaving startCell)
                 {
@@ -43,8 +52,12 @@ namespace MiniGames
 
             [Header("MiniGame Settings")]
             public PatternWeavingActionName miniGameActionName = new PatternWeavingActionName();
-            [NonSerialized] public GridCell_PatternWeaving nextCell;
+            [NonSerialized] public List<GridCell_PatternWeaving> pathTakenCell = new List<GridCell_PatternWeaving>();
+            [NonSerialized] public List<GridCell_PatternWeaving> validPathCell = new List<GridCell_PatternWeaving>();
+            [NonSerialized] public Color currentColor = Color.white;
             private bool firstPattern = false;
+            private Coroutine viewPathCoroutine;
+            private bool chiffonFound = false;
 
             [Header("Grid References")]
             [SerializeField] private RectTransform gridParent;
@@ -55,15 +68,32 @@ namespace MiniGames
 
             [Header("Pattern Settings")]
             [SerializeField] private GameObject patternSelectorCanvas;
-            [SerializeField] private Pattern selectedPattern;
+            private Pattern selectedPattern;
             [SerializeField][NonReorderable] private List<Pattern> patterns = new List<Pattern>();
 
             [Header("Editor Settings")]
             public bool editPatternPath = false;
+            public Texture2D editorSelectedTexture;
             public GridCell_PatternWeaving lastSelectedCell;
 
             [Header("UI References")]
             [SerializeField] private Image patternImg;
+            [SerializeField] private Button leverBtn;
+            [SerializeField] private GameObject quizz;
+            [SerializeField] private Button chiffonBtn;
+
+            [Header("Dialogue References")]
+            [SerializeField] private Dialogue dialogueIntroPart2;
+            [SerializeField] private Dialogue dialoguePressLever;
+            [SerializeField] private Dialogue dialogueDontPressLever;
+            [SerializeField] private Dialogue dialogueIntroPart3;
+            [SerializeField] private Dialogue dialogueBeforeTutoPart1;
+            [SerializeField] private Dialogue dialogueBeforeTutoPart2;
+            [SerializeField] private Dialogue dialogueTutoDone;
+            [SerializeField] private Dialogue dialogueTutoFailed;
+            [SerializeField] private Dialogue dialogueAfterTuto;
+            [SerializeField] private Dialogue dialogueChiffonQuest;
+            [SerializeField] private Dialogue dialogueChiffonNotFound;
 
 
             #endregion
@@ -73,23 +103,47 @@ namespace MiniGames
                 instance = this;
 
                 base.Awake();
+
+                patternSelectorCanvas.SetActive(false);
+                ClearGrid();
+                patternImg.gameObject.SetActive(false);
+                leverBtn.interactable = false;
+                chiffonBtn.gameObject.SetActive(false);
+
             }
 
             protected override void Start()
             {
-                base.Start();
 
-                ClearGrid();
-                patternImg.gameObject.SetActive(false);
-                patternSelectorCanvas.SetActive(true);
+                if (dialogueManager != null && dialogueIntro != null)
+                {
+                    dialogueManager.OnDialogueFinished += EndOfIntroPart1;
+                    dialogueManager.CurrentDialogue = dialogueIntro;
+                }
             }
 
+            public override void StartGame()
+            {
+                dialogueManager.OnDialogueFinished -= StartGame;
+                base.StartGame();
+            }
+
+            public override void PerformAction(string actionName)
+            {
+                base.PerformAction(actionName);
+
+                if (actionResults.TryGetValue(actionName, out MiniGameActionResult result))
+                {
+                    selectedPattern.patternScore += result.pointValue;
+                    selectedPattern.patternActionCount++;
+                }
+            }
 
             #region Editor Funcions
 
 #if UNITY_EDITOR
 
-            [ContextMenu("Generate Circular Grid")]
+                [ContextMenu("Generate Circular Grid")]
             public void GenerateCircularGrid()
             {
                 if (gridPrefab == null || gridParent == null)
@@ -144,17 +198,17 @@ namespace MiniGames
 
             public void GetCellTargetColorFromMotif(GridCell_PatternWeaving cell)
             {
-                if (selectedPattern == null)
+                if (editorSelectedTexture == null)
                 {
-                    Debug.LogError("Selected motif not assigned.");
+                    Debug.LogError("Selected texture not assigned.");
                 }
                 Vector2Int cellPxPos = GetPixelPositionInImage(cell);
 
-                Color targetColor = selectedPattern.texture.GetPixel(cellPxPos.x, cellPxPos.y);
+                Color targetColor = editorSelectedTexture.GetPixel(cellPxPos.x, cellPxPos.y);
 
                 if (!AreColorsSimilar(targetColor, new Color(0.965f, 0.875f, 0.780f, 1f)))
                 {
-                    cell.AddPatternData(selectedPattern.texture, targetColor);
+                    cell.AddPatternData(editorSelectedTexture, targetColor);
                     Undo.RecordObject(cell, "Add data");
                     EditorUtility.SetDirty(cell);
                 }
@@ -166,20 +220,20 @@ namespace MiniGames
                 float localPosY = cell.transform.localPosition.y + gridParent.rect.height / 2f;
 
 
-                int pixelX = (int)(localPosX * selectedPattern.texture.width / gridParent.rect.width);
-                int pixelY = (int)(localPosY * selectedPattern.texture.height / gridParent.rect.height);
+                int pixelX = (int)(localPosX * editorSelectedTexture.width / gridParent.rect.width);
+                int pixelY = (int)(localPosY * editorSelectedTexture.height / gridParent.rect.height);
 
                 return new Vector2Int(pixelX, pixelY);
             }
 
             private void OnEnable()
             {
-                UnityEditor.Selection.selectionChanged += OnSelectionChanged;
+                Selection.selectionChanged += OnSelectionChanged;
             }
 
             private void OnDisable()
             {
-                UnityEditor.Selection.selectionChanged -= OnSelectionChanged;
+                Selection.selectionChanged -= OnSelectionChanged;
             }
 
             private void OnSelectionChanged()
@@ -194,9 +248,9 @@ namespace MiniGames
 
                 if (lastSelectedCell != null)
                 {
-                    if (lastSelectedCell.data.Find(d => d.texture == selectedPattern.texture) != null)
+                    if (lastSelectedCell.data.Find(d => d.texture == editorSelectedTexture) != null)
                     {
-                        lastSelectedCell.data.Find(d => d.texture == selectedPattern.texture).nextCell = cell;
+                        lastSelectedCell.data.Find(d => d.texture == editorSelectedTexture).nextCell = cell;
                         Undo.RecordObject(lastSelectedCell, "Update Motif Path");
                         EditorUtility.SetDirty(lastSelectedCell);
                     }
@@ -215,9 +269,9 @@ namespace MiniGames
                 {
                     if (child.TryGetComponent<GridCell_PatternWeaving>(out GridCell_PatternWeaving cell))
                     {
-                        if (cell.data.Count != 0 && cell.data.Find(d => d.texture == selectedPattern.texture) != null)
+                        if (cell.data.Count != 0 && cell.data.Find(d => d.texture == editorSelectedTexture) != null)
                         {
-                            cell.SetColor(cell.data.Find(d => d.texture == selectedPattern.texture).color);
+                            cell.SetColor(cell.data.Find(d => d.texture == editorSelectedTexture).color);
                         }
                         else
                         {
@@ -230,6 +284,8 @@ namespace MiniGames
 #endif
 
             #endregion
+
+            #region Game Functions
 
             public bool AreColorsSimilar(Color a, Color b, float epsilon = 0.01f)
             {
@@ -246,9 +302,12 @@ namespace MiniGames
                 {
                     if (child.TryGetComponent<GridCell_PatternWeaving>(out GridCell_PatternWeaving cell))
                     {
-                        cell.SetColor(new Color(1f, 1f, 1f, 0));
+                        cell.ResetCell();
                     }
                 }
+
+                pathTakenCell.Clear();
+                validPathCell.Clear();
             }
 
             private IEnumerator ViewPath()
@@ -257,52 +316,247 @@ namespace MiniGames
 
                 GridCell_PatternWeaving current = selectedPattern.startCell;
 
-                while (current != null && Application.isPlaying)
+                while (current != null)
                 {
                     current.SetColor(current.data.Find(d => d.texture == selectedPattern.texture).color);
-                    yield return new WaitForSeconds(0.5f);
+                    yield return new WaitForSeconds(0.25f);
                     current = current.data.Find(d => d.texture == selectedPattern.texture).nextCell;
                 }
             }
 
-            public void PatternFinished()
+            private void SetPatternFromIndex(int index)
             {
-                patterns.Find(p => p.texture == selectedPattern.texture).isFinished = true;
+                ClearGrid();
 
-                foreach (Pattern pattern in patterns)
-                {
-                    if (!pattern.isFinished)
-                    {
-                        patternSelectorCanvas.SetActive(true);
-                        ClearGrid();
-                        return;
-                    }
-                }
-
-                EndGame();
+                selectedPattern = patterns[index];
             }
 
-            #region Button Function
-
-            public void BS_SelectMotif(int motif_index)
+            private void InitSelectedPattern()
             {
-                selectedPattern = patterns[motif_index];
                 patternImg.sprite = Sprite.Create(selectedPattern.texture, new Rect(0, 0, selectedPattern.texture.width, selectedPattern.texture.height), Vector2.zero);
                 selectedPattern.startCell.SetSelectedData(selectedPattern.texture);
                 selectedPattern.startCell.SetIsNextCell();
 
                 patternImg.gameObject.SetActive(true);
-                patternSelectorCanvas.SetActive(false);
+            }
 
-                if (!firstPattern)
+            public void AddCellInPathTakenCell(GridCell_PatternWeaving cell)
+            {
+                if (pathTakenCell.Contains(cell))
                 {
-                    StartGame();
-                    firstPattern = true;
+                    pathTakenCell.Remove(cell);
+                    cell.SetColor(new Color(1f, 1f, 1f, 0));
+                    cell.isWoven = false;
+                    if (pathTakenCell.Count >= 1) pathTakenCell.Last().eventTrigger.enabled = true;
+                    if (validPathCell.Count > 0 && cell == validPathCell.Last())
+                    {
+                        validPathCell.Remove(cell);
+                        if (cell.selectedData.nextCell != null) cell.selectedData.nextCell.SetIsNextCell(false);
+                        cell.SetIsNextCell();
+                    }
                 }
+                else
+                {
+                    pathTakenCell.Add(cell);
+                    if (pathTakenCell.Count >= 2) pathTakenCell[^2].eventTrigger.enabled = false;
+                    cell.SetColor(currentColor);
+                    cell.isWoven = true;
+                }
+            }
+
+            public void CheckPatternScore()
+            {
+                if (selectedPattern.texture == patterns[3].texture)
+                {
+                    if (selectedPattern.patternScore == 12)
+                    {
+                        patterns.Find(p => p.texture == selectedPattern.texture).isFinished = true;
+                        dialogueManager.OnDialogueFinished += StartAfterTuto;
+                        dialogueManager.CurrentDialogue = dialogueTutoDone;
+                    }
+                    else
+                    {
+                        dialogueManager.OnDialogueFinished += ResetTuto;
+                        dialogueManager.CurrentDialogue = dialogueTutoFailed;
+                    }
+                }
+                else
+                {
+                    patterns.Find(p => p.texture == selectedPattern.texture).isFinished = true;
+                    dialogueManager.OnDialogueFinished += PatternFinished;
+                    bool isHighScore = (float)currentScore / actionCount >= 0.75f;
+
+                    dialogueManager.CurrentDialogue = isHighScore
+                        ? selectedPattern.dialoguePatternDone
+                        : selectedPattern.dialoguePatternFailed;
+                }
+            }
+
+            private void PatternFinished()
+            {
+                dialogueManager.OnDialogueFinished -= PatternFinished;
+                foreach (Pattern pattern in patterns)
+                {
+                    if (!pattern.isFinished)
+                    {
+                        patternSelectorCanvas.SetActive(true);
+                        PauseMiniGame();
+                        return;
+                    }
+                }
+
+                dialogueManager.OnDialogueFinished += (chiffonFound ? EndGame : StartChiffonNotFound);
+                dialogueManager.CurrentDialogue = dialogueOutro;
             }
 
             #endregion
 
+            #region Dialogue Functions
+
+            private void EndOfIntroPart1()
+            {
+                //TODO Faire transition avec atelier 
+                dialogueManager.OnDialogueFinished -= EndOfIntroPart1;
+                dialogueManager.OnDialogueFinished += EndOfIntroPart2;
+                dialogueManager.CurrentDialogue = dialogueIntroPart2;
+            }
+
+            private void EndOfIntroPart2()
+            {
+                dialogueManager.OnDialogueFinished -= EndOfIntroPart2;
+                leverBtn.interactable = true;
+                Invoke(nameof(DidNotPressLever), 5f);
+            }
+
+            private void DidNotPressLever()
+            {
+                dialogueManager.CurrentDialogue = dialogueDontPressLever;
+            }
+
+            private void StartIntroPart3()
+            {
+                dialogueManager.OnDialogueFinished -= StartIntroPart3;
+                dialogueManager.OnDialogueFinished += EndOfIntroPart3;
+                dialogueManager.CurrentDialogue = dialogueIntroPart3;
+                leverBtn.interactable = false;
+            }
+
+            private void EndOfIntroPart3()
+            {
+                dialogueManager.OnDialogueFinished -= EndOfIntroPart3;
+                dialogueManager.OnDialogueFinished += EndOfBeforeTutoPart1;
+                dialogueManager.CurrentDialogue = dialogueBeforeTutoPart1;
+            }
+
+            private void EndOfBeforeTutoPart1()
+            {
+                dialogueManager.OnDialogueFinished -= EndOfBeforeTutoPart1;
+                dialogueManager.OnDialogueFinished += EndOfBeforeTutoPart2;
+                dialogueManager.CurrentDialogue = dialogueBeforeTutoPart2;
+                SetPatternFromIndex(3);
+                viewPathCoroutine = StartCoroutine(ViewPath());
+            }
+
+            private void EndOfBeforeTutoPart2()
+            {
+                dialogueManager.OnDialogueFinished -= EndOfBeforeTutoPart2;
+                quizz.SetActive(true);
+            }
+
+            private void StartAfterTuto()
+            {
+                dialogueManager.OnDialogueFinished -= StartAfterTuto;
+                dialogueManager.OnDialogueFinished += EndOfAfterTuto;
+                dialogueManager.CurrentDialogue = dialogueAfterTuto;
+            }
+
+            private void EndOfAfterTuto()
+            {
+                dialogueManager.OnDialogueFinished -= EndOfAfterTuto;
+                patternSelectorCanvas.SetActive(true);
+            }
+
+            private void ResetTuto()
+            {
+                dialogueManager.OnDialogueFinished -= ResetTuto;
+                SetPatternFromIndex(3);
+            }
+
+            private void StartDialogueFirstSelectedPattern()
+            {
+                if (selectedPattern != null && selectedPattern.dialogueFirstSelected != null)
+                {
+                    dialogueManager.OnDialogueFinished += StartGame;
+                    dialogueManager.CurrentDialogue = selectedPattern.dialogueFirstSelected;
+                }
+            }
+
+            private void EndOfChiffonQuest()
+            {
+                dialogueManager.OnDialogueFinished -= EndOfChiffonQuest;
+                chiffonBtn.gameObject.SetActive(false);
+            }
+
+            private void StartChiffonNotFound()
+            {
+                dialogueManager.OnDialogueFinished -= StartChiffonNotFound;
+                dialogueManager.OnDialogueFinished += EndGame;
+                dialogueManager.CurrentDialogue = dialogueChiffonNotFound;
+            }
+
+            #endregion
+
+            #region Button Function
+
+            public void BS_SelectMotif(int motif_index)
+            {
+                SetPatternFromIndex(motif_index);
+                InitSelectedPattern();
+
+                UnPauseMiniGame();
+                patternSelectorCanvas.SetActive(false);
+
+                if (!firstPattern)
+                {
+                    StartDialogueFirstSelectedPattern();
+                    firstPattern = true;
+                }
+            }
+
+            public void BS_PressLever()
+            {
+                CancelInvoke(nameof(DidNotPressLever));
+                dialogueManager.OnDialogueFinished += StartIntroPart3;
+                dialogueManager.CurrentDialogue = dialoguePressLever;
+                leverBtn.interactable = false;
+                chiffonBtn.gameObject.SetActive(true);
+            }
+
+            public void BS_QuizzAnswer(int answer_index)
+            {
+                quizz.SetActive(false);
+                SetPatternFromIndex(3);
+                if (answer_index == 0)
+                {
+                    StopCoroutine(viewPathCoroutine);
+                    InitSelectedPattern();
+                }
+                else if (answer_index == 1)
+                {
+                    dialogueManager.OnDialogueFinished += EndOfBeforeTutoPart2;
+                    dialogueManager.CurrentDialogue = dialogueBeforeTutoPart2;
+                    viewPathCoroutine = StartCoroutine(ViewPath());
+                }
+            }
+
+            public void BS_ChiffonFound()
+            {
+                chiffonFound = true;
+                dialogueManager.OnDialogueFinished += EndOfChiffonQuest;
+                dialogueManager.CurrentDialogue = dialogueChiffonQuest;
+            }
+
+            #endregion
         }
     }
 }

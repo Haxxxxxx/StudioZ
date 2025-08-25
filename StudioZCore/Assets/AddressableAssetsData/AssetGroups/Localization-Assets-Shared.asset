@@ -56,6 +56,11 @@ MonoBehaviour:
     m_ReadOnly: 1
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bddaf320a3bfd9044bd82d3c12563c8a
+    m_Address: Assets/Translations/Tables/Dialogues/E1/E1_MG4 Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d6555b34706900541a2ab30f76779a37
     m_Address: Assets/Translations/Tables/Options/Options Shared Data.asset
     m_ReadOnly: 1

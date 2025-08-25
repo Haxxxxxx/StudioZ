@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using System;
 using TMPro;
 using Coffee.UIEffects;
+using Random = UnityEngine.Random;
+using System.Collections;
 
 namespace MiniGames
 {
@@ -26,8 +28,12 @@ namespace MiniGames
                 public string UseShovel { get; private set; } = "use_shovel";
                 public string UseShovelIncorrectly { get; private set; } = "use_shovel_incorrectly";
                 public string UseWateringCan { get; private set; } = "use_watering_can";
+                public string UseWateringTooMuch { get; private set; } = "use_watering_too_much";
                 public string UseSunlight { get; private set; } = "use_sunlight";
                 public string UseGlove { get; private set; } = "use_glove";
+                public string PlantHealthySeed { get; private set; } = "plant_healthy_seed";
+                public string PlantCorruptedSeed { get; private set; } = "plant_corrupted_seed";
+                public string PlantUselessSeed { get; private set; } = "plant_useless_seed";
             }
 
             public enum ToolsType
@@ -39,27 +45,48 @@ namespace MiniGames
                 Glove,
             }
 
+
             [Header("MiniGame Settings")]
             private ToolsType toolType = ToolsType.None;
+            private Button selectedToolBtn;
+            [SerializeField] private int goodSeedToSort = 5;
             [SerializeField] private int cottonToHarvest = 1;
+            private int goodSeedSorted = 0;
             private int cottonHarvested = 0;
             public CottonCultivationActionName miniGameActionName = new CottonCultivationActionName();
+            [SerializeField] private List<GameObject> seedsOnBag = new List<GameObject>();
+            [SerializeField][Range(0, 1)] private float healthySeedPercent = 0.45f;
+            [SerializeField][Range(0, 1)] private float uselessSeedPercent = 0.3f;
+            [SerializeField][Range(0, 1)] private float corruptedSeedPercent = 0.25f;
+
 
             [Header("UI References")]
             [SerializeField] private List<Button> toolsBtn = new List<Button>();
+            [SerializeField] private TextMeshProUGUI goodSeedText;
             [SerializeField] private TextMeshProUGUI cottonText;
-
-            private Button selectedToolBtn;
+            [SerializeField] private Button seedBagBtn;
+            [SerializeField] private GameObject bgAntiClick;
 
             [field: NonSerialized] public List<FieldHole_CottonCultivation> fieldHoles { get; private set; } = new List<FieldHole_CottonCultivation>();
+            private List<Seed_CottonCultivation> goodSortedSeedList = new List<Seed_CottonCultivation>();
+            private List<Seed_CottonCultivation> badSortedSeedList = new List<Seed_CottonCultivation>();
 
-            private List<Seed_CottonCultivation> unsortedSeed = new List<Seed_CottonCultivation>();
-            private List<Seed_CottonCultivation> goodSortedSeed = new List<Seed_CottonCultivation>();
-            private List<Seed_CottonCultivation> badSortedSeed = new List<Seed_CottonCultivation>();
-            private float minDistance;
+            [Header("Dialogue References")]
+            [SerializeField] private Dialogue phase1Tuto;
+            [SerializeField] private Dialogue phase2Tuto;
+            [SerializeField] private Dialogue cottonReadyDialogue;
+            private float lastActionDialogueTime = -10f;
+            private float cooldown = 5f;
+            private float actionPercent = 0.3f;
+
+            [Header("Profane References")]
+            [SerializeField] private ProfaneBehavior_CottonCultivation profaneBehaviour;
+
 
             #endregion
 
+
+            #region Base Functions
 
             protected override void Awake()
             {
@@ -68,72 +95,289 @@ namespace MiniGames
                 base.Awake();
 
                 fieldHoles = FindObjectsByType<FieldHole_CottonCultivation>(FindObjectsSortMode.None).ToList<FieldHole_CottonCultivation>();
-                unsortedSeed = FindObjectsByType<Seed_CottonCultivation>(FindObjectsSortMode.None).ToList<Seed_CottonCultivation>();
+                toolsBtn.ForEach(btn =>
+                {
+                    btn.interactable = false;
+                });
             }
 
+            protected override void Start()
+            {
+                if (dialogueManager != null && dialogueIntro != null)
+                {
+                    EnableBgAntiClick();
+                    dialogueManager.OnDialogueFinished += Phase1Tuto;
+                    dialogueManager.CurrentDialogue = dialogueIntro;
+                }
+            }
 
             public override void StartGame()
             {
                 Debug.Log("Cotton Cultivation MiniGame Started");
+                dialogueManager.OnDialogueFinished -= StartGame;
+                DisableBgAntiClick();
                 base.StartGame();
             }
 
-            #region Phase1
-
-            public void UpdateUnsortedSeed(Seed_CottonCultivation sortedSeed, bool goodSeed, GameObject container)
+            public override void PerformAction(string actionName)
             {
-                if (!unsortedSeed.Remove(sortedSeed))
+                base.PerformAction(actionName);
+
+                if(!actionResults.TryGetValue(actionName, out MiniGameActionResult result) || result.actionDialogue == null || result.actionDialogue.Lines.Count == 0) return;
+
+                if (!CanEncouragePlayer()) return;
+
+                if (actionName == miniGameActionName.PickHealthySeed)
                 {
-                    Debug.LogWarning($"Attempted to sort a seed that is not in the unsorted list: {sortedSeed.name}");
-                    return;
+                    dialogueManager.SetNextDialogueAsAction();
+                    dialogueManager.CurrentDialogue = result.actionDialogue;
+                    result.actionDialogue = null;
                 }
-
-                /*   Vector2 itemSize = sortedSeed.GetComponent<RectTransform>().rect.size * sortedSeed.GetComponent<RectTransform>().lossyScale;
-                   minDistance = Mathf.Max(itemSize.x, itemSize.y);
-
-                   float radius = Mathf.Min(container.GetComponent<RectTransform>().rect.width, container.GetComponent<RectTransform>().rect.height) / 2f ;
-                   Vector2 pos;
-                   int attempts = 0;
-                   const int maxAttempts = 50;
-
-                   do
-                   {
-                       pos = UnityEngine.Random.insideUnitCircle * radius;
-                       sortedSeed.GetComponent<RectTransform>().anchoredPosition = pos;
-                       attempts++;
-                       if (attempts > maxAttempts) break;
-                   } while (IsOverlapping(pos, (goodSeed ? goodSortedSeed : badSortedSeed)));
-
-                   sortedSeed.transform.SetParent(container.transform, false);
-                   sortedSeed.GetComponent<RectTransform>().anchoredPosition = pos;*/
-
-                (goodSeed ? goodSortedSeed : badSortedSeed).Add(sortedSeed);
-
-                if (unsortedSeed.Count == 0)
+                else if (actionName == miniGameActionName.PickCorruptedSeed || actionName == miniGameActionName.PlantUselessSeed 
+                    || actionName == miniGameActionName.PlantHealthySeed || actionName == miniGameActionName.UseGlove)
                 {
-                    GameObject seeds = GameObject.Find("Seeds");
-                    goodSortedSeed.ForEach(seed =>
-                    {
-                        seed.draggableItem.enabled = true;
-                        seed.transform.SetParent(seeds.transform);
-                    });
+                    RandomActionDialogue(result);
                 }
             }
 
-            private bool IsOverlapping(Vector2 newPos, List<Seed_CottonCultivation> items)
+            private void EnableBgAntiClick()
             {
-                foreach (var item in items)
+                if (bgAntiClick != null)
                 {
-                    if (Vector2.Distance(item.GetComponent<RectTransform>().anchoredPosition, newPos) < minDistance)
-                        return true;
+                    bgAntiClick.SetActive(true);
+                }
+            }
+
+            private void DisableBgAntiClick()
+            {
+                if (bgAntiClick != null)
+                {
+                    bgAntiClick.SetActive(false);
+                }
+            }
+
+            #endregion
+
+            #region Action Dialogue
+
+            public bool CanEncouragePlayer()
+            {
+                if (Time.time - lastActionDialogueTime < cooldown) return false;
+
+                return true;
+            }
+
+            private bool RandomlyEncouragePlayer()
+            {
+                actionPercent = Mathf.Clamp01(actionPercent + (0.5f * (1f - (float)currentScore / actionCount)));
+
+                if (Random.value < actionPercent)
+                {
+                    lastActionDialogueTime = Time.time;
+                    return true;
                 }
                 return false;
             }
+
+            private void RandomActionDialogue(MiniGameActionResult result)
+            {
+                if(!RandomlyEncouragePlayer()) return;
+
+                dialogueManager.SetNextDialogueAsAction();
+                int randomIndex = Random.Range(0, result.actionDialogue.Lines.Count);
+                MoveToFirst(result.actionDialogue.Lines, result.actionDialogue.Lines[randomIndex]);
+                dialogueManager.CurrentDialogue = result.actionDialogue;
+                result.actionDialogue.Lines.RemoveAt(0);
+            }
+            
+            private void MoveToFirst(List<DialogueData> list, DialogueData item)
+            {
+                if (list.Remove(item))
+                {
+                    list.Insert(0, item);
+                }
+            }
+
+            #endregion
+
+            #region Phase1
+
+            private void Phase1Tuto()
+            {
+                dialogueManager.OnDialogueFinished -= Phase1Tuto;
+                dialogueManager.OnDialogueFinished += StartGame;
+                dialogueManager.CurrentDialogue = phase1Tuto;
+            }
+
+            public void SortSeed(Seed_CottonCultivation sortedSeed, bool goodSeed, GameObject container)
+            {
+                if (goodSeed)
+                {
+                    goodSortedSeedList.Add(sortedSeed);
+                    if (sortedSeed.seedType == Seed_CottonCultivation.SeedType.Healthy)
+                    {
+                        goodSeedSorted++;
+                        goodSeedText.text = $"Good Seeds : {goodSeedSorted}/{goodSeedToSort}";
+                    }
+                }
+                else
+                {
+                    badSortedSeedList.Add(sortedSeed);
+                }
+
+                if (goodSeedSorted >= goodSeedToSort)
+                {
+                    goodSortedSeedList.ForEach(seed =>
+                    {
+                        seed.draggableItem.enabled = true;
+                        seed.transform.SetParent(seedBagBtn.gameObject.transform);
+                    });
+
+                    Phase2Tuto();
+
+                    badSortedSeedList.ForEach(seed =>
+                    {
+                        Destroy(seed.gameObject);
+                    });
+                    Destroy(GameObject.Find("BadSeedContainer"));
+                }
+                else
+                {
+                    seedBagBtn.interactable = true;
+                }    
+            }
+
+            private void Normalize()
+            {
+                float total = healthySeedPercent + uselessSeedPercent + corruptedSeedPercent;
+                if (total > 0f)
+                {
+                    healthySeedPercent /= total;
+                    uselessSeedPercent /= total;
+                    corruptedSeedPercent /= total;
+                }
+                else
+                {
+                    healthySeedPercent = 1f;
+                    uselessSeedPercent = 0f;
+                    corruptedSeedPercent = 0f;
+                }
+            }
+
+            private (float, float, float) UpdatePercentValue(float changedValue, float modifiedValue1, float modifiedValue2)
+            {
+                if (changedValue - 5 >= 0)
+                {
+                    changedValue -= 5;
+                    modifiedValue1 += 2.5f;
+                    modifiedValue2 += 2.5f;
+                }
+                else
+                {
+                    modifiedValue2 += changedValue / 2;
+                    modifiedValue1 += changedValue / 2;
+                    changedValue = 0f;
+                }
+                return (changedValue, modifiedValue1, modifiedValue2);
+            }
+
+            #region Button Fonction
+
+            public void BS_SpawnRandomSeed()
+            {
+                Normalize();
+                float randomValue = Random.value;
+                if(randomValue <= healthySeedPercent)
+                {
+                    Instantiate(seedsOnBag[0], seedBagBtn.gameObject.transform);
+                    (healthySeedPercent, corruptedSeedPercent, uselessSeedPercent) = UpdatePercentValue(healthySeedPercent, corruptedSeedPercent, uselessSeedPercent);   
+                }
+                else if (randomValue <= healthySeedPercent + uselessSeedPercent)
+                {
+                    Instantiate(seedsOnBag[Random.Range(1,3)], seedBagBtn.gameObject.transform);
+                    (uselessSeedPercent, healthySeedPercent, corruptedSeedPercent) = UpdatePercentValue(uselessSeedPercent, healthySeedPercent, corruptedSeedPercent);
+                }
+                else
+                {
+                    Instantiate(seedsOnBag[3], seedBagBtn.gameObject.transform);
+                    (corruptedSeedPercent, healthySeedPercent, uselessSeedPercent) = UpdatePercentValue(corruptedSeedPercent, healthySeedPercent, uselessSeedPercent);
+                }
+                seedBagBtn.interactable = false;
+            }
+
+            #endregion
 
             #endregion
 
 
             #region Phase2
+
+            private void Phase2Tuto()
+            {
+                PauseMiniGame();
+                EnableBgAntiClick();
+                toolsBtn.ForEach(btn =>
+                {
+                    btn.interactable = true;
+                });
+
+                dialogueManager.OnDialogueFinished -= Phase2Tuto;
+                dialogueManager.OnDialogueFinished += EndOfPhase2Tuto;
+                dialogueManager.CurrentDialogue = phase2Tuto;
+            }
+
+            private void EndOfPhase2Tuto()
+            {
+                DisableBgAntiClick();
+                UnPauseMiniGame();
+                dialogueManager.OnDialogueFinished -= EndOfPhase2Tuto;
+
+                StartCoroutine(SpawnProfane());
+            }
+
+            public void PlayCottonReadyDialogue()
+            {
+                if (cottonReadyDialogue != null)
+                {
+                    dialogueManager.SetNextDialogueAsAction();
+                    dialogueManager.CurrentDialogue = cottonReadyDialogue;
+                    cottonReadyDialogue = null;
+                }
+            }
+
+            private IEnumerator SpawnProfane() 
+            {
+                if (profaneBehaviour == null) yield break;
+
+                yield return new WaitForSeconds(5f);
+
+                /*float spawnPercent = 0.2f;
+                while(Random.value > spawnPercent)
+                {
+                    yield return new WaitForSeconds(5f);
+                    spawnPercent += 0.1f;
+                }*/
+
+                profaneBehaviour.gameObject.SetActive(true);
+                dialogueManager.OnDialogueFinished += EndOfProfaneEntryDialogue ;
+                dialogueManager.CurrentDialogue = profaneBehaviour.profaneEntry;
+            }
+
+            private void EndOfProfaneEntryDialogue()
+            {
+                dialogueManager.OnDialogueFinished -= EndOfProfaneEntryDialogue;
+                profaneBehaviour.StartCoroutine(profaneBehaviour.Behaviour());
+            }
+
+            public void PlayProfaneDialogue(Dialogue profaneDialogue, bool action = false)
+            {
+                if (profaneDialogue != null)
+                {
+                    if (action) dialogueManager.SetNextDialogueAsAction();
+
+                    dialogueManager.CurrentDialogue = profaneDialogue;
+                }
+            }
 
             public void CheckToolTypeForHole(FieldHole_CottonCultivation currentHole)
             {
@@ -181,13 +425,9 @@ namespace MiniGames
 
             private void UseWateringCan(FieldHole_CottonCultivation currentHole)
             {
-                if (currentHole.holeState == FieldHole_CottonCultivation.HoleState.HoleFilled)
+                if (currentHole.holeState == FieldHole_CottonCultivation.HoleState.HoleFilled && currentHole.seededSeed.seedType == Seed_CottonCultivation.SeedType.Healthy)
                 {
                     currentHole.SetHoleState(FieldHole_CottonCultivation.HoleState.Watered);
-                }
-                else if (currentHole.holeState != FieldHole_CottonCultivation.HoleState.Watered)
-                {
-                    //? Perform negativeAction for using watering can in bad state
                 }
             }
 
@@ -197,15 +437,11 @@ namespace MiniGames
                 {
                     currentHole.SetHoleState(FieldHole_CottonCultivation.HoleState.Sunny);
                 }
-                else if (currentHole.holeState != FieldHole_CottonCultivation.HoleState.Sunny)
-                {
-                    //? Perform negativeAction for using sunlight in bad state
-                }
             }
 
             private void UseGlove(FieldHole_CottonCultivation currentHole)
             {
-                if (currentHole.seededSeed.seedState == Seed_CottonCultivation.SeedState.CottonReady)
+                if (currentHole.seededSeed != null && currentHole.seededSeed.seedState == Seed_CottonCultivation.SeedState.CottonReady)
                 {
                     cottonHarvested += currentHole.seededSeed.RecoltCotton();
                     currentHole.enabled = false;
@@ -213,19 +449,20 @@ namespace MiniGames
 
                     if (cottonText != null)
                     {
-                        cottonText.text = $"Cotton : {cottonHarvested}";
+                        cottonText.text = $"Cotton : {cottonHarvested}/{cottonToHarvest}";
                     }
 
                     if (cottonHarvested >= cottonToHarvest)
                     {
-                        EndGame();
+                        PauseMiniGame();
+                        dialogueManager.OnDialogueFinished -= UnPauseMiniGame;
+                        dialogueManager.OnDialogueFinished += EndGame;
+                        dialogueManager.CurrentDialogue = dialogueOutro;
                     }
                 }
-                else
-                {
-                    //? Perform negativeAction for using glove in bad state
-                }
             }
+
+            #region Button Fonction
 
             public void BS_SetSelectedTools(int _toolsType)
             {
@@ -249,6 +486,8 @@ namespace MiniGames
                     selectedToolBtn.GetComponentInChildren<UIEffect>().enabled = true;
                 }
             }
+
+            #endregion
 
             #endregion
 
