@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: dc4144fe0a985e94ab2829ee97fc85d3
+guid: 1f2cacfc549cb5847b6deabfe542d7ef
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3256628914240278144
-    second: try_0
+      213: -3475626969511098110
+    second: Props_Machine_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,17 +109,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: try_0
+      name: Props_Machine_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 97
-        height: 99
+        width: 1375
+        height: 916
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0813171c1412ec2d0800000000000000
-      internalID: -3256628914240278144
+      spriteID: 20906869fa714cfc0800000000000000
+      internalID: -3475626969511098110
       vertices: []
       indices: 
       edges: []
@@ -148,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      try_0: -3256628914240278144
+      Props_Machine_0: -3475626969511098110
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

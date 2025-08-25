@@ -6,11 +6,15 @@ public class RotateCrank : MonoBehaviour, IDragHandler
     [HideInInspector] public event System.Action OnFullRotation;
     private float lastAngle;
     private float totalRotation = 0f;
+    private MG2_CottonSorting mgCottonSorting;
+
 
     void Start()
     {
         AutoMaxSize();
         AutoGoodStartRotation();
+
+        mgCottonSorting = MG2_CottonSorting.instance;
     }
 
     private void AutoGoodStartRotation()
@@ -36,23 +40,26 @@ public class RotateCrank : MonoBehaviour, IDragHandler
 
     public void OnDrag(PointerEventData data)
     {
-        Vector2 fromCenter = data.position - (Vector2)transform.position;
-        float currentAngle = Mathf.Atan2(fromCenter.y, fromCenter.x) * Mathf.Rad2Deg;
-
-        float deltaAngle = Mathf.DeltaAngle(lastAngle, currentAngle);
-
-        if (deltaAngle < 0) // uniquement dans le sens horaire
+        if (mgCottonSorting.Chrono > 0)
         {
-            transform.Rotate(0f, 0f, deltaAngle);
-            totalRotation += -deltaAngle; // note : deltaAngle est négatif
+            Vector2 fromCenter = data.position - (Vector2)transform.position;
+            float currentAngle = Mathf.Atan2(fromCenter.y, fromCenter.x) * Mathf.Rad2Deg;
 
-            if (totalRotation >= 360f)
+            float deltaAngle = Mathf.DeltaAngle(lastAngle, currentAngle);
+
+            if (deltaAngle < 0) // uniquement dans le sens horaire
             {
-                totalRotation = 0f;
-                OnFullRotation?.Invoke();
-            }
+                transform.Rotate(0f, 0f, deltaAngle);
+                totalRotation += -deltaAngle; // note : deltaAngle est négatif
 
-            lastAngle = currentAngle;
+                if (totalRotation >= 360f)
+                {
+                    totalRotation = 0f;
+                    OnFullRotation?.Invoke();
+                }
+
+                lastAngle = currentAngle;
+            }
         }
     }
 }

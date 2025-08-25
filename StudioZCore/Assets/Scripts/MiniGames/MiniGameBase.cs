@@ -31,6 +31,7 @@ public abstract class MiniGameBase : MonoBehaviour
     [SerializeField] protected DialogueManager dialogueManager;
 
     [SerializeField] protected float chrono;
+    [HideInInspector] public float Chrono => chrono;
     [SerializeField] protected TextMeshProUGUI chronoText;
 
     protected bool isFinished = false;
