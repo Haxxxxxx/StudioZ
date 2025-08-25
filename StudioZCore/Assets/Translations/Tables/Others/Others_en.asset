@@ -26,6 +26,26 @@ MonoBehaviour:
     m_Localized: 'Score:'
     m_Metadata:
       m_Items: []
+  - m_Id: 18909615685599232
+    m_Localized: Next wave
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18909681959796736
+    m_Localized: Faster!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21030177283731456
+    m_Localized: 'Rounds:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22536248661864448
+    m_Localized: 'Total Time:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22536392253861888
+    m_Localized: 'Total Score:'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

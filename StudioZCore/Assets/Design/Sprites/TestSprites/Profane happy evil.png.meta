@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ab0d927fd4e311d49b6071f6cd5b3074
+guid: 18b147556e68c664c8c6708f6b2a9f37
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1011081008574560621
-    second: Props_Manivelle_0
+      213: 358098881210256769
+    second: Profane happy evil_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,40 +109,27 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: iOS
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Props_Manivelle_0
+      name: Profane happy evil_0
       rect:
         serializedVersion: 2
-        x: 10
-        y: 27
-        width: 1155
-        height: 328
-      alignment: 9
-      pivot: {x: 0.86131024, y: 0.5102056}
+        x: 0
+        y: 28
+        width: 562
+        height: 454
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 39605ccfd2be7f1f0800000000000000
-      internalID: -1011081008574560621
+      spriteID: 18d8001090938f400800000000000000
+      internalID: 358098881210256769
       vertices: []
       indices: 
       edges: []
@@ -151,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 97e7347bad054ff4492efeaadf0b925b
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Props_Manivelle_0: -1011081008574560621
+      Profane happy evil_0: 358098881210256769
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

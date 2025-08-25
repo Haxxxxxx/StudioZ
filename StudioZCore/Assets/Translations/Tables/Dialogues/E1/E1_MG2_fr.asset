@@ -196,6 +196,79 @@ MonoBehaviour:
       et attentif car  j\u2019ai comme un mauvais pressentiment !"
     m_Metadata:
       m_Items: []
+  - m_Id: 7998695552282624
+    m_Localized: "Excellent continue comme ca et la filatures n\u2019aura bient\xF4t
+      plus aucun secret pour toi"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7998846001967104
+    m_Localized: "Dommage ce n'\xE9tait pas la bonne prise, ne te d\xE9courage pas
+      tu vas y arriver."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7999030417125376
+    m_Localized: "Que c\u2019est mignon, vous essayez de fabriquer du fil ? Permettez-moi
+      de tout emm\xEAler ! "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7999080711024640
+    m_Localized: "Je savais qu\u2019il n\u2019\xE9tait pas loin celui ci ! fait attention
+      Lyra, il va essayer de saboter notre filature !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7999216140906496
+    m_Localized: "On a r\xE9ussi \xE0 faire beaucoup de bobines de fils, on est vraiment
+      une \xE9quipe d\u2019enfer !! Bravo a toi, tu es trop fort !! "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10481029035294720
+    m_Localized: "Nous voici \xE0 la derni\xE8re \xE9tape ! Il va falloir faire tourner
+      cet \xE9norme manivelle pour cr\xE9er un maximum de bobines possible, il faut
+      se d\xE9p\xEAcher le temps nous est compt\xE9 !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10481087461949440
+    m_Localized: "Incroyable ! Tu as fait tourner la manivelle comme un vrai ma\xEEtre
+      filateur ! Les bobines sortent \xE0 toute vitesse !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10481142960979968
+    m_Localized: "Impressionnant ! On dirait que tu as d\xE9j\xE0 travaill\xE9 ici,
+      bravo petit expert du fil"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10481194181820416
+    m_Localized: "Waouh ! Ce n\u2019est qu\u2019un d\xE9but, mais tu t\u2019en sors
+      super bien. Encore un tour ou deux et tu vas devenir un pro ! "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10481262704164864
+    m_Localized: "Pas mal du tout ! Avec un peu d\u2019entra\xEEnement, tu vas devenir
+      une vraie machine \xE0 bobines, j\u2019en suis s\xFBr ! "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10481426034556928
+    m_Localized: "Bravo ! Gr\xE2ce \xE0 toi, les fibres sont bien tri\xE9es, les
+      fils sont solides, et les bobines pr\xEAtes \xE0 continuer leur chemin."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10481491075629056
+    m_Localized: "Tu as remis de l\u2019ordre dans l\u2019atelier, repouss\xE9 le
+      d\xE9sordre de Profane, et appris \xE0 reconna\xEEtre les bonnes mati\xE8res.
+      Un vrai pas vers une mode plus responsable !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10481557727313920
+    m_Localized: "Tu t\u2019es super bien d\xE9brouill\xE9 ! On peut maintenant passer
+      \xE0 l\u2019\xE9tape suivante : la confection ! C\u2019est l\xE0 que les v\xEAtements
+      prennent vraiment forme."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15227337768398848
+    m_Localized: Lorsqu'il apparait clique lui dessus avant qu'il attaque pour le
+      faire partir.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

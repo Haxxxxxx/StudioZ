@@ -39,6 +39,10 @@ namespace MiniGames
         protected bool isFinished = false;
         protected bool isPaused = false;
         protected int currentScore = 0;
+        
+    [SerializeField] protected float chrono;
+    [HideInInspector] public float Chrono => chrono;
+    [SerializeField] protected TextMeshProUGUI chronoText;
 
         [SerializeField][NonReorderable] protected List<MiniGameActionData> miniGameActionData = new List<MiniGameActionData>();
         protected Dictionary<string, MiniGameActionResult> actionResults = new Dictionary<string, MiniGameActionResult>();
@@ -49,8 +53,11 @@ namespace MiniGames
 
         #endregion
 
-        protected virtual void Awake()
-        {
+    protected event System.Action OnReversedChronoEnded;
+
+
+    protected virtual void Awake()
+    {
             foreach (var actionData in miniGameActionData)
             {
                 actionResults.Add(actionData.actionName, new MiniGameActionResult(actionData.pointValue, actionData.actionDialogue));
@@ -124,6 +131,14 @@ namespace MiniGames
         {
             isFinished = true;
             gameResultHandler.ShowGameResult(CalculateStars(), GetChronoInString());
+            
+            if (currentScore + result.pointValue < 0) 
+                currentScore = 0; // capé à 0
+            else 
+                currentScore += result.pointValue;
+            
+            actionCount++;
+            Debug.Log($"Performed {actionName}, gained {result.pointValue} points. Total score: {currentScore}");
         }
 
         public virtual void PerformAction(string actionName)
@@ -140,8 +155,8 @@ namespace MiniGames
             }
         }
 
-        private IEnumerator StartChrono()
-        {
+    protected IEnumerator StartChrono()
+    {
             yield return new WaitForSeconds(1);
             while (!isFinished)
             {
@@ -161,15 +176,38 @@ namespace MiniGames
             }
         }
 
-        protected void PauseMiniGame()
+        
+    protected IEnumerator StartReversedChrono()
+    {
+        chronoText.text = GetChronoInString();
+        yield return new WaitForSeconds(1);
+        while (chrono > 0)
         {
-            isPaused = true;
+            if (!isPaused)
+            {
+                chrono -= 1;
+                if (chronoText != null)
+                {
+                    chronoText.text = GetChronoInString();
+                }
+                yield return new WaitForSeconds(1);
+            }
+            else
+            {
+                yield return null;
+            }
         }
+        OnReversedChronoEnded?.Invoke();
+    }
 
-        protected void UnPauseMiniGame()
-        {
-            isPaused = false;
-        }
+    protected void PauseMiniGame()
+    {
+        isPaused = true;
+    }
+    protected void UnPauseMiniGame()
+    {
+        isPaused = false;
+    }
 
         public int CalculateStars()
         {
