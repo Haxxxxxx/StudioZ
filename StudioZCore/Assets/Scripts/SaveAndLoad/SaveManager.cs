@@ -47,7 +47,7 @@ public class SaveManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Failed to load game data.");
+            Debug.LogWarning("Failed to load game data.");
         }
     }
 }
