@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 58731780e4ee9ce47bd93acc4a28186e, type: 3}
-  m_Name: E1_MG2_ReactionAnswer3
+  m_Name: E1_MG2_Part1_CottonFirstError
   m_EditorClassIdentifier: 
   lines:
-  - character: 2
+  - character: {fileID: 11400000, guid: 54af489c14fdd6f4891106405ba1a485, type: 2}
+    characterExpresionIndex: 8
     position: 0
     text:
       m_TableReference:
         m_TableCollectionName: GUID:a2001e612c441464a94d22ecd5705f50
       m_TableEntryReference:
-        m_KeyId: 3272503519571968
+        m_KeyId: 2961622550147072
         m_Key: 
       m_FallbackState: 0
       m_WaitForCompletion: 0

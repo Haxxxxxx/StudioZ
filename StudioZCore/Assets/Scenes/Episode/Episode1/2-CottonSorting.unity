@@ -5070,6 +5070,7 @@ MonoBehaviour:
   - congratDialogue: {fileID: 11400000, guid: 90f248423a5748f4f903b50e0fcd4c4c, type: 2}
     minRoundsNumber: 0
   afterCurtainDialogue: {fileID: 11400000, guid: 978c34bf116c56648a1efe34fd01434e, type: 2}
+  tutoPhase1Dialogue: {fileID: 11400000, guid: 9ef02c20c98eaa54d8e0b75b09fdc684, type: 2}
   afterPhase1Dialogue: {fileID: 11400000, guid: e2f6adc11f460ae40acf09fcec33d141, type: 2}
   firstCorrectCotton: {fileID: 11400000, guid: db2351485a2a6164ea5c64688ee0b498, type: 2}
   firstCorrectTrash: {fileID: 11400000, guid: 145712cbf5237774998f61585dcf68f9, type: 2}
@@ -7280,6 +7281,10 @@ PrefabInstance:
       value: DialogueBubble
       objectReference: {fileID: 0}
     - target: {fileID: 5533913456098386736, guid: ecaa64d8796b99148aae5f0a6aff6b02, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940238366271761469, guid: ecaa64d8796b99148aae5f0a6aff6b02, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}

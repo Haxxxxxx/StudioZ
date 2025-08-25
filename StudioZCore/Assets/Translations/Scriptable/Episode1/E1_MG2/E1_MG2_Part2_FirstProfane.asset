@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: E1_MG2_Part2_FirstProfane
   m_EditorClassIdentifier: 
   lines:
-  - character: 3
+  - character: {fileID: 11400000, guid: c653a780a99ef5b4c9a8586d268c83c9, type: 2}
+    characterExpresionIndex: 4
     position: 0
     text:
       m_TableReference:
@@ -24,7 +25,8 @@ MonoBehaviour:
       m_FallbackState: 0
       m_WaitForCompletion: 0
       m_LocalVariables: []
-  - character: 2
+  - character: {fileID: 11400000, guid: 54af489c14fdd6f4891106405ba1a485, type: 2}
+    characterExpresionIndex: 2
     position: 0
     text:
       m_TableReference:
@@ -35,7 +37,8 @@ MonoBehaviour:
       m_FallbackState: 0
       m_WaitForCompletion: 0
       m_LocalVariables: []
-  - character: 2
+  - character: {fileID: 11400000, guid: 54af489c14fdd6f4891106405ba1a485, type: 2}
+    characterExpresionIndex: 5
     position: 0
     text:
       m_TableReference:

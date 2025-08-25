@@ -153,6 +153,7 @@ namespace MiniGames
 
             [Header("Dialogues")]
             [SerializeField] private Dialogue afterCurtainDialogue;
+            [SerializeField] private Dialogue tutoPhase1Dialogue;
             [SerializeField] private Dialogue afterPhase1Dialogue;
 
             [SerializeField] private Dialogue firstCorrectCotton;
@@ -353,6 +354,13 @@ namespace MiniGames
             #endregion
 
             #region Tuto + Phase1
+            private void StartTutoPhase1()
+            {
+                dialogueManager.OnDialogueFinished -= StartTutoPhase1;
+                dialogueManager.OnDialogueFinished += StartGame;
+                dialogueManager.CurrentDialogue = tutoPhase1Dialogue;
+            }
+
             public override void StartGame()
             {
                 Debug.Log("Cotton Sorting MiniGame Started");
@@ -363,6 +371,7 @@ namespace MiniGames
                 uiCanvas.gameObject.SetActive(true);
                 dialogueManager.OnDialogueFinished -= StartGame;
             }
+
 
             private bool CanPopRandomElement()
             {
@@ -768,7 +777,7 @@ namespace MiniGames
 
                 EnableBackgroundAntiClick();
                 dialogueManager.OnDialogueFinished -= DisableBackgroundAntiClick;
-                dialogueManager.OnDialogueFinished += StartGame;
+                dialogueManager.OnDialogueFinished += StartTutoPhase1;
                 dialogueManager.CurrentDialogue = afterCurtainDialogue;
             }
 
