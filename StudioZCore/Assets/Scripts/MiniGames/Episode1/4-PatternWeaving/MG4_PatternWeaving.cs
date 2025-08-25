@@ -400,6 +400,7 @@ namespace MiniGames
                     if (!pattern.isFinished)
                     {
                         patternSelectorCanvas.SetActive(true);
+                        PauseMiniGame();
                         return;
                     }
                 }
@@ -512,6 +513,7 @@ namespace MiniGames
                 SetPatternFromIndex(motif_index);
                 InitSelectedPattern();
 
+                UnPauseMiniGame();
                 patternSelectorCanvas.SetActive(false);
 
                 if (!firstPattern)

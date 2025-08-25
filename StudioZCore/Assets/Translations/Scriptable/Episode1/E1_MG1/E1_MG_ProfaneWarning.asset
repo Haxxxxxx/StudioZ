@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lines:
   - character: {fileID: 11400000, guid: 54af489c14fdd6f4891106405ba1a485, type: 2}
-    characterExpresionIndex: 0
+    characterExpresionIndex: 5
     position: 0
     text:
       m_TableReference:

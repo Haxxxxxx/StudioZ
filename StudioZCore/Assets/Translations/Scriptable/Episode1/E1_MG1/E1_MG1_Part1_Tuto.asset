@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lines:
   - character: {fileID: 11400000, guid: 54af489c14fdd6f4891106405ba1a485, type: 2}
-    characterExpresionIndex: 3
+    characterExpresionIndex: 0
     position: 0
     text:
       m_TableReference:
@@ -26,7 +26,7 @@ MonoBehaviour:
       m_WaitForCompletion: 0
       m_LocalVariables: []
   - character: {fileID: 11400000, guid: 54af489c14fdd6f4891106405ba1a485, type: 2}
-    characterExpresionIndex: 4
+    characterExpresionIndex: 0
     position: 0
     text:
       m_TableReference:
@@ -38,7 +38,7 @@ MonoBehaviour:
       m_WaitForCompletion: 0
       m_LocalVariables: []
   - character: {fileID: 11400000, guid: 54af489c14fdd6f4891106405ba1a485, type: 2}
-    characterExpresionIndex: 5
+    characterExpresionIndex: 0
     position: 0
     text:
       m_TableReference:
@@ -50,7 +50,7 @@ MonoBehaviour:
       m_WaitForCompletion: 0
       m_LocalVariables: []
   - character: {fileID: 11400000, guid: 54af489c14fdd6f4891106405ba1a485, type: 2}
-    characterExpresionIndex: 6
+    characterExpresionIndex: 0
     position: 0
     text:
       m_TableReference:
@@ -62,7 +62,7 @@ MonoBehaviour:
       m_WaitForCompletion: 0
       m_LocalVariables: []
   - character: {fileID: 11400000, guid: 54af489c14fdd6f4891106405ba1a485, type: 2}
-    characterExpresionIndex: 7
+    characterExpresionIndex: 0
     position: 0
     text:
       m_TableReference:

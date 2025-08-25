@@ -65,6 +65,7 @@ namespace MiniGames
             [SerializeField] private TextMeshProUGUI goodSeedText;
             [SerializeField] private TextMeshProUGUI cottonText;
             [SerializeField] private Button seedBagBtn;
+            [SerializeField] private GameObject bgAntiClick;
 
             [field: NonSerialized] public List<FieldHole_CottonCultivation> fieldHoles { get; private set; } = new List<FieldHole_CottonCultivation>();
             private List<Seed_CottonCultivation> goodSortedSeedList = new List<Seed_CottonCultivation>();
@@ -94,12 +95,17 @@ namespace MiniGames
                 base.Awake();
 
                 fieldHoles = FindObjectsByType<FieldHole_CottonCultivation>(FindObjectsSortMode.None).ToList<FieldHole_CottonCultivation>();
+                toolsBtn.ForEach(btn =>
+                {
+                    btn.interactable = false;
+                });
             }
 
             protected override void Start()
             {
                 if (dialogueManager != null && dialogueIntro != null)
                 {
+                    EnableBgAntiClick();
                     dialogueManager.OnDialogueFinished += Phase1Tuto;
                     dialogueManager.CurrentDialogue = dialogueIntro;
                 }
@@ -109,6 +115,7 @@ namespace MiniGames
             {
                 Debug.Log("Cotton Cultivation MiniGame Started");
                 dialogueManager.OnDialogueFinished -= StartGame;
+                DisableBgAntiClick();
                 base.StartGame();
             }
 
@@ -130,6 +137,22 @@ namespace MiniGames
                     || actionName == miniGameActionName.PlantHealthySeed || actionName == miniGameActionName.UseGlove)
                 {
                     RandomActionDialogue(result);
+                }
+            }
+
+            private void EnableBgAntiClick()
+            {
+                if (bgAntiClick != null)
+                {
+                    bgAntiClick.SetActive(true);
+                }
+            }
+
+            private void DisableBgAntiClick()
+            {
+                if (bgAntiClick != null)
+                {
+                    bgAntiClick.SetActive(false);
                 }
             }
 
@@ -292,6 +315,12 @@ namespace MiniGames
             private void Phase2Tuto()
             {
                 PauseMiniGame();
+                EnableBgAntiClick();
+                toolsBtn.ForEach(btn =>
+                {
+                    btn.interactable = true;
+                });
+
                 dialogueManager.OnDialogueFinished -= Phase2Tuto;
                 dialogueManager.OnDialogueFinished += EndOfPhase2Tuto;
                 dialogueManager.CurrentDialogue = phase2Tuto;
@@ -299,8 +328,10 @@ namespace MiniGames
 
             private void EndOfPhase2Tuto()
             {
+                DisableBgAntiClick();
                 UnPauseMiniGame();
                 dialogueManager.OnDialogueFinished -= EndOfPhase2Tuto;
+
                 StartCoroutine(SpawnProfane());
             }
 

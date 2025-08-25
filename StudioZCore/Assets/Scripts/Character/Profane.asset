@@ -13,4 +13,20 @@ MonoBehaviour:
   m_Name: Profane
   m_EditorClassIdentifier: 
   characterName: Profane
-  expressions: []
+  expressions:
+  - expressionName: Normal
+    expressionSprite: {fileID: -2580788191494302726, guid: 21828766c7f9d4942a0b7c00f6b23ca5, type: 3}
+  - expressionName: None
+    expressionSprite: {fileID: 0}
+  - expressionName: Angry
+    expressionSprite: {fileID: -8691090369710217222, guid: e1a0ac455a171dc4b96e8d26c90b2b43, type: 3}
+  - expressionName: Jaded
+    expressionSprite: {fileID: -5283619205300100486, guid: ea110ec3b68b4654abcc78db0b22b24a, type: 3}
+  - expressionName: Happy
+    expressionSprite: {fileID: 358098881210256769, guid: 6e80d5f9a5e293240af7c993f88dc00e, type: 3}
+  - expressionName: Sad
+    expressionSprite: {fileID: 5786116429541522302, guid: 81008a98f5b99754f90729b14458a44c, type: 3}
+  - expressionName: Scared
+    expressionSprite: {fileID: -638579678019111931, guid: 5adc1226d6748f64b9a2b6e82702f289, type: 3}
+  - expressionName: What
+    expressionSprite: {fileID: 6249094548778693797, guid: b1f3e3107ab2cdf4ebea0a8a83efa2c4, type: 3}

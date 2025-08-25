@@ -27,7 +27,7 @@ namespace MiniGames
             }
         }
 
-
+        #region Variables
 
         [Header("Default Settings")]
         [SerializeField] protected DialogueManager dialogueManager;
@@ -46,6 +46,8 @@ namespace MiniGames
 
         [SerializeField] protected Dialogue dialogueIntro;
         [SerializeField] protected Dialogue dialogueOutro;
+
+        #endregion
 
         protected virtual void Awake()
         {
@@ -163,6 +165,7 @@ namespace MiniGames
         {
             isPaused = true;
         }
+
         protected void UnPauseMiniGame()
         {
             isPaused = false;
@@ -178,8 +181,6 @@ namespace MiniGames
             else if (ratio >= 0.5f) return 2;
             else return 1;
         }
-
-
 
         public string GetChronoInString()
         {

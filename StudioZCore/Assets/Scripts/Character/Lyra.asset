@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: Lyra
   expressions:
+  - expressionName: Normal
+    expressionSprite: {fileID: 3478189730588812693, guid: 7b1e1430e00c35f4cb30fc8ed885973c, type: 3}
+  - expressionName: None
+    expressionSprite: {fileID: 0}
   - expressionName: Amazing
     expressionSprite: {fileID: 6806733985374495458, guid: da730e0af5f63194aa7cf9e69755f762, type: 3}
   - expressionName: Angry

@@ -16,6 +16,8 @@ MonoBehaviour:
   expressions:
   - expressionName: Normal
     expressionSprite: {fileID: 21300000, guid: 6fa52d8ae7b0b7747abeb08668d30827, type: 3}
+  - expressionName: None
+    expressionSprite: {fileID: 0}
   - expressionName: Angry
     expressionSprite: {fileID: -3693683663635596359, guid: 27d577ed179ffd34ba9bd2f4fe970373, type: 3}
   - expressionName: Disappointed
