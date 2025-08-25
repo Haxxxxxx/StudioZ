@@ -24,7 +24,7 @@ MonoBehaviour:
   bundles:
   - viable: 0
     price: 8
-    sprite: {fileID: 21300000, guid: a94dc2499bb5d9644b9e59b479689790, type: 3}
+    sprite: {fileID: 21300000, guid: 8b6e4c606cc3f094a9bf5ae3ee24a9ee, type: 3}
     popupText:
       m_TableReference:
         m_TableCollectionName: GUID:99f4455949f0ac74fbe528517cf0cf25
@@ -54,7 +54,7 @@ MonoBehaviour:
       m_LocalVariables: []
   - viable: 0
     price: 10
-    sprite: {fileID: 3576788891958831751, guid: f857462bc1ad01c42aff327df4ae55b7, type: 3}
+    sprite: {fileID: 21300000, guid: 16e674e6124c6654a9ce70e8ddc4346c, type: 3}
     popupText:
       m_TableReference:
         m_TableCollectionName: GUID:99f4455949f0ac74fbe528517cf0cf25
@@ -84,7 +84,7 @@ MonoBehaviour:
       m_LocalVariables: []
   - viable: 1
     price: 6
-    sprite: {fileID: 2975981130085599486, guid: 660948dad521b3646813fdb508655677, type: 3}
+    sprite: {fileID: 21300000, guid: d6b08b915cfdeca4f82696a7f1fe3e69, type: 3}
     popupText:
       m_TableReference:
         m_TableCollectionName: GUID:99f4455949f0ac74fbe528517cf0cf25
@@ -114,7 +114,7 @@ MonoBehaviour:
       m_LocalVariables: []
   - viable: 0
     price: 2
-    sprite: {fileID: 5658593092123914163, guid: 91e8eec7e75501a43a7f9bcbc52e5c4c, type: 3}
+    sprite: {fileID: 21300000, guid: 89e06a996edf4fe4eb00b4236567500b, type: 3}
     popupText:
       m_TableReference:
         m_TableCollectionName: GUID:99f4455949f0ac74fbe528517cf0cf25
