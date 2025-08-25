@@ -10,38 +10,41 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 58731780e4ee9ce47bd93acc4a28186e, type: 3}
-  m_Name: E1_MG1_Outro
+  m_Name: E1_MG4_IntroPart1
   m_EditorClassIdentifier: 
   lines:
-  - character: 0
+  - character: {fileID: 11400000, guid: 8f76a57cbe87c17459421d3ba946c8d5, type: 2}
+    characterExpresionIndex: 0
     position: 0
     text:
       m_TableReference:
-        m_TableCollectionName: GUID:0108a1c01abc12d4da0c39f137ee51bb
+        m_TableCollectionName: GUID:bddaf320a3bfd9044bd82d3c12563c8a
       m_TableEntryReference:
-        m_KeyId: 114874609664
+        m_KeyId: 421059637248
         m_Key: 
       m_FallbackState: 0
       m_WaitForCompletion: 0
       m_LocalVariables: []
-  - character: 1
+  - character: {fileID: 11400000, guid: 54af489c14fdd6f4891106405ba1a485, type: 2}
+    characterExpresionIndex: 0
     position: 0
     text:
       m_TableReference:
-        m_TableCollectionName: GUID:0108a1c01abc12d4da0c39f137ee51bb
+        m_TableCollectionName: GUID:bddaf320a3bfd9044bd82d3c12563c8a
       m_TableEntryReference:
-        m_KeyId: 839126052864
+        m_KeyId: 583844769792
         m_Key: 
       m_FallbackState: 0
       m_WaitForCompletion: 0
       m_LocalVariables: []
-  - character: 2
+  - character: {fileID: 11400000, guid: 54af489c14fdd6f4891106405ba1a485, type: 2}
+    characterExpresionIndex: 0
     position: 0
     text:
       m_TableReference:
-        m_TableCollectionName: GUID:0108a1c01abc12d4da0c39f137ee51bb
+        m_TableCollectionName: GUID:bddaf320a3bfd9044bd82d3c12563c8a
       m_TableEntryReference:
-        m_KeyId: 902770421760
+        m_KeyId: 3740226301952
         m_Key: 
       m_FallbackState: 0
       m_WaitForCompletion: 0
