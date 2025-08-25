@@ -10,38 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 58731780e4ee9ce47bd93acc4a28186e, type: 3}
-  m_Name: E1_MG1_Intro
+  m_Name: E1_MG_ProfaneSeed
   m_EditorClassIdentifier: 
   lines:
-  - character: 0
+  - character: {fileID: 11400000, guid: 54af489c14fdd6f4891106405ba1a485, type: 2}
+    characterExpresionIndex: 2
     position: 0
     text:
       m_TableReference:
         m_TableCollectionName: GUID:0108a1c01abc12d4da0c39f137ee51bb
       m_TableEntryReference:
-        m_KeyId: 114874609664
-        m_Key: 
-      m_FallbackState: 0
-      m_WaitForCompletion: 0
-      m_LocalVariables: []
-  - character: 1
-    position: 0
-    text:
-      m_TableReference:
-        m_TableCollectionName: GUID:0108a1c01abc12d4da0c39f137ee51bb
-      m_TableEntryReference:
-        m_KeyId: 839126052864
-        m_Key: 
-      m_FallbackState: 0
-      m_WaitForCompletion: 0
-      m_LocalVariables: []
-  - character: 2
-    position: 0
-    text:
-      m_TableReference:
-        m_TableCollectionName: GUID:0108a1c01abc12d4da0c39f137ee51bb
-      m_TableEntryReference:
-        m_KeyId: 902770421760
+        m_KeyId: 18038876658216960
         m_Key: 
       m_FallbackState: 0
       m_WaitForCompletion: 0

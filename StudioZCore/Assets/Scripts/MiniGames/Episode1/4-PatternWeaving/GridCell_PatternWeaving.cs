@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -28,14 +29,15 @@ namespace MiniGames
             }
 
             [Header("References")]
-            [SerializeField] private EventTrigger eventTrigger;
+            public EventTrigger eventTrigger;
             [SerializeField] private Image image;
             private MG4_PatternWeaving mgPatternWeaving;
 
             public Vector2Int cellPos;
             public List<PatternData> data = new List<PatternData>();
             public PatternData selectedData { get; private set; }
-            private bool isNextCell = false;
+            public bool isNextCell = false;
+            public bool isWoven = false;
 
             private void Start()
             {
@@ -67,21 +69,43 @@ namespace MiniGames
                 }
             }
 
-            public void SetIsNextCell()
+            public void SetIsNextCell(bool isNext = true)
             {
-                isNextCell = true;
-                image.color = new Color(selectedData.color.r, selectedData.color.g, selectedData.color.b, 0.5f);
-                mgPatternWeaving.nextCell = this;
-                StartCoroutine(PulseOpacity());
+                if (isWoven)
+                {
+                    selectedData.nextCell.SetIsNextCell(isNext);
+                    return;
+                }
+
+                isNextCell = isNext;
+                if (isNext)
+                {
+                   image.color = new Color(selectedData.color.r, selectedData.color.g, selectedData.color.b, 0.5f);
+                   StartCoroutine(PulseOpacity());
+                }
+                else
+                {
+                    image.color = new Color(1f, 1f, 1f, 0);
+                }
+            }
+
+            public void ResetCell()
+            {
+                eventTrigger.enabled = true;
+                isNextCell = false;
+                StopAllCoroutines();
+                image.color = new Color(1f, 1f, 1f, 0);
+                isWoven = false;
             }
 
             public void OnPointerEnter()
             {
                 if (isNextCell)
                 {
-                    image.color = selectedData.color;
                     isNextCell = false;
-                    eventTrigger.enabled = false;
+                    mgPatternWeaving.validPathCell.Add(this);
+                    mgPatternWeaving.currentColor = selectedData.color;
+                    image.color = selectedData.color;
                     mgPatternWeaving.PerformAction(mgPatternWeaving.miniGameActionName.GoodWeaving);
 
                     if (selectedData.nextCell != null)
@@ -90,13 +114,19 @@ namespace MiniGames
                     }
                     else
                     {
-                        mgPatternWeaving.PatternFinished();
+                        mgPatternWeaving.CheckPatternScore();
                     }
                 }
-                else if (Vector2Int.Distance(mgPatternWeaving.nextCell.cellPos, cellPos) > 1.5)
+                else if(this == mgPatternWeaving.pathTakenCell.Last() && this != mgPatternWeaving.validPathCell.Last())
+                {
+                    mgPatternWeaving.PerformAction(mgPatternWeaving.miniGameActionName.GoodWeaving);
+                }
+                else
                 {
                     mgPatternWeaving.PerformAction(mgPatternWeaving.miniGameActionName.BadWeaving);
                 }
+
+                mgPatternWeaving.AddCellInPathTakenCell(this);
             }
 
             private IEnumerator PulseOpacity()

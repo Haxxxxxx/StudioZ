@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -80,7 +81,6 @@ namespace MiniGames
                 {
                     CheckSeedInField(dropZoneObj);
                 }
-
             }
 
             #region Phase1
@@ -90,12 +90,14 @@ namespace MiniGames
                 if (dropZoneObj == goodSeedContainer)
                 {
                     DropSeedInContainer(true);
-                    return;
                 }
                 else if (dropZoneObj == badSeedContainer)
                 {
                     DropSeedInContainer(false);
-                    return;
+                }
+                else
+                {
+                    draggableItem.ResetPosition();
                 }
             }
 
@@ -117,7 +119,7 @@ namespace MiniGames
                     mgCottonCultivation.PerformAction(actionName);
                 }
 
-                mgCottonCultivation.UpdateUnsortedSeed(this, isGoodContainer, targetContainer);
+                mgCottonCultivation.SortSeed(this, isGoodContainer, targetContainer);
             }
 
             #endregion
@@ -127,7 +129,17 @@ namespace MiniGames
 
             private void CheckSeedInField(GameObject dropZoneObj)
             {
-                if (!fieldHoles.Any(h => h.gameObject == dropZoneObj)) return;
+                if (dropZoneObj == goodSeedContainer) 
+                {
+                    draggableItem.CancelResetPosition();
+                    return;
+                }
+
+                if (!fieldHoles.Any(h => h.gameObject == dropZoneObj))
+                {
+                    draggableItem.ResetPosition();
+                    return;
+                }
 
                 if (dropZoneObj.TryGetComponent<FieldHole_CottonCultivation>(out FieldHole_CottonCultivation currentHole))
                 {
@@ -139,11 +151,26 @@ namespace MiniGames
                         transform.localPosition = new Vector3(0, -15f, 0);
                         transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
                         draggableItem.enabled = false;
+
+                        switch(seedType)
+                        {
+                            case SeedType.Healthy:
+                                mgCottonCultivation.PerformAction(mgCottonCultivation.miniGameActionName.PlantHealthySeed);
+                                break;
+                            case SeedType.Corrupted:
+                                mgCottonCultivation.PerformAction(mgCottonCultivation.miniGameActionName.PlantCorruptedSeed);
+                                fieldHoles.ForEach(h => h.timeToCottonReady += 1);
+                                break;
+                            case SeedType.Useless:
+                                mgCottonCultivation.PerformAction(mgCottonCultivation.miniGameActionName.PlantUselessSeed);
+                                break;
+                        }
+
                         Debug.Log($"Seed {seedType} planted in hole: {currentHole.name}");
                     }
                     else
                     {
-                        Debug.LogWarning($"Cannot plant seed in hole {currentHole.name}, it is not created.");
+                        /*Debug.LogWarning($"Cannot plant seed in hole {currentHole.name}, it is not created.");*/
                     }
                 }
             }
@@ -165,7 +192,6 @@ namespace MiniGames
                 {
                     seedState = SeedState.CottonFlower;
                     image.sprite = cottonState2Sprite;
-                    Invoke(nameof(NextCottonState), 2f);
                 }
                 else if (seedState == SeedState.CottonFlower)
                 {
@@ -176,6 +202,32 @@ namespace MiniGames
                 {
                     Debug.LogWarning("Seed is already in the final state.");
                 }
+            }
+
+            public IEnumerator WaitForCottonReady(float timeToWait, Slider progressBar, Image fill)
+            {
+                float timeWaited = 0f;
+                progressBar.gameObject.SetActive(true);
+                progressBar.maxValue = timeToWait;
+                progressBar.value = 0f;
+                fill.color = Color.green;
+
+                while (timeWaited < timeToWait)
+                {
+                    yield return null;
+                    timeWaited += Time.deltaTime;
+                    progressBar.value = timeWaited;
+                }
+
+                progressBar.gameObject.SetActive(false);
+                NextCottonState();
+
+                while (!mgCottonCultivation.CanEncouragePlayer())
+                {
+                    yield return null;
+                }
+
+                mgCottonCultivation.PlayCottonReadyDialogue();
             }
 
             public int RecoltCotton()

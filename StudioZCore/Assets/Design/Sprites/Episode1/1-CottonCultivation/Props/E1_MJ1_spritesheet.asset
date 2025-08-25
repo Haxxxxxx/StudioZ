@@ -1,0 +1,253 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84a92b25f83d49b9bc132d206b370281, type: 3}
+  m_Name: E1_MJ1_spritesheet
+  m_EditorClassIdentifier: 
+  m_Version: 1.1.0
+  m_FaceInfo:
+    m_FaceIndex: 0
+    m_FamilyName: 
+    m_StyleName: 
+    m_PointSize: 0
+    m_Scale: 0
+    m_UnitsPerEM: 0
+    m_LineHeight: 0
+    m_AscentLine: 0
+    m_CapLine: 0
+    m_MeanLine: 0
+    m_Baseline: 0
+    m_DescentLine: 0
+    m_SuperscriptOffset: 0
+    m_SuperscriptSize: 0
+    m_SubscriptOffset: 0
+    m_SubscriptSize: 0
+    m_UnderlineOffset: 0
+    m_UnderlineThickness: 0
+    m_StrikethroughOffset: 0
+    m_StrikethroughThickness: 0
+    m_TabWidth: 0
+  m_Material: {fileID: 5617118628454881095}
+  spriteSheet: {fileID: 2800000, guid: 8d7531f0dde8d284b967256b45510354, type: 3}
+  m_SpriteCharacterTable:
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 0
+    m_Scale: 1
+    m_Name: E1_MJ1_spritesheet_0
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 1
+    m_Scale: 1
+    m_Name: E1_MJ1_spritesheet_1
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 2
+    m_Scale: 1
+    m_Name: E1_MJ1_spritesheet_3
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 3
+    m_Scale: 1
+    m_Name: E1_MJ1_spritesheet_2
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 4
+    m_Scale: 1
+    m_Name: E1_MJ1_spritesheet_4
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 5
+    m_Scale: 1
+    m_Name: E1_MJ1_spritesheet_5
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 6
+    m_Scale: 1
+    m_Name: E1_MJ1_spritesheet_6
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 7
+    m_Scale: 1
+    m_Name: E1_MJ1_spritesheet_7
+  m_GlyphTable:
+  - m_Index: 0
+    m_Metrics:
+      m_Width: 778.20294
+      m_Height: 462.9277
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 320
+      m_HorizontalAdvance: 778.20294
+    m_GlyphRect:
+      m_X: 17
+      m_Y: 1442
+      m_Width: 778
+      m_Height: 462
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: -2907716560634752425, guid: 8d7531f0dde8d284b967256b45510354, type: 3}
+  - m_Index: 1
+    m_Metrics:
+      m_Width: 300.52176
+      m_Height: 617.8554
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 400
+      m_HorizontalAdvance: 300.52176
+    m_GlyphRect:
+      m_X: 848
+      m_Y: 1286
+      m_Width: 300
+      m_Height: 617
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: 8568500041467002084, guid: 8d7531f0dde8d284b967256b45510354, type: 3}
+  - m_Index: 2
+    m_Metrics:
+      m_Width: 196.63768
+      m_Height: 702.2771
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 400
+      m_HorizontalAdvance: 201.4
+    m_GlyphRect:
+      m_X: 1819
+      m_Y: 1201
+      m_Width: 196
+      m_Height: 702
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: 3310438216595264120, guid: 8d7531f0dde8d284b967256b45510354, type: 3}
+  - m_Index: 3
+    m_Metrics:
+      m_Width: 461.91306
+      m_Height: 724.5422
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 500
+      m_HorizontalAdvance: 461.91306
+    m_GlyphRect:
+      m_X: 1297
+      m_Y: 1167
+      m_Width: 461
+      m_Height: 724
+    m_Scale: 1.25
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: -1652554721991417020, guid: 8d7531f0dde8d284b967256b45510354, type: 3}
+  - m_Index: 4
+    m_Metrics:
+      m_Width: 511.07248
+      m_Height: 537.1446
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 330
+      m_HorizontalAdvance: 511.07248
+    m_GlyphRect:
+      m_X: 24
+      m_Y: 714
+      m_Width: 511
+      m_Height: 537
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: -1623613530490604785, guid: 8d7531f0dde8d284b967256b45510354, type: 3}
+  - m_Index: 5
+    m_Metrics:
+      m_Width: 607.53625
+      m_Height: 692.07227
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 500
+      m_HorizontalAdvance: 607.53625
+    m_GlyphRect:
+      m_X: 609
+      m_Y: 552
+      m_Width: 607
+      m_Height: 692
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: -2533287660648976992, guid: 8d7531f0dde8d284b967256b45510354, type: 3}
+  - m_Index: 6
+    m_Metrics:
+      m_Width: 421.10147
+      m_Height: 539.9277
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 350
+      m_HorizontalAdvance: 421.10147
+    m_GlyphRect:
+      m_X: 1281
+      m_Y: 508
+      m_Width: 421
+      m_Height: 539
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: -3085408675207626324, guid: 8d7531f0dde8d284b967256b45510354, type: 3}
+  - m_Index: 7
+    m_Metrics:
+      m_Width: 479.53625
+      m_Height: 454.5783
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 300
+      m_HorizontalAdvance: 479.53625
+    m_GlyphRect:
+      m_X: 5
+      m_Y: 10
+      m_Width: 479
+      m_Height: 454
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: 7600889351714937613, guid: 8d7531f0dde8d284b967256b45510354, type: 3}
+  spriteInfoList: []
+  fallbackSpriteAssets: []
+--- !u!21 &5617118628454881095
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: E1_MJ1_spritesheet Material
+  m_Shader: {fileID: 4800000, guid: cf81c85f95fe47e1a27f6ae460cf182c, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 8d7531f0dde8d284b967256b45510354, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _CullMode: 0
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
