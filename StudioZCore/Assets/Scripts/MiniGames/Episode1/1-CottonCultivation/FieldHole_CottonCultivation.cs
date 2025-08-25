@@ -1,0 +1,220 @@
+using System;
+using System.Collections;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
+namespace MiniGames
+{
+    namespace Episode1
+    {
+        [RequireComponent(typeof(Image))]
+        [RequireComponent(typeof(EventTrigger))]
+        [RequireComponent(typeof(DropZone))]
+        public class FieldHole_CottonCultivation : MonoBehaviour
+        {
+            public enum HoleState
+            {
+                Empty,
+                HoleCreated,
+                Seeded,
+                HoleFilled,
+                Watered,
+                Sunny,
+                Cemented
+            }
+
+            private MG1_CottonCultivation mgCottonCultivation;
+
+            private Image image;
+            private EventTrigger eventTrigger;
+            private DropZone dropZone;
+
+            public HoleState holeState = HoleState.Empty;
+
+            private bool isCoroutineRunning = false;
+            private bool isPressed = false;
+            public float timeToWater = 2f;
+            private float wateringTime = 0;
+            public float timeToSunshine = 2f;
+            private float sunshineTime = 0;
+            public float timeToCottonReady = 5f;
+
+
+            [Header("Sprites")]
+            [SerializeField] private Sprite holeCreatedSprite;
+            [field: NonSerialized] public Seed_CottonCultivation seededSeed;
+            [SerializeField] private Sprite holeFilledSprite;
+            [SerializeField] private Sprite holeCementedSprite;
+
+            [Header("UI References")]
+            [SerializeField] private Slider progressBar;
+            [SerializeField] private Image fillImage;
+
+
+            private void Awake()
+            {
+                image = GetComponent<Image>();
+
+                dropZone = GetComponent<DropZone>();
+                eventTrigger = GetComponent<EventTrigger>();
+                eventTrigger.triggers.Clear();
+
+                EventTrigger.Entry entryDown = new EventTrigger.Entry
+                {
+                    eventID = EventTriggerType.PointerDown
+                };
+                entryDown.callback.AddListener((data) => { OnPointerDown((PointerEventData)data); });
+                eventTrigger.triggers.Add(entryDown);
+
+                EventTrigger.Entry entryUp = new EventTrigger.Entry
+                {
+                    eventID = EventTriggerType.PointerUp
+                };
+                entryUp.callback.AddListener((data) => { OnPointerUp((PointerEventData)data); });
+                eventTrigger.triggers.Add(entryUp);
+
+                EventTrigger.Entry entryExit = new EventTrigger.Entry
+                {
+                    eventID = EventTriggerType.PointerExit
+                };
+                entryExit.callback.AddListener((data) => { OnPointerUp((PointerEventData)data); });
+                eventTrigger.triggers.Add(entryExit);
+            }
+
+            private void Start()
+            {
+                mgCottonCultivation = MG1_CottonCultivation.instance;
+                progressBar.gameObject.SetActive(false);
+            }
+
+            private void OnEnable()
+            {
+                eventTrigger.enabled = true;
+                dropZone.enabled = true;
+            }
+
+            private void OnDisable()
+            {
+                eventTrigger.enabled = false;
+                isPressed = false;
+                isCoroutineRunning = false;
+                dropZone.enabled = false;
+            }
+
+            public void OnPointerDown(PointerEventData eventData)
+            {
+                isPressed = true;
+                mgCottonCultivation.CheckToolTypeForHole(this);
+            }
+
+            public void OnPointerUp(PointerEventData eventData)
+            {
+                isPressed = false;
+            }
+
+            public void SetHoleState(HoleState newState)
+            {
+                if ((newState == HoleState.Watered && wateringTime < timeToWater) ||
+                    (newState == HoleState.Sunny && sunshineTime < timeToSunshine))
+                {
+                    if (!isCoroutineRunning)
+                    {
+                        StartCoroutine(OnClickPressed(newState));
+                    }
+                    return;
+                }
+
+                holeState = newState;
+
+                switch (holeState)
+                {
+                    case HoleState.Empty:
+                        image.sprite = null;
+                        break;
+                    case HoleState.HoleCreated:
+                        image.sprite = holeCreatedSprite;
+                        image.color = Color.white;
+                        break;
+                    case HoleState.Seeded:
+                        break;
+                    case HoleState.HoleFilled:
+                        image.sprite = holeFilledSprite;
+                        seededSeed.image.enabled = false;
+                        break;
+                    case HoleState.Watered:
+                        seededSeed.NextCottonState();
+                        break;
+                    case HoleState.Sunny:
+                        seededSeed.NextCottonState();
+                        break;
+                    case HoleState.Cemented:
+                        image.sprite = holeCementedSprite;
+                        break;
+                }
+
+                Debug.Log($"Hole state changed to: {holeState}");
+            }
+
+            private IEnumerator OnClickPressed(HoleState newState)
+            {
+                if(progressBar == null || fillImage == null) yield break;
+
+                isCoroutineRunning = true;
+
+                Color baseColor = (newState == HoleState.Watered ? new Color(0.2f, 0.4f, 0.8f) : new Color(1f, 0.90f, 0f));
+                Color goodColor = (newState == HoleState.Watered ? new Color(0.4f, 0.9f, 1.0f) : new Color(1f, 0.647f, 0f));
+                Color overColor = new Color(1f, 0.6f, 0.2f);
+
+                float timeToReach = (newState == HoleState.Watered ? timeToWater : timeToSunshine);
+                float timePressed = (newState == HoleState.Watered ? wateringTime : sunshineTime);
+
+                progressBar.gameObject.SetActive(true);
+                progressBar.maxValue = timeToReach;
+                progressBar.value = timePressed;
+
+                while (isPressed)
+                {
+                    timePressed += Time.deltaTime;
+                    progressBar.value = timePressed;
+
+                    if (newState == HoleState.Watered)
+                    {
+                        wateringTime = timePressed;
+                    }
+                    else
+                    {
+                        sunshineTime = timePressed;
+                    }
+
+                    if (timePressed >= timeToReach)
+                    {
+                        if (holeState != newState)
+                        {
+                            SetHoleState(newState);
+                        }
+                        else if(newState == HoleState.Watered && timePressed < timeToReach * 2f)
+                        {
+                            fillImage.color = Color.Lerp(goodColor, overColor, Mathf.InverseLerp(timeToReach, timeToReach * 2f, timePressed));
+                        }
+                    }
+                    else
+                    {
+                        fillImage.color = Color.Lerp(baseColor, goodColor, Mathf.InverseLerp(0, timeToReach, timePressed));
+                    }
+
+                    yield return null;
+                }
+
+                progressBar.gameObject.SetActive(false);
+                isCoroutineRunning = false;
+                if (timePressed < timeToReach) yield break;
+
+                mgCottonCultivation.PerformAction((newState == HoleState.Watered ? mgCottonCultivation.miniGameActionName.UseWateringCan : mgCottonCultivation.miniGameActionName.UseSunlight));
+
+                if(newState == HoleState.Watered && timePressed > timeToReach * 2f) mgCottonCultivation.PerformAction(mgCottonCultivation.miniGameActionName.UseWateringTooMuch);
+                else if (newState == HoleState.Sunny) StartCoroutine(seededSeed.WaitForCottonReady(timeToCottonReady, progressBar, fillImage));
+            }
+        }
+    }
+}

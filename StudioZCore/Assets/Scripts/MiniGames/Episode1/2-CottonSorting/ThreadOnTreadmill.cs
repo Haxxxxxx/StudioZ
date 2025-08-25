@@ -4,8 +4,11 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static DraggableItem;
 
-
-public class ThreadOnTreadmill : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+namespace MiniGames
+{
+    namespace Episode1
+    {
+        public class ThreadOnTreadmill : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     private ThreadColor threadSpriteColor;
     public ThreadColor ThreadSpriteColor
@@ -40,11 +43,11 @@ public class ThreadOnTreadmill : MonoBehaviour, IBeginDragHandler, IDragHandler,
         threadLine = mgCottonSorting.threadLine;
     }
 
-    public void StartTreadMill()
-    {
-        movingCoroutine = StartCoroutine(MovingOnTreadmill());
-    }
-
+            public void StartTreadMill()
+            {
+                movingCoroutine = StartCoroutine(MovingOnTreadmill());
+            }
+            
     private void OnDestroy()
     {
         if (movingCoroutine != null) StopCoroutine(movingCoroutine);
@@ -52,13 +55,13 @@ public class ThreadOnTreadmill : MonoBehaviour, IBeginDragHandler, IDragHandler,
         StopAllCoroutines();
     }
 
-    private IEnumerator MovingOnTreadmill()
-    {
-        while (!isFalling)
-        {
-            rb.MovePosition(rb.position + new Vector2(baseSpeed * treadmillSpeed, 0));
+            private IEnumerator MovingOnTreadmill()
+            {
+                while (!isFalling)
+                {
+                    rb.MovePosition(rb.position + new Vector2(baseSpeed * treadmillSpeed, 0));
 
-            yield return null;
+                    yield return null;
         }
         if (gameObject.activeSelf) fallingCoroutine = StartCoroutine(FallingOfTreadmill());
     }
@@ -147,5 +150,4 @@ public class ThreadOnTreadmill : MonoBehaviour, IBeginDragHandler, IDragHandler,
     }
 
     #endregion
-
 }

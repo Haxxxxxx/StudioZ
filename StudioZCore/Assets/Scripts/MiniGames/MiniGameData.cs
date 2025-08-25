@@ -1,8 +1,12 @@
+using UnityEditor;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "MiniGameData", menuName = "Game/MiniGame")]
-public class MiniGameData : ScriptableObject
+namespace MiniGames
 {
-    public string miniGameName;
-    public string sceneName;  
+    [CreateAssetMenu(fileName = "MiniGameData", menuName = "Game/MiniGame")]
+    public class MiniGameData : ScriptableObject
+    {
+        public string miniGameName;
+        public SceneAsset miniGameScene;
+    }
 }

@@ -34,6 +34,203 @@ MonoBehaviour:
       Profane n\u2019est s\xFBrement pas tr\xE8s loin."
     m_Metadata:
       m_Items: []
+  - m_Id: 14066477436776448
+    m_Localized: "Regarde ce grand sac plein de graines ! Tu vois, toutes ne sont
+      pas bonnes pour faire pousser du coton. Suis moi je te montre ! \r\n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14066808396722176
+    m_Localized: 'Alors, on a trois sortes de graines ici :'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14066912096694272
+    m_Localized: "{sprite index=\"6\"}Les graines toutes rondes, bien claires ? Ce
+      sont les graines saines ! Ce sont elles qu\u2019on veut planter."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14067144435970048
+    m_Localized: "{sprite index=\"3\"}Les graines toutes bizarres et violettes ?
+      Oups\u2026 celles-l\xE0 ont \xE9t\xE9 corrompues par Profane. Si tu les plantes,
+      elles ralentissent la pousse du coton.\r\n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14067320626098176
+    m_Localized: "{sprite index=\"5\"}Celles qui ressemblent \xE0 des bouts d\u2019\xE9corce
+      ou du ma\xEFs ? Elles sont inutiles. Elles ne feront pousser que du vent !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14067510607097856
+    m_Localized: "\xC0 toi de jouer maintenant  ! Attrape les graines saines et mets
+      les dans le sac. Si tu te trompes, pas de panique, on peut toujours recommencer
+      !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15486100233269248
+    m_Localized: Trop bien ! On a assez de bonnes graines, on peut planter maintenant.
+      Mais attention, il faut respecter le bon ordre pour que le coton pousse bien
+      !
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15486864594841600
+    m_Localized: '{sprite index="2"} La pelle : pour creuser un petit trou confortable.
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15487127586091008
+    m_Localized: "{sprite index=\"6\"} Les graines :  d\xE9poser d\xE9licatement
+      dans le trou."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15487320184336384
+    m_Localized: "{sprite index=\"0\"} L\u2019arrosoir : pas trop, juste ce qu\u2019il
+      faut !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15487405752332288
+    m_Localized: "{sprite index=\"7\"} Le soleil : un petit rayon pour r\xE9chauffer
+      les graines."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15487490615685120
+    m_Localized: '{sprite index="4"} Le gant : pour ramasser le cotton'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15487822263496704
+    m_Localized: "Tu doit les utiliser dans le bon ordre : <br><align=\"center\"><size=\"70%\"><sprite
+      index=\"2\"> \u2192 <sprite index=\"6\"> \u2192 <sprite index=\"2\"> \u2192
+      <sprite index=\"0\"> \u2192 <sprite index=\"7\"> \u2192 <sprite index=\"4\">"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15488240238473216
+    m_Localized: "Super boulot ! Tu as aid\xE9 la nature, repouss\xE9 la pollution
+      ( Profane ), et appris \xE0 bien cultiver. Chaque petit geste compte pour rendre
+      le monde plus doux.\r\nAllez, on continue notre voyage vers la prochaine \xE9tape
+      : la filature !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16962112804630528
+    m_Localized: "Super choix ! Cette graine est pleine d\u2019\xE9nergie, elle va
+      faire des merveilles ! "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16991782493237248
+    m_Localized: "Ouiiii ! Tu viens de planter une graine de champion ! Grace a toi
+      on va avoir du coton de qualit\xE9 !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16991868237393920
+    m_Localized: "Parfait ! C\u2019est exactement ce qu\u2019il fallait ! Tu deviens
+      un pro du coton dis donc !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16992224061173760
+    m_Localized: "Trop bien jou\xE9 ! Cette graine va pousser plus vite que le haricot
+      magique  !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16992713926520832
+    m_Localized: "Oh non, celle-l\xE0 \xE9tait corrompue\u2026 mais ne t\u2019inqui\xE8te
+      pas, on va vite rattraper \xE7a ! tu veux que je te r\xE9explique ?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16992991195181056
+    m_Localized: "\"Hmm\u2026 Profane t\u2019a jou\xE9 un mauvais tour ! Mais tu
+      apprends super vite, la prochaine fois \xE7a ne se passera pas comme \xE7a,
+      allez on continue !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16993206174232576
+    m_Localized: "Petite erreur, \xE7a arrive, on n\u2019\xE9choue pas, on apprend
+      ! tu verras on les rep\xE8re de mieux en mieux ensemble!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16993369110360064
+    m_Localized: "Pas de panique ! Ce n\u2019\xE9tait pas la bonne, mais chaque essai
+      te rend plus fort !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16993743774953472
+    m_Localized: "\u201CEuh\u2026 je crois que tu viens de planter un\u2026 morceau
+      de biscotte ?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16993828504088576
+    m_Localized: "Pas s\xFBr que \xE7a pousse\u2026 sauf si on veut r\xE9colter du
+      pop corn!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16993838146793472
+    m_Localized: "Cette graine-l\xE0 ? Elle fait surtout des bulles ! Allez, on se
+      concentre !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16993849265893376
+    m_Localized: "Celle-ci ne servira pas \xE0 faire pousser du coton\u2026 mais
+      on d\xE9couvre en jouant, et c\u2019est comme \xE7a qu\u2019on apprend !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17714949964705792
+    m_Localized: "Bravo, regarde ton coton tout doux ! C\u2019est l\u2019heure de
+      le r\xE9colter"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17715119922098176
+    m_Localized: "Impressionnant on dirait que tu as fait \xE7a toute ta vie ! tu
+      es un vrai jardinier\r\n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17715227644407808
+    m_Localized: "Waouh ! Ce n\u2019est qu\u2019un d\xE9but, mais c\u2019est d\xE9j\xE0
+      super prometteur !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17715241875681280
+    m_Localized: "Avec un peu d\u2019entra\xEEnement, tu vas devenir un.e pro de
+      la culture \xE9colo !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18037303987154944
+    m_Localized: "Oh non, Profane est l\xE0 ! Il essaie de saboter notre champ de
+      coton, il faut le repousser appuie dessus pour le faire fuir avant qu\u2019il
+      ne pollue notre champ"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18037865356996608
+    m_Localized: "Je sent comme une perturbation dans l\u2019air, soit vigilante
+      Lyra il se peut que profane ne soit pas loin"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18038876658216960
+    m_Localized: "Ce trouble-f\xEAte de Profane\u2026 Il adore faire pousser n\u2019importe
+      quoi, repousse le avant qu\u2019il ne saccage notre champ"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18039089389121536
+    m_Localized: "Attention, Profane veut saboter ton jardin avec du pesticide !
+      Garde ton calme, on peut encore r\xE9parer \xE7a."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18039506462322688
+    m_Localized: "Il a mis du ciment dans le trou\u2026 Profane ne sait donc vraiment
+      pas jardiner"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18039675517939712
+    m_Localized: "Tu prot\xE8ges ton jardin comme un vrai pro ! Profane n\u2019a
+      qu\u2019\xE0 bien se tenir"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18039851854868480
+    m_Localized: "Quel r\xE9flexe ! Gr\xE2ce \xE0 toi, notre terre reste propre et
+      pr\xEAte \xE0 faire pousser du beau coton."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18039929432715264
+    m_Localized: "C\u2019est bon, le danger est \xE9cart\xE9. Avec toi, ce jardin
+      est entre de tr\xE8s bonnes mains."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

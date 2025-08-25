@@ -12,32 +12,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58731780e4ee9ce47bd93acc4a28186e, type: 3}
   m_Name: E1_MG3_Intro
   m_EditorClassIdentifier: 
-  character: Baguette
   lines:
-  - m_TableReference:
-      m_TableCollectionName: GUID:97d5d470cdf627843badd88f4a5893fb
-    m_TableEntryReference:
-      m_KeyId: 402706280706048
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-    m_LocalVariables: []
-  - m_TableReference:
-      m_TableCollectionName: GUID:a99633e688a9e744f9aa158edbd1c4ab
-    m_TableEntryReference:
-      m_KeyId: 20649570304
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-    m_LocalVariables: []
-  - m_TableReference:
-      m_TableCollectionName: GUID:a99633e688a9e744f9aa158edbd1c4ab
-    m_TableEntryReference:
-      m_KeyId: 20943054270464
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-    m_LocalVariables: []
+  - character: {fileID: 11400000, guid: 73a90370840e1a443a353e278a28eed2, type: 2}
+    characterExpresionIndex: 0
+    position: 0
+    text:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+  - character: {fileID: 0}
+    characterExpresionIndex: 0
+    position: 0
+    text:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+  - character: {fileID: 0}
+    characterExpresionIndex: 0
+    position: 0
+    text:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
   references:
     version: 2
     RefIds: []

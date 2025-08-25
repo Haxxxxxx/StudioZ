@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 064d2704e1e1d9e4383ab2f65a977339, type: 3}
+  m_Name: Lyra
+  m_EditorClassIdentifier: 
+  characterName: Lyra
+  expressions:
+  - expressionName: Normal
+    expressionSprite: {fileID: 3478189730588812693, guid: 7b1e1430e00c35f4cb30fc8ed885973c, type: 3}
+  - expressionName: None
+    expressionSprite: {fileID: 0}
+  - expressionName: Amazing
+    expressionSprite: {fileID: 6806733985374495458, guid: da730e0af5f63194aa7cf9e69755f762, type: 3}
+  - expressionName: Angry
+    expressionSprite: {fileID: 2483661634539418651, guid: 2a9bba311a7aaec4a99b78aff64e69b0, type: 3}
+  - expressionName: Angry2
+    expressionSprite: {fileID: 2196516042622134557, guid: 641580f14ad73bd4ea5d183b5c604042, type: 3}
+  - expressionName: Asking Question
+    expressionSprite: {fileID: -3968191365578035673, guid: 17da42c6c72cd294c9bc6d14db4379b3, type: 3}
+  - expressionName: Happy
+    expressionSprite: {fileID: -838430317553903200, guid: 25092420aab92bf4b824fc0443613e97, type: 3}
+  - expressionName: Sad
+    expressionSprite: {fileID: 464376523166950696, guid: 17821701cfe2bd244a87da527a9ebe92, type: 3}
+  - expressionName: Sad2
+    expressionSprite: {fileID: 6006762084905659591, guid: c558903c5415e2d4384d16683bf79bb5, type: 3}
+  - expressionName: Surprise
+    expressionSprite: {fileID: 5911552141024704909, guid: e5561d2cb5326d048a71413a83cdc16b, type: 3}

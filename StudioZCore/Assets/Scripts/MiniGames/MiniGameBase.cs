@@ -5,166 +5,178 @@ using System.Reflection;
 using TMPro;
 using UnityEngine;
 
-public abstract class MiniGameBase : MonoBehaviour
+namespace MiniGames
 {
-    [System.Serializable]
-    public abstract class MiniGameActionName { }
-
-    [System.Serializable]
-    public class MiniGameActionData
+    public abstract class MiniGameBase : MonoBehaviour
     {
-        public string actionName;
-        public int pointValue;
-        public Dialogue actionDialogue;
+        [System.Serializable]
+        public abstract class MiniGameActionName { }
 
-        public MiniGameActionData(string actionName, int pointValue = 1, Dialogue actionDialogue = null)
+        [System.Serializable]
+        public class MiniGameActionData
         {
-            this.actionName = actionName;
-            this.pointValue = pointValue;
-            this.actionDialogue = actionDialogue;
+            [ReadOnly] public string actionName;
+            public int pointValue;
+            public Dialogue actionDialogue;
+
+            public MiniGameActionData(string actionName, int pointValue = 1, Dialogue actionDialogue = null)
+            {
+                this.actionName = actionName;
+                this.pointValue = pointValue;
+                this.actionDialogue = actionDialogue;
+            }
         }
-    }
 
+        #region Variables
 
+        [Header("Default Settings")]
+        [SerializeField] protected DialogueManager dialogueManager;
+        [SerializeField] protected GameResultHandler gameResultHandler;
 
-    [Header("Default Settings")]
-    [SerializeField] protected DialogueManager dialogueManager;
+        [SerializeField] protected float chrono = 0;
+        [SerializeField] private TextMeshProUGUI chronoText;
 
+        protected bool isFinished = false;
+        protected bool isPaused = false;
+        protected int currentScore = 0;
+        
     [SerializeField] protected float chrono;
     [HideInInspector] public float Chrono => chrono;
     [SerializeField] protected TextMeshProUGUI chronoText;
 
-    protected bool isFinished = false;
-    protected bool isPaused = false;
-    protected int currentScore = 0;
+        [SerializeField][NonReorderable] protected List<MiniGameActionData> miniGameActionData = new List<MiniGameActionData>();
+        protected Dictionary<string, MiniGameActionResult> actionResults = new Dictionary<string, MiniGameActionResult>();
+        protected int actionCount = 0;
 
-    [SerializeField] protected List<MiniGameActionData> miniGameActionData = new List<MiniGameActionData>();
-    protected Dictionary<string, MiniGameActionResult> actionResults = new Dictionary<string, MiniGameActionResult>();
-    protected int actionCount = 0;
+        [SerializeField] protected Dialogue dialogueIntro;
+        [SerializeField] protected Dialogue dialogueOutro;
 
-    [SerializeField] protected Dialogue dialogueIntro;
-    [SerializeField] protected Dialogue dialogueOutro;
+        #endregion
 
     protected event System.Action OnReversedChronoEnded;
 
 
     protected virtual void Awake()
     {
-        foreach (var actionData in miniGameActionData)
-        {
-            actionResults.Add(actionData.actionName, new MiniGameActionResult(actionData.pointValue, actionData.actionDialogue));
+            foreach (var actionData in miniGameActionData)
+            {
+                actionResults.Add(actionData.actionName, new MiniGameActionResult(actionData.pointValue, actionData.actionDialogue));
+            }
         }
-    }
 
-    protected virtual void Start()
-    {
-        if (dialogueManager != null && dialogueIntro != null)
+        protected virtual void Start()
         {
-            dialogueManager.OnDialogueFinished += StartGame;
-            dialogueManager.CurrentDialogue = dialogueIntro;
+            if (dialogueManager != null && dialogueIntro != null)
+            {
+                dialogueManager.OnDialogueFinished += StartGame;
+                dialogueManager.CurrentDialogue = dialogueIntro;
+            }
+            else
+            {
+                StartGame();
+            }
         }
-        else
+
+        public void OnValidate()
         {
-            StartGame();
+            MiniGameActionName miniGameActionName = GetMiniGameActionNameWithReflection();
+
+            if (miniGameActionName == null) return;
+
+            List<string> allPossible = miniGameActionName.GetType()
+                .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .Select(f => f.GetValue(miniGameActionName)?.ToString())
+                .Where(s => !string.IsNullOrEmpty(s))
+                .ToList();
+
+            if (allPossible.Count == 0) return;
+
+            var seen = new HashSet<string>();
+            miniGameActionData.RemoveAll(data =>
+            {
+                if (!allPossible.Contains(data.actionName) || seen.Contains(data.actionName))
+                    return true;
+                seen.Add(data.actionName);
+                return false;
+            });
+
+            var usedActions = miniGameActionData.Select(d => d.actionName).ToHashSet();
+            string nextAction = allPossible.FirstOrDefault(a => !usedActions.Contains(a));
+
+            while (nextAction != null)
+            {
+                MiniGameActionData newActionData = new MiniGameActionData(nextAction);
+                miniGameActionData.Add(newActionData);
+
+                Debug.Log($"Ajout de l'action : {nextAction}");
+
+                usedActions = miniGameActionData.Select(d => d.actionName).ToHashSet();
+                nextAction = allPossible.FirstOrDefault(a => !usedActions.Contains(a));
+            }
         }
-    }
 
-    public void OnValidate()
-    {
-        MiniGameActionName miniGameActionName = GetMiniGameActionNameWithReflection();
-
-        if (miniGameActionName == null) return;
-
-        List<string> allPossible = miniGameActionName.GetType()
-            .GetProperties(BindingFlags.Public | BindingFlags.Instance)
-            .Select(f => f.GetValue(miniGameActionName)?.ToString())
-            .Where(s => !string.IsNullOrEmpty(s))
-            .ToList();
-
-        if (allPossible.Count == 0) return;
-
-        var seen = new HashSet<string>();
-        miniGameActionData.RemoveAll(data =>
+        public virtual void StartGame()
         {
-            if (!allPossible.Contains(data.actionName) || seen.Contains(data.actionName))
-                return true;
-            seen.Add(data.actionName);
-            return false;
-        });
-
-        var usedActions = miniGameActionData.Select(d => d.actionName).ToHashSet();
-        string nextAction = allPossible.FirstOrDefault(a => !usedActions.Contains(a));
-
-        while(nextAction != null)
-        {
-            MiniGameActionData newActionData = new MiniGameActionData(nextAction);
-            miniGameActionData.Add(newActionData);
-
-            Debug.Log($"Ajout de l'action : {nextAction}");
-
-            usedActions = miniGameActionData.Select(d => d.actionName).ToHashSet();
-            nextAction = allPossible.FirstOrDefault(a => !usedActions.Contains(a));
+            currentScore = 0;
+            StartCoroutine(StartChrono());
         }
-    }
-
-    public virtual void StartGame()
-    {
-        currentScore = 0;
-        StartCoroutine(StartChrono());
-    }
 
 
-    public virtual void UpdateGame()
-    {
-        
-    }
-
-    public virtual void EndGame()
-    {
-        isFinished = true;
-        CalculateStars();
-        Debug.Log($"Score final : {currentScore} | Durée : {GetChronoInString()}");
-    }
-
-    public virtual void PerformAction(string actionName)
-    {
-        if (actionResults.TryGetValue(actionName, out MiniGameActionResult result))
+        public virtual void UpdateGame()
         {
+
+        }
+
+        public virtual void EndGame()
+        {
+            isFinished = true;
+            gameResultHandler.ShowGameResult(CalculateStars(), GetChronoInString());
+            
             if (currentScore + result.pointValue < 0) 
-                currentScore = 0; // capé à 0
+                currentScore = 0; // capÃ© Ã  0
             else 
                 currentScore += result.pointValue;
             
             actionCount++;
             Debug.Log($"Performed {actionName}, gained {result.pointValue} points. Total score: {currentScore}");
         }
-        else
-        {
-            Debug.LogWarning($"Action {actionName} not recognized.");
-        }
-    }
 
-    protected IEnumerator StartChrono()
-    {
-        yield return new WaitForSeconds(1);
-        while (!isFinished)
+        public virtual void PerformAction(string actionName)
         {
-            if (!isPaused)
+            if (actionResults.TryGetValue(actionName, out MiniGameActionResult result))
             {
-                chrono += 1;
-                if (chronoText != null)
-                {
-                    chronoText.text = GetChronoInString();
-                }
-                yield return new WaitForSeconds(1);
+                currentScore += result.pointValue;
+                actionCount++;
+                Debug.Log($"Performed {actionName}, gained {result.pointValue} points. Total score: {currentScore}");
             }
             else
             {
-                yield return null;
+                Debug.LogWarning($"Action {actionName} not recognized.");
             }
         }
-    }
 
+    protected IEnumerator StartChrono()
+    {
+            yield return new WaitForSeconds(1);
+            while (!isFinished)
+            {
+                if (!isPaused)
+                {
+                    chrono += 1;
+                    if (chronoText != null)
+                    {
+                        chronoText.text = GetChronoInString();
+                    }
+                    yield return new WaitForSeconds(1);
+                }
+                else
+                {
+                    yield return null;
+                }
+            }
+        }
+
+        
     protected IEnumerator StartReversedChrono()
     {
         chronoText.text = GetChronoInString();
@@ -197,31 +209,32 @@ public abstract class MiniGameBase : MonoBehaviour
         isPaused = false;
     }
 
-    public int CalculateStars()
-    {
-        float ratio = (float)currentScore / actionCount;
+        public int CalculateStars()
+        {
+            float ratio = (float)currentScore / actionCount;
 
-        Debug.Log($"Calculating stars: currentScore = {currentScore}, actionCount = {actionCount}, ratio = {ratio}");
+            Debug.Log($"Calculating stars: currentScore = {currentScore}, actionCount = {actionCount}, ratio = {ratio}");
 
-        if (ratio >= 0.8f) return 3;
-        else if (ratio >= 0.5f) return 2;
-        else return 1;
+            if (ratio >= 0.8f) return 3;
+            else if (ratio >= 0.5f) return 2;
+            else return 1;
+        }
+
+        public string GetChronoInString()
+        {
+            int minutes = Mathf.FloorToInt(chrono / 60);
+            int seconds = Mathf.FloorToInt(chrono % 60);
+            return $"{minutes:D2}:{seconds:D2}";
+        }
+
+        public MiniGameActionName GetMiniGameActionNameWithReflection()
+        {
+            var field = this.GetType().GetField("miniGameActionName", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            if (field != null)
+                return field.GetValue(this) as MiniGameActionName;
+            Debug.LogWarning("MiniGameActionName field not found in " + this.GetType().Name);
+            return null;
+        }
+
     }
-
-    public string GetChronoInString()
-    {
-        int minutes = Mathf.FloorToInt(chrono / 60);
-        int seconds = Mathf.FloorToInt(chrono % 60);
-        return $"{minutes:D2}:{seconds:D2}";
-    }
-
-    public MiniGameActionName GetMiniGameActionNameWithReflection()
-    {
-        var field = this.GetType().GetField("miniGameActionName", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-        if (field != null)
-            return field.GetValue(this) as MiniGameActionName;
-        Debug.LogWarning("MiniGameActionName field not found in " + this.GetType().Name);
-        return null;
-    }
-
 }

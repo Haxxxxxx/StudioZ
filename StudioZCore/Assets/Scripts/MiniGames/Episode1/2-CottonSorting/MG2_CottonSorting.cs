@@ -19,8 +19,12 @@ public enum ThreadColor
     Purple
 }
 
-public class MG2_CottonSorting : MiniGameBase
+namespace MiniGames
 {
+    namespace Episode1
+    {
+        public class MG2_CottonSorting : MiniGameBase
+        {
     #region data
     [System.Serializable]
     public class ThreadData
@@ -140,7 +144,7 @@ public class MG2_CottonSorting : MiniGameBase
     [SerializeField] private RotateCrank crank;
     [SerializeField] private TextMeshProUGUI roundsText;
     [SerializeField] private float chronoPhase3;
-    [SerializeField] private List<Phase3CongratDialogue> phase3CongratDialogues; // doit être du meilleur au moins bon
+    [SerializeField] private List<Phase3CongratDialogue> phase3CongratDialogues; // doit Ä™tre du meilleur au moins bon
     private int totalRotations = 0;
 
     [Header("Others")]
@@ -233,19 +237,20 @@ public class MG2_CottonSorting : MiniGameBase
     }
     #endregion
 
-    #region Useful functions
-    private void SetCanBackgroundClick(bool raycastTarget)
-    {
-        if (dontClickBackground) dontClickBackground.raycastTarget = raycastTarget;
-    }
-    private void EnableBackgroundAntiClick()
-    {
-        SetCanBackgroundClick(true);
-    }
-    private void DisableBackgroundAntiClick()
-    {
-        SetCanBackgroundClick(false);
-    }
+
+            #region Useful functions
+            private void SetCanBackgroundClick(bool raycastTarget)
+            {
+                if (dontClickBackground) dontClickBackground.raycastTarget = raycastTarget;
+            }
+            private void EnableBackgroundAntiClick()
+            {
+                SetCanBackgroundClick(true);
+            }
+            private void DisableBackgroundAntiClick()
+            {
+                SetCanBackgroundClick(false);
+            }
 
     private void UpdateScoreText()
     {
@@ -362,13 +367,12 @@ public class MG2_CottonSorting : MiniGameBase
         dialogueManager.OnDialogueFinished -= StartGame;
     }
 
-
-    private bool CanPopRandomElement()
-    {
-        if ((part1RandomParent.transform.childCount == 0) && (!ShouldPhase1End())) return true;
-        else return false;
-    }
-
+            private bool CanPopRandomElement()
+            {
+                if ((part1RandomParent.transform.childCount == 0) && (!ShouldPhase1End())) return true;
+                else return false;
+            }
+            
     public bool ShouldPhase1End()
     {
         if (playerNumberOfRandomElements >= maxScorePhase1) return true;
@@ -395,12 +399,12 @@ public class MG2_CottonSorting : MiniGameBase
     }
     #endregion
 
-    #region Phase2
-    private void StartPhase2Intro()
-    {
-        dialogueManager.OnDialogueFinished -= StartPhase2Intro;
-        dialogueManager.OnDialogueFinished += StartPhase2Game;
-        dialogueManager.CurrentDialogue = startPhase2Dialogue;
+            #region Phase2
+            private void StartPhase2Intro()
+            {
+                dialogueManager.OnDialogueFinished -= StartPhase2Intro;
+                dialogueManager.OnDialogueFinished += StartPhase2Game;
+                dialogueManager.CurrentDialogue = startPhase2Dialogue;
 
         for (int i = 0; i < holdsInMachine.Count; i++) {
             HoldInMachine hold = holdsInMachine[i].GetComponent<HoldInMachine>();
@@ -505,7 +509,7 @@ public class MG2_CottonSorting : MiniGameBase
         currentWaveIndex += 1;
         playerScorePhase2 += currentScore;
 
-        //normalement ne devrait pas poser probleme mais au cas ou on vérifie avec if
+        //normalement ne devrait pas poser probleme mais au cas ou on vÃ©rifie avec if
         if (currentWaveIndex <= phase2WaveDatas.Count)
         {
             if (currentWaveIndex == 1)
@@ -612,15 +616,15 @@ public class MG2_CottonSorting : MiniGameBase
 
     private void PopProfane()
     {
-        profaneImage.sprite = profaneNormal; // au cas où
-        isProfaneAttacking = false;          // au cas où
+        profaneImage.sprite = profaneNormal; // au cas oÅ¯
+        isProfaneAttacking = false;          // au cas oÅ¯
         profane.SetActive(true);
     }
     private IEnumerator ProfaneAttack()
     {
         while (profane.activeSelf)
         {
-            yield return new WaitForSeconds(3f); // important que ca soit avant le if pour si jamais il est tué
+            yield return new WaitForSeconds(3f); // important que ca soit avant le if pour si jamais il est tuÃ©
 
             if (profane.activeSelf && !isProfaneAttacking)
             {
@@ -687,7 +691,7 @@ public class MG2_CottonSorting : MiniGameBase
         OnReversedChronoEnded += Phase3SayCongratDialogue;
     }
 
-    // Ici reaction par rapport à résultats 1/2/3/4 
+    // Ici reaction par rapport Å• rÃ©sultats 1/2/3/4 
     private void Phase3SayCongratDialogue()
     {
         EnableBackgroundAntiClick();
@@ -753,62 +757,65 @@ public class MG2_CottonSorting : MiniGameBase
     {
         roundsText.text = totalRotations.ToString();
     }
+            #endregion
 
-    #endregion
+            #region Button
+            public void BS_ClickOnRope()
+            {
+                if (curtainsLayout) curtainsLayout.Play();
+                if (rope) rope.Play();
+                if (shadowOpacity) shadowOpacity.Play();
+                if (haloOpacity) haloOpacity.Play();
 
-    #region Button
-    public void BS_ClickOnRope()
-    {
-        if (curtainsLayout) curtainsLayout.Play();
-        if (rope) rope.Play();
-        if (shadowOpacity) shadowOpacity.Play();
-        if (haloOpacity) haloOpacity.Play();
+                EnableBackgroundAntiClick();
+                dialogueManager.OnDialogueFinished -= DisableBackgroundAntiClick;
+                dialogueManager.OnDialogueFinished += StartGame;
+                dialogueManager.CurrentDialogue = afterCurtainDialogue;
+            }
 
-        EnableBackgroundAntiClick();
-        dialogueManager.OnDialogueFinished -= DisableBackgroundAntiClick;
-        dialogueManager.OnDialogueFinished += StartGame;
-        dialogueManager.CurrentDialogue = afterCurtainDialogue;
-    }
+            public void BS_PopRandomElement()
+            {
+                if (CanPopRandomElement())
+                {
+                    GameObject randomElement = randomElementsList[Random.Range(0, randomElementsList.Count)];
+                    Instantiate(randomElement, part1RandomParent.transform);
+                    bag.interactable = false;
 
-    public void BS_PopRandomElement()
-    {
-        if (CanPopRandomElement())
-        {
-            GameObject randomElement = randomElementsList[Random.Range(0, randomElementsList.Count)];
-            Instantiate(randomElement, part1RandomParent.transform);
-            bag.interactable = false;
-            
-        }
-        else if (part1RandomParent.transform.childCount > 0)
-        {
-            Debug.LogWarning("There is already a random item out of the bag!");
-        }
-    }
+                }
+                else if (part1RandomParent.transform.childCount > 0)
+                {
+                    Debug.LogWarning("There is already a random item out of the bag!");
+                }
+            }
 
 
-    public void BS_ChooseAnswerQuiz(int id)
-    {
-        EnableBackgroundAntiClick();
-        dialogueManager.OnDialogueFinished -= SetActiveQuiz;
-        dialogueManager.OnDialogueFinished -= DisableBackgroundAntiClick;
-        dialogueManager.OnDialogueFinished += DisableBackgroundAntiClick;
-        switch (id)
-        {
-            case 1:
-                dialogueManager.CurrentDialogue = reactionQuizAnswer1;
-                break;
-            case 2:
-                dialogueManager.CurrentDialogue = reactionQuizAnswer2;
-                break;
-            case 3:
-                dialogueManager.CurrentDialogue = reactionQuizAnswer3;
-                break;
-        }
+            public void BS_ChooseAnswerQuiz(int id)
+            {
+                EnableBackgroundAntiClick();
+                dialogueManager.OnDialogueFinished -= SetActiveQuiz;
+                dialogueManager.OnDialogueFinished -= DisableBackgroundAntiClick;
+                dialogueManager.OnDialogueFinished += DisableBackgroundAntiClick;
+                switch (id)
+                {
+                    case 1:
+                        dialogueManager.CurrentDialogue = reactionQuizAnswer1;
+                        break;
+                    case 2:
+                        dialogueManager.CurrentDialogue = reactionQuizAnswer2;
+                        break;
+                    case 3:
+                        dialogueManager.CurrentDialogue = reactionQuizAnswer3;
+                        break;
+                }
 
-        if (id == goodAnswerId)
-        {
-            dialogueManager.OnDialogueFinished -= DisableBackgroundAntiClick;
-            dialogueManager.OnDialogueFinished += StartPhase2Intro;
+                if (id == goodAnswerId)
+                {
+                    dialogueManager.OnDialogueFinished -= DisableBackgroundAntiClick;
+                    dialogueManager.OnDialogueFinished += StartPhase2Intro;
+
+                }
+            }
+            #endregion
 
         }
     }
@@ -823,5 +830,4 @@ public class MG2_CottonSorting : MiniGameBase
         }
     }
     #endregion
-
 }
