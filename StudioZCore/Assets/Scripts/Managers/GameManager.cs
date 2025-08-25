@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using MiniGames;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,11 +13,10 @@ public class GameManager : MonoBehaviour
 
 
     [Header("Current Game State")]
-    private EpisodeData currentEpisode;
-    private MiniGameData currentMiniGame;
+    [NonSerialized] public EpisodeData currentEpisode;
+    [NonSerialized] public MiniGameData currentMiniGame;
 
-
-    void Start()
+    void Awake()
     {
         if (instance == null)
         {
@@ -30,10 +30,5 @@ public class GameManager : MonoBehaviour
 
         currentEpisode = episodes[0];
         currentMiniGame = episodes[0].miniGames[0];
-    }
-
-    public void LoadMiniGame()
-    {
-        SceneManager.LoadSceneAsync(currentMiniGame.miniGameScene.name, LoadSceneMode.Single);
     }
 }

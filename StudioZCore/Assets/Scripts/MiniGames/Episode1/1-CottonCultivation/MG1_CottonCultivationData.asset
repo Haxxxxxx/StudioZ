@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c89a79c1cf529847ab129eae958604c, type: 3}
-  m_Name: Episode2Test
+  m_Script: {fileID: 11500000, guid: 3331cb81152107947b3ef83027280468, type: 3}
+  m_Name: MG1_CottonCultivationData
   m_EditorClassIdentifier: 
-  episodeName: 
-  episodeIcon: {fileID: 0}
-  miniGames:
-  - {fileID: 0}
+  miniGameName: CottonCultivation
+  miniGameScene: {fileID: 102900000, guid: 5f5cd425c961b924dafc3a987e242a14, type: 3}
