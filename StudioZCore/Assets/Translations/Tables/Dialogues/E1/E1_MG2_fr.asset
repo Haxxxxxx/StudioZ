@@ -73,10 +73,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2961171792490496
-    m_Localized: "Regarde bien Lyra, le coton est tout doux et l\xE9ger. Mais il
-      y a aussi des trucs qui ne servent \xE0 rien, comme des bouts de plastique
-      ou de l\u2019\xE9corce. Tu dois tout s\xE9parer avant d\u2019utiliser la machine.
-      Sinon on risque de l\u2019ab\xEEmer et de faire des habits de mauvaise qualit\xE9"
+    m_Localized: "Regarde bien Lyra, le coton est tout doux et l\xE9ger. "
     m_Metadata:
       m_Items: []
   - m_Id: 2961343641513984
@@ -267,6 +264,13 @@ MonoBehaviour:
   - m_Id: 15227337768398848
     m_Localized: Lorsqu'il apparait clique lui dessus avant qu'il attaque pour le
       faire partir.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20344152710410240
+    m_Localized: "Mais il y a aussi des trucs qui ne servent \xE0 rien, comme des
+      bouts de plastique ou de l\u2019\xE9corce. Tu dois tout s\xE9parer avant d\u2019utiliser
+      la machine. Sinon on risque de l\u2019ab\xEEmer et de faire des habits de mauvaise
+      qualit\xE9."
     m_Metadata:
       m_Items: []
   references:

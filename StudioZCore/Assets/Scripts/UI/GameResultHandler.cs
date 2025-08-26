@@ -27,7 +27,7 @@ public class GameResultHandler : MonoBehaviour
 
     private void CheckNextMiniGame()
     {
-        if (gameManager.currentEpisode.miniGames.IndexOf(gameManager.currentMiniGame) == gameManager.currentEpisode.miniGames.Count - 1)
+        if (gameManager && gameManager.currentEpisode.miniGames.IndexOf(gameManager.currentMiniGame) == gameManager.currentEpisode.miniGames.Count - 1)
         {
             nextBtn.gameObject.SetActive(false);
         }
