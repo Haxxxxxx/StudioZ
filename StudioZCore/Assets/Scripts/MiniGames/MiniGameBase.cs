@@ -122,6 +122,11 @@ namespace MiniGames
 
         }
 
+        protected virtual void EndPhase()
+        {
+            isFinished = true;
+        }
+
         public virtual void EndGame()
         {
             isFinished = true;
@@ -195,11 +200,11 @@ namespace MiniGames
             OnReversedChronoEnded?.Invoke();
         }
 
-        protected void PauseMiniGame()
+        protected virtual void PauseMiniGame()
         {
             isPaused = true;
         }
-        protected void UnPauseMiniGame()
+        protected virtual void UnPauseMiniGame()
         {
             isPaused = false;
         }

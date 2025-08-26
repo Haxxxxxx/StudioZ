@@ -255,6 +255,17 @@ namespace MiniGames
                 scoreText.text = currentScore + "/" + maxScoreCurrentPhase;
             }
 
+            protected override void PauseMiniGame()
+            {
+                base.PauseMiniGame();
+                EnableBackgroundAntiClick();
+            }
+            protected override void UnPauseMiniGame()
+            {
+                base.UnPauseMiniGame();
+                DisableBackgroundAntiClick();
+            }
+
             public Color GetColor(ThreadColor color)
             {
                 if (colorDict.TryGetValue(color, out var c))
@@ -387,7 +398,7 @@ namespace MiniGames
 
             public void EndPhase1()
             {
-                EndGame();
+                EndPhase();
                 dialogueManager.OnDialogueFinished += SetActiveQuiz;
                 dialogueManager.CurrentDialogue = afterPhase1Dialogue;
 
@@ -603,7 +614,7 @@ namespace MiniGames
             #region Profane
             private void FirstPopProfane()
             {
-                PopProfane();
+                //PopProfane();
                 EnableBackgroundAntiClick();
 
                 nextWaveLayout.SetActive(false);
@@ -723,8 +734,12 @@ namespace MiniGames
                 Phase3.SetActive(false);
                 chronoText.gameObject.SetActive(false);
 
+                // need to update those 2 for the EndGame results to be accurate
+                chrono = totalChrono; 
+                currentScore = totalScorePlayer;
+
                 dialogueManager.OnDialogueFinished -= EndPhase3;
-                dialogueManager.OnDialogueFinished += EndingScreen;
+                dialogueManager.OnDialogueFinished += EndGame;
                 dialogueManager.CurrentDialogue = dialogueOutro;
             }
 
@@ -741,24 +756,11 @@ namespace MiniGames
                 return null;
             }
 
-            private void EndingScreen()
-            {
-                DisableBackgroundAntiClick();
-                UpdateFinalScoreLayout();
-                finalScoreLayout.SetActive(true);
-            }
-
             private void FullRotation()
             {
                 //Debug.Log("Tour complet !");
                 totalRotations += 1;
                 UpdateTextRotation();
-            }
-
-            private void UpdateFinalScoreLayout()
-            {
-                finalChronoText.text = totalChrono.ToString() + "s";
-                finalScoreText.text = totalScorePlayer.ToString() + "/" + totalMaxScorePlayer.ToString();
             }
 
             private void UpdateTextRotation()
