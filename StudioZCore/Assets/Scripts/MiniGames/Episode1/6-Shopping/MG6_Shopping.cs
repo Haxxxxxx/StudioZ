@@ -4,6 +4,7 @@ using UnityEditor.AddressableAssets.Build.Layout;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class MG6_Shopping : MiniGames.MiniGameBase
@@ -22,6 +23,10 @@ public class MG6_Shopping : MiniGames.MiniGameBase
     
     private PopupManager popupManager;
     
+    [SerializeField] private int goodChoiceScoreIncrement = 2;
+    [FormerlySerializedAs("wrongChoiceScorePenalty")] [SerializeField] private int wrongChoiceScoreIncrement = 0;
+    private int bestScorePossible; // Max score possible
+    
     public override void StartGame()
     {
         base.StartGame();
@@ -31,11 +36,16 @@ public class MG6_Shopping : MiniGames.MiniGameBase
             Debug.LogError("Game Manager bundle combinations is null");
             return;
         }
+        
+        bestScorePossible = bundleCombinations.Count * goodChoiceScoreIncrement; // each round gives 2 points if the player chooses the viable bundle
 
         popupManager = PopupManager.Instance;
         
         // Initialize list
         initializedBundles = new List<GameObject>();
+        
+        bundleHintText.transform.parent.gameObject.SetActive(true); // Show hint panel
+        coinsText.gameObject.SetActive(true); // Show coins panel
         
         coinsText.gameObject.SetActive(true);
         InitializeBundles();
@@ -92,6 +102,9 @@ public class MG6_Shopping : MiniGames.MiniGameBase
 
         if (!hasAffordableBundle) {
             popupManager.StartPopup("You ran out of money, Try again!", "OK", null);
+            
+            currentScore = 0; // reset score
+            
             popupManager.OnCancel += EndGame;
         }
     }
@@ -130,12 +143,12 @@ public class MG6_Shopping : MiniGames.MiniGameBase
         if (bundle.viable)
         {
             // add score
-            currentScore += 2;
+            currentScore += goodChoiceScoreIncrement;
         }
         else
         {
             // remove score
-            currentScore -= 1;
+            currentScore -= wrongChoiceScoreIncrement;
         }
         
         // Next bundle proposition
@@ -161,6 +174,23 @@ public class MG6_Shopping : MiniGames.MiniGameBase
         initializedBundles.Clear();
         
         // Show score
-        popupManager.StartPopup("You score is: " + currentScore, null, "OK");
+        // popupManager.StartPopup("You score is: " + currentScore, null, "OK");
+        // popupManager.OnContinue += popupManager.ClosePopup;
+        // popupManager.OnContinue += base.EndGame;
+        
+        actionCount = bestScorePossible; // Since we have a fixed number of rounds, score is calculated based on the max possible score
+        
+        base.EndGame();
     }
+    
+    // public int CalculateStars()
+    // {
+    //     float ratio = (float)currentScore / bestScorePossible;
+    //
+    //     Debug.Log($"Calculating stars: currentScore = {currentScore}, actionCount = {bestScorePossible}, ratio = {ratio}");
+    //
+    //     if (ratio >= 0.8f) return 3;
+    //     else if (ratio >= 0.5f) return 2;
+    //     else return 1;
+    // }
 }
