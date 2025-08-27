@@ -52,7 +52,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -132,37 +132,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Perso principal angry02_0
-      rect:
-        serializedVersion: 2
-        x: 116
-        y: 1553
-        width: 12
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d1960fff3b79b7e10800000000000000
-      internalID: 2196516042622134557
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Perso principal angry02_1
       rect:
         serializedVersion: 2
-        x: 200
+        x: 0
         y: 308
-        width: 694
+        width: 1080
         height: 1321
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -171,28 +149,6 @@ TextureImporter:
       bones: []
       spriteID: af18098aff4b81840800000000000000
       internalID: 5195101180309570042
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Perso principal angry02_2
-      rect:
-        serializedVersion: 2
-        x: 190
-        y: 1303
-        width: 11
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a5c533db364dac450800000000000000
-      internalID: 6109929369322609754
       vertices: []
       indices: 
       edges: []

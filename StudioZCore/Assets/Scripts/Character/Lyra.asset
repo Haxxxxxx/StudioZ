@@ -15,22 +15,22 @@ MonoBehaviour:
   characterName: Lyra
   expressions:
   - expressionName: Normal
-    expressionSprite: {fileID: 21300000, guid: 7b1e1430e00c35f4cb30fc8ed885973c, type: 3}
+    expressionSprite: {fileID: 3478189730588812693, guid: 7b1e1430e00c35f4cb30fc8ed885973c, type: 3}
   - expressionName: None
     expressionSprite: {fileID: 0}
   - expressionName: Amazing
-    expressionSprite: {fileID: 21300000, guid: da730e0af5f63194aa7cf9e69755f762, type: 3}
+    expressionSprite: {fileID: 6806733985374495458, guid: da730e0af5f63194aa7cf9e69755f762, type: 3}
   - expressionName: Angry
-    expressionSprite: {fileID: 21300000, guid: 2a9bba311a7aaec4a99b78aff64e69b0, type: 3}
+    expressionSprite: {fileID: -885087801723901186, guid: 2a9bba311a7aaec4a99b78aff64e69b0, type: 3}
   - expressionName: Angry2
-    expressionSprite: {fileID: 21300000, guid: 641580f14ad73bd4ea5d183b5c604042, type: 3}
+    expressionSprite: {fileID: 5195101180309570042, guid: 641580f14ad73bd4ea5d183b5c604042, type: 3}
   - expressionName: Asking Question
-    expressionSprite: {fileID: 21300000, guid: 17da42c6c72cd294c9bc6d14db4379b3, type: 3}
+    expressionSprite: {fileID: 1141291589937561455, guid: 17da42c6c72cd294c9bc6d14db4379b3, type: 3}
   - expressionName: Happy
-    expressionSprite: {fileID: 21300000, guid: 25092420aab92bf4b824fc0443613e97, type: 3}
+    expressionSprite: {fileID: -3311126161755070389, guid: 25092420aab92bf4b824fc0443613e97, type: 3}
   - expressionName: Sad
-    expressionSprite: {fileID: 21300000, guid: 17821701cfe2bd244a87da527a9ebe92, type: 3}
+    expressionSprite: {fileID: -6775215135924375952, guid: 17821701cfe2bd244a87da527a9ebe92, type: 3}
   - expressionName: Sad2
-    expressionSprite: {fileID: 21300000, guid: c558903c5415e2d4384d16683bf79bb5, type: 3}
+    expressionSprite: {fileID: -4163560818428426280, guid: c558903c5415e2d4384d16683bf79bb5, type: 3}
   - expressionName: Surprise
-    expressionSprite: {fileID: 21300000, guid: e5561d2cb5326d048a71413a83cdc16b, type: 3}
+    expressionSprite: {fileID: 5911552141024704909, guid: e5561d2cb5326d048a71413a83cdc16b, type: 3}
