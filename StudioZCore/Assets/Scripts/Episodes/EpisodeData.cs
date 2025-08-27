@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace MiniGames
@@ -8,6 +9,6 @@ namespace MiniGames
         public string episodeName;
         //public string episodeNumber; //Un message d'erreur dans l'editor existe pour eviter les dupplicata, il faut décommenter Editor/EpisodeDataEditor
         public Sprite episodeIcon;
-        public MiniGameData[] miniGames;
+        public List<MiniGameData> miniGames = new List<MiniGameData>();
     }
 }

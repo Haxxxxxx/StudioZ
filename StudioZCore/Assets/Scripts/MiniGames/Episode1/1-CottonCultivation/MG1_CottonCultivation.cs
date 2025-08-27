@@ -217,7 +217,7 @@ namespace MiniGames
                     if (sortedSeed.seedType == Seed_CottonCultivation.SeedType.Healthy)
                     {
                         goodSeedSorted++;
-                        goodSeedText.text = $"Good Seeds : {goodSeedSorted}/{goodSeedToSort}";
+                        goodSeedText.text = $"{goodSeedSorted}/{goodSeedToSort}";
                     }
                 }
                 else
@@ -449,7 +449,7 @@ namespace MiniGames
 
                     if (cottonText != null)
                     {
-                        cottonText.text = $"Cotton : {cottonHarvested}/{cottonToHarvest}";
+                        cottonText.text = $"{cottonHarvested}/{cottonToHarvest}";
                     }
 
                     if (cottonHarvested >= cottonToHarvest)
