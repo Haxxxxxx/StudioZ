@@ -1,37 +1,33 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
 
-
-#region enum
-public enum POSITION
-{
-    MIDDLE,
-    LEFT,
-    RIGHT
-}
-public enum CHARACTER // TODO : A changer !
-{
-    VOIXOFF,
-    LYRA,
-    PIK,
-    PROFANE
-}
-#endregion
 
 #region data
 [System.Serializable]
 public class DialogueData
 {
-    public CHARACTER character; // TODO : A changer !
+    #region enum
+    public enum POSITION
+    {
+        NONE,
+        MIDDLE,
+        LEFT,
+        RIGHT
+    }
+    #endregion
+
+    public CharacterData character;
+    public int characterExpresionIndex;
     public POSITION position;
     public LocalizedString text;
 }
 #endregion
 
-[CreateAssetMenu(menuName = "ScriptableObjects/Dialogue")]
+[CreateAssetMenu(menuName = "Game/Dialogue")]
 public class Dialogue : ScriptableObject
 {
-    [SerializeField] private DialogueData[] lines;
-    [HideInInspector] public DialogueData[] Lines => lines;
+    [SerializeField] private List<DialogueData> lines = new List<DialogueData>();
+    [HideInInspector] public List<DialogueData> Lines => lines;
 }
 

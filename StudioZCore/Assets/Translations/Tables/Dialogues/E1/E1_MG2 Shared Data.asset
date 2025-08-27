@@ -19,12 +19,12 @@ MonoBehaviour:
     m_Key: E1_MG2_intro1
     m_Metadata:
       m_Items: []
-  - m_Id: 356047089664
-    m_Key: E1_MG2_intro2_opt1
+  - m_Id: 470270570496
+    m_Key: E1_MG2_hintCurtain
     m_Metadata:
       m_Items: []
-  - m_Id: 470270570496
-    m_Key: E1_MG2_intro2_opt2
+  - m_Id: 356047089664
+    m_Key: E1_MG2_intro2
     m_Metadata:
       m_Items: []
   - m_Id: 535282282496
@@ -53,6 +53,158 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 1232551768064
     m_Key: E1_MG2_tuto4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2961171792490496
+    m_Key: E1_MG2_tuto5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20344152710410240
+    m_Key: E1_MG2_tuto6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2961343641513984
+    m_Key: E1_MG2_tuto7
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2961500386848768
+    m_Key: E1_MG2_part1_correctCotton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2961901244870656
+    m_Key: E1_MG2_part1_correctTrash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2961622550147072
+    m_Key: E1_MG2_part1_CottonFirsterror
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2961698311860224
+    m_Key: E1_MG2_part1_CottonSeconderrorA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2961785897316352
+    m_Key: E1_MG2_part1_CottonSeconderrorB
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2962269240520704
+    m_Key: E1_MG2_part1_TrashFirsterror
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2962324018130944
+    m_Key: E1_MG2_part1_TrashSeconderrorA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2962326710874112
+    m_Key: E1_MG2_part1_TrashSeconderrorB
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3268274180550656
+    m_Key: E1_MG2_part1_end1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3272289467461632
+    m_Key: E1_MG2_part1_end2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3272328449323008
+    m_Key: E1_MG2_part1_end3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3272373202546688
+    m_Key: E1_MG2_part1_end4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3272434821066752
+    m_Key: E1_MG2_part1_end_PikAnswer1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3272501367894016
+    m_Key: E1_MG2_part1_end_PikAnswer2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3272503519571968
+    m_Key: E1_MG2_part1_end_PikAnswer3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3272866607886336
+    m_Key: E1_MG2_part1_end_Answer1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3272909389787136
+    m_Key: E1_MG2_part1_end_Answer2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3272945230114816
+    m_Key: E1_MG2_part1_end_Answer3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3659454605127680
+    m_Key: E1_MG2_part2_intro1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3659670343348224
+    m_Key: E1_MG2_part2_intro2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3659690127880192
+    m_Key: E1_MG2_part2_intro3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7998695552282624
+    m_Key: E1_MG2_part2_correct
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7998846001967104
+    m_Key: E1_MG2_part2_incorrect
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7999030417125376
+    m_Key: E1_MG2_part2_Profane1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7999080711024640
+    m_Key: E1_MG2_part2_Profane2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15227337768398848
+    m_Key: E1_MG2_part2_Profane3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7999216140906496
+    m_Key: E1_MG2_part2_end
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10481029035294720
+    m_Key: E1_MG2_part3_intro
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10481087461949440
+    m_Key: E1_MG2_part3_ending1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10481142960979968
+    m_Key: E1_MG2_part3_ending2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10481194181820416
+    m_Key: E1_MG2_part3_ending3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10481262704164864
+    m_Key: E1_MG2_part3_ending4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10481426034556928
+    m_Key: E1_MG2_outro1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10481491075629056
+    m_Key: E1_MG2_outro2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10481557727313920
+    m_Key: E1_MG2_outro3
     m_Metadata:
       m_Items: []
   m_Metadata:

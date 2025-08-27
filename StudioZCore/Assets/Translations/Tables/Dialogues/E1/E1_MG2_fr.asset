@@ -72,6 +72,207 @@ MonoBehaviour:
       de le filer."
     m_Metadata:
       m_Items: []
+  - m_Id: 2961171792490496
+    m_Localized: "Regarde bien Lyra, le coton est tout doux et l\xE9ger. "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2961343641513984
+    m_Localized: "Ici il suffit de glisser les bons morceaux de coton dans la corbeille
+      verte  et de jeter ceux qui ne vont pas dans la corbeille rouge, Si tu vois
+      un truc qui brille ou qui est tout dur, c\u2019est s\xFBrement pas du coton.
+      Jette-le. Le coton, lui, a l\u2019air de flotter quand on le touche."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2961500386848768
+    m_Localized: "Bravo, tu as compris le concept !! Gr\xE2ce \xE0 toi les habits
+      vont \xEAtre doux comme un nuage !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2961622550147072
+    m_Localized: "Zut ce n'\xE9tait pas la bonne corbeille mais ce n\u2019est pas
+      grave Lyra reste concentr\xE9, les erreurs \xE7a arrive"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2961698311860224
+    m_Localized: "N\u2019oublie pas Lyra le panier vert, c\u2019est pour le coton
+      tout doux, celui qu\u2019on aimerait avoir comme oreiller !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2961785897316352
+    m_Localized: "Le panier rouge, c\u2019est pour les trucs qui grattent, qui piquent
+      ou qui brillent. Et \xE7a, personne n\u2019a envie de dormir dessus ! "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2961901244870656
+    m_Localized: "Super !! Grace a toi finis les t shirt qui gratte ! ce sont les
+      fibres synth\xE9tique qui rendent  nos habits inconfortable et de mauvaise
+      qualit\xE9"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2962269240520704
+    m_Localized: "J\u2019en connais un qui va encore se gratter toute la nuit ! Mais
+      ce n\u2019est pas grave si c\u2019est la seule !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2962324018130944
+    m_Localized: "N\u2019oublie pas Lyra, Si c\u2019est doux comme un nuage, mets-le
+      dans le vert sans rage."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2962326710874112
+    m_Localized: "Si c\u2019est dur, piquant ou bizarre, rouge c\u2019est mieux,
+      c\u2019est pas trop tard"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3268274180550656
+    m_Localized: 'Bravo Lyra, tu es vraiment une machine de trie a toi tout seul
+      !! '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3272289467461632
+    m_Localized: "Tu vois c\u2019est gr\xE2ce \xE0 ces fibres synth\xE9tiques et
+      a toutes ses mauvaises fibres que nos habits sont de mauvaise qualit\xE9, irrite
+      la peau et nous gratte ! Ces fibres sont beaucoup moins ch\xE8res que le coton
+      ce qui permet de fabriquer et de vendre des v\xEAtements \xE0 moindre co\xFBt
+      ! Rien ne vaut le vrai coton et \xE7a se ressent ! "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3272328449323008
+    m_Localized: "Regarde ton t shirt et dis moi s\u2019il est fabriqu\xE9 avec du
+      vrai coton ou de la fibre synth\xE9tique, tu risques d'\xEAtre surprise de
+      la r\xE9ponse ( Donner un chiffre impactant sur le % de t shirt produit \xE0
+      base de fibre synth\xE9tique ) "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3272373202546688
+    m_Localized: "Bon on a bien tri\xE9 les fils mais maintenant que faut-il faire
+      ?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3272434821066752
+    m_Localized: Ahh ba non voyons, ce ne sont pas des confettis
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3272501367894016
+    m_Localized: "Exactement ! Une fois tri\xE9es, les fibres sont pr\xEAtes pour
+      la filature."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3272503519571968
+    m_Localized: "Si seulement c\u2019\xE9tait si simple\u2026 mais les habits ne
+      poussent pas comme les fleurs malheureusement !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3272866607886336
+    m_Localized: On se les lances dessus pour voir qui a la plus grosse boules de
+      coton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3272909389787136
+    m_Localized: On utilise une machine pour les transformer en fil
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3272945230114816
+    m_Localized: On les plantes dans la terre pour faire pousser des habits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3659454605127680
+    m_Localized: "Maintenant que nous avons tri\xE9 les bonnes fibres, il est temps
+      de les assembler pour former des bobines,  on appelle \xE7a la filatures, et
+      tu verras ce n\u2019est vraiment pas compliqu\xE9 !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3659670343348224
+    m_Localized: "Comme tu peux le voir il ya des bobines de plusieurs couleurs diff\xE9rentes,
+      il suffit simplement de relier les bons fils de bobine aux bonne prises de
+      couleurs, pour que la filature se fasse !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3659690127880192
+    m_Localized: "Si tu te trompes tu risques de perdre du temps donc reste concentr\xE9
+      et attentif car  j\u2019ai comme un mauvais pressentiment !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7998695552282624
+    m_Localized: "Excellent continue comme ca et la filatures n\u2019aura bient\xF4t
+      plus aucun secret pour toi"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7998846001967104
+    m_Localized: "Dommage ce n'\xE9tait pas la bonne prise, ne te d\xE9courage pas
+      tu vas y arriver."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7999030417125376
+    m_Localized: "Que c\u2019est mignon, vous essayez de fabriquer du fil ? Permettez-moi
+      de tout emm\xEAler ! "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7999080711024640
+    m_Localized: "Je savais qu\u2019il n\u2019\xE9tait pas loin celui ci ! fait attention
+      Lyra, il va essayer de saboter notre filature !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7999216140906496
+    m_Localized: "On a r\xE9ussi \xE0 faire beaucoup de bobines de fils, on est vraiment
+      une \xE9quipe d\u2019enfer !! Bravo a toi, tu es trop fort !! "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10481029035294720
+    m_Localized: "Nous voici \xE0 la derni\xE8re \xE9tape ! Il va falloir faire tourner
+      cet \xE9norme manivelle pour cr\xE9er un maximum de bobines possible, il faut
+      se d\xE9p\xEAcher le temps nous est compt\xE9 !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10481087461949440
+    m_Localized: "Incroyable ! Tu as fait tourner la manivelle comme un vrai ma\xEEtre
+      filateur ! Les bobines sortent \xE0 toute vitesse !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10481142960979968
+    m_Localized: "Impressionnant ! On dirait que tu as d\xE9j\xE0 travaill\xE9 ici,
+      bravo petit expert du fil"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10481194181820416
+    m_Localized: "Waouh ! Ce n\u2019est qu\u2019un d\xE9but, mais tu t\u2019en sors
+      super bien. Encore un tour ou deux et tu vas devenir un pro ! "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10481262704164864
+    m_Localized: "Pas mal du tout ! Avec un peu d\u2019entra\xEEnement, tu vas devenir
+      une vraie machine \xE0 bobines, j\u2019en suis s\xFBr ! "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10481426034556928
+    m_Localized: "Bravo ! Gr\xE2ce \xE0 toi, les fibres sont bien tri\xE9es, les
+      fils sont solides, et les bobines pr\xEAtes \xE0 continuer leur chemin."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10481491075629056
+    m_Localized: "Tu as remis de l\u2019ordre dans l\u2019atelier, repouss\xE9 le
+      d\xE9sordre de Profane, et appris \xE0 reconna\xEEtre les bonnes mati\xE8res.
+      Un vrai pas vers une mode plus responsable !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10481557727313920
+    m_Localized: "Tu t\u2019es super bien d\xE9brouill\xE9 ! On peut maintenant passer
+      \xE0 l\u2019\xE9tape suivante : la confection ! C\u2019est l\xE0 que les v\xEAtements
+      prennent vraiment forme."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15227337768398848
+    m_Localized: Lorsqu'il apparait clique lui dessus avant qu'il attaque pour le
+      faire partir.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20344152710410240
+    m_Localized: "Mais il y a aussi des trucs qui ne servent \xE0 rien, comme des
+      bouts de plastique ou de l\u2019\xE9corce. Tu dois tout s\xE9parer avant d\u2019utiliser
+      la machine. Sinon on risque de l\u2019ab\xEEmer et de faire des habits de mauvaise
+      qualit\xE9."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

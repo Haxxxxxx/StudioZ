@@ -1,0 +1,229 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: E1_MG4_fr
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: fr
+  m_SharedData: {fileID: 11400000, guid: bddaf320a3bfd9044bd82d3c12563c8a, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 421059637248
+    m_Localized: "Nous avons r\xE9colt\xE9 le coton, cr\xE9\xE9 des bobines de fibres,
+      tiss\xE9 les diff\xE9rentes parties d\u2019un t-shirt, je suis impatient de
+      d\xE9couvrir ce que nous r\xE9serve la prochaine \xE9tape !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 583844769792
+    m_Localized: "J'esp\xE8re que tu as bien retenu ce que tu as vu et fait car c\u2019est
+      important que tu aies conscience de toutes ces \xE9tapes la prochaine fois
+      que tu ach\xE8tes un t-shirt ou que tu sera face \xE0 un habit de mauvaise
+      qualit\xE9 !\r\r\n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3740226301952
+    m_Localized: "Justement regarde Lyra, tu vois cet atelier l\xE0 bas ? je pense
+      que nous sommes arriv\xE9s \xE0 la prochaine \xE9tape ! \r\n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5061911861014528
+    m_Localized: " On dirait que cet endroit a \xE9t\xE9 laiss\xE9 \xE0 l\u2019abandon\u2026
+      Peut-\xEAtre que la production est partie ailleurs, l\xE0 o\xF9 c\u2019est
+      moins cher\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5062051606835200
+    m_Localized: "Je me demande \xE0 quoi il servait. Si seulement on pouvait y voir
+      plus clair"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5062132871475200
+    m_Localized: "J\u2019ai comme un mauvais pressentiment dans cette pi\xE8ce, \xE7a
+      me rappelle quelque chose\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5062146200973312
+    m_Localized: "Regarde Lyra on dirait que ce levier active quelque chose, clique
+      dessus pour voir ce qu\u2019il se passe "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5062211380457472
+    m_Localized: "WOOOOOAHHHH ses machines sont impressionnantes ! elles devaient
+      tourner \xE0 plein r\xE9gime vu comment elles sont us\xE9es !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5062329265565696
+    m_Localized: "Il faudrait quand m\xEAme un peu de lumi\xE8re ici, je n'y vois
+      plus rien, actionne ce levier Lyra"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5062418008649728
+    m_Localized: "Ou est partie se froussard de Chiffon, si tu le trouve dis le moi,
+      ce serait quand m\xEAme dommage de le laisser ici tout seul, le connaissant
+      il va encore se retrouver coinc\xE9 dans une machine mais sinon il va r\xE9ussir
+      \xE0 nous retrouver par lui-m\xEAme !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5062518499979264
+    m_Localized: "Passons aux choses s\xE9rieuses, il est temps de voir comment on
+      personnalise les t-shirts que l\u2019on a assembl\xE9s sur la route tiss\xE9e, 
+      c\u2019est un travail minutieux donc tu vas devoir \xEAtre attentif"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5062605900886016
+    m_Localized: "Pour cette \xE9tape, on va personnaliser nos t-shirts en utilisant
+      une technique bien connue, le point de croix. Ne t\u2019en fais pas c\u2019est
+      vraiment facile et gr\xE2ce \xE0 cette technique tu vas pouvoir cr\xE9er toutes
+      sortes de motifs, des plus classiques au plus absurdes"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5062653837586432
+    m_Localized: "Tu as devant toi un grand Tableau blanc quadrill\xE9. Je vais d'abord
+      te montrer comment \xE7a marche, avec un exemple. "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5062703024189440
+    m_Localized: "Tu vois ce petit carr\xE9 qui vient de s\u2019allumer ? C\u2019est
+      notre tout premier motif \xE0 broder ! \r\nPour y arriver c\u2019est super
+      facile, tu vas devoir appuyer sur les boutons lumineux dans le m\xEAme ordre
+      qu\u2019ils sont apparus.\r"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5062846083510272
+    m_Localized: "Ensuite, suis le trait avec ton fil, tout doucement\u2026 Attention
+      \xE0 ne pas d\xE9passer, sinon ton fil va faire des n\u0153uds !, tu veux essayer
+      ? "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5062882590732288
+    m_Localized: "Oui avec plaisir, ca n\u2019a pas l\u2019air bien compliqu\xE9"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5062971501588480
+    m_Localized: "Tu peux me r\xE9expliquer je n\u2019ai pas tout compris, j\u2019\xE9tais
+      en train de chercher Chiffon dur regard"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5063025125765120
+    m_Localized: "Wouah bravo! M\xEAme les machines ne brodent pas aussi bien que
+      toi ! Rien ne vaut la pr\xE9cision d\u2019un \xEAtre humain ! "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5063225806434304
+    m_Localized: "Mince, ton fil s\u2019est un peu emm\xEAl\xE9\u2026 Mais c\u2019est
+      normal, \xE7a arrive \xE0 tout le monde ! Essaie encore !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5063397613514752
+    m_Localized: "Maintenant que tu as compris ce qu\u2019il fallait faire tu vas
+      devoir r\xE9aliser 3 motifs diff\xE9rents, attention certains ont l\u2019air
+      plus dur que d\u2019autres, je te conseil de commencer par le plus facile mais
+      c\u2019est toi qui vois d\xE9cide. "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5063631135584256
+    m_Localized: "Tu as raison de commencer par lui, c'est le plus simple et c\u2019est
+      parfait pour s'\xE9chauffer !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5063736928514048
+    m_Localized: "Ce motif a l\u2019air un peu plus compliqu\xE9 pour commencer,
+      \xE7a demande de la pr\xE9cision ! Mais je sens que t\u2019es pr\xEAt \xE0
+      d\xE9coller !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5063775524499456
+    m_Localized: "Ce motif a l\u2019air perch\xE9, mais je sais que tu vas y arriver
+      si tu te concentres ! apr\xE8s celui ci, les autres ne sembleront beaucoup
+      plus facile"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5063823033380864
+    m_Localized: "Bravo Lyra tu as r\xE9ussi \xE0 broder tous les motifs dans un
+      temps record tu peux \xEAtre fier de toi !! je pense que ses motifs iraient
+      parfaitement avec les habits que nous avons cr\xE9\xE9s juste avant tu ne penses
+      pas ? "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064050645676032
+    m_Localized: "Regarde la porte de derri\xE8re c\u2019est ouvert on va pouvoir
+      passer \xE0 la suite, cette \xE9tape n'\xE9tait pas bien longue mais au moins
+      tu as compris que ce n\u2019est pas facile de broder des motifs et que ca demande
+      de la rigueur !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064091435282432
+    m_Localized: "Oui en effet j\u2019ai presque pris go\xFBt \xE0 la broderie, je
+      vais demander a mes parents de m'acheter un kit de broderie pour que je puisse
+      ne faire a la maison ! c\u2019est beaucoup plus utile que d'\xEAtre sur son
+      t\xE9l\xE9phone en rien faire !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064257357754368
+    m_Localized: "Parfait, tu as r\xE9ussi ce motif haut la main ! continuons sur
+      cette lanc\xE9e tant que ton fil est encore chaud ! "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064333538897920
+    m_Localized: "Oups ! Ce rayon de soleil s\u2019est un peu emm\xEAl\xE9\u2026
+      Pas grave, recommence, tu vas y arriver !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064514032381952
+    m_Localized: "Impressionnant Tu viens de broder un engin spatial\u2026 sans sortir
+      de ta chaise. Impressionnant, commandant Lyra !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064598614716416
+    m_Localized: "Cette broderie-l\xE0 \xE9tait pleine de turbulences ! Et si on
+      revoyait la trajectoire ?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064667032203264
+    m_Localized: "Je crois qu\u2019elle m\u2019a regard\xE9. Et elle t\u2019aime
+      bien ! Tu as r\xE9ussi un chef-d'\u0153uvre, sans trembler !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064728931741696
+    m_Localized: "A\xEFe\u2026 cette chaussette fait la grimace\u2026 mais pour de
+      vrai. On tente une retouche ?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5064987149873152
+    m_Localized: "Ahh tu \xE9tais donc l\xE0 ! Je sais que cet endroit te rappelle
+      de mauvais souvenirs mais ne t'inqui\xE8te pas, Lyra est en train de ma\xEEtriser
+      ses machines pour qu\u2019elles ne fassent plus de mal au tissu ! J\u2019ai
+      bien cru que nous allions jamais te retrouver ! je suis soulag\xE9e ! "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5065073955188736
+    m_Localized: "Chiffon de revoila !! je suis content de te revoir, ca m'aurait
+      emb\xEAt\xE9 de ne pas te retrouver !! tu reste pr\xE8s de nous maintenant
+      d\u2019accord"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5065115508158464
+    m_Localized: "J\u2019ai vraiment eu peur,ses machines terrifiantes m'ont fait
+      remonter de mauvais souvenirs mais je sais que je suis en s\xE9curit\xE9 avec
+      vous ! Merci beaucoup les amis."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5065150299910144
+    m_Localized: "Bizarre\u2026 j\u2019\xE9tais presque s\xFBr d\u2019avoir vu quelque
+      chose bouger l\xE0-bas\u2026 Bon, \xE7a attendra ! Chiffon finira bien par
+      r\xE9appara\xEEtre au moment le plus improbable.\r"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

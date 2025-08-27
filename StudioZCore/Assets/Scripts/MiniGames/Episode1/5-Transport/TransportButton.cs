@@ -1,11 +1,14 @@
 using UnityEngine;
 
-public class TransportButton : MonoBehaviour
+namespace MiniGames
 {
-    public MG5_Transport.TransportType type;
-    public void OnClick()
+    public class TransportButton : MonoBehaviour
     {
-        FindFirstObjectByType<MG5_Transport>().OnTransportButtonClicked(type);
-        Debug.Log("Transport button clicked: " + type);
+        public MG5_Transport.TransportType type;
+        public void OnClick()
+        {
+            FindFirstObjectByType<MG5_Transport>().OnTransportButtonClicked(type);
+            Debug.Log("Transport button clicked: " + type);
+        }
     }
 }

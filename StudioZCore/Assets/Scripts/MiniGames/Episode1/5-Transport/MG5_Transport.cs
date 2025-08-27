@@ -3,6 +3,8 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
+namespace MiniGames
+{ 
 public class MG5_Transport : MiniGameBase
 {
     #region Variables
@@ -270,4 +272,5 @@ public class MG5_Transport : MiniGameBase
         validateButton.SetActive(true);
         invisibleBG.enabled = false;
     }
+}
 }

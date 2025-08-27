@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using MiniGames;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,15 +13,10 @@ public class GameManager : MonoBehaviour
 
 
     [Header("Current Game State")]
-    private EpisodeData currentEpisode;
-    private MiniGameData currentMiniGame;
+    [NonSerialized] public EpisodeData currentEpisode;
+    [NonSerialized] public MiniGameData currentMiniGame;
 
-    [Header("Camera Settings")]
-    private float referenceWidth = 720f; 
-    private float referenceOrthoSize = 5f; 
-
-
-    void Start()
+    void Awake()
     {
         if (instance == null)
         {
@@ -33,18 +30,5 @@ public class GameManager : MonoBehaviour
 
         currentEpisode = episodes[0];
         currentMiniGame = episodes[0].miniGames[0];
-    }
-
-    public void LoadMiniGame()
-    {
-        SceneManager.LoadSceneAsync(currentMiniGame.sceneAsset.name, LoadSceneMode.Single);
-    }
-
-    private void AdaptCameraScale()
-    {
-        Camera cam = Camera.main;
-        float currentAspect = (float)Screen.width / Screen.height;
-        float referenceAspect = referenceWidth / (referenceWidth / (2 * referenceOrthoSize));
-        cam.orthographicSize = referenceOrthoSize * (referenceAspect / currentAspect);
     }
 }

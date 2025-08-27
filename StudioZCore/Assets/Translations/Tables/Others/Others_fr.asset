@@ -22,6 +22,30 @@ MonoBehaviour:
     m_Localized: Suivant
     m_Metadata:
       m_Items: []
+  - m_Id: 10212543134920704
+    m_Localized: 'Score :'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18909615685599232
+    m_Localized: Prochaine vague
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18909681959796736
+    m_Localized: Plus vite !
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21030177283731456
+    m_Localized: 'Tours :'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22536248661864448
+    m_Localized: 'Temps Total :'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22536392253861888
+    m_Localized: 'Score Total :'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
