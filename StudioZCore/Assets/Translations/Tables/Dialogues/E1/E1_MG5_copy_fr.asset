@@ -27,9 +27,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 21002063872
-    m_Localized: "\xC7a y est Lyra, nous avons vu toutes les \xE9tapes pour confectionner
-      un t-shirt. J\u2019esp\xE8re que tu as bien retenu chaque \xE9tape, car tout
-      ce travail est n\xE9cessaire\u2026 juste pour un seul v\xEAtement !"
+    m_Localized: "J\u2019esp\xE8re que tu as bien retenu chaque \xE9tape Lyra, car
+      tout ce travail est n\xE9cessaire\u2026 juste pour un seul v\xEAtement !"
     m_Metadata:
       m_Items: []
   - m_Id: 486305566720
@@ -44,9 +43,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 8958078226432
-    m_Localized: "Exactement ! C\u2019est ce qu\u2019on appelle l\u2019importation.
-      Les v\xEAtements voyagent parfois des milliers de kilom\xE8tres avant d\u2019atterrir
-      dans les boutiques du monde entier. Et \xE7a, \xE7a a un impact sur notre 
+    m_Localized: "Exactement ! C\u2019est l\u2019importation ! Les v\xEAtements voyagent
+      parfois des milliers de kilom\xE8tres et \xE7a, \xE7a a un impact sur notre
       plan\xE8te\u2026\r\n"
     m_Metadata:
       m_Items: []
@@ -97,10 +95,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 11855155302400
-    m_Localized: "D\u2019accord ! Dans un premier temps, tu dois trouver le point
-      de d\xE9part et le point d'arriv\xE9e de ton habit. Regarde s\u2019il y a une
-      mer ou un oc\xE9an qui les s\xE9pare, ensuite c'est \xE0 toi de jouer, appuie
-      sur les transports dans l\u2019ordre que tu penses \xEAtre le bon. "
+    m_Localized: "D\u2019accord ! Choisis bien tes moyens de transports pour polluer
+      le moins possible. Mets les dans le bon ordre, \xE0 toi de jouer !"
     m_Metadata:
       m_Items: []
   - m_Id: 35658799386624

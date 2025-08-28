@@ -4683,27 +4683,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 11100908126471439, guid: ecaa64d8796b99148aae5f0a6aff6b02, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11100908126471439, guid: ecaa64d8796b99148aae5f0a6aff6b02, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11100908126471439, guid: ecaa64d8796b99148aae5f0a6aff6b02, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 517.3638
       objectReference: {fileID: 0}
     - target: {fileID: 11100908126471439, guid: ecaa64d8796b99148aae5f0a6aff6b02, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 52.443
       objectReference: {fileID: 0}
     - target: {fileID: 11100908126471439, guid: ecaa64d8796b99148aae5f0a6aff6b02, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 253.682
       objectReference: {fileID: 0}
     - target: {fileID: 11100908126471439, guid: ecaa64d8796b99148aae5f0a6aff6b02, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -28
       objectReference: {fileID: 0}
     - target: {fileID: 454131895271578001, guid: ecaa64d8796b99148aae5f0a6aff6b02, type: 3}
       propertyPath: m_fontSize
@@ -4756,6 +4756,18 @@ PrefabInstance:
     - target: {fileID: 3714536126244023790, guid: ecaa64d8796b99148aae5f0a6aff6b02, type: 3}
       propertyPath: m_fontSizeBase
       value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 3741746802404058509, guid: ecaa64d8796b99148aae5f0a6aff6b02, type: 3}
+      propertyPath: m_IgnoreLayout
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576455599360027660, guid: ecaa64d8796b99148aae5f0a6aff6b02, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576455599360027660, guid: ecaa64d8796b99148aae5f0a6aff6b02, type: 3}
+      propertyPath: m_Color.a
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5533913456098386736, guid: ecaa64d8796b99148aae5f0a6aff6b02, type: 3}
       propertyPath: m_Name

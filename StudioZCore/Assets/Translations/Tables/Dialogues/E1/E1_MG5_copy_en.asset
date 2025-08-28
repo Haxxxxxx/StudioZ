@@ -27,9 +27,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 21002063872
-    m_Localized: That's it Lyra, we've seen all the steps involved in making a t-shirt.
-      I hope you've remembered each step, because all that work goes into it... just
-      for one piece of cloth!
+    m_Localized: I hope you've remembered each step Lyra, because all that work goes
+      into it... just for one piece of cloth!
     m_Metadata:
       m_Items: []
   - m_Id: 486305566720
@@ -43,9 +42,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 8958078226432
-    m_Localized: Exactly! This is what we call importing. Clothes sometimes travel
-      thousands of kilometers before landing in boutiques around the world. And that
-      has an impact on our planet...
+    m_Localized: Exactly! This is importation ! Clothes sometimes travel thousands
+      of kilometers and that has an impact on our planet...
     m_Metadata:
       m_Items: []
   - m_Id: 9181852733440
@@ -93,9 +91,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 11855155302400
-    m_Localized: All right! First, you need to find the starting and finishing points
-      of your suit. See if there's a sea or ocean between them, then it's up to you
-      to press the transports in the order you think is right.
+    m_Localized: Okay! Choose your means of transportation carefully to pollute as
+      little as possible. Put them in the right order, it's up to you!
     m_Metadata:
       m_Items: []
   - m_Id: 35658799386624
