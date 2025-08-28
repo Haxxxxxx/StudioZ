@@ -16,4 +16,5 @@ MonoBehaviour:
   episodeIcon: {fileID: 0}
   miniGames:
   - {fileID: 11400000, guid: 1f8eaf628d8302f4396e18a08c0b219c, type: 2}
+  - {fileID: 11400000, guid: 5b85ed34f45eea24d9cfea714d3596d8, type: 2}
   - {fileID: 11400000, guid: 56d54e64fd8677b4f83de31010175901, type: 2}

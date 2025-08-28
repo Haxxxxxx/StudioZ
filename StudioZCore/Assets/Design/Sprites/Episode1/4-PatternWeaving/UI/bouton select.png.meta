@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 2f20761d50b5acf4c9975239224917a4
+guid: 59426a263314abf439e00193bb1f0208
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8691090369710217222
-    second: Profane angry_0
+      213: -66963924572173044
+    second: bouton select_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Profane angry_0
+      name: bouton select_0
       rect:
         serializedVersion: 2
-        x: 13
+        x: 0
         y: 0
-        width: 471
-        height: 482
+        width: 4712
+        height: 1330
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: af7aa9a2b5b036780800000000000000
-      internalID: -8691090369710217222
+      spriteID: c0d0c175aa8121ff0800000000000000
+      internalID: -66963924572173044
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Profane angry_0: -8691090369710217222
+      bouton select_0: -66963924572173044
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

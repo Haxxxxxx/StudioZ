@@ -122,7 +122,8 @@ namespace MiniGames
 
                     CheckNextCell();
                 }
-                else if(this == mgPatternWeaving.pathTakenCell.Last() && this != mgPatternWeaving.validPathCell.Last())
+                else if(mgPatternWeaving.pathTakenCell.Count > 0 && this == mgPatternWeaving.pathTakenCell.Last() &&
+                    mgPatternWeaving.validPathCell.Count > 0 && this != mgPatternWeaving.validPathCell.Last())
                 {
                     mgPatternWeaving.PerformAction(mgPatternWeaving.miniGameActionName.GoodWeaving);
                 }

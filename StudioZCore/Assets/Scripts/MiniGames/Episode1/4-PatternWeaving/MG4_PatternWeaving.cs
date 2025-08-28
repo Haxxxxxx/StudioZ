@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System;
 using UnityEngine.UI;
 using System.Linq;
+using LitMotion.Animation;
+
 
 
 
@@ -79,8 +81,12 @@ namespace MiniGames
             [Header("UI References")]
             [SerializeField] private Image patternImg;
             [SerializeField] private Button leverBtn;
+            [SerializeField] private Image leverArmImg;
+            [SerializeField] private Image leverBaseImg;
             [SerializeField] private GameObject quizz;
             [SerializeField] private Button chiffonBtn;
+            [SerializeField] private Image decorImg;
+            [SerializeField] private GameObject bgAntiClick;
 
             [Header("Dialogue References")]
             [SerializeField] private Dialogue dialogueIntroPart2;
@@ -98,6 +104,8 @@ namespace MiniGames
 
             #endregion
 
+            #region Base Functions
+
             protected override void Awake()
             {
                 instance = this;
@@ -105,16 +113,20 @@ namespace MiniGames
                 base.Awake();
 
                 patternSelectorCanvas.SetActive(false);
-                ClearGrid();
                 patternImg.gameObject.SetActive(false);
-                leverBtn.interactable = false;
                 chiffonBtn.gameObject.SetActive(false);
+                gridParent.gameObject.SetActive(false);
+                chronoText.transform.parent.gameObject.SetActive(false);
 
+                decorImg.color = new Color(0.06f, 0.06f, 0.06f, 1);
+                leverArmImg.color = new Color(0.06f, 0.06f, 0.06f, 1);
+                leverBaseImg.color = new Color(0.06f, 0.06f, 0.06f, 1);
+                ClearGrid();
+                leverBtn.interactable = false;
             }
 
             protected override void Start()
             {
-
                 if (dialogueManager != null && dialogueIntro != null)
                 {
                     dialogueManager.OnDialogueFinished += EndOfIntroPart1;
@@ -124,6 +136,7 @@ namespace MiniGames
 
             public override void StartGame()
             {
+                DisableBgAntiClick();
                 dialogueManager.OnDialogueFinished -= StartGame;
                 base.StartGame();
             }
@@ -139,11 +152,29 @@ namespace MiniGames
                 }
             }
 
+            private void EnableBgAntiClick()
+            {
+                if (bgAntiClick != null)
+                {
+                    bgAntiClick.SetActive(true);
+                }
+            }
+
+            private void DisableBgAntiClick()
+            {
+                if (bgAntiClick != null)
+                {
+                    bgAntiClick.SetActive(false);
+                }
+            }
+
+            #endregion
+
             #region Editor Funcions
 
 #if UNITY_EDITOR
 
-                [ContextMenu("Generate Circular Grid")]
+            [ContextMenu("Generate Circular Grid")]
             public void GenerateCircularGrid()
             {
                 if (gridPrefab == null || gridParent == null)
@@ -405,10 +436,24 @@ namespace MiniGames
                     }
                 }
 
-                if(!chiffonFound) secondMedal = null;
+                EnableBgAntiClick();
+
+                if (!chiffonFound) secondMedal = null;
 
                 dialogueManager.OnDialogueFinished += (chiffonFound ? EndGame : StartChiffonNotFound);
                 dialogueManager.CurrentDialogue = dialogueOutro;
+            }
+
+            private IEnumerator ChiffonAnimation()
+            {
+                chiffonBtn.GetComponent<LitMotionAnimation>().Play();
+                yield return new WaitForSeconds(20f);
+
+                while (!chiffonFound)
+                {
+                    chiffonBtn.GetComponent<LitMotionAnimation>().Restart();
+                    yield return new WaitForSeconds(20f);
+                }
             }
 
             #endregion
@@ -417,7 +462,6 @@ namespace MiniGames
 
             private void EndOfIntroPart1()
             {
-                //TODO Faire transition avec atelier 
                 dialogueManager.OnDialogueFinished -= EndOfIntroPart1;
                 dialogueManager.OnDialogueFinished += EndOfIntroPart2;
                 dialogueManager.CurrentDialogue = dialogueIntroPart2;
@@ -426,7 +470,10 @@ namespace MiniGames
             private void EndOfIntroPart2()
             {
                 dialogueManager.OnDialogueFinished -= EndOfIntroPart2;
+                leverArmImg.GetComponent<LitMotionAnimation>().Play();
+                leverBaseImg.GetComponent<LitMotionAnimation>().Play();
                 leverBtn.interactable = true;
+                DisableBgAntiClick();
                 Invoke(nameof(DidNotPressLever), 5f);
             }
 
@@ -448,6 +495,10 @@ namespace MiniGames
                 dialogueManager.OnDialogueFinished -= EndOfIntroPart3;
                 dialogueManager.OnDialogueFinished += EndOfBeforeTutoPart1;
                 dialogueManager.CurrentDialogue = dialogueBeforeTutoPart1;
+
+                gridParent.gameObject.SetActive(true);
+                chronoText.transform.parent.gameObject.SetActive(true);
+                EnableBgAntiClick();
             }
 
             private void EndOfBeforeTutoPart1()
@@ -463,6 +514,7 @@ namespace MiniGames
             {
                 dialogueManager.OnDialogueFinished -= EndOfBeforeTutoPart2;
                 quizz.SetActive(true);
+                DisableBgAntiClick();
             }
 
             private void StartAfterTuto()
@@ -497,6 +549,7 @@ namespace MiniGames
             {
                 dialogueManager.OnDialogueFinished -= EndOfChiffonQuest;
                 chiffonBtn.gameObject.SetActive(false);
+                DisableBgAntiClick();
             }
 
             private void StartChiffonNotFound()
@@ -521,6 +574,7 @@ namespace MiniGames
                 if (!firstPattern)
                 {
                     StartDialogueFirstSelectedPattern();
+                    chiffonBtn.gameObject.SetActive(true);
                     firstPattern = true;
                 }
             }
@@ -531,7 +585,8 @@ namespace MiniGames
                 dialogueManager.OnDialogueFinished += StartIntroPart3;
                 dialogueManager.CurrentDialogue = dialoguePressLever;
                 leverBtn.interactable = false;
-                chiffonBtn.gameObject.SetActive(true);
+
+                decorImg.GetComponent<LitMotionAnimation>().Play();
             }
 
             public void BS_QuizzAnswer(int answer_index)
@@ -545,8 +600,11 @@ namespace MiniGames
                 }
                 else if (answer_index == 1)
                 {
+                    EnableBgAntiClick();
                     dialogueManager.OnDialogueFinished += EndOfBeforeTutoPart2;
                     dialogueManager.CurrentDialogue = dialogueBeforeTutoPart2;
+                    StopCoroutine(viewPathCoroutine);
+                    ClearGrid();
                     viewPathCoroutine = StartCoroutine(ViewPath());
                 }
             }
@@ -554,6 +612,10 @@ namespace MiniGames
             public void BS_ChiffonFound()
             {
                 chiffonFound = true;
+                chiffonBtn.interactable = false;
+                chiffonBtn.GetComponent<LitMotionAnimation>().Stop();
+                EnableBgAntiClick();
+
                 dialogueManager.OnDialogueFinished += EndOfChiffonQuest;
                 dialogueManager.CurrentDialogue = dialogueChiffonQuest;
             }

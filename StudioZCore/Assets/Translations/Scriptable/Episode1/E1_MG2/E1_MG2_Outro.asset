@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: E1_MG2_Outro
   m_EditorClassIdentifier: 
   lines:
-  - character: {fileID: 11400000, guid: 73a90370840e1a443a353e278a28eed2, type: 2}
-    characterExpresionIndex: 0
+  - character: {fileID: 11400000, guid: 54af489c14fdd6f4891106405ba1a485, type: 2}
+    characterExpresionIndex: 7
     position: 0
     text:
       m_TableReference:
@@ -25,8 +25,8 @@ MonoBehaviour:
       m_FallbackState: 0
       m_WaitForCompletion: 0
       m_LocalVariables: []
-  - character: {fileID: 11400000, guid: 73a90370840e1a443a353e278a28eed2, type: 2}
-    characterExpresionIndex: 0
+  - character: {fileID: 11400000, guid: 54af489c14fdd6f4891106405ba1a485, type: 2}
+    characterExpresionIndex: 4
     position: 0
     text:
       m_TableReference:
@@ -37,7 +37,7 @@ MonoBehaviour:
       m_FallbackState: 0
       m_WaitForCompletion: 0
       m_LocalVariables: []
-  - character: {fileID: 11400000, guid: 73a90370840e1a443a353e278a28eed2, type: 2}
+  - character: {fileID: 11400000, guid: 54af489c14fdd6f4891106405ba1a485, type: 2}
     characterExpresionIndex: 0
     position: 0
     text:

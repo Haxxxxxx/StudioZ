@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: 7b1e1430e00c35f4cb30fc8ed885973c
+guid: ac7c5583c6e7b374fa2c0ca01d92c08d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3478189730588812693
-    second: Perso principal normal face_0
-  - first:
-      213: -160647861329573884
-    second: Perso principal normal face_1
-  - first:
-      213: -9125832986919177252
-    second: Perso principal normal face_2
-  - first:
-      213: 7204885468033944686
-    second: Perso principal normal face_3
+      213: 4325831444929431286
+    second: Profane poutre_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -135,23 +126,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Perso principal normal face_0
+      name: Profane poutre_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 158
-        width: 1080
-        height: 1471
+        y: 0
+        width: 917
+        height: 1041
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5956829b123054030800000000000000
-      internalID: 3478189730588812693
+      spriteID: 6f6cb39a7c0780c30800000000000000
+      internalID: 4325831444929431286
       vertices: []
       indices: 
       edges: []
@@ -170,10 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Perso principal normal face_0: 3478189730588812693
-      Perso principal normal face_1: -160647861329573884
-      Perso principal normal face_2: -9125832986919177252
-      Perso principal normal face_3: 7204885468033944686
+      Profane poutre_0: 4325831444929431286
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

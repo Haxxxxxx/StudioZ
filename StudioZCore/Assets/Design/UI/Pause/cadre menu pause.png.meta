@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 18b147556e68c664c8c6708f6b2a9f37
+guid: aeb2e050a1a0b404a8de1957d5ec4da0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 358098881210256769
-    second: Profane happy evil_0
+      213: 7648624625399051403
+    second: cadre menu pause_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Profane happy evil_0
+      name: cadre menu pause_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 28
-        width: 562
-        height: 454
+        y: 0
+        width: 2186
+        height: 2982
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 18d8001090938f400800000000000000
-      internalID: 358098881210256769
+      spriteID: b843739929f552a60800000000000000
+      internalID: 7648624625399051403
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Profane happy evil_0: 358098881210256769
+      cadre menu pause_0: 7648624625399051403
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
