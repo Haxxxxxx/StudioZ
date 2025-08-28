@@ -541,13 +541,19 @@ namespace MiniGames
             private void EndMiniGame()
             {
                 Debug.Log("✨ Mini-jeu terminé !");
-                //base.EndGame();
 
                 // Jouer l'outro si défini (la base contient probablement dialogueOutro)
                 if (dialogueManager != null && dialogueOutro != null)
                 {
                     dialogueManager.CurrentDialogue = dialogueOutro;
                 }
+
+                dialogueManager.OnDialogueFinished += MiniGameEnd;
+            }
+
+            private void MiniGameEnd()
+            {
+                base.EndGame();
             }
 
             #endregion
