@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e8e47e8fa6379c479c2f4232958318d, type: 3}
+  m_Name: ColShirt
+  m_EditorClassIdentifier: 
+  partType: 0
+  colValue: 2
+  sleeveValue: 0
+  torsoValue: 0
+  partSprite: {fileID: 2775282145087693642, guid: c3b8acd4d05c76f4b8f21e5490421a89, type: 3}
+  bakedOutline01:
+  - {x: 0.8659794, y: 0.28767124}
+  - {x: 0.99484533, y: 0.27397263}
+  - {x: 0.98453605, y: 0.90410954}
+  - {x: 0.82989687, y: 0.99999994}
+  - {x: 0.757732, y: 0.48630136}
+  - {x: 0.6030928, y: 0.23287673}
+  - {x: 0.32474226, y: 0.3630137}
+  - {x: 0.22680415, y: 0.99999994}
+  - {x: 0.030927867, y: 0.94520545}
+  - {x: 0.0051546646, y: 0.58219177}
+  - {x: 0.13917528, y: 0.3150685}
+  - {x: 0.20618558, y: 0.15068495}
+  - {x: 0.48453608, y: 0.006849349}
+  - {x: 0.81958765, y: 0.1712329}
