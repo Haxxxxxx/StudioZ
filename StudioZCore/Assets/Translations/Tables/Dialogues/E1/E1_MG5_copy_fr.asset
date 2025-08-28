@@ -10,14 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
-  m_Name: E1_MG5_fr
+  m_Name: E1_MG5_copy_fr
   m_EditorClassIdentifier: 
   m_LocaleId:
     m_Code: fr
-  m_SharedData: {fileID: 11400000, guid: 4e04fe2e0b43d5449b2134802884e59c, type: 2}
+  m_SharedData: {fileID: 11400000, guid: 7a6a06c4e8262494a91616dda6cb8d4f, type: 2}
   m_Metadata:
     m_Items: []
   m_TableData:
+  - m_Id: 35517828829184
+    m_Localized: "Ils sont fabriqu\xE9s dans les pays o\xF9 ils sont vendus"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35529832927232
+    m_Localized: "Ils sont transport\xE9s depuis leur pays de fabrication"
+    m_Metadata:
+      m_Items: []
   - m_Id: 21002063872
     m_Localized: "\xC7a y est Lyra, nous avons vu toutes les \xE9tapes pour confectionner
       un t-shirt. J\u2019esp\xE8re que tu as bien retenu chaque \xE9tape, car tout
@@ -58,8 +66,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 10250502672384
-    m_Localized: "Quand tu seras pr\xEAte, appuie sur le gros bouton et je t\u2019expliquerai
-      le mini jeu suivant."
+    m_Localized: Dis-moi si tu veux plus d'explications.
     m_Metadata:
       m_Items: []
   - m_Id: 10565801086976
@@ -96,14 +103,6 @@ MonoBehaviour:
       sur les transports dans l\u2019ordre que tu penses \xEAtre le bon. "
     m_Metadata:
       m_Items: []
-  - m_Id: 35517828829184
-    m_Localized: "Ils sont fabriqu\xE9s dans les pays o\xF9 ils sont vendus"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 35529832927232
-    m_Localized: "Ils sont transport\xE9s depuis leur pays de fabrication"
-    m_Metadata:
-      m_Items: []
   - m_Id: 35658799386624
     m_Localized: 'Les moutons du monde entier se les envoient par la poste
 
@@ -137,14 +136,14 @@ MonoBehaviour:
       la suite ! "
     m_Metadata:
       m_Items: []
-  - m_Id: 52454143168512
-    m_Localized: "Super boulot ! Tu as pens\xE9 \xE0 la plan\xE8te tout en trouvant
-      une route r\xE9aliste. Ce jean arrive en beaut\xE9 et sans trop polluer.  "
-    m_Metadata:
-      m_Items: []
   - m_Id: 52446933159936
     m_Localized: "Tu deviens un vrai strat\xE8ge ! C\u2019est un super trajet, \xE0
       la fois r\xE9aliste et peu polluant.   "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52454143168512
+    m_Localized: "Super boulot ! Tu as pens\xE9 \xE0 la plan\xE8te tout en trouvant
+      une route r\xE9aliste. Ce jean arrive en beaut\xE9 et sans trop polluer.  "
     m_Metadata:
       m_Items: []
   - m_Id: 52487655657472
@@ -183,17 +182,6 @@ MonoBehaviour:
       n\u2019est pas n\xE9cessaire. Essaie une alternative plus douce."
     m_Metadata:
       m_Items: []
-  - m_Id: 52682036482048
-    m_Localized: "Hmm\u2026 Tu n\u2019as pas oubli\xE9 quelque chose ? Il faut d\u2019abord
-      traverser l\u2019oc\xE9an pour pouvoir prendre le train !"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 52715876126720
-    m_Localized: "Le train, c\u2019est bien\u2026 mais il n\u2019y a pas encore de
-      rails sur la mer ! Peut-\xEAtre qu\u2019un camion ferait mieux l\u2019affaire
-      ?"
-    m_Metadata:
-      m_Items: []
   - m_Id: 52633063788544
     m_Localized: "Oups ! Le train ne peut pas traverser les oc\xE9ans. Il faut trouver
       un moyen de transport qui flotte ou vole."
@@ -204,9 +192,28 @@ MonoBehaviour:
       peut pas traverser un oc\xE9an ! essaie encore "
     m_Metadata:
       m_Items: []
+  - m_Id: 52682036482048
+    m_Localized: "Hmm\u2026 Tu n\u2019as pas oubli\xE9 quelque chose ? Il faut d\u2019abord
+      traverser l\u2019oc\xE9an pour pouvoir prendre le train !"
+    m_Metadata:
+      m_Items: []
   - m_Id: 52699614810112
     m_Localized: "Un camion qui roule sur l\u2019eau ? J\u2019aimerais voir \xE7a
       ! Essaie autre chose."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52715876126720
+    m_Localized: "Le train, c\u2019est bien\u2026 mais il n\u2019y a pas encore de
+      rails sur la mer ! Peut-\xEAtre qu\u2019un camion ferait mieux l\u2019affaire
+      ?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3337799856128
+    m_Localized: Oui
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3363431247872
+    m_Localized: Non
     m_Metadata:
       m_Items: []
   references:

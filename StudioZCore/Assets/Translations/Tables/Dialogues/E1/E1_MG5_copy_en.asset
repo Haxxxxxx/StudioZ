@@ -10,14 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
-  m_Name: E1_MG5_en
+  m_Name: E1_MG5_copy_en
   m_EditorClassIdentifier: 
   m_LocaleId:
     m_Code: en
-  m_SharedData: {fileID: 11400000, guid: 4e04fe2e0b43d5449b2134802884e59c, type: 2}
+  m_SharedData: {fileID: 11400000, guid: 7a6a06c4e8262494a91616dda6cb8d4f, type: 2}
   m_Metadata:
     m_Items: []
   m_TableData:
+  - m_Id: 35517828829184
+    m_Localized: They are manufactured in the countries where they are sold
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35529832927232
+    m_Localized: They are shipped from their country of manufacture
+    m_Metadata:
+      m_Items: []
   - m_Id: 21002063872
     m_Localized: That's it Lyra, we've seen all the steps involved in making a t-shirt.
       I hope you've remembered each step, because all that work goes into it... just
@@ -56,8 +64,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 10250502672384
-    m_Localized: When you're ready, press the big button and I'll explain the next
-      mini-game.
+    m_Localized: Tell me if you need a further explanation.
     m_Metadata:
       m_Items: []
   - m_Id: 10565801086976
@@ -91,14 +98,6 @@ MonoBehaviour:
       to press the transports in the order you think is right.
     m_Metadata:
       m_Items: []
-  - m_Id: 35517828829184
-    m_Localized: They are manufactured in the countries where they are sold
-    m_Metadata:
-      m_Items: []
-  - m_Id: 35529832927232
-    m_Localized: They are shipped from their country of manufacture
-    m_Metadata:
-      m_Items: []
   - m_Id: 35658799386624
     m_Localized: Sheep from all over the world mail them to each other
     m_Metadata:
@@ -127,14 +126,14 @@ MonoBehaviour:
       This shirt took its time, but the planet thanks you! Moving on!
     m_Metadata:
       m_Items: []
-  - m_Id: 52454143168512
-    m_Localized: Great job! You've thought about the planet while finding a realistic
-      route. These jeans arrive beautifully and without polluting too much.
-    m_Metadata:
-      m_Items: []
   - m_Id: 52446933159936
     m_Localized: You're becoming a real strategist! It's a great ride, both realistic
       and environmentally friendly.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52454143168512
+    m_Localized: Great job! You've thought about the planet while finding a realistic
+      route. These jeans arrive beautifully and without polluting too much.
     m_Metadata:
       m_Items: []
   - m_Id: 52487655657472
@@ -172,16 +171,6 @@ MonoBehaviour:
       a gentler alternative.
     m_Metadata:
       m_Items: []
-  - m_Id: 52682036482048
-    m_Localized: Hmm... Haven't you forgotten something? You have to cross the ocean
-      before you can take the train!
-    m_Metadata:
-      m_Items: []
-  - m_Id: 52715876126720
-    m_Localized: Trains are great... but there are no rails on the sea yet! Maybe
-      a truck would be better?
-    m_Metadata:
-      m_Items: []
   - m_Id: 52633063788544
     m_Localized: Oops! The train can't cross the ocean. We have to find a means of
       transport that floats or flies.
@@ -192,9 +181,27 @@ MonoBehaviour:
       cross an ocean! Try again!
     m_Metadata:
       m_Items: []
+  - m_Id: 52682036482048
+    m_Localized: Hmm... Haven't you forgotten something? You have to cross the ocean
+      before you can take the train!
+    m_Metadata:
+      m_Items: []
   - m_Id: 52699614810112
     m_Localized: A truck that runs on water? I'd like to see that! Try something
       else.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52715876126720
+    m_Localized: Trains are great... but there are no rails on the sea yet! Maybe
+      a truck would be better?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3337799856128
+    m_Localized: Yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3363431247872
+    m_Localized: No
     m_Metadata:
       m_Items: []
   references:

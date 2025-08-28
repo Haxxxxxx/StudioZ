@@ -18,7 +18,7 @@ MonoBehaviour:
     position: 2
     text:
       m_TableReference:
-        m_TableCollectionName: GUID:4e04fe2e0b43d5449b2134802884e59c
+        m_TableCollectionName: GUID:7a6a06c4e8262494a91616dda6cb8d4f
       m_TableEntryReference:
         m_KeyId: 8958078226432
         m_Key: 
@@ -30,7 +30,7 @@ MonoBehaviour:
     position: 2
     text:
       m_TableReference:
-        m_TableCollectionName: GUID:4e04fe2e0b43d5449b2134802884e59c
+        m_TableCollectionName: GUID:7a6a06c4e8262494a91616dda6cb8d4f
       m_TableEntryReference:
         m_KeyId: 9181852733440
         m_Key: 
@@ -42,7 +42,7 @@ MonoBehaviour:
     position: 3
     text:
       m_TableReference:
-        m_TableCollectionName: GUID:4e04fe2e0b43d5449b2134802884e59c
+        m_TableCollectionName: GUID:7a6a06c4e8262494a91616dda6cb8d4f
       m_TableEntryReference:
         m_KeyId: 9430738538496
         m_Key: 
@@ -54,7 +54,7 @@ MonoBehaviour:
     position: 2
     text:
       m_TableReference:
-        m_TableCollectionName: GUID:4e04fe2e0b43d5449b2134802884e59c
+        m_TableCollectionName: GUID:7a6a06c4e8262494a91616dda6cb8d4f
       m_TableEntryReference:
         m_KeyId: 10142100885504
         m_Key: 
@@ -66,7 +66,7 @@ MonoBehaviour:
     position: 2
     text:
       m_TableReference:
-        m_TableCollectionName: GUID:4e04fe2e0b43d5449b2134802884e59c
+        m_TableCollectionName: GUID:7a6a06c4e8262494a91616dda6cb8d4f
       m_TableEntryReference:
         m_KeyId: 10250502672384
         m_Key: 
