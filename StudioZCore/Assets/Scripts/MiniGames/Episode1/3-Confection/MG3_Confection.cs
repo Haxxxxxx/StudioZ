@@ -83,10 +83,10 @@ namespace MiniGames
             private bool hasPlayedCutStepDialogue = false;      // cutstepDialogue une seule fois
             private int choiceSelectionCount = 0;               // 1 => premier choix, 2 => deuxième choix (pour choice1/choice2)
 
-            private void Awake()
+            protected override void Awake()
             {
                 instance = this;
-                base.Awake();
+                //base.Awake();
 
                 // Désactiver les canvas jusqu'à la fin de l'intro (on les réactivera après)
                 if (selectCanvas) selectCanvas.gameObject.SetActive(false);
