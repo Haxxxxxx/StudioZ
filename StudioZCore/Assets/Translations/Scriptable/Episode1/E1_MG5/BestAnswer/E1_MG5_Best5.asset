@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: E1_MG5_Best5
   m_EditorClassIdentifier: 
   lines:
-  - character: 2
+  - character: {fileID: 11400000, guid: 54af489c14fdd6f4891106405ba1a485, type: 2}
+    characterExpresionIndex: 4
     position: 2
     text:
       m_TableReference:

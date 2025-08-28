@@ -69,7 +69,6 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue()
     {
-        Debug.Log($"Starting dialogue: {currentDialogue?.name}");
         if (!bubble || !bubble.activeSelf) bubble.SetActive(true);
         if (typeLineCoroutine != null) StopCoroutine(typeLineCoroutine);
 
@@ -194,6 +193,12 @@ public class DialogueManager : MonoBehaviour
 
     private void SetSpeakerInfo(DialogueData line)
     {
+        if (line == null || line.character == null)
+        {
+            Debug.LogWarning("DialogueData ou CharacterData est null dans SetSpeakerInfo.");
+            return;
+        }
+
         if (speakerImageComponent != null && line.character.expressions != null && 
             line.character.expressions.Count > 0 && line.character.expressions[line.characterExpresionIndex].expressionSprite != null)
         {
