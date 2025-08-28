@@ -38,7 +38,7 @@ MonoBehaviour:
       m_WaitForCompletion: 0
       m_LocalVariables: []
   - character: {fileID: 11400000, guid: 73a90370840e1a443a353e278a28eed2, type: 2}
-    characterExpresionIndex: 1
+    characterExpresionIndex: 0
     position: 0
     text:
       m_TableReference:

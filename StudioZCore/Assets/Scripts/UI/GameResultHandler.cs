@@ -2,19 +2,58 @@ using UnityEngine;
 using LitMotion.Animation;
 using System.Collections;
 using TMPro;
+using UnityEngine.UI;
 
+[RequireComponent(typeof(SceneLoader))]
 public class GameResultHandler : MonoBehaviour
 {
+    private GameManager gameManager;
+    private SceneLoader sceneLoader;
+
     [Header("UI References")]
     [SerializeField] private GameObject gameResultCanvas;
     [SerializeField] private LitMotionAnimation star1Animation;
     [SerializeField] private LitMotionAnimation star2Animation;
     [SerializeField] private LitMotionAnimation star3Animation;
     [SerializeField] private TextMeshProUGUI chronoText;
+    [SerializeField] private Button nextBtn;
+    [SerializeField] private Image firstMedalImg;
+    [SerializeField] private Image secondMedalImg;
 
-    public void ShowGameResult(int stars, string chrono)
+    private void Start()
+    {
+        gameManager = GameManager.instance;
+        sceneLoader = GetComponent<SceneLoader>();
+        CheckNextMiniGame();
+    }
+
+    private void CheckNextMiniGame()
+    {
+        if (gameManager && gameManager.currentEpisode.miniGames.IndexOf(gameManager.currentMiniGame) == gameManager.currentEpisode.miniGames.Count - 1)
+        {
+            nextBtn.gameObject.SetActive(false);
+        }
+        else
+        {
+            nextBtn.gameObject.SetActive(true);
+        }
+    }
+
+    public void ShowGameResult(int stars, string chrono, Sprite firstMedalSprite, Sprite secondMedalSprite)
     {
         gameResultCanvas.SetActive(true);
+
+        firstMedalImg.sprite = firstMedalSprite;
+        if (secondMedalSprite != null)
+        {
+            secondMedalImg.gameObject.SetActive(true);
+            secondMedalImg.sprite = secondMedalSprite;
+        }
+        else
+        {
+            secondMedalImg.gameObject.SetActive(false);
+        }
+
         StartCoroutine(AnimateStars(stars));
         chronoText.text = chrono;
     }
@@ -39,4 +78,24 @@ public class GameResultHandler : MonoBehaviour
 
         star3Animation.Play();
     }
-} 
+
+    #region Button Function
+
+    public void BS_MainMenu()
+    {
+        sceneLoader.LoadMainMenuScene();
+    }
+
+    public void BS_Restart()
+    {
+        sceneLoader.ReloadCurrentScene();
+    }
+
+    public void BS_Next()
+    {
+        gameManager.currentMiniGame = gameManager.currentEpisode.miniGames[gameManager.currentEpisode.miniGames.IndexOf(gameManager.currentMiniGame) + 1];
+        sceneLoader.LoadMiniGameScene(gameManager.currentMiniGame);
+    }
+
+    #endregion
+}

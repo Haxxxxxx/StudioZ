@@ -1163,6 +1163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 692212290c9440b478bf1f564ad3f43a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialText: Default Popup Text
 --- !u!1 &9166692123867643496
 GameObject:
   m_ObjectHideFlags: 0

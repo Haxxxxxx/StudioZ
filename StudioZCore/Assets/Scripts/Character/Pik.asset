@@ -19,16 +19,16 @@ MonoBehaviour:
   - expressionName: None
     expressionSprite: {fileID: 0}
   - expressionName: Angry
-    expressionSprite: {fileID: -3693683663635596359, guid: 27d577ed179ffd34ba9bd2f4fe970373, type: 3}
+    expressionSprite: {fileID: 21300000, guid: 27d577ed179ffd34ba9bd2f4fe970373, type: 3}
   - expressionName: Disappointed
-    expressionSprite: {fileID: -7010213565188112395, guid: ba3c6a2b895ca404fb53183c6724ca3e, type: 3}
+    expressionSprite: {fileID: 21300000, guid: ba3c6a2b895ca404fb53183c6724ca3e, type: 3}
   - expressionName: Happy
-    expressionSprite: {fileID: 6751752653812984275, guid: b867c2e21fe02ec4fb98b8474520342d, type: 3}
+    expressionSprite: {fileID: 21300000, guid: b867c2e21fe02ec4fb98b8474520342d, type: 3}
   - expressionName: Thoughtful
-    expressionSprite: {fileID: -4803674287255051916, guid: 6e91cd2dfc2715246883a48c06742575, type: 3}
+    expressionSprite: {fileID: 21300000, guid: 6e91cd2dfc2715246883a48c06742575, type: 3}
   - expressionName: Sad
-    expressionSprite: {fileID: 6080296819590796583, guid: de2c276aa31eece468371f9a1ce3a3ca, type: 3}
+    expressionSprite: {fileID: 21300000, guid: de2c276aa31eece468371f9a1ce3a3ca, type: 3}
   - expressionName: Amazed
-    expressionSprite: {fileID: -5991235742180409024, guid: 2b245fdd97e01134d8c66def589a9e18, type: 3}
+    expressionSprite: {fileID: 21300000, guid: 2b245fdd97e01134d8c66def589a9e18, type: 3}
   - expressionName: Suprised
-    expressionSprite: {fileID: -6058164700053892905, guid: 851a9fc0237757546987d137d539e20c, type: 3}
+    expressionSprite: {fileID: 21300000, guid: 851a9fc0237757546987d137d539e20c, type: 3}

@@ -1,10 +1,25 @@
+using MiniGames;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    public void BS_LoadScene(int level)
+    [SerializeField] private SceneAsset mainMenuScene;
+
+    public void LoadMiniGameScene(MiniGameData miniGame)
     {
-        SceneManager.LoadScene(level);
+        GameManager.instance.currentMiniGame = miniGame;
+        SceneManager.LoadSceneAsync(miniGame.miniGameScene.name, LoadSceneMode.Single);
+    }
+
+    public void LoadMainMenuScene()
+    {
+        SceneManager.LoadSceneAsync(mainMenuScene.name, LoadSceneMode.Single);
+    }
+
+    public void ReloadCurrentScene()
+    {
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
     }
 }

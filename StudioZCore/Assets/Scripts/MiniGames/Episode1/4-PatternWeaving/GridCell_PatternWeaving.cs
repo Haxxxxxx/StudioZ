@@ -73,7 +73,7 @@ namespace MiniGames
             {
                 if (isWoven)
                 {
-                    selectedData.nextCell.SetIsNextCell(isNext);
+                    CheckNextCell(isNext);
                     return;
                 }
 
@@ -86,6 +86,18 @@ namespace MiniGames
                 else
                 {
                     image.color = new Color(1f, 1f, 1f, 0);
+                }
+            }
+
+            private void CheckNextCell(bool isNext = true)
+            {
+                if (selectedData.nextCell != null)
+                {
+                    selectedData.nextCell.SetIsNextCell(isNext);
+                }
+                else
+                {
+                    mgPatternWeaving.CheckPatternScore();
                 }
             }
 
@@ -108,16 +120,10 @@ namespace MiniGames
                     image.color = selectedData.color;
                     mgPatternWeaving.PerformAction(mgPatternWeaving.miniGameActionName.GoodWeaving);
 
-                    if (selectedData.nextCell != null)
-                    {
-                        selectedData.nextCell.SetIsNextCell();
-                    }
-                    else
-                    {
-                        mgPatternWeaving.CheckPatternScore();
-                    }
+                    CheckNextCell();
                 }
-                else if(this == mgPatternWeaving.pathTakenCell.Last() && this != mgPatternWeaving.validPathCell.Last())
+                else if(mgPatternWeaving.pathTakenCell.Count > 0 && this == mgPatternWeaving.pathTakenCell.Last() &&
+                    mgPatternWeaving.validPathCell.Count > 0 && this != mgPatternWeaving.validPathCell.Last())
                 {
                     mgPatternWeaving.PerformAction(mgPatternWeaving.miniGameActionName.GoodWeaving);
                 }
