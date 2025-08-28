@@ -203,11 +203,11 @@ namespace MiniGames
             OnReversedChronoEnded?.Invoke();
         }
 
-        protected virtual void PauseMiniGame()
+        public virtual void PauseMiniGame()
         {
             isPaused = true;
         }
-        protected virtual void UnPauseMiniGame()
+        public virtual void UnPauseMiniGame()
         {
             isPaused = false;
         }

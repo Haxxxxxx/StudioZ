@@ -748,13 +748,73 @@ PrefabInstance:
     m_TransformParent: {fileID: 995966387}
     m_Modifications:
     - target: {fileID: 201994078484095461, guid: fc353ebfe5584d64abb1599ba820921a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 201994078484095461, guid: fc353ebfe5584d64abb1599ba820921a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 165928228}
+    - target: {fileID: 201994078484095461, guid: fc353ebfe5584d64abb1599ba820921a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadMiniGameScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 201994078484095461, guid: fc353ebfe5584d64abb1599ba820921a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 11400000, guid: 1f8eaf628d8302f4396e18a08c0b219c, type: 2}
+    - target: {fileID: 201994078484095461, guid: fc353ebfe5584d64abb1599ba820921a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: MiniGames.MiniGameData, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1889943588008535624, guid: fc353ebfe5584d64abb1599ba820921a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1889943588008535624, guid: fc353ebfe5584d64abb1599ba820921a, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1889943588008535624, guid: fc353ebfe5584d64abb1599ba820921a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1889943588008535624, guid: fc353ebfe5584d64abb1599ba820921a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2172148495021108132, guid: fc353ebfe5584d64abb1599ba820921a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 165928228}
+    - target: {fileID: 2172148495021108132, guid: fc353ebfe5584d64abb1599ba820921a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadMiniGameScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 2172148495021108132, guid: fc353ebfe5584d64abb1599ba820921a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SceneLoader, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 3703260206286166855, guid: fc353ebfe5584d64abb1599ba820921a, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1740488277}
+    - target: {fileID: 4779931425443870718, guid: fc353ebfe5584d64abb1599ba820921a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4779931425443870718, guid: fc353ebfe5584d64abb1599ba820921a, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4779931425443870718, guid: fc353ebfe5584d64abb1599ba820921a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4779931425443870718, guid: fc353ebfe5584d64abb1599ba820921a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6527431502259410845, guid: fc353ebfe5584d64abb1599ba820921a, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -838,6 +898,22 @@ PrefabInstance:
     - target: {fileID: 8538347666171017774, guid: fc353ebfe5584d64abb1599ba820921a, type: 3}
       propertyPath: m_Name
       value: MainMenuCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 8739596375681815252, guid: fc353ebfe5584d64abb1599ba820921a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8739596375681815252, guid: fc353ebfe5584d64abb1599ba820921a, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8739596375681815252, guid: fc353ebfe5584d64abb1599ba820921a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8739596375681815252, guid: fc353ebfe5584d64abb1599ba820921a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

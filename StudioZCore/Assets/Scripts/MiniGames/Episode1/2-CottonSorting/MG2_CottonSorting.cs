@@ -255,12 +255,12 @@ namespace MiniGames
                 scoreText.text = currentScore + "/" + maxScoreCurrentPhase;
             }
 
-            protected override void PauseMiniGame()
+            public override void PauseMiniGame()
             {
                 base.PauseMiniGame();
                 EnableBackgroundAntiClick();
             }
-            protected override void UnPauseMiniGame()
+            public override void UnPauseMiniGame()
             {
                 base.UnPauseMiniGame();
                 DisableBackgroundAntiClick();

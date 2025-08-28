@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a86f9d8bec3aa0240b5ecfa102cb89aa
+guid: 59426a263314abf439e00193bb1f0208
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1353920522381606945
-    second: "cadre r\xE9sultat_0"
+      213: -66963924572173044
+    second: bouton select_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "cadre r\xE9sultat_0"
+      name: bouton select_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 2186
-        height: 2982
+        width: 4712
+        height: 1330
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 150, y: 150, z: 150, w: 150}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fdf35515578e53de0800000000000000
-      internalID: -1353920522381606945
+      spriteID: c0d0c175aa8121ff0800000000000000
+      internalID: -66963924572173044
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 0691416137749744c83c499292ba46f8
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "cadre r\xE9sultat_0": -1353920522381606945
+      bouton select_0: -66963924572173044
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
