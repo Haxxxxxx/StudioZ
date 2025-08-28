@@ -9,11 +9,13 @@ public class PauseHandler : MonoBehaviour
 
     [Header("UI References")]
     [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject mask;
 
     private void Awake()
     {
         sceneLoader = GetComponent<SceneLoader>();
         pauseMenu.SetActive(false);
+        mask.SetActive(false);
     }
 
     private void Start()
@@ -23,6 +25,7 @@ public class PauseHandler : MonoBehaviour
 
     public void BS_TogglePause()
     {
+        mask.SetActive(!pauseMenu.activeSelf);
         pauseMenu.SetActive(!pauseMenu.activeSelf);
         bool isPaused = pauseMenu.activeSelf;
         if(isPaused)
