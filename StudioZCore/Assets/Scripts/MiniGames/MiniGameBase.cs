@@ -49,6 +49,9 @@ namespace MiniGames
         [SerializeField] protected Dialogue dialogueIntro;
         [SerializeField] protected Dialogue dialogueOutro;
 
+        [SerializeField] protected Sprite miniGameMedal;
+        [SerializeField] protected Sprite secondMedal;
+
         protected event System.Action OnReversedChronoEnded;
         #endregion
 
@@ -130,7 +133,7 @@ namespace MiniGames
         public virtual void EndGame()
         {
             isFinished = true;
-            gameResultHandler.ShowGameResult(CalculateStars(), GetChronoInString());
+            gameResultHandler.ShowGameResult(CalculateStars(), GetChronoInString(), miniGameMedal, secondMedal);
             
             //if (currentScore + result.pointValue < 0) 
             //    currentScore = 0; // capé à 0

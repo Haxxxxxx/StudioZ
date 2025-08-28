@@ -405,6 +405,8 @@ namespace MiniGames
                     }
                 }
 
+                if(!chiffonFound) secondMedal = null;
+
                 dialogueManager.OnDialogueFinished += (chiffonFound ? EndGame : StartChiffonNotFound);
                 dialogueManager.CurrentDialogue = dialogueOutro;
             }
