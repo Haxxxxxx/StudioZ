@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a86f9d8bec3aa0240b5ecfa102cb89aa
+guid: aeb2e050a1a0b404a8de1957d5ec4da0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1353920522381606945
-    second: "cadre r\xE9sultat_0"
+      213: 7648624625399051403
+    second: cadre menu pause_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,7 +113,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "cadre r\xE9sultat_0"
+      name: cadre menu pause_0
       rect:
         serializedVersion: 2
         x: 0
@@ -121,15 +121,15 @@ TextureImporter:
         width: 2186
         height: 2982
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 150, y: 150, z: 150, w: 150}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fdf35515578e53de0800000000000000
-      internalID: -1353920522381606945
+      spriteID: b843739929f552a60800000000000000
+      internalID: 7648624625399051403
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 0691416137749744c83c499292ba46f8
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "cadre r\xE9sultat_0": -1353920522381606945
+      cadre menu pause_0: 7648624625399051403
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
