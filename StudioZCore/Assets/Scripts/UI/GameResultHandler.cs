@@ -17,6 +17,8 @@ public class GameResultHandler : MonoBehaviour
     [SerializeField] private LitMotionAnimation star3Animation;
     [SerializeField] private TextMeshProUGUI chronoText;
     [SerializeField] private Button nextBtn;
+    [SerializeField] private Image firstMedalImg;
+    [SerializeField] private Image secondMedalImg;
 
     private void Start()
     {
@@ -37,9 +39,21 @@ public class GameResultHandler : MonoBehaviour
         }
     }
 
-    public void ShowGameResult(int stars, string chrono)
+    public void ShowGameResult(int stars, string chrono, Sprite firstMedalSprite, Sprite secondMedalSprite)
     {
         gameResultCanvas.SetActive(true);
+
+        firstMedalImg.sprite = firstMedalSprite;
+        if (secondMedalSprite != null)
+        {
+            secondMedalImg.gameObject.SetActive(true);
+            secondMedalImg.sprite = secondMedalSprite;
+        }
+        else
+        {
+            secondMedalImg.gameObject.SetActive(false);
+        }
+
         StartCoroutine(AnimateStars(stars));
         chronoText.text = chrono;
     }
