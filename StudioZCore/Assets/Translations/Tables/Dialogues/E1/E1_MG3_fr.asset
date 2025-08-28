@@ -1,0 +1,209 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: E1_MG3_fr
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: fr
+  m_SharedData: {fileID: 11400000, guid: a45ff9bc634cf40429555b5a365eeb8b, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 1670839603200
+    m_Localized: "Je commence \xE0 mieux comprendre tout ce qu\u2019a travers\xE9
+      chiffon avant d\u2019arriver \xE0 la maison, j\u2019\xE9tais loin d\u2019imaginer
+      que c'\xE9tait aussi long\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7396991504384
+    m_Localized: "En effet Lyra et tu n\u2019as pas tout vu !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7518865395712
+    m_Localized: "Je me demande ce que repr\xE9sente tous ses motifs sur le sol,
+      on dirait que \xE7a forme quelque chose, mais je n'arrive pas \xE0 savoir quoi\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7521109348352
+    m_Localized: "D\xE9cid\xE9ment rien ne t\u2019\xE9chappe Lyra, regarde devant
+      toi nous sommes arriv\xE9 \xE0 la troisi\xE8me \xE9tapes du processus."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7523189723136
+    m_Localized: "Ohhh je me souviens nous sommes \xE0 la route tiss\xE9e c\u2019est
+      ainsi qu\u2019est scell\xE9 notre avenir, tu vois toutes ses routes ?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7763535925248
+    m_Localized: "Certaines bobines sont assembl\xE9es pour devenir des pantalons,
+      d'autres des robes ou des\r\nt-shirts."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7802131910656
+    m_Localized: "C\u2019est comme un immense carrefour ou chacun prend une trajectoire
+      diff\xE9rente sans\r\njamais se revoir\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7805013397504
+    m_Localized: "Prenons un de ses tapis roulants pour voir o\xF9 il nous am\xE8ne,
+      je pense qu\u2019un nouveau\r\nd\xE9fi nous attend, tu es pr\xEAt Lyra ?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7837426978816
+    m_Localized: "Bien s\xFBr ! j\u2019ai h\xE2te de voir comment ses bobines de
+      fils peuvent composer des habits !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 323810667335680
+    m_Localized: "Nous y voila ! on le voit peut \xEAtre pas directement mais un
+      v\xEAtement, c\u2019est un vrai puzzle !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 324203073835008
+    m_Localized: "Pour un t-shirt, il faut assembler les manches, le torse, le col\u2026
+      Et pour faire \xE7a, on suit un mod\xE8le qu\u2019on appelle un patron."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 324275853398016
+    m_Localized: "C\u2019est comme une carte qui montre comment assembler les morceaux
+      de v\xEAtements !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 324333160173568
+    m_Localized: "Tu vois cette table de tissage ? C'est ici que l\u2019on va d\xE9couper
+      les diff\xE9rents patrons pour nos t-shirts, mais tu n\u2019as pas besoin d\u2019en
+      avoir une centaine, seul 3 t shirt suffiront !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 324510969303040
+    m_Localized: "Regarde ce joli  t-shirt \xE0 gauche de la table ? Ce sera notre
+      mod\xE8le et c'est a ca que devra ressembler ton t shirt a la fin de ton assemblage"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 324568146055168
+    m_Localized: "Pour y arriver tu vas avoir le choix entre 3 patrons, soit attentif
+      et regarde bien le mod\xE8le sinon ton t-shirt aura un d\xE9faut de fabrication
+      et nous devrons recommencer !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 324750451478528
+    m_Localized: "Une fois que tu penses avoir trouver le bon patron saisie toi de
+      ton ciseaux afin de le d\xE9couper proprement !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 324859398524928
+    m_Localized: "Si jamais tu ne traverses pas tous les points de d\xE9coupe, tu
+      vas abimer ton t shirt. Mais pas de panique, nous pourrons le r\xE9parer plus
+      tard."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 325151796039680
+    m_Localized: "Observe bien le t-shirt mod\xE8le, petit couturier ! Trouve le
+      patron qui lui ressemble comme deux gouttes d\u2019eau !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 325252656467968
+    m_Localized: "\xC0 toi de jouer ! Le bon patron est cach\xE9 parmi les trois.
+      Je suis s\xFBr que tu vas le reconna\xEEtre !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 326136786391040
+    m_Localized: "Ooooh, magnifa\xEFk quelle d\xE9coupe ! On croirait que tu fais
+      \xE7a depuis toujours !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 326223524597760
+    m_Localized: "Impressionnant ! Aucun fil ne d\xE9passe, tu peux \xEAtre fier
+      de toi c\u2019est du travail d\u2019expert !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 326296807477248
+    m_Localized: "Oups, petit accroc ! Heureusement, on a des patchs magiques pour
+      tout r\xE9parer."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 326408241745920
+    m_Localized: "C\u2019est pas grave ! M\xEAme les plus grands couturiers font
+      des erreurs. Prends ton temps pour la suite !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 326465179422720
+    m_Localized: "Parfaitement assembl\xE9 ! Tu as l\u2019\u0153il et la main d\u2019un
+      vrai pro."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 326548801261568
+    m_Localized: "C\u2019est presque \xE7a ! Un petit ajustement et on y est !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 326660331999232
+    m_Localized: "C\u2019est pas grave, c\u2019est comme un puzzle : parfois, il
+      faut essayer plusieurs fois avant que tout s\u2019aligne !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 326789113909248
+    m_Localized: "Parfait  ! C\u2019est cousu, d\xE9coup\xE9, assembl\xE9 ! Lyra,
+      tu as r\xE9ussi cette 3\xE9me \xE9tape avec beaucoup de facilit\xE9, j'esp\xE8re
+      que tu es fier de toi."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 326956886069248
+    m_Localized: "Wooooow ! Il est trop beau ! j\u2019ai envie d'en prendre un pour
+      pouvoir le porter en vrai et me souvenir de ce moment !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 327028763856896
+    m_Localized: "Tu sais, Lyra, chaque t-shirt que tu vois dans les magasins a d\u2019abord
+      \xE9t\xE9 d\xE9coup\xE9 comme tu viens de le faire."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 327104630427648
+    m_Localized: "Un par un, pi\xE8ce par pi\xE8ce. M\xEAme ceux qui sont fabriqu\xE9s
+      par des machines ont d\u2019abord \xE9t\xE9 pens\xE9s par des gens comme toi
+      !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 327163652673536
+    m_Localized: "Waaaah\u2026 donc quelqu\u2019un a vraiment d\xE9coup\xE9 mon t-shirt
+      pr\xE9f\xE9r\xE9, avec les petits chatons cosmonautes ?!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 327200185061376
+    m_Localized: "Oui ! Et peut-\xEAtre qu\u2019un jour, toi aussi tu inventeras
+      un mod\xE8le que tout le monde voudra porter !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 327271089770496
+    m_Localized: "Mais j\u2019esp\xE8re que tu ne choisiras pas un col en V avec
+      des manches longues et un torse trop court\u2026 sinon \xE7a gratte et \xE7a
+      tire dans le dos ! Brrr !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 327338840363008
+    m_Localized: "Ahah ! Promis Chiffon, je ferai attention \xE0 ne pas te froisser\u2026tu
+      sais c\u2019est peut-\xEAtre b\xEAte, mais j\u2019ai l\u2019impression que
+      tu es devenu mon ami."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 327341457608704
+    m_Localized: "Bon, notre atelier couture est termin\xE9 pour aujourd\u2019hui.
+      En route vers la prochaine aventure !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 327343135330304
+    m_Localized: "Mais d\u2019abord, une pause sieste. \xC7a donne chaud de vous
+      regarder travailler\u2026"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: E1_MG2_HintCurtain
   m_EditorClassIdentifier: 
   lines:
-  - character: 2
+  - character: {fileID: 11400000, guid: 73a90370840e1a443a353e278a28eed2, type: 2}
+    characterExpresionIndex: 0
     position: 0
     text:
       m_TableReference:

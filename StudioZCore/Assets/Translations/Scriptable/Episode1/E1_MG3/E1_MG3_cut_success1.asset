@@ -10,29 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 58731780e4ee9ce47bd93acc4a28186e, type: 3}
-  m_Name: E1_MG2_TrashSecondError
+  m_Name: E1_MG3_cut_success1
   m_EditorClassIdentifier: 
   lines:
-  - character: {fileID: 11400000, guid: 73a90370840e1a443a353e278a28eed2, type: 2}
+  - character: {fileID: 11400000, guid: 54af489c14fdd6f4891106405ba1a485, type: 2}
     characterExpresionIndex: 0
     position: 0
     text:
       m_TableReference:
-        m_TableCollectionName: GUID:a2001e612c441464a94d22ecd5705f50
+        m_TableCollectionName: GUID:a45ff9bc634cf40429555b5a365eeb8b
       m_TableEntryReference:
-        m_KeyId: 2962324018130944
-        m_Key: 
-      m_FallbackState: 0
-      m_WaitForCompletion: 0
-      m_LocalVariables: []
-  - character: {fileID: 11400000, guid: 73a90370840e1a443a353e278a28eed2, type: 2}
-    characterExpresionIndex: 0
-    position: 0
-    text:
-      m_TableReference:
-        m_TableCollectionName: GUID:a2001e612c441464a94d22ecd5705f50
-      m_TableEntryReference:
-        m_KeyId: 2962326710874112
+        m_KeyId: 326136786391040
         m_Key: 
       m_FallbackState: 0
       m_WaitForCompletion: 0

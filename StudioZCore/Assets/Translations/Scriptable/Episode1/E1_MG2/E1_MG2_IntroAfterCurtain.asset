@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: E1_MG2_IntroAfterCurtain
   m_EditorClassIdentifier: 
   lines:
-  - character: 1
+  - character: {fileID: 11400000, guid: 73a90370840e1a443a353e278a28eed2, type: 2}
+    characterExpresionIndex: 0
     position: 0
     text:
       m_TableReference:
@@ -24,7 +25,8 @@ MonoBehaviour:
       m_FallbackState: 0
       m_WaitForCompletion: 0
       m_LocalVariables: []
-  - character: 4
+  - character: {fileID: 11400000, guid: 73a90370840e1a443a353e278a28eed2, type: 2}
+    characterExpresionIndex: 0
     position: 0
     text:
       m_TableReference:
@@ -35,7 +37,8 @@ MonoBehaviour:
       m_FallbackState: 0
       m_WaitForCompletion: 0
       m_LocalVariables: []
-  - character: 1
+  - character: {fileID: 11400000, guid: 73a90370840e1a443a353e278a28eed2, type: 2}
+    characterExpresionIndex: 0
     position: 0
     text:
       m_TableReference:
@@ -46,7 +49,8 @@ MonoBehaviour:
       m_FallbackState: 0
       m_WaitForCompletion: 0
       m_LocalVariables: []
-  - character: 2
+  - character: {fileID: 0}
+    characterExpresionIndex: 0
     position: 0
     text:
       m_TableReference:
