@@ -1,0 +1,184 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: E1_MG5_copy Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: E1_MG5_copy
+  m_TableCollectionNameGuidString: 7a6a06c4e8262494a91616dda6cb8d4f
+  m_Entries:
+  - m_Id: 35517828829184
+    m_Key: E1_MG5_ans1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35529832927232
+    m_Key: E1_MG5_ans2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21002063872
+    m_Key: E1_MG5_intro1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 486305566720
+    m_Key: E1_MG5_intro2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 587568648192
+    m_Key: E1_MG5_intro3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8958078226432
+    m_Key: E1_MG5_intro4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9181852733440
+    m_Key: E1_MG5_intro5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9430738538496
+    m_Key: E1_MG5_intro6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10142100885504
+    m_Key: E1_MG5_intro7
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10250502672384
+    m_Key: E1_MG5_intro8
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10565801086976
+    m_Key: E1_MG5_tuto1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10787453276160
+    m_Key: E1_MG5_tuto2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11520386928640
+    m_Key: E1_MG5_tuto3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11640817979392
+    m_Key: E1_MG5_tuto4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11725375148032
+    m_Key: E1_MG5_tuto5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11855155302400
+    m_Key: 'E1_MG5_tuto6
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35658799386624
+    m_Key: 'E1_MG5_ans3
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42505191165952
+    m_Key: E1_MG5_badAns
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50648746954752
+    m_Key: E1_MG5_outro1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50907455819776
+    m_Key: E1_MG5_outro2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50920655294464
+    m_Key: E1_MG5_outro3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52049417998336
+    m_Key: E1_MG5_best1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52446933159936
+    m_Key: E1_MG5_best3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52454143168512
+    m_Key: E1_MG5_best2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52487655657472
+    m_Key: E1_MG5_best4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52503501737984
+    m_Key: E1_MG5_best5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52523005251584
+    m_Key: E1_MG5_mid1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52561156640768
+    m_Key: E1_MG5_mid2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52581733896192
+    m_Key: E1_MG5_mid3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52602705416192
+    m_Key: E1_MG5_mid4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52618127872000
+    m_Key: E1_MG5_mid5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52633063788544
+    m_Key: E1_MG5_worst1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52665678696448
+    m_Key: E1_MG5_worst2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52682036482048
+    m_Key: E1_MG5_worst3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52699614810112
+    m_Key: E1_MG5_worst4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52715876126720
+    m_Key: E1_MG5_worst5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3337799856128
+    m_Key: yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3363431247872
+    m_Key: no
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 2886762922530046040
+  references:
+    version: 2
+    RefIds:
+    - rid: 2886762922530046040
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1756386927431

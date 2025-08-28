@@ -25,7 +25,7 @@ MonoBehaviour:
       m_FallbackState: 0
       m_WaitForCompletion: 0
       m_LocalVariables: []
-  - character: {fileID: 0}
+  - character: {fileID: 11400000, guid: 73a90370840e1a443a353e278a28eed2, type: 2}
     characterExpresionIndex: 0
     position: 0
     text:
@@ -37,7 +37,7 @@ MonoBehaviour:
       m_FallbackState: 0
       m_WaitForCompletion: 0
       m_LocalVariables: []
-  - character: {fileID: 0}
+  - character: {fileID: 11400000, guid: 73a90370840e1a443a353e278a28eed2, type: 2}
     characterExpresionIndex: 0
     position: 0
     text:

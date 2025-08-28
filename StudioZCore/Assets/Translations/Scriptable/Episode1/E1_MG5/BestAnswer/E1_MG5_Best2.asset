@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58731780e4ee9ce47bd93acc4a28186e, type: 3}
+  m_Name: E1_MG5_Best2
+  m_EditorClassIdentifier: 
+  lines:
+  - character: {fileID: 11400000, guid: 54af489c14fdd6f4891106405ba1a485, type: 2}
+    characterExpresionIndex: 4
+    position: 2
+    text:
+      m_TableReference:
+        m_TableCollectionName: GUID:7a6a06c4e8262494a91616dda6cb8d4f
+      m_TableEntryReference:
+        m_KeyId: 52454143168512
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []

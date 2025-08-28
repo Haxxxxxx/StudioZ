@@ -1,0 +1,214 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: E1_MG5_fr
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: fr
+  m_SharedData: {fileID: 11400000, guid: 4e04fe2e0b43d5449b2134802884e59c, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 21002063872
+    m_Localized: "\xC7a y est Lyra, nous avons vu toutes les \xE9tapes pour confectionner
+      un t-shirt. J\u2019esp\xE8re que tu as bien retenu chaque \xE9tape, car tout
+      ce travail est n\xE9cessaire\u2026 juste pour un seul v\xEAtement !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 486305566720
+    m_Localized: "Oui, j\u2019\xE9tais loin d\u2019imaginer que \xE7a demandait autant
+      de temps et de ressources. C\u2019est fou ! Bon, on peut rentrer \xE0 la maison
+      maintenant ?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 587568648192
+    m_Localized: "Diantre, pas si vite ! On a vu comment on fabriquait les habits\u2026
+      mais \xE0 ton avis, comment arrivent-ils jusque dans les magasins ?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8958078226432
+    m_Localized: "Exactement ! C\u2019est ce qu\u2019on appelle l\u2019importation.
+      Les v\xEAtements voyagent parfois des milliers de kilom\xE8tres avant d\u2019atterrir
+      dans les boutiques du monde entier. Et \xE7a, \xE7a a un impact sur notre 
+      plan\xE8te\u2026\r\n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9181852733440
+    m_Localized: "D\u2019ailleurs regarde nous arrivons dans le centre des importations
+      de v\xEAtements ! C'est ici que tout se passe ! "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9430738538496
+    m_Localized: "Cet endroit est immense ! C\u2019est donc ici que sont g\xE9r\xE9s
+      et envoy\xE9s tous les habits ?! "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10142100885504
+    m_Localized: "Exactement ! Et c'est toi qui va g\xE9rer les importations de ses
+      habits \xE0 travers le monde ! "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10250502672384
+    m_Localized: "Quand tu seras pr\xEAte, appuie sur le gros bouton et je t\u2019expliquerai
+      le mini jeu suivant."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10565801086976
+    m_Localized: "Regarde ce t-shirt qui est en bas \xE0 gauche de ton \xE9cran,
+      clique dessus pour avoir toutes les informations sur lui."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10787453276160
+    m_Localized: "Tu as maintenant toutes les informations sur ce t-shirt, maintenant
+      ta mission va \xEAtre de lui cr\xE9er son chemin pour qu\u2019il arrive jusqu\u2019au
+      magasin ! Tu as le choix entre 4 moyens de transport."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11520386928640
+    m_Localized: "Tu dois choisir la meilleure option pour polluer le moins possible.
+      Tu as le droit de choisir plusieurs moyens de transports, mais plus tu en utilises
+      et plus tu vas polluer donc r\xE9fl\xE9chis bien !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11640817979392
+    m_Localized: "Oh ! C\u2019est comme un puzzle ! Je dois juste trouver la bonne
+      combinaison."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11725375148032
+    m_Localized: "Exactement Lyra ! Tu veux qu\u2019on fasse le premier ensemble
+      ?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11855155302400
+    m_Localized: "D\u2019accord ! Dans un premier temps, tu dois trouver le point
+      de d\xE9part et le point d'arriv\xE9e de ton habit. Regarde s\u2019il y a une
+      mer ou un oc\xE9an qui les s\xE9pare, ensuite c'est \xE0 toi de jouer, appuie
+      sur les transports dans l\u2019ordre que tu penses \xEAtre le bon. "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35517828829184
+    m_Localized: "Ils sont fabriqu\xE9s dans les pays o\xF9 ils sont vendus"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35529832927232
+    m_Localized: "Ils sont transport\xE9s depuis leur pays de fabrication"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35658799386624
+    m_Localized: 'Les moutons du monde entier se les envoient par la poste
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42505191165952
+    m_Localized: "Non, ce n'est pas \xE7a. R\xE9essaye."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50648746954752
+    m_Localized: "Bravo Lyra tu ne t\u2019ai pas fait berner par les d\xE9guisements
+      de ce Vilebrequin ! Tu as gard\xE9 ta conscience environnementale et c\u2019est
+      tr\xE8s bien !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50907455819776
+    m_Localized: "Oui je ne suis pas na\xEFve et je l\u2019ai bien reconnu derri\xE8re
+      ses accoutrements ridicules ! "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50920655294464
+    m_Localized: "Une autre bonne nouvelle : nous avons livr\xE9 tous les habits
+      \xE0 leur point de livraison, il est maintenant temps de calculer ton score
+      !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52049417998336
+    m_Localized: "Excellent choix ! Tu as combin\xE9 deux moyens efficaces et raisonnables.
+      Ce t-shirt a pris son temps, mais la plan\xE8te te dit merci ! Passons \xE0
+      la suite ! "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52454143168512
+    m_Localized: "Super boulot ! Tu as pens\xE9 \xE0 la plan\xE8te tout en trouvant
+      une route r\xE9aliste. Ce jean arrive en beaut\xE9 et sans trop polluer.  "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52446933159936
+    m_Localized: "Tu deviens un vrai strat\xE8ge ! C\u2019est un super trajet, \xE0
+      la fois r\xE9aliste et peu polluant.   "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52487655657472
+    m_Localized: "Bien jou\xE9 ! Tu as travers\xE9 l\u2019oc\xE9an sans polluer l\u2019air,
+      et le dernier bout de chemin est raisonnable. Mission r\xE9ussie !   "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52503501737984
+    m_Localized: "Parfait ! C\u2019est court, direct et tr\xE8s raisonnable. Tu as
+      vis\xE9 juste du premier coup !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52523005251584
+    m_Localized: "C\u2019est rapide, c\u2019est vrai\u2026 mais l\u2019avion pollue
+      beaucoup. Parfois, prendre son temps, c\u2019est mieux pour la plan\xE8te !
+      Tu le sauras pour la prochaine fois"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52561156640768
+    m_Localized: "Pas mal du tout ! C\u2019est un peu plus long et d\xE9tourn\xE9,
+      mais \xE7a fonctionne. Bravo pour ton esprit logique !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52581733896192
+    m_Localized: "Bien jou\xE9 ! C\u2019est une bonne solution, m\xEAme si les camions
+      polluent un peu plus que les trains."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52602705416192
+    m_Localized: "C\u2019est rapide, mais ce vol a laiss\xE9 une grosse trace de
+      pollution derri\xE8re lui. On peut mieux faire !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52618127872000
+    m_Localized: "C\u2019est rapide, mais pour un trajet aussi court, l\u2019avion
+      n\u2019est pas n\xE9cessaire. Essaie une alternative plus douce."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52682036482048
+    m_Localized: "Hmm\u2026 Tu n\u2019as pas oubli\xE9 quelque chose ? Il faut d\u2019abord
+      traverser l\u2019oc\xE9an pour pouvoir prendre le train !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52715876126720
+    m_Localized: "Le train, c\u2019est bien\u2026 mais il n\u2019y a pas encore de
+      rails sur la mer ! Peut-\xEAtre qu\u2019un camion ferait mieux l\u2019affaire
+      ?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52633063788544
+    m_Localized: "Oups ! Le train ne peut pas traverser les oc\xE9ans. Il faut trouver
+      un moyen de transport qui flotte ou vole."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52665678696448
+    m_Localized: "Ce serait bien pratique\u2026 mais malheureusement, un camion ne
+      peut pas traverser un oc\xE9an ! essaie encore "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52699614810112
+    m_Localized: "Un camion qui roule sur l\u2019eau ? J\u2019aimerais voir \xE7a
+      ! Essaie autre chose."
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []
