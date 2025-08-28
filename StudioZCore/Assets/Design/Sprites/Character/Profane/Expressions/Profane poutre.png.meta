@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f8746707182f7fe408e8d4943ad978ed
+guid: ac7c5583c6e7b374fa2c0ca01d92c08d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -9136834448258697486
-    second: bubble_0
+      213: 4325831444929431286
+    second: Profane poutre_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -126,23 +126,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: bubble_0
+      name: Profane poutre_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 2
-        width: 712
-        height: 384
+        y: 0
+        width: 917
+        height: 1041
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 80, y: 80, z: 80, w: 80}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2f6fcf37a71733180800000000000000
-      internalID: -9136834448258697486
+      spriteID: 6f6cb39a7c0780c30800000000000000
+      internalID: 4325831444929431286
       vertices: []
       indices: 
       edges: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: e1cccf2fa85c4a641b8097d7f320d3a4
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      bubble_0: -9136834448258697486
+      Profane poutre_0: 4325831444929431286
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
