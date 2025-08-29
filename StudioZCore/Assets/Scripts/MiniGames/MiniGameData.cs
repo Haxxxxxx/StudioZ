@@ -7,6 +7,6 @@ namespace MiniGames
     public class MiniGameData : ScriptableObject
     {
         public string miniGameName;
-        public SceneAsset miniGameScene;
+        public string sceneName;
     }
 }

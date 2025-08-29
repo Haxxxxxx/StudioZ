@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using MiniGames;
 using System;
 
@@ -9,7 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance { get; private set; }
 
     [Header("References")]
-    [SerializeField] private List<EpisodeData> episodes = new List<EpisodeData>();
+    public List<EpisodeData> episodes = new List<EpisodeData>();
 
 
     [Header("Current Game State")]

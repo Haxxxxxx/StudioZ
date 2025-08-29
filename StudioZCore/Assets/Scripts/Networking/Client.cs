@@ -1,8 +1,10 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using FishNet;
 using FishNet.Discovery;
+using FishNet.Transporting;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -27,6 +29,10 @@ public class Client : MonoBehaviour
     [Tooltip("The time after which the search will stop automatically (in seconds)")]
     [SerializeField] private float searchDuration = 5f; // Duration to search for servers
 
+    [Header("UI Elements")]
+    [SerializeField] private GameObject mainMenuCanvas;
+    [SerializeField] private GameObject roomCanvas;
+
     private bool _joinedServer = false;
     
     private void Start()
@@ -34,7 +40,7 @@ public class Client : MonoBehaviour
         _networkDiscovery = FindAnyObjectByType<NetworkDiscovery>();
         _networkDiscovery.ServerFoundCallback += endPoint => _addresses.Add(endPoint.Address.ToString()); // Store discovered server addresses
         _networkDiscovery.ServerFoundCallback += endPoint => UpdateServerButtons(endPoint.Address.ToString());
-        
+
         if (_networkDiscovery == null)
         {
             Debug.LogError("NetworkDiscovery component not found in the scene.");
@@ -43,6 +49,34 @@ public class Client : MonoBehaviour
         
         if(automatic)
             StartSearch();
+    }
+
+    private void OnEnable()
+    {
+        InstanceFinder.ClientManager.OnClientConnectionState += OnClientConnectionChange;
+    }
+
+    private void OnDisable()
+    {
+        StopSearch();
+
+        if (InstanceFinder.ClientManager != null)
+            InstanceFinder.ClientManager.OnClientConnectionState -= OnClientConnectionChange;
+    }
+
+    private void OnClientConnectionChange(ClientConnectionStateArgs args)
+    {
+        if (args.ConnectionState == LocalConnectionState.Stopped)
+        {
+            _joinedServer = false;
+            mainMenuCanvas.SetActive(true);
+            roomCanvas.SetActive(false);
+        }
+        else if (args.ConnectionState == LocalConnectionState.Started)
+        {
+            mainMenuCanvas.SetActive(false);
+            roomCanvas.SetActive(true);
+        }
     }
 
     private void UpdateServerButtons(string address)
@@ -69,11 +103,6 @@ public class Client : MonoBehaviour
 
         _joinedServer = true;
         StopSearch();
-    }
-
-    private void OnDisable()
-    {
-        StopSearch(); // Stop searching when the script is disabled
     }
     
     public void StartSearch()

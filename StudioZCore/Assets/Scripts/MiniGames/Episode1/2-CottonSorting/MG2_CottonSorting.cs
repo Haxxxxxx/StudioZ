@@ -1,14 +1,8 @@
-using Coffee.UIEffects;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.VFX;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
-using static UnityEditor.AddressableAssets.Build.Layout.BuildLayout;
 
 public enum ThreadColor
 {

@@ -16,6 +16,8 @@ public class GameResultHandler : MonoBehaviour
     [SerializeField] private LitMotionAnimation star2Animation;
     [SerializeField] private LitMotionAnimation star3Animation;
     [SerializeField] private TextMeshProUGUI chronoText;
+    [SerializeField] private Button mainMenuBtn;
+    [SerializeField] private Button restartBtn;
     [SerializeField] private Button nextBtn;
     [SerializeField] private Image firstMedalImg;
     [SerializeField] private Image secondMedalImg;
@@ -98,4 +100,11 @@ public class GameResultHandler : MonoBehaviour
     }
 
     #endregion
+
+    public void SetMultiSetup()
+    {
+        mainMenuBtn.interactable = false;
+        restartBtn.interactable = false;
+        nextBtn.interactable = false;
+    }
 }

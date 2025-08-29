@@ -5,18 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 0
+    path: Assets/Scenes/OtherScene/TeacherStartServer.unity
+    guid: be783c7b8b4967d40960a6612746c496
   - enabled: 1
-    path: Assets/Scenes/B2C_MainMenu.unity
-    guid: a6fad21df83613a4a9c3cf9de5f92858
+    path: Assets/Scenes/OtherScene/StudentJoinServer.unity
+    guid: e84d309d42f535042836e1169d846ada
   - enabled: 1
     path: Assets/Scenes/Episode/Episode1/1-CottonCultivation.unity
     guid: 5f5cd425c961b924dafc3a987e242a14
-  - enabled: 1
-    path: Assets/Scenes/Episode/Episode1/2-CottonSorting.unity
-    guid: 50cafef2136e87740ad861ab776beaa2
-  - enabled: 1
-    path: Assets/Scenes/Episode/Episode1/4-PatternWeaving.unity
-    guid: 78b30c2661c14974199b1053c8071574
   m_configObjects:
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 7513d4eb77200e74a9b1be67e6da8e94, type: 2}
     com.unity.addressableassets: {fileID: 11400000, guid: e53434a8ae36f0a46ae3f51292a7255c, type: 2}
