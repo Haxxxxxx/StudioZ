@@ -83,18 +83,18 @@ MonoBehaviour:
     - Locale-en
     - Preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fad6bb06be549d5449c403af291a61d0
+    m_Address: E1_MG6BundlePopups_en
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fd9679d8fc4dbcf4d93d37f8f6a24157
     m_Address: E1_MG5_copy_en
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en
     - Preload
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fad6bb06be549d5449c403af291a61d0
-    m_Address: E1_MG6BundlePopups_en
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale-en
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 8509024fb8aaed942b6b52f29c57b5e7, type: 2}

@@ -20,8 +20,18 @@ MonoBehaviour:
     m_ReadOnly: 1
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 02454d4bd0a70ae4e98c8f14ee7f3b30
+    m_Address: Assets/Translations/Tables/UI/Generic Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 18dc10ad002af6c4aab80b751a23dc40
     m_Address: Assets/Translations/Tables/Others/Others Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 31011966a042e2846af669c228b886dc
+    m_Address: Assets/Translations/Tables/Dialogues/E1/E1_MG6 Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -33,6 +43,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7a6a06c4e8262494a91616dda6cb8d4f
     m_Address: Assets/Translations/Tables/Dialogues/E1/E1_MG5_copy Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 99f4455949f0ac74fbe528517cf0cf25
+    m_Address: Assets/Translations/Tables/Others/E1_MG6BundlePopups Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
