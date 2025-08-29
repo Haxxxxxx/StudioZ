@@ -1,0 +1,138 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58731780e4ee9ce47bd93acc4a28186e, type: 3}
+  m_Name: E1_MG3_end
+  m_EditorClassIdentifier: 
+  lines:
+  - character: {fileID: 11400000, guid: 54af489c14fdd6f4891106405ba1a485, type: 2}
+    characterExpresionIndex: 0
+    position: 0
+    text:
+      m_TableReference:
+        m_TableCollectionName: GUID:a45ff9bc634cf40429555b5a365eeb8b
+      m_TableEntryReference:
+        m_KeyId: 326789113909248
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+  - character: {fileID: 11400000, guid: 8f76a57cbe87c17459421d3ba946c8d5, type: 2}
+    characterExpresionIndex: 2
+    position: 0
+    text:
+      m_TableReference:
+        m_TableCollectionName: GUID:a45ff9bc634cf40429555b5a365eeb8b
+      m_TableEntryReference:
+        m_KeyId: 326956886069248
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+  - character: {fileID: 11400000, guid: 54af489c14fdd6f4891106405ba1a485, type: 2}
+    characterExpresionIndex: 0
+    position: 0
+    text:
+      m_TableReference:
+        m_TableCollectionName: GUID:a45ff9bc634cf40429555b5a365eeb8b
+      m_TableEntryReference:
+        m_KeyId: 327028763856896
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+  - character: {fileID: 11400000, guid: 54af489c14fdd6f4891106405ba1a485, type: 2}
+    characterExpresionIndex: 0
+    position: 0
+    text:
+      m_TableReference:
+        m_TableCollectionName: GUID:a45ff9bc634cf40429555b5a365eeb8b
+      m_TableEntryReference:
+        m_KeyId: 327104630427648
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+  - character: {fileID: 11400000, guid: 8f76a57cbe87c17459421d3ba946c8d5, type: 2}
+    characterExpresionIndex: 9
+    position: 0
+    text:
+      m_TableReference:
+        m_TableCollectionName: GUID:a45ff9bc634cf40429555b5a365eeb8b
+      m_TableEntryReference:
+        m_KeyId: 327163652673536
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+  - character: {fileID: 11400000, guid: 54af489c14fdd6f4891106405ba1a485, type: 2}
+    characterExpresionIndex: 4
+    position: 0
+    text:
+      m_TableReference:
+        m_TableCollectionName: GUID:a45ff9bc634cf40429555b5a365eeb8b
+      m_TableEntryReference:
+        m_KeyId: 327200185061376
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+  - character: {fileID: 11400000, guid: 73a90370840e1a443a353e278a28eed2, type: 2}
+    characterExpresionIndex: 0
+    position: 0
+    text:
+      m_TableReference:
+        m_TableCollectionName: GUID:a45ff9bc634cf40429555b5a365eeb8b
+      m_TableEntryReference:
+        m_KeyId: 327271089770496
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+  - character: {fileID: 11400000, guid: 8f76a57cbe87c17459421d3ba946c8d5, type: 2}
+    characterExpresionIndex: 0
+    position: 0
+    text:
+      m_TableReference:
+        m_TableCollectionName: GUID:a45ff9bc634cf40429555b5a365eeb8b
+      m_TableEntryReference:
+        m_KeyId: 327338840363008
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+  - character: {fileID: 11400000, guid: 54af489c14fdd6f4891106405ba1a485, type: 2}
+    characterExpresionIndex: 0
+    position: 0
+    text:
+      m_TableReference:
+        m_TableCollectionName: GUID:a45ff9bc634cf40429555b5a365eeb8b
+      m_TableEntryReference:
+        m_KeyId: 327341457608704
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+  - character: {fileID: 11400000, guid: 73a90370840e1a443a353e278a28eed2, type: 2}
+    characterExpresionIndex: 0
+    position: 0
+    text:
+      m_TableReference:
+        m_TableCollectionName: GUID:a45ff9bc634cf40429555b5a365eeb8b
+      m_TableEntryReference:
+        m_KeyId: 327343135330304
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []

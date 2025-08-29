@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e8e47e8fa6379c479c2f4232958318d, type: 3}
+  m_Name: SleeveRolled
+  m_EditorClassIdentifier: 
+  partType: 1
+  colValue: 0
+  sleeveValue: 2
+  torsoValue: 0
+  partSprite: {fileID: 21300000, guid: 2e87fe0c48119874e93a177241cec250, type: 3}
+  bakedOutline01:
+  - {x: 0.23456791, y: 0.16083916}
+  - {x: 0.17283952, y: 0.74825174}
+  - {x: 0.09259261, y: 1}
+  - {x: 0.0061728703, y: 0.9230769}
+  - {x: 0.037037037, y: 0.74825174}
+  - {x: 0.11728395, y: 0.2657343}
+  - {x: 0.12345678, y: 0.0069930004}
+  - {x: 0.22530864, y: 0.020979002}
+  - {x: 0.94135803, y: 0.6573427}
+  - {x: 0.9969136, y: 0.9300699}
+  - {x: 0.9228395, y: 1}
+  - {x: 0.82407403, y: 0.72027975}
+  - {x: 0.787037, y: 0.3846154}
+  - {x: 0.7685185, y: 0.14685313}
+  - {x: 0.7685185, y: 0.027972002}
+  - {x: 0.88580245, y: 0.034965046}

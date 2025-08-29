@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e8e47e8fa6379c479c2f4232958318d, type: 3}
+  m_Name: ColRound
+  m_EditorClassIdentifier: 
+  partType: 0
+  colValue: 0
+  sleeveValue: 0
+  torsoValue: 0
+  partSprite: {fileID: -7781846369308583613, guid: 4a3c53306ce325f479e0617dd2a9e676, type: 3}
+  bakedOutline01:
+  - {x: 0.80859375, y: 0.21487604}
+  - {x: 0.9375, y: 0.5123967}
+  - {x: 0.99609375, y: 0.8677686}
+  - {x: 0.9765625, y: 0.95867765}
+  - {x: 0.8359375, y: 0.95867765}
+  - {x: 0.74609375, y: 0.6694215}
+  - {x: 0.53125, y: 0.3966942}
+  - {x: 0.25390625, y: 0.661157}
+  - {x: 0.15625, y: 0.95867765}
+  - {x: 0.0078124925, y: 0.95867765}
+  - {x: 0.019531231, y: 0.6942149}
+  - {x: 0.11718751, y: 0.35537192}
+  - {x: 0.31640625, y: 0.07438019}
+  - {x: 0.546875, y: 0.000000049260034}
+  - {x: 0.765625, y: 0.15702482}
