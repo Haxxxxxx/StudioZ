@@ -25,8 +25,8 @@ MonoBehaviour:
       m_FallbackState: 0
       m_WaitForCompletion: 0
       m_LocalVariables: []
-  - character: {fileID: 11400000, guid: 8f76a57cbe87c17459421d3ba946c8d5, type: 2}
-    characterExpresionIndex: 5
+  - character: {fileID: 11400000, guid: 54af489c14fdd6f4891106405ba1a485, type: 2}
+    characterExpresionIndex: 7
     position: 0
     text:
       m_TableReference:
@@ -75,18 +75,6 @@ MonoBehaviour:
       m_LocalVariables: []
   - character: {fileID: 11400000, guid: 54af489c14fdd6f4891106405ba1a485, type: 2}
     characterExpresionIndex: 8
-    position: 0
-    text:
-      m_TableReference:
-        m_TableCollectionName: GUID:a2001e612c441464a94d22ecd5705f50
-      m_TableEntryReference:
-        m_KeyId: 20344152710410240
-        m_Key: 
-      m_FallbackState: 0
-      m_WaitForCompletion: 0
-      m_LocalVariables: []
-  - character: {fileID: 11400000, guid: 54af489c14fdd6f4891106405ba1a485, type: 2}
-    characterExpresionIndex: 7
     position: 0
     text:
       m_TableReference:
