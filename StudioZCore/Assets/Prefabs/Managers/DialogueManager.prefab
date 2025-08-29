@@ -44,7 +44,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc78128038619184984fc27536ee68ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bubble: {fileID: 0}
-  textComponent: {fileID: 0}
+  defaultBubble: {fileID: 5533913456098386736, guid: ecaa64d8796b99148aae5f0a6aff6b02, type: 3}
+  defaultTextComponent: {fileID: 0}
+  imageComponent: {fileID: 0}
+  defaultSpeakerNameTextComponent: {fileID: 0}
+  defaultSpeakerImageComponent: {fileID: 0}
+  actionBubble: {fileID: 0}
+  actionTextComponent: {fileID: 0}
+  actionSpeakerNameTextComponent: {fileID: 0}
+  actionSpeakerImageComponent: {fileID: 0}
+  spriteAsset: {fileID: 0}
   textSpeed: 0.02
-  currentDialogue: {fileID: 11400000, guid: 31e8d2b0b4227784b8ab75f5b14f8078, type: 2}
+  timeToWaitForCloseActionDialogue: 3
