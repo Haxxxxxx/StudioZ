@@ -15,12 +15,6 @@ MonoBehaviour:
   m_GroupName: Localization-String-Tables-French (fr)
   m_GUID: 84513cf5f3fafa24583b83c278c3e9a2
   m_SerializeEntries:
-  - m_GUID: 0934e2fde4f29524890c029263cd58c9
-    m_Address: E1_MG5_fr
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale-fr
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 25be7f5f0bdcf7f45a7f475ff8cf4339
     m_Address: E1_MG4_fr
     m_ReadOnly: 1
@@ -41,6 +35,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7d7bb69b2ca312d4bb14152d200a2d1e
     m_Address: E1_MG2_fr
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-fr
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 88f2abdd1e8cd774a9400bc6eaab03b6
+    m_Address: E1_MG3_fr
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-fr
