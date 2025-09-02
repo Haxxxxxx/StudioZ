@@ -7,19 +7,31 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TeacherManager : MonoBehaviour
 {
     private GameManager gameManager;
     private Dictionary<NetworkConnection, NetworkPlayerData> students = new Dictionary<NetworkConnection, NetworkPlayerData>();
 
+    [Header("MiniGame Settings")]
+    public bool isMiniGamePaused = false;
+
+
     [Header("UI References")]
     [SerializeField] private GameObject mainMenuCanvas;
     [SerializeField] private GameObject roomCanvas;
+
+    [Header("WaitingRoom References")]
+    [SerializeField] private GameObject waitingRoomCanvas;
     [SerializeField] private TextMeshProUGUI nbStudentText;
     [SerializeField] private Transform playerSpawn;
     [SerializeField] private TMP_Dropdown episodeDropdown;
     [SerializeField] private TMP_Dropdown miniGameDropdown;
+
+    [Header("MiniGameRoom References")]
+    [SerializeField] private GameObject miniGameRoomCanvas;
+    [SerializeField] private Button pauseBtn;
 
     private void Start()
     {
@@ -59,6 +71,7 @@ public class TeacherManager : MonoBehaviour
             mainMenuCanvas.SetActive(false);
             roomCanvas.SetActive(true);
             students.Clear();
+
             Debug.Log("✅ Serveur lancé !");
         }
         else if (args.ConnectionState == LocalConnectionState.Stopped)
@@ -125,25 +138,32 @@ public class TeacherManager : MonoBehaviour
 
     public void BS_LaunchMiniGameForClient()
     {
+        SceneLoadData sld = new SceneLoadData(gameManager.currentMiniGame.sceneName)
+        {
+            ReplaceScenes = ReplaceOption.All,
+        };
+
+        InstanceFinder.SceneManager.LoadConnectionScenes(students.Select(s => s.Key).ToArray(), sld);
+
+        waitingRoomCanvas.SetActive(false);
+        miniGameRoomCanvas.SetActive(true);
+    }
+
+    public void BS_TogglePauseMiniGame()
+    {
+        isMiniGamePaused = !isMiniGamePaused;
+        pauseBtn.GetComponentInChildren<TextMeshProUGUI>().text = isMiniGamePaused ? "Resume" : "Pause";
         foreach (var student in students)
         {
-            student.Value.LaunchMiniGame(student.Key, gameManager.currentMiniGame.sceneName);
+            student.Value.TogglePauseMiniGame(student.Key, isMiniGamePaused);
         }
     }
 
-    public void BS_PauseMiniGame()
+    public void BS_StopMiniGame()
     {
         foreach (var student in students)
         {
-            student.Value.PauseMiniGame(student.Key);
-        }
-    }
-
-    public void BS_UnPauseMiniGame()
-    {
-        foreach (var student in students)
-        {
-            student.Value.UnPauseMiniGame(student.Key);
+            student.Value.StopMiniGame(student.Key);
         }
     }
 }

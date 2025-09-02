@@ -1,6 +1,9 @@
+using FishNet;
 using FishNet.Connection;
+using FishNet.Managing.Scened;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using MiniGames;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -20,6 +23,7 @@ public class NetworkPlayerData : NetworkBehaviour
     [SerializeField] private Image img;
 
     [Header("MiniGame Settings")]
+    private MiniGameBase miniGame;
     private PauseHandler pauseHandler;
 
 
@@ -32,7 +36,7 @@ public class NetworkPlayerData : NetworkBehaviour
         //SetScore(GameManager.Instance.GetScore()); 
         SetName(SaveManager.Instance.playerData.name);
         SetAvatar(SaveManager.Instance.playerData.selectedAvatarName);
-        
+
         // Subscribe to score changes
         //GameManager.OnScoreChanged += OnScoreChanged;
     }
@@ -40,7 +44,7 @@ public class NetworkPlayerData : NetworkBehaviour
     public override void OnStartServer()
     {
         base.OnStartServer();
-        transform.SetParent(GameObject.Find("PlayersSpawn").transform);
+      /*  transform.SetParent(GameObject.Find("PlayersSpawn").transform);*/
         FindAnyObjectByType<TeacherManager>().AddStudent(Owner, this);
     }
 
@@ -48,22 +52,25 @@ public class NetworkPlayerData : NetworkBehaviour
     {
         SetScore(newScore);
     }
-    
-    [ServerRpc(RunLocally = true)] private void SetScore(int value)
+
+    [ServerRpc(RunLocally = true)]
+    private void SetScore(int value)
     {
         _score.Value = value;
         scoreText.text = "Score: " + value;
         //Debug.LogWarning("SetScore RPC called with value: " + value);
     }
 
-    [ServerRpc(RunLocally = true)] private void SetName(string value)
+    [ServerRpc(RunLocally = true)]
+    private void SetName(string value)
     {
         _name.Value = value;
         playerNameText.text = value;
-       //Debug.LogWarning("SetName RPC called with value: " + value);
+        //Debug.LogWarning("SetName RPC called with value: " + value);
     }
 
-    [ServerRpc(RunLocally = true)] private void SetAvatar(string id)
+    [ServerRpc(RunLocally = true)]
+    private void SetAvatar(string id)
     {
         _avatarID.Value = id;
         img.sprite = Resources.Load<Sprite>("Avatars/" + id);
@@ -77,6 +84,7 @@ public class NetworkPlayerData : NetworkBehaviour
 
         asyncOperation.completed += (AsyncOperation op) =>
         {
+            miniGame = FindAnyObjectByType<MiniGameBase>();
             FindAnyObjectByType<GameResultHandler>().SetMultiSetup();
             pauseHandler = FindAnyObjectByType<PauseHandler>();
             if (pauseHandler != null)
@@ -87,22 +95,18 @@ public class NetworkPlayerData : NetworkBehaviour
     }
 
     [TargetRpc]
-    public void PauseMiniGame(NetworkConnection target)
+    public void TogglePauseMiniGame(NetworkConnection target, bool isPaused)
     {
         if (pauseHandler != null)
         {
-            pauseHandler.BS_TogglePause(true);
-            pauseHandler.resumeBtn.interactable = false;
+            pauseHandler.BS_TogglePause(isPaused);
+            pauseHandler.resumeBtn.interactable = !isPaused;
         }
     }
 
     [TargetRpc]
-    public void UnPauseMiniGame(NetworkConnection target)
+    public void StopMiniGame(NetworkConnection target)
     {
-        if (pauseHandler != null)
-        {
-            pauseHandler.BS_TogglePause(false);
-            pauseHandler.resumeBtn.interactable = true;
-        }
+        miniGame.EndGame();
     }
 }
