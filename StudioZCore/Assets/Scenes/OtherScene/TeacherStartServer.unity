@@ -1127,7 +1127,7 @@ GameObject:
   - component: {fileID: 400098369}
   - component: {fileID: 400098370}
   m_Layer: 5
-  m_Name: PlayersSpawn
+  m_Name: MGRoomPlayersSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1172,7 +1172,7 @@ MonoBehaviour:
   m_ChildAlignment: 1
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 100, y: 150}
+  m_CellSize: {x: 250, y: 150}
   m_Spacing: {x: 75, y: 50}
   m_Constraint: 0
   m_ConstraintCount: 2
@@ -3624,7 +3624,7 @@ GameObject:
   - component: {fileID: 1420755861}
   - component: {fileID: 1420755862}
   m_Layer: 5
-  m_Name: PlayersSpawn
+  m_Name: WaitingRoomPlayersSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4369,6 +4369,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8962093339310354090, guid: b5421be5a1fe41647bf02a57dc422a17, type: 3}
+      propertyPath: isMulti
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4557,13 +4561,18 @@ MonoBehaviour:
   isMiniGamePaused: 0
   mainMenuCanvas: {fileID: 2233666570719852867}
   roomCanvas: {fileID: 1014340785}
-  waitingRoomCanvas: {fileID: 12631607}
-  nbStudentText: {fileID: 1550564036}
-  playerSpawn: {fileID: 1420755861}
-  episodeDropdown: {fileID: 1615868545}
-  miniGameDropdown: {fileID: 612740742}
-  miniGameRoomCanvas: {fileID: 657642807}
-  pauseBtn: {fileID: 1947396833}
+  waitingRoom:
+    gameObject: {fileID: 12631607}
+    nbStudentText: {fileID: 1550564036}
+    playersSpawn: {fileID: 1420755861}
+    episodeDropdown: {fileID: 1615868545}
+    miniGameDropdown: {fileID: 612740742}
+  miniGameRoom:
+    gameObject: {fileID: 657642807}
+    playersSpawn: {fileID: 400098369}
+    pauseBtn: {fileID: 1947396833}
+    stopBtn: {fileID: 974671597}
+  playerPrefab: {fileID: 8085571639625072848, guid: 1f1303aba25193f45938d3abbdda33f3, type: 3}
 --- !u!1 &1947396831
 GameObject:
   m_ObjectHideFlags: 0

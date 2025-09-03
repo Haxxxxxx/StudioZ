@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,6 +42,7 @@ namespace MiniGames
         protected bool isFinished = false;
         protected bool isPaused = false;
         protected int currentScore = 0;
+        protected int starsEarned = 3;
 
         [SerializeField][NonReorderable] protected List<MiniGameActionData> miniGameActionData = new List<MiniGameActionData>();
         protected Dictionary<string, MiniGameActionResult> actionResults = new Dictionary<string, MiniGameActionResult>();
@@ -52,6 +54,8 @@ namespace MiniGames
         [SerializeField] protected Sprite miniGameMedal;
         [SerializeField] protected Sprite secondMedal;
 
+        [field : NonSerialized] public event System.Action OnChronoUpdated;
+        [field: NonSerialized] public event System.Action OnStarScoreChange;
         protected event System.Action OnReversedChronoEnded;
         #endregion
 
@@ -75,6 +79,7 @@ namespace MiniGames
                 StartGame();
             }
         }
+
         public void OnValidate()
         {
             MiniGameActionName miniGameActionName = GetMiniGameActionNameWithReflection();
@@ -133,7 +138,7 @@ namespace MiniGames
         public virtual void EndGame()
         {
             isFinished = true;
-            gameResultHandler.ShowGameResult(CalculateStars(), GetChronoInString(), miniGameMedal, secondMedal);
+            gameResultHandler.ShowGameResult(starsEarned, GetChronoInString(), miniGameMedal, secondMedal);
             
             //if (currentScore + result.pointValue < 0) 
             //    currentScore = 0; // capé à 0
@@ -150,6 +155,8 @@ namespace MiniGames
             {
                 currentScore += result.pointValue;
                 actionCount++;
+                if(OnStarScoreChange != null)
+                    CheckStarChanged();
                 Debug.Log($"Performed {actionName}, gained {result.pointValue} points. Total score: {currentScore}");
             }
             else
@@ -170,11 +177,12 @@ namespace MiniGames
                     {
                         chronoText.text = GetChronoInString();
                     }
+                    OnChronoUpdated?.Invoke();
                     yield return new WaitForSeconds(1);
                 }
                 else
                 {
-                    yield return null;
+                    yield return null; 
                 }
             }
         }
@@ -212,15 +220,25 @@ namespace MiniGames
             isPaused = false;
         }
 
-        public int CalculateStars()
+        public void CalculateStars()
         {
             float ratio = (float)currentScore / actionCount;
 
             Debug.Log($"Calculating stars: currentScore = {currentScore}, actionCount = {actionCount}, ratio = {ratio}");
 
-            if (ratio >= 0.8f) return 3;
-            else if (ratio >= 0.5f) return 2;
-            else return 1;
+            if (ratio >= 0.8f) starsEarned = 3;
+            else if (ratio >= 0.5f) starsEarned = 2;
+            else starsEarned = 1;
+        }
+
+        public void CheckStarChanged()
+        {
+            int newStarsEarned = starsEarned;
+            CalculateStars();
+            if (newStarsEarned != starsEarned)
+            {
+                OnStarScoreChange?.Invoke();
+            }
         }
 
         public string GetChronoInString()
@@ -228,6 +246,16 @@ namespace MiniGames
             int minutes = Mathf.FloorToInt(chrono / 60);
             int seconds = Mathf.FloorToInt(chrono % 60);
             return $"{minutes:D2}:{seconds:D2}";
+        }
+
+        public bool IsFinished()
+        {
+            return isFinished;
+        }
+
+        public int GetStarsEarned()
+        {
+            return starsEarned;
         }
 
         public MiniGameActionName GetMiniGameActionNameWithReflection()

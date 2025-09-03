@@ -1,8 +1,10 @@
 ﻿using FishNet;
+using FishNet.Component.Spawning;
 using FishNet.Connection;
 using FishNet.Managing.Scened;
 using FishNet.Object;
 using FishNet.Transporting;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -11,6 +13,25 @@ using UnityEngine.UI;
 
 public class TeacherManager : MonoBehaviour
 {
+    [System.Serializable]
+    public struct WaitingRoom
+    {
+        public GameObject gameObject;
+        public TextMeshProUGUI nbStudentText;
+        public Transform playersSpawn;
+        public TMP_Dropdown episodeDropdown;
+        public TMP_Dropdown miniGameDropdown;
+    }
+
+    [System.Serializable]
+    public struct MiniGameRoom
+    {
+        public GameObject gameObject;
+        public Transform playersSpawn;
+        public Button pauseBtn;
+        public Button stopBtn;
+    }
+
     private GameManager gameManager;
     private Dictionary<NetworkConnection, NetworkPlayerData> students = new Dictionary<NetworkConnection, NetworkPlayerData>();
 
@@ -21,17 +42,9 @@ public class TeacherManager : MonoBehaviour
     [Header("UI References")]
     [SerializeField] private GameObject mainMenuCanvas;
     [SerializeField] private GameObject roomCanvas;
-
-    [Header("WaitingRoom References")]
-    [SerializeField] private GameObject waitingRoomCanvas;
-    [SerializeField] private TextMeshProUGUI nbStudentText;
-    [SerializeField] private Transform playerSpawn;
-    [SerializeField] private TMP_Dropdown episodeDropdown;
-    [SerializeField] private TMP_Dropdown miniGameDropdown;
-
-    [Header("MiniGameRoom References")]
-    [SerializeField] private GameObject miniGameRoomCanvas;
-    [SerializeField] private Button pauseBtn;
+    public WaitingRoom waitingRoom;
+    public MiniGameRoom miniGameRoom;
+    [SerializeField] private GameObject playerPrefab;
 
     private void Start()
     {
@@ -39,13 +52,13 @@ public class TeacherManager : MonoBehaviour
         mainMenuCanvas.SetActive(true);
         roomCanvas.SetActive(false);
 
-        episodeDropdown.ClearOptions();
+        waitingRoom.episodeDropdown.ClearOptions();
         List<TMP_Dropdown.OptionData> episodeOptions = new List<TMP_Dropdown.OptionData>();
         for (int i = 0; i < gameManager.episodes.Count; i++)
         {
             episodeOptions.Add(new TMP_Dropdown.OptionData((i + 1).ToString() + "-" + gameManager.episodes[i].episodeName));
         }
-        episodeDropdown.AddOptions(episodeOptions);
+        waitingRoom.episodeDropdown.AddOptions(episodeOptions);
         BS_UpdateMiniGameDropDown();
     }
 
@@ -53,6 +66,7 @@ public class TeacherManager : MonoBehaviour
     {
         InstanceFinder.ServerManager.OnServerConnectionState += OnServerStateChange;
         InstanceFinder.ServerManager.OnRemoteConnectionState += OnClientConnectionChange;
+       /* InstanceFinder.ServerManager.RegisterBroadcast<NetworkSceneLoaded>(OnClientLoadedScene);*/
     }
 
     private void OnDisable()
@@ -61,6 +75,7 @@ public class TeacherManager : MonoBehaviour
         {
             InstanceFinder.ServerManager.OnServerConnectionState -= OnServerStateChange;
             InstanceFinder.ServerManager.OnRemoteConnectionState -= OnClientConnectionChange;
+           /* InstanceFinder.ServerManager.UnregisterBroadcast<NetworkSceneLoaded>(OnClientLoadedScene);*/
         }
     }
 
@@ -103,18 +118,22 @@ public class TeacherManager : MonoBehaviour
             students.Add(conn, playerData);
             UpdateNbStudent();
         }
+        else
+        {
+            students[conn] = playerData;
+        }
     }
 
     private void UpdateNbStudent()
     {
-        nbStudentText.text = students.Count.ToString();
+        waitingRoom.nbStudentText.text = students.Count.ToString();
     }
 
     public void BS_UpdateMiniGameDropDown()
     {
-        miniGameDropdown.ClearOptions();
+        waitingRoom.miniGameDropdown.ClearOptions();
         List<TMP_Dropdown.OptionData> miniGameOptions = new List<TMP_Dropdown.OptionData>();
-        int selectedEpisodeIndex = episodeDropdown.value;
+        int selectedEpisodeIndex = waitingRoom.episodeDropdown.value;
 
         if (selectedEpisodeIndex >= 0 && selectedEpisodeIndex < gameManager.episodes.Count)
         {
@@ -123,13 +142,13 @@ public class TeacherManager : MonoBehaviour
             {
                 miniGameOptions.Add(new TMP_Dropdown.OptionData((i + 1).ToString() + "-" + gameManager.currentEpisode.miniGames[i].miniGameName));
             }
-            miniGameDropdown.AddOptions(miniGameOptions);
+            waitingRoom.miniGameDropdown.AddOptions(miniGameOptions);
         }
     }
 
     public void BS_UpdateSelectedMG()
     {
-        int selectedMiniGameIndex = miniGameDropdown.value;
+        int selectedMiniGameIndex = waitingRoom.miniGameDropdown.value;
         if (selectedMiniGameIndex >= 0 && selectedMiniGameIndex < gameManager.currentEpisode.miniGames.Count)
         {
             gameManager.currentMiniGame = gameManager.currentEpisode.miniGames[selectedMiniGameIndex];
@@ -138,21 +157,34 @@ public class TeacherManager : MonoBehaviour
 
     public void BS_LaunchMiniGameForClient()
     {
-        SceneLoadData sld = new SceneLoadData(gameManager.currentMiniGame.sceneName)
+        foreach (var student in students)
         {
-            ReplaceScenes = ReplaceOption.All,
-        };
+            student.Value.LaunchMiniGame(student.Key, gameManager.currentMiniGame.sceneName);
+            student.Value.transform.SetParent(miniGameRoom.playersSpawn);
+        }
 
-        InstanceFinder.SceneManager.LoadConnectionScenes(students.Select(s => s.Key).ToArray(), sld);
-
-        waitingRoomCanvas.SetActive(false);
-        miniGameRoomCanvas.SetActive(true);
+        waitingRoom.gameObject.SetActive(false);
+        miniGameRoom.gameObject.SetActive(true);
     }
+
+    /*public void OnClientLoadedScene(NetworkConnection conn, NetworkSceneLoaded sceneLoaded, Channel channel)
+    {
+        Debug.Log($"Client {conn.ClientId} has loaded scene {sceneLoaded.sceneName}");
+
+        if (students.ContainsKey(conn))
+        {
+            InstanceFinder.ServerManager.Despawn(students[conn].NetworkObject);
+
+            GameObject networkObject = Instantiate(playerPrefab);;
+            NetworkObject nob = networkObject.GetComponent<NetworkObject>();
+            InstanceFinder.ServerManager.Spawn(networkObject, conn);
+        }
+    }*/
 
     public void BS_TogglePauseMiniGame()
     {
         isMiniGamePaused = !isMiniGamePaused;
-        pauseBtn.GetComponentInChildren<TextMeshProUGUI>().text = isMiniGamePaused ? "Resume" : "Pause";
+        miniGameRoom.pauseBtn.GetComponentInChildren<TextMeshProUGUI>().text = isMiniGamePaused ? "Resume" : "Pause";
         foreach (var student in students)
         {
             student.Value.TogglePauseMiniGame(student.Key, isMiniGamePaused);

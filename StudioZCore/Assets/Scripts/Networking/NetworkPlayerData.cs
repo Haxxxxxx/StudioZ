@@ -1,71 +1,94 @@
 using FishNet;
+using FishNet.Broadcast;
 using FishNet.Connection;
-using FishNet.Managing.Scened;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using MiniGames;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+public struct NetworkSceneLoaded : IBroadcast
+{
+    public string sceneName;
+}
+
 public class NetworkPlayerData : NetworkBehaviour
 {
-    private readonly SyncVar<int> _score = new SyncVar<int>();
+    [System.Serializable]
+    public struct InWaitingRoom
+    {
+        public GameObject gameObject;
+        public Image profilImg;
+        public TextMeshProUGUI nameText;
+    }
+
+    [System.Serializable]
+    public struct InMiniGameRoom
+    {
+        public GameObject gameObject;
+        public TextMeshProUGUI nameText;
+        public Image star1Img;
+        public Image star2Img;
+        public Image star3Img;
+        public Sprite goldStar;
+        public Sprite grayStar;
+        public TextMeshProUGUI chronoText;
+        public Button pauseBtn;
+        public Sprite pauseSprite;
+        public Sprite resumeSprite;
+    }
+
     private readonly SyncVar<string> _name = new SyncVar<string>();
     private readonly SyncVar<string> _avatarID = new SyncVar<string>();
-
-    [Header("UI References")]
-    [SerializeField] private TMP_Text scoreText;
-    [SerializeField] private TMP_Text playerNameText;
-    [SerializeField] private TMP_Text currentLvlText;
-    [SerializeField] private Image img;
+    private readonly SyncVar<bool> _isPaused = new SyncVar<bool>();
+    private readonly SyncVar<string> _chrono = new SyncVar<string>();
 
     [Header("MiniGame Settings")]
     private MiniGameBase miniGame;
     private PauseHandler pauseHandler;
 
+    [Header("UI References")]
+    public InWaitingRoom inWaitingRoom;
+    public InMiniGameRoom inMiniGameRoom;
 
 
     public override void OnStartClient()
     {
         base.OnStartClient();
 
-        // Initialize score on server
-        //SetScore(GameManager.Instance.GetScore()); 
         SetName(SaveManager.Instance.playerData.name);
         SetAvatar(SaveManager.Instance.playerData.selectedAvatarName);
-
-        // Subscribe to score changes
-        //GameManager.OnScoreChanged += OnScoreChanged;
+        _isPaused.Value = false;
     }
 
     public override void OnStartServer()
     {
         base.OnStartServer();
-      /*  transform.SetParent(GameObject.Find("PlayersSpawn").transform);*/
+        _isPaused.Value = false;
         FindAnyObjectByType<TeacherManager>().AddStudent(Owner, this);
-    }
 
-    void OnScoreChanged(int newScore)
-    {
-        SetScore(newScore);
+        TeacherManager teacherManager = FindAnyObjectByType<TeacherManager>();
+        if (teacherManager == null) return;
+
+        transform.SetParent(teacherManager.waitingRoom.playersSpawn);
     }
 
     [ServerRpc(RunLocally = true)]
-    private void SetScore(int value)
+    private void SetupMiniGameUI()
     {
-        _score.Value = value;
-        scoreText.text = "Score: " + value;
-        //Debug.LogWarning("SetScore RPC called with value: " + value);
+        inMiniGameRoom.gameObject.SetActive(true);
+        inWaitingRoom.gameObject.SetActive(false);
     }
 
     [ServerRpc(RunLocally = true)]
     private void SetName(string value)
     {
+        gameObject.name = value;
         _name.Value = value;
-        playerNameText.text = value;
+        inWaitingRoom.nameText.text = value;
+        inMiniGameRoom.nameText.text = value;
         //Debug.LogWarning("SetName RPC called with value: " + value);
     }
 
@@ -73,7 +96,7 @@ public class NetworkPlayerData : NetworkBehaviour
     private void SetAvatar(string id)
     {
         _avatarID.Value = id;
-        img.sprite = Resources.Load<Sprite>("Avatars/" + id);
+        inWaitingRoom.profilImg.sprite = Resources.Load<Sprite>("Avatars/" + id);
         //Debug.LogWarning("SetName RPC called with value: " + id);
     }
 
@@ -84,29 +107,75 @@ public class NetworkPlayerData : NetworkBehaviour
 
         asyncOperation.completed += (AsyncOperation op) =>
         {
+            /*InstanceFinder.ClientManager.Broadcast(new NetworkSceneLoaded() { sceneName = sceneName});*/
             miniGame = FindAnyObjectByType<MiniGameBase>();
-            FindAnyObjectByType<GameResultHandler>().SetMultiSetup();
-            pauseHandler = FindAnyObjectByType<PauseHandler>();
-            if (pauseHandler != null)
+            if (miniGame != null)
             {
-                pauseHandler.SetMultiSetup();
+                pauseHandler = FindAnyObjectByType<PauseHandler>();
+                SetupMiniGameUI();
+                miniGame.OnChronoUpdated += CallUpdateChronoDisplay;
+                miniGame.OnStarScoreChange += CallStarChanged;
             }
         };
+    }
+
+    private void CallUpdateChronoDisplay()
+    {
+        if (miniGame != null)
+        {
+            UpdateChronoDisplay(miniGame.GetChronoInString());
+        }
+    }
+
+    [ServerRpc(RunLocally = true)]
+    private void UpdateChronoDisplay(string chronoString)
+    {
+        if (inMiniGameRoom.chronoText != null)
+        {
+            inMiniGameRoom.chronoText.text = chronoString;
+        }
+    }
+
+    private void CallStarChanged()
+    {
+        if (miniGame != null)
+        {
+            StarsChanged(miniGame.GetStarsEarned());
+        }
+    }
+
+    [ServerRpc(RunLocally = true)]
+    private void StarsChanged(int nbStars)
+    {
+        inMiniGameRoom.star1Img.sprite = nbStars >= 1 ? inMiniGameRoom.goldStar : inMiniGameRoom.grayStar;
+        inMiniGameRoom.star2Img.sprite = nbStars >= 2 ? inMiniGameRoom.goldStar : inMiniGameRoom.grayStar;
+        inMiniGameRoom.star3Img.sprite = nbStars >= 3 ? inMiniGameRoom.goldStar : inMiniGameRoom.grayStar;
     }
 
     [TargetRpc]
     public void TogglePauseMiniGame(NetworkConnection target, bool isPaused)
     {
-        if (pauseHandler != null)
+        if (pauseHandler != null && miniGame != null && !miniGame.IsFinished())
         {
-            pauseHandler.BS_TogglePause(isPaused);
+            Debug.Log("Toggling pause. Current state: " + _isPaused.Value + ", New state: " + isPaused);
+            _isPaused.Value = isPaused;
             pauseHandler.resumeBtn.interactable = !isPaused;
+            pauseHandler.TogglePause(isPaused);
         }
     }
 
     [TargetRpc]
     public void StopMiniGame(NetworkConnection target)
     {
-        miniGame.EndGame();
+        if (miniGame != null && !miniGame.IsFinished())
+            miniGame.EndGame();
+    }
+
+    public void BS_TogglePause()
+    {
+        _isPaused.Value = !_isPaused.Value;
+        inMiniGameRoom.pauseBtn.image.sprite = _isPaused.Value ? inMiniGameRoom.resumeSprite : inMiniGameRoom.pauseSprite;
+        TogglePauseMiniGame(Owner, _isPaused.Value);
     }
 }
+

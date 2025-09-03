@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance { get; private set; }
 
+    public bool isMulti = false;
+
     [Header("References")]
     public List<EpisodeData> episodes = new List<EpisodeData>();
 

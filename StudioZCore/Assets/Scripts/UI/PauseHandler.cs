@@ -25,9 +25,14 @@ public class PauseHandler : MonoBehaviour
     private void Start()
     {
         miniGame = FindAnyObjectByType<MiniGameBase>();
+
+        if(GameManager.instance.isMulti)
+        {
+            SetMultiSetup();
+        }
     }
 
-    public void BS_TogglePause(bool isPaused)
+    public void TogglePause(bool isPaused)
     {
         mask.SetActive(isPaused);
         pauseMenu.SetActive(isPaused);
@@ -39,6 +44,11 @@ public class PauseHandler : MonoBehaviour
         {
             miniGame.UnPauseMiniGame();
         }
+    }
+
+    public void BS_TogglePause()
+    {
+        TogglePause(!pauseMenu.activeSelf);
     }
 
     public void BS_RestartMiniGame()

@@ -27,6 +27,11 @@ public class GameResultHandler : MonoBehaviour
         gameManager = GameManager.instance;
         sceneLoader = GetComponent<SceneLoader>();
         CheckNextMiniGame();
+
+        if(gameManager.isMulti)
+        {
+            SetMultiSetup();
+        }
     }
 
     private void CheckNextMiniGame()
