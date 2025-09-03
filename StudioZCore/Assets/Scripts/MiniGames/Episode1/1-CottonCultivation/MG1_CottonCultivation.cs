@@ -359,6 +359,7 @@ namespace MiniGames
                 }*/
 
                 profaneBehaviour.gameObject.SetActive(true);
+                profaneBehaviour.GetComponent<Button>().interactable = false;
                 dialogueManager.OnDialogueFinished += EndOfProfaneEntryDialogue ;
                 dialogueManager.CurrentDialogue = profaneBehaviour.profaneEntry;
             }
@@ -366,6 +367,7 @@ namespace MiniGames
             private void EndOfProfaneEntryDialogue()
             {
                 dialogueManager.OnDialogueFinished -= EndOfProfaneEntryDialogue;
+                profaneBehaviour.GetComponent<Button>().interactable = true;
                 profaneBehaviour.StartCoroutine(profaneBehaviour.Behaviour());
             }
 
