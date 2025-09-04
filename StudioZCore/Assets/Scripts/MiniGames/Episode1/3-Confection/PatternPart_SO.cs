@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-[CreateAssetMenu(fileName = "NewPatternPart", menuName = "MG3/Pattern Part")]
+[CreateAssetMenu(fileName = "NewPatternPart", menuName = "Game/MiniGames/MG3/Pattern Part")]
 public class PatternPart_SO : ScriptableObject
 {
     public enum PartType { Col, Sleeves, Torso }

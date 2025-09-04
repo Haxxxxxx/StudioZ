@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
 
-[CreateAssetMenu(fileName = "NewMG6_Bundle", menuName = "Minigames/MG6/BundleCombination")]
+[CreateAssetMenu(fileName = "NewMG6_Bundle", menuName = "Game/MiniGames/MG6/BundleCombination")]
 public class MG6_BundleCombination : ScriptableObject
 {
     public LocalizedString situationDescription; // The situation for which the player has to choose a bundle. It's a hint basically.

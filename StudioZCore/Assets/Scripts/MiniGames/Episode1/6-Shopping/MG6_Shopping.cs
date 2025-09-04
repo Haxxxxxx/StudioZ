@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.AddressableAssets.Build.Layout;
 using UnityEngine;
-using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -164,7 +162,7 @@ public class MG6_Shopping : MiniGames.MiniGameBase
         InitializeBundles();
     }
 
-    void EndGame()
+    public override void EndGame()
     {
         // Destroy spawned bundles and clear the list
         foreach (var bundle in initializedBundles)

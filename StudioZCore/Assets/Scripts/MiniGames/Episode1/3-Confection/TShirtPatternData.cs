@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewTShirtPattern", menuName = "MG3/TShirt Pattern")]
+[CreateAssetMenu(fileName = "NewTShirtPattern", menuName = "Game/MiniGames/MG3/TShirt Pattern")]
 public class TShirtPatternData : ScriptableObject
 {
     public enum ColType    { Round, V, Shirt }
