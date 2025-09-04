@@ -1,18 +1,16 @@
 ﻿using FishNet;
-using FishNet.Component.Spawning;
 using FishNet.Connection;
-using FishNet.Managing.Scened;
-using FishNet.Object;
 using FishNet.Transporting;
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TeacherManager : MonoBehaviour
 {
+    #region Data Structures
+
     [System.Serializable]
     public struct WaitingRoom
     {
@@ -32,11 +30,16 @@ public class TeacherManager : MonoBehaviour
         public Button stopBtn;
     }
 
+    #endregion
+
+    #region Variables
+
     private GameManager gameManager;
-    private Dictionary<NetworkConnection, NetworkPlayerData> students = new Dictionary<NetworkConnection, NetworkPlayerData>();
 
     [Header("MiniGame Settings")]
-    public bool isMiniGamePaused = false;
+    private Dictionary<NetworkConnection, NetworkPlayerData> students = new Dictionary<NetworkConnection, NetworkPlayerData>();
+    public List<PlayerRankingData> playerRankings = new List<PlayerRankingData>();
+    public bool isAllMiniGamePaused = false;
 
 
     [Header("UI References")]
@@ -44,7 +47,14 @@ public class TeacherManager : MonoBehaviour
     [SerializeField] private GameObject roomCanvas;
     public WaitingRoom waitingRoom;
     public MiniGameRoom miniGameRoom;
-    [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private GameObject scoreboard;
+    [SerializeField] private GameObject scoreboardContent;
+    [SerializeField] private Button openScoreboardBtn;
+    [SerializeField] private GameObject playerRankingPrefab;
+
+    #endregion
+
+    #region Base Functions
 
     private void Start()
     {
@@ -66,7 +76,6 @@ public class TeacherManager : MonoBehaviour
     {
         InstanceFinder.ServerManager.OnServerConnectionState += OnServerStateChange;
         InstanceFinder.ServerManager.OnRemoteConnectionState += OnClientConnectionChange;
-       /* InstanceFinder.ServerManager.RegisterBroadcast<NetworkSceneLoaded>(OnClientLoadedScene);*/
     }
 
     private void OnDisable()
@@ -75,7 +84,6 @@ public class TeacherManager : MonoBehaviour
         {
             InstanceFinder.ServerManager.OnServerConnectionState -= OnServerStateChange;
             InstanceFinder.ServerManager.OnRemoteConnectionState -= OnClientConnectionChange;
-           /* InstanceFinder.ServerManager.UnregisterBroadcast<NetworkSceneLoaded>(OnClientLoadedScene);*/
         }
     }
 
@@ -85,6 +93,10 @@ public class TeacherManager : MonoBehaviour
         {
             mainMenuCanvas.SetActive(false);
             roomCanvas.SetActive(true);
+            waitingRoom.gameObject.SetActive(true);
+            miniGameRoom.gameObject.SetActive(false);
+            scoreboard.SetActive(false);
+            openScoreboardBtn.gameObject.SetActive(false);
             students.Clear();
 
             Debug.Log("✅ Serveur lancé !");
@@ -93,6 +105,7 @@ public class TeacherManager : MonoBehaviour
         {
             mainMenuCanvas.SetActive(true);
             roomCanvas.SetActive(false);
+
             Debug.Log("❌ Serveur arrêté.");
         }
     }
@@ -106,7 +119,11 @@ public class TeacherManager : MonoBehaviour
         }
         else if (state.ConnectionState == RemoteConnectionState.Stopped)
         {
-            UpdateNbStudent();
+            if (students.ContainsKey(conn))
+            {
+                students.Remove(conn);
+                UpdateNbStudent();
+            }
             Debug.Log($"❌ Client {conn.ClientId} s'est déconnecté.");
         }
     }
@@ -128,6 +145,48 @@ public class TeacherManager : MonoBehaviour
     {
         waitingRoom.nbStudentText.text = students.Count.ToString();
     }
+
+    private void SetScoreboard()
+    {
+        waitingRoom.gameObject.SetActive(true);
+        miniGameRoom.gameObject.SetActive(false);
+
+        playerRankings.Sort(SortByStarsAndChrono);
+
+        foreach (Transform child in scoreboardContent.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        for (int i = 0; i < playerRankings.Count; i++)
+        {
+            GameObject pr = Instantiate(playerRankingPrefab, scoreboardContent.transform);
+            pr.GetComponent<PlayerRanking>().SetAllStat(i + 1, playerRankings[i]);
+        }
+
+        scoreboard.SetActive(true);
+        openScoreboardBtn.gameObject.SetActive(true);
+    }
+
+    private int SortByStarsAndChrono(PlayerRankingData x, PlayerRankingData y)
+    {
+        int result;
+
+        if (x.starsEarned > y.starsEarned) result = -1;
+        else if (x.starsEarned < y.starsEarned) result = 1;
+        else
+        {
+            if (x.chrono < y.chrono) result = -1;
+            else if (x.chrono > y.chrono) result = 1;
+            else result = 0;
+        }
+
+        return result;
+    }
+
+    #endregion
+
+    #region Button Functions
 
     public void BS_UpdateMiniGameDropDown()
     {
@@ -161,41 +220,49 @@ public class TeacherManager : MonoBehaviour
         {
             student.Value.LaunchMiniGame(student.Key, gameManager.currentMiniGame.sceneName);
             student.Value.transform.SetParent(miniGameRoom.playersSpawn);
+            student.Value.transform.SetAsFirstSibling();
         }
 
         waitingRoom.gameObject.SetActive(false);
         miniGameRoom.gameObject.SetActive(true);
     }
 
-    /*public void OnClientLoadedScene(NetworkConnection conn, NetworkSceneLoaded sceneLoaded, Channel channel)
-    {
-        Debug.Log($"Client {conn.ClientId} has loaded scene {sceneLoaded.sceneName}");
-
-        if (students.ContainsKey(conn))
-        {
-            InstanceFinder.ServerManager.Despawn(students[conn].NetworkObject);
-
-            GameObject networkObject = Instantiate(playerPrefab);;
-            NetworkObject nob = networkObject.GetComponent<NetworkObject>();
-            InstanceFinder.ServerManager.Spawn(networkObject, conn);
-        }
-    }*/
-
     public void BS_TogglePauseMiniGame()
     {
-        isMiniGamePaused = !isMiniGamePaused;
-        miniGameRoom.pauseBtn.GetComponentInChildren<TextMeshProUGUI>().text = isMiniGamePaused ? "Resume" : "Pause";
+        isAllMiniGamePaused = !isAllMiniGamePaused;
+        miniGameRoom.pauseBtn.GetComponentInChildren<TextMeshProUGUI>().text = isAllMiniGamePaused ? "Resume" : "Pause";
         foreach (var student in students)
         {
-            student.Value.TogglePauseMiniGame(student.Key, isMiniGamePaused);
+            student.Value.TogglePauseMiniGame(student.Key, isAllMiniGamePaused);
         }
     }
 
     public void BS_StopMiniGame()
     {
+        playerRankings.Clear();
         foreach (var student in students)
         {
             student.Value.StopMiniGame(student.Key);
+            student.Value.transform.SetParent(waitingRoom.playersSpawn);
+            student.Value.transform.SetAsFirstSibling();
+            playerRankings.Add(new PlayerRankingData(student.Value.GetName(), student.Value.GetChrono(), student.Value.GetStarsEarned()));
         }
+
+        playerRankings.Add(new PlayerRankingData("Teacher", 1f, 3));
+        playerRankings.Add(new PlayerRankingData("Teacher2", 500f, 2));
+        playerRankings.Add(new PlayerRankingData("Teacher2", 500f, 2));
+        playerRankings.Add(new PlayerRankingData("Teacher2", 500f, 2));
+        playerRankings.Add(new PlayerRankingData("Teacher2", 500f, 2));
+        playerRankings.Add(new PlayerRankingData("Teacher2", 500f, 2));
+        playerRankings.Add(new PlayerRankingData("Teacher2", 500f, 2));
+        playerRankings.Add(new PlayerRankingData("Teacher2", 500f, 2));
+        playerRankings.Add(new PlayerRankingData("Teacher2", 500f, 2));
+        playerRankings.Add(new PlayerRankingData("Teacher2", 500f, 2));
+        playerRankings.Add(new PlayerRankingData("Teacher2", 500f, 2));
+        playerRankings.Add(new PlayerRankingData("Teacher2", 500f, 2));
+
+        SetScoreboard();
     }
+
+    #endregion
 }
