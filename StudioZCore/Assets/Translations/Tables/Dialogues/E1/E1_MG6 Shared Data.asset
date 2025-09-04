@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: E1_MG6 Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: E1_MG6
+  m_TableCollectionNameGuidString: 31011966a042e2846af669c228b886dc
+  m_Entries:
+  - m_Id: 10149982208
+    m_Key: E1_MG6_intro1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 186994421760
+    m_Key: E1_MG6_intro2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 247342067712
+    m_Key: E1_MG6_intro3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 271501258752
+    m_Key: E1_MG6_intro4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 503362383872
+    m_Key: E1_MG6_intro5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2741535272960
+    m_Key: E1_MG6_intro6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2795318833152
+    m_Key: E1_MG6_intro7
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4367453024256
+    m_Key: E1_MG6_outro1
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 2673773897005400144
+  references:
+    version: 2
+    RefIds:
+    - rid: 2673773897005400144
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1752051583212

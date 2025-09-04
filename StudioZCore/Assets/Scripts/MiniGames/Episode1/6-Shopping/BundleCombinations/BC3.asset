@@ -1,0 +1,117 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45ab375bdf91cd14b9f3aff8dcd282a6, type: 3}
+  m_Name: BC3
+  m_EditorClassIdentifier: 
+  situationDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:99f4455949f0ac74fbe528517cf0cf25
+    m_TableEntryReference:
+      m_KeyId: 7539487500169216
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  bundles:
+  - viable: 0
+    price: 7
+    sprite: {fileID: 21300000, guid: 8b6e4c606cc3f094a9bf5ae3ee24a9ee, type: 3}
+    popupText:
+      m_TableReference:
+        m_TableCollectionName: GUID:99f4455949f0ac74fbe528517cf0cf25
+      m_TableEntryReference:
+        m_KeyId: 7539544471400448
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    redButtonText:
+      m_TableReference:
+        m_TableCollectionName: GUID:02454d4bd0a70ae4e98c8f14ee7f3b30
+      m_TableEntryReference:
+        m_KeyId: 69021233152
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    greenButtonText:
+      m_TableReference:
+        m_TableCollectionName: GUID:99f4455949f0ac74fbe528517cf0cf25
+      m_TableEntryReference:
+        m_KeyId: 106916769792
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+  - viable: 1
+    price: 5
+    sprite: {fileID: 21300000, guid: d6b08b915cfdeca4f82696a7f1fe3e69, type: 3}
+    popupText:
+      m_TableReference:
+        m_TableCollectionName: GUID:99f4455949f0ac74fbe528517cf0cf25
+      m_TableEntryReference:
+        m_KeyId: 7539592936583168
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    redButtonText:
+      m_TableReference:
+        m_TableCollectionName: GUID:02454d4bd0a70ae4e98c8f14ee7f3b30
+      m_TableEntryReference:
+        m_KeyId: 69021233152
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    greenButtonText:
+      m_TableReference:
+        m_TableCollectionName: GUID:99f4455949f0ac74fbe528517cf0cf25
+      m_TableEntryReference:
+        m_KeyId: 106916769792
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+  - viable: 0
+    price: 6
+    sprite: {fileID: 21300000, guid: 89e06a996edf4fe4eb00b4236567500b, type: 3}
+    popupText:
+      m_TableReference:
+        m_TableCollectionName: GUID:99f4455949f0ac74fbe528517cf0cf25
+      m_TableEntryReference:
+        m_KeyId: 7539599777492992
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    redButtonText:
+      m_TableReference:
+        m_TableCollectionName: GUID:02454d4bd0a70ae4e98c8f14ee7f3b30
+      m_TableEntryReference:
+        m_KeyId: 69021233152
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    greenButtonText:
+      m_TableReference:
+        m_TableCollectionName: GUID:99f4455949f0ac74fbe528517cf0cf25
+      m_TableEntryReference:
+        m_KeyId: 106916769792
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []

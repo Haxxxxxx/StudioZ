@@ -3021,7 +3021,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -8691090369710217222, guid: e1a0ac455a171dc4b96e8d26c90b2b43, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e1a0ac455a171dc4b96e8d26c90b2b43, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -3238,7 +3238,7 @@ MonoBehaviour:
     actionDialogue: {fileID: 0}
   dialogueIntro: {fileID: 11400000, guid: 31e8d2b0b4227784b8ab75f5b14f8078, type: 2}
   dialogueOutro: {fileID: 11400000, guid: 5120cae68db9d0f439066211eadb2a54, type: 2}
-  miniGameMedal: {fileID: 0}
+  miniGameMedal: {fileID: -1606434446988943, guid: ff82f0ca5fc3db846af3f8c4003261b5, type: 3}
   secondMedal: {fileID: 0}
   goodSeedToSort: 5
   cottonToHarvest: 5

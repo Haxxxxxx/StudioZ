@@ -20,6 +20,7 @@ MonoBehaviour:
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en
+    - Preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 24b413ed3f13f644b8acec41334a411f
     m_Address: E1_MG2_en
@@ -49,6 +50,12 @@ MonoBehaviour:
     - Locale-en
     - Preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 77b58a42a4e9a3843a087c7a72dd9746
+    m_Address: E1_MG6_en
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7fe17e06c85c1bb48ad2ec44e3c4fe19
     m_Address: TestTable_en
     m_ReadOnly: 1
@@ -61,9 +68,23 @@ MonoBehaviour:
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en
+    - Preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bf232b817368ef647afac0d8a986ae2f
+    m_Address: Generic_en
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e58321ca36fc7ee47a15738ef995a91b
     m_Address: Others_en
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    - Preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fad6bb06be549d5449c403af291a61d0
+    m_Address: E1_MG6BundlePopups_en
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en
@@ -73,6 +94,7 @@ MonoBehaviour:
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en
+    - Preload
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 8509024fb8aaed942b6b52f29c57b5e7, type: 2}

@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: E1_MG6_fr
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: fr
+  m_SharedData: {fileID: 11400000, guid: 31011966a042e2846af669c228b886dc, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 10149982208
+    m_Localized: "D\xE9cid\xE9ment, je ne cesse d\u2019apprendre des choses pendant
+      ce voyage ! Une chose est s\xFBre : d\xE9sormais, je vais faire attention \xE0
+      chaque v\xEAtement\u2026 et je v\xE9rifierai d\u2019o\xF9 il vient. D\u2019ailleurs,
+      toi, Chiffon, tu viens d\u2019o\xF9 ?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 186994421760
+    m_Localized: "Oups, d\xE9sol\xE9, je me suis assoupi\u2026 J\u2019ai rat\xE9
+      l\u2019\xE9tape pr\xE9c\xE9dente, mais je suis s\xFBr que vous vous en \xEAtes
+      sortis comme des chefs ! Je suis content que tu prennes conscience de tout
+      ce que subissent les habits avant d\u2019arriver chez vous. Moi, je viens de
+      Chine ! J\u2019ai \xE9t\xE9 fabriqu\xE9 dans un grand atelier, avec des milliers
+      d\u2019autres t-shirts comme moi."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 247342067712
+    m_Localized: "Tu en as fait du chemin\u2026 Si je ne dis pas de b\xEAtises, tu
+      as donc d\xFB prendre l\u2019avion\u2026 puis le train, pour finir chez moi
+      ?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 271501258752
+    m_Localized: "Exactement ! Tu m\u2019impressionnes de plus en plus, Lyra !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 503362383872
+    m_Localized: "Je me permets d\u2019interrompre votre discussion\u2026 Regardez
+      un peu o\xF9 nous arrivons !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2741535272960
+    m_Localized: "Woooaaah\u2026 Ce temple est immense ! Et il brille de mille feux\u2026
+      On doit le voir \xE0 des kilom\xE8tres \xE0 la ronde avec tous ces n\xE9ons
+      clignotants. C\u2019est magnifique !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2795318833152
+    m_Localized: "Ne te laisse pas trop \xE9blouir par toutes ces lumi\xE8res, Lyra.
+      Ce chant des sir\xE8nes n\u2019est qu\u2019une vitrine. Nous sommes arriv\xE9s
+      devant le l\xE9gendaire Temple de la Consommation. Ici, tout est fait pour
+      te pousser \xE0 acheter\u2026 mais attention : plus tu consommes, plus le temple
+      devient instable ! C\u2019est ici que Profane a \xE9lu domicile. Il va falloir
+      rester vigilant\u2026 et surtout se rappeler tout ce que tu as appris jusqu\u2019ici."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4367453024256
+    m_Localized: "Bravo lyra tu as su r\xE9sister aux promotions loufoque de profane
+      et tu as pu prendre que ce dont tu avais besoin ! il n\u2019est pas utile d\u2019avoir
+      une multitude d\u2019habits, il faut juste se contenter du n\xE9cessaire, si
+      chacun fait ce simple geste alors nous r\xE9duisons consid\xE9rablement la
+      surconsommation du textiles "
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []
