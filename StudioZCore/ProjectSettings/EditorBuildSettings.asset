@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/OtherScene/B2C_MainMenu.unity
     guid: a6fad21df83613a4a9c3cf9de5f92858
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/OtherScene/StudentMainMenu.unity
     guid: e84d309d42f535042836e1169d846ada
   - enabled: 0
