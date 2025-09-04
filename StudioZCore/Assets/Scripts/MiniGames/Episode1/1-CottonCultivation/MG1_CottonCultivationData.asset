@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: MG1_CottonCultivationData
   m_EditorClassIdentifier: 
   miniGameName: CottonCultivation
-  miniGameScene: {fileID: 102900000, guid: 5f5cd425c961b924dafc3a987e242a14, type: 3}
+  sceneName: 1-CottonCultivation

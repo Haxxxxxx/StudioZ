@@ -2246,6 +2246,8 @@ MonoBehaviour:
   star2Animation: {fileID: 5533003960396212359}
   star3Animation: {fileID: 602120928525312288}
   chronoText: {fileID: 2488833640551859585}
+  mainMenuBtn: {fileID: 7524620230805791720}
+  restartBtn: {fileID: 4519736078039220305}
   nextBtn: {fileID: 3778021408334505329}
   firstMedalImg: {fileID: 6192715355227792349}
   secondMedalImg: {fileID: 4935628092458562597}
@@ -2261,7 +2263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6ca243c5fb88544cb4e26b2a42188bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMenuScene: {fileID: 102900000, guid: a6fad21df83613a4a9c3cf9de5f92858, type: 3}
+  mainMenuSceneName: B2C_MainMenu
 --- !u!1 &7760406353306836487
 GameObject:
   m_ObjectHideFlags: 0

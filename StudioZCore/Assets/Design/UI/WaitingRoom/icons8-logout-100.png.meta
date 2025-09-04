@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 0cf8581d3c7f3364b879a4df6a176a75
+guid: 16102f9ca895b60488df53f2120ddf70
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1245607446542606329
-    second: cadre argent_0
+      213: -2851006300124324324
+    second: icons8-logout-100_0
+  - first:
+      213: 477943339255951516
+    second: icons8-logout-100_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +49,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -113,23 +116,45 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cadre argent_0
+      name: icons8-logout-100_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1304
-        height: 606
+        width: 81
+        height: 100
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 90, y: 90, z: 90, w: 90}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9ffd0c48f59494110800000000000000
-      internalID: 1245607446542606329
+      spriteID: c1e50b410e03f68d0800000000000000
+      internalID: -2851006300124324324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icons8-logout-100_1
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 25
+        width: 70
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c907d1f4feef1a600800000000000000
+      internalID: 477943339255951516
       vertices: []
       indices: 
       edges: []
@@ -138,7 +163,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 84c1caab62459484c84e62ee0e798137
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +173,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      cadre argent_0: 1245607446542606329
+      icons8-logout-100_0: -2851006300124324324
+      icons8-logout-100_1: 477943339255951516
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

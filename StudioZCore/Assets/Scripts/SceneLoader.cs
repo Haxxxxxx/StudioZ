@@ -5,17 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    [SerializeField] private SceneAsset mainMenuScene;
-
     public void LoadMiniGameScene(MiniGameData miniGame)
     {
         GameManager.instance.currentMiniGame = miniGame;
-        SceneManager.LoadSceneAsync(miniGame.miniGameScene.name, LoadSceneMode.Single);
+        SceneManager.LoadSceneAsync(miniGame.sceneName, LoadSceneMode.Single);
     }
 
     public void LoadMainMenuScene()
     {
-        SceneManager.LoadSceneAsync(mainMenuScene.name, LoadSceneMode.Single);
+        SceneManager.LoadSceneAsync("B2C_MainMenu", LoadSceneMode.Single);
     }
 
     public void ReloadCurrentScene()

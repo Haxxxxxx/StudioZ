@@ -1,5 +1,6 @@
 using MiniGames;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(SceneLoader))]
 public class PauseHandler : MonoBehaviour
@@ -10,6 +11,9 @@ public class PauseHandler : MonoBehaviour
     [Header("UI References")]
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject mask;
+    public Button resumeBtn;
+    [SerializeField] private Button restartBtn;
+    [SerializeField] private Button mainMenuBtn;
 
     private void Awake()
     {
@@ -21,13 +25,17 @@ public class PauseHandler : MonoBehaviour
     private void Start()
     {
         miniGame = FindAnyObjectByType<MiniGameBase>();
+
+        if(GameManager.instance.isMulti)
+        {
+            SetMultiSetup();
+        }
     }
 
-    public void BS_TogglePause()
+    public void TogglePause(bool isPaused)
     {
-        mask.SetActive(!pauseMenu.activeSelf);
-        pauseMenu.SetActive(!pauseMenu.activeSelf);
-        bool isPaused = pauseMenu.activeSelf;
+        mask.SetActive(isPaused);
+        pauseMenu.SetActive(isPaused);
         if(isPaused)
         {
             miniGame.PauseMiniGame();
@@ -38,6 +46,11 @@ public class PauseHandler : MonoBehaviour
         }
     }
 
+    public void BS_TogglePause()
+    {
+        TogglePause(!pauseMenu.activeSelf);
+    }
+
     public void BS_RestartMiniGame()
     {
         sceneLoader.ReloadCurrentScene();
@@ -46,5 +59,11 @@ public class PauseHandler : MonoBehaviour
     public void BS_ExitToMainMenu()
     {
         sceneLoader.LoadMainMenuScene();
+    }
+
+    public void SetMultiSetup()
+    {
+        restartBtn.interactable = false;
+        mainMenuBtn.interactable = false;
     }
 }
